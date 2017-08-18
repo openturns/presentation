@@ -1,0 +1,36 @@
+language: cpp
+dist: trusty
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - texlive-latex-recommended
+    - texlive-fonts-recommended
+    - texlive-latex-extra
+    - latex-beamer
+    - lmodern
+
+script:
+  - cd euroscipy2017 && pdflatex -halt-on-error euroscipy2017-OpenTURNS.tex
+
+after_success:
+  - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
+  - git clone https://${GH_TOKEN}@github.com/openturns/openturns.github.io.git
+  - PROJECT_REPONAME=`echo "${TRAVIS_REPO_SLUG}" | cut -d "/" -f 2`
+  - if test -n "${TRAVIS_TAG}"; then
+        TRAVIS_BRANCH=${TRAVIS_TAG:1};
+    fi
+  - mkdir -p openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/*/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cd openturns.github.io
+  - touch .nojekyll
+  - git config user.email "support@travis-ci.com"
+  - git config user.name "Travis CI"
+  - git add -A .
+  - git commit -a -m "Travis build ${PROJECT_REPONAME} ${TRAVIS_BUILD_NUMBER}"
+  - git push --quiet origin master > /dev/null 2>&1
+
+env:
+  global:
+    secure: "mC7PqtAvW2jWf7XhvLrg7LqftLalRgvjl/oXAx9Ni4Ng+DqqpXynbrGOIxMJRpjwWbP6BLI7TdTpz39Rw2/WEJmsh+IRtGyWIl4sWSkunIVIVM+bhEv1mH99MMrQDS19BqfyBPIcrWHt2UgfpgvnK4EXXNkHWFqzoovCZlweZY9baADKN8eS/SQnuVJpQinjvE6Ea4dub3e6y3KokNga1swmsd/S7b8L/8QYXrvbdyzdI+mGQPEdcAaIIt5+v+zGqTzvoLJ1l6hCmtB3xkhoV1l0zPRy9H8NE3Q39XihNF/YJOAT84uptAATVbLvKN9OwSNi27vuFUKW1QqozzB+e6lkekoewVy5odeJG/McGNq+JT0TvKORDsq2byoY7ohwRJXYiXwIyXyr1N7uF54hrGczLQYbBD4+xAkSZP7+t9ylpDwzCSQBo3ac66TN/QhQXjNKo1tYxgMzgtanEs3cLBNeYifmUVlPCBMgXm3sHP9zNA+zPjeoaUoJpl2LfrFYyVhFs53RR7R8nkRGg4+WZymslrWEv/1xQ+Z5zqIaJVkPsvRSueOOwgwub5bbIDR61wg8gjAoWfNmFx1KKlbBqV5XZdp+Ga561wknb0R41R1kDHjpZBzqF5yu56EOOGxinTeBiLQnq8XkEfKfPvHfQkQRGd9TKAbW3i5dPxYME9w="
