@@ -8,7 +8,7 @@
 
   \include{macros}
 
-\title[OpenTURNS]{The OpenTURNS uncertainty quantification Python module}
+\title[OpenTURNS]{The OpenTURNS uncertainty quantification library}
 
 \author[Baudin et al.]{
 Michaël Baudin \inst{1} \and
@@ -17,10 +17,10 @@ Julien Schueller \inst{2}
 
 \institute[EDF-Phiméca]{
 \inst{1} EDF R\&D. 6, quai Watier, 78401, Chatou Cedex - France, michael.baudin@edf.fr \and %
-\inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France, yalamas@phimeca.com
+\inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France, schueller@phimeca.com
 }
 
-\date[]{August 2017, EuroSciPy 2017, Erlangen, Allemagne}
+\date[]{August 2017, EuroSciPy, Erlangen, Germany}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -87,12 +87,6 @@ Julien Schueller \inst{2}
 \item Linux, Windows
 \end{itemize}
 
-Programming:
-\begin{itemize}
-\item Python module
-\item C++ Library
-\end{itemize}
-
     \column{0.4\textwidth}
 
 	\begin{center}
@@ -143,10 +137,10 @@ Contexte :
     \column{0.5\textwidth}
 \frametitle{\ot{}}
 \begin{itemize}
-\item First release : 2007
+\item First release: 2007
 \item 4 full time developpers
-\item Users : mainly in France
-\item Number of users : $\approx 1000$ (10900 Conda downloads in 2016-2017)
+\item Users: mainly in France
+\item Number of users: $\approx 1000$ (10900 Conda downloads in 2016-2017)
 \end{itemize}
 
     \column{0.5\textwidth}
@@ -196,14 +190,18 @@ EDF
 \section{Example}
 
 \begin{frame}[containsverbatim]
+\frametitle{Flood example}
 
-Exemple Python : 
-
-* Le cas crue ? 
-
-* Un processus stochastique ? 
-
-* Un méta-modèle : krigeage ?
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily,keywordstyle=\color{red}]
+import openturns as ot
+Q = ot.Gumbel(1./558., 1013.)
+Ks = ot.Normal(30.0, 7.5)
+Zv = ot.Uniform(49.0, 51.0)
+Zm = ot.Uniform(54.0, 56.0)
+dist = ot.ComposedDistribution([Q, Ks, Zv, Zm])
+model = ot.SymbolicFunction(['Q', 'Ks', 'Zv', 'Zm'],
+  ['(Q/(Ks*300.*sqrt((Zm-Zv)/5000)))^(3.0/5.0)+Zv-55.5-3.'])
+\end{lstlisting}
 
 \end{frame}
 
@@ -213,17 +211,37 @@ Exemple Python :
 
 \begin{frame}[containsverbatim]
 
-* SWIG
+\begin{itemize}
+\item C++ core / SWIG Python bindings
+\item LAPACK / LibXml2 / TBB / muParser / NLopt
+\item Packaging: Debian, Conda, Windows
+\item Compilation: cmake
+\item Documentation: Sphinx
+\item Repository: https://github.com/openturns
+\end{itemize}
 
-* Internal components : Base, Uncertainty
+\end{frame}
 
-* Packaging : Debian, Conda
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-* Doc : Sphinx
+\section{Modules}
 
-* Compilation : cmake
+\begin{frame}[containsverbatim]
+\frametitle{Modules}
 
-* Repository : Github
+\begin{itemize}
+\item otrobopt: Robust optimization module
+
+\item otfmi: FMI models manipulation
+
+\item otsvm: SVM classifiers, metamodels
+
+\item otagrum: Bayesian networks module
+
+\item otwrapy: wrap external simulation codes
+
+\item ...
+\end{itemize}
 
 \end{frame}
 
@@ -246,8 +264,10 @@ new partners on this topic are welcome !
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{}
+
 \begin{frame}
-\frametitle{Bibliographie}
+\frametitle{Bibliography}
 
 \begin{itemize}
 \item Airbus, EDF, Phimeca Engineering, IMACS. 
@@ -272,9 +292,11 @@ Centre d'Etudes Techniques Maritimes et Fluviales, Bundesanstalt fur Wasserbau, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{FIN}
+\frametitle{END}
 
-Merci de votre attention !
+Thank you for your attention!
+
+Any questions?
 
 \begin{center}
 \includegraphics[width=0.2\textwidth]{figures/logo-ot-small}
