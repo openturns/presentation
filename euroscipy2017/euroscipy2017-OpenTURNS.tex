@@ -7,6 +7,7 @@
 %\setbeameroption{show only notes}
 
   \include{macros}
+\usepackage{adjustbox}
 
 \title[OpenTURNS]{The OpenTURNS uncertainty quantification library}
 
@@ -190,8 +191,8 @@ EDF
 \section{Example}
 
 \begin{frame}[containsverbatim]
-\frametitle{Flood example}
-
+\frametitle{Flood example 1/2}
+\begin{adjustbox}{max width=\linewidth, margin=0pt}
 \begin{lstlisting}[language=Python,basicstyle=\ttfamily,keywordstyle=\color{red}]
 import openturns as ot
 Q = ot.Gumbel(1./558., 1013.)
@@ -201,7 +202,38 @@ Zm = ot.Uniform(54.0, 56.0)
 dist = ot.ComposedDistribution([Q, Ks, Zv, Zm])
 model = ot.SymbolicFunction(['Q', 'Ks', 'Zv', 'Zm'],
   ['(Q/(Ks*300.*sqrt((Zm-Zv)/5000)))^(3.0/5.0)+Zv-55.5-3.'])
+rv = ot.RandomVector(dist)
 \end{lstlisting}
+\end{adjustbox}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Flood example 2/2}
+
+  \begin{columns}
+    \column{0.6\textwidth}
+
+\begin{adjustbox}{max width=\linewidth, margin=0pt}
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily,keywordstyle=\color{red}]
+G = ot.CompositeRandomVector(model, rv)
+event = ot.Event(G, ot.Greater(), 30.0)
+
+optimAlgo = ot.Cobyla()
+algo = ot.FORM(optimAlgo, event, dist.getMean())
+algo.run()
+result = algo.getResult()
+print('Pf=', probability)
+> Pf= 0.00670980426490075
+
+result.drawImportanceFactors()
+\end{lstlisting}
+\end{adjustbox}
+\column{0.4\textwidth}
+
+
+\includegraphics[width=1.2\textwidth]{figures/imp_fact}
+
+\end{columns}
 
 \end{frame}
 
