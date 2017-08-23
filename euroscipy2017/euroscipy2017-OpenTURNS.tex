@@ -188,6 +188,65 @@ EDF
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}[containsverbatim]
+\frametitle{Features overview 1/2}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+Data analysis
+\begin{itemize}
+\item Visual analysis
+\item Distribution fitting tests
+\item Non-parametric estimation
+\item Bayesian calibration
+\end{itemize}
+
+    \column{0.5\textwidth}
+
+Probabilistic modeling
+\begin{itemize}
+\item Dependence modeling: Copulas
+\item Univariate \& multivariate distributions
+\item Process: ARMA, Gaussian
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Features overview 2/2}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+Meta modeling
+\begin{itemize}
+\item Visual analysis
+\item Gaussian process regression (Kriging)
+\item Spectral methods: Functional chaos expansion, Karhunen-Loeve, low-rank tensors
+\item Bayesian calibration
+\end{itemize}
+
+    \column{0.5\textwidth}
+
+Reliability, sensitivity
+\begin{itemize}
+\item Monte Carlo, LHS, low-discrepncy sequences
+\item Variance reduction methods: importance sampling, subset sampling
+\item Approximation methods: FORM, SORM
+\item Indices: Spearman, Sobol, ANCOVA
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Example}
 
 \begin{frame}[containsverbatim]
@@ -242,9 +301,10 @@ result.drawImportanceFactors()
 \section{Software architecture}
 
 \begin{frame}[containsverbatim]
+\frametitle{Architecture}
 
 \begin{itemize}
-\item C++ core / SWIG Python bindings
+\item C++98 core / SWIG Python bindings
 \item LAPACK / LibXml2 / TBB / muParser / NLopt
 \item Packaging: Debian, Conda, Windows
 \item Compilation: cmake
@@ -278,23 +338,6 @@ result.drawImportanceFactors()
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \section{Features in development}
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Features in development}
-% 
-% \begin{itemize}
-% \item Graphical User Interface (within SALOME)
-% 
-% \item Uncertainty quantification within 0D/1D models (Modelica) : 
-% new partners on this topic are welcome !
-% 
-% \item Advanced vizualisation : functionnal data
-% \end{itemize}
-% 
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{}
 
