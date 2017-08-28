@@ -100,46 +100,14 @@ Julien Schueller \inst{2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{\ot{}}
 
-  \begin{columns}
-    \column{0.5\textwidth}
-	
-Fonctionnalités
-\begin{itemize}
-\item {\bf Étapes A, B, C, C'}
-\item {\bf Processus stochastiques}
-\item Méta-modèles : Chaos polynomial, Krigeage, Support Vector Machine
-\item Estimation de probabilité de dépassement : 
-FORM/SORM, Subset Sampling, Simulation Directionnelle Adaptative
-\end{itemize}
-
-    \column{0.5\textwidth}
-
-Code de calcul G :
-\begin{itemize}
-\item Évaluation performante (multi-coeur) d'une formule analytique (avec calcul du 
-gradient par dérivation symbolique)
-\item Évaluation distribuée et multi-coeur d'une fonction Python (avec calcul du gradient 
-par différences finies)
-\item Par utilisation de la plate-forme SALOME
-\end{itemize}
-
-	\end{columns}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}[containsverbatim]
-
-Contexte :
+Overview :
   \begin{columns}
     \column{0.5\textwidth}
 \frametitle{\ot{}}
 \begin{itemize}
 \item First release: 2007
-\item 4 full time developpers
+\item 4 full time developers
 \item Users: mainly in France
 \item Number of users: $\approx 1000$ (10900 Conda downloads in 2016-2017)
 \end{itemize}
@@ -148,41 +116,12 @@ Contexte :
 
 \frametitle{\ot{}}
 \begin{itemize}
-\item Taille du projet (2013) : 3600 fichiers, 550 classes, 250 000 lignes de code, 
-1500 pages de documentation
-\item Documentation : pour l'utilisateur du module Python, pour le développeur
-\item Formations Itech : formation en 3 jours, 
-\url{chercheurs.edf.com} : formation Itech "Incertitudes - Module 2"
-\item TODO : Formation Phiméca ?
+\item Size of the project (2013) : 3600 files, 550 classes, 250 000 lines of code, 
+1500 documentation pages
+\item Documentation : for the Python user, for the developer
 \end{itemize}
 
 	\end{columns}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Diffusion d'OpenTURNS à EDF}
-
-\begin{frame}[containsverbatim]
-\frametitle{Contexte : des utilisations très variées}
-
-  \begin{columns}
-    \column{0.5\textwidth}
-EDF
-\begin{itemize}
-\item Codes : physique des champs (code EF mécanique, CFD, thermique, ...), modèles 0D-1D, ...
-\item Systèmes d'exploitation : Linux, Windows
-\item Cartographie des utilisateurs : ingénieur d'étude non familier des méthodologies, chercheur non spécialiste, chercheur de l'équipe Incertitudes... 
-\end{itemize}
-
-    \column{0.5\textwidth}
-\emph{Height of the river Garonne from Tonneins to La Réole (France), averaged over
-70 000 random simulations of TELEMAC2D}
-\begin{center}
-\includegraphics[width=\textwidth]{figures/Garonne-Height-Mean}
-\end{center}
-
-  \end{columns}
 
 \end{frame}
 
@@ -254,7 +193,7 @@ Reliability, sensitivity:
 
 The flood model of a river compares the water level to the dike height:
 
-$$S = \left(\frac{Q}{Ks\times300\times\sqrt{(Zm-Zv)/5000}}\right)^{(3/5) +Zv-55.5-3}$$
+$$S = \left(\frac{Q}{Ks\times300\times\sqrt{(Zm-Zv)/5000}}\right)^{3/5}+Zv-55.5-3$$
 
 \begin{itemize}
 \item Q $\sim$ Gumbel(alpha=0.00179, beta=1013), flow rate [$m^3s^{-1}$]
@@ -270,10 +209,11 @@ Failure occurs when S is positive, lets estimate $P_f ={\mathbb P}\left( S(\unde
 
 \begin{frame}[containsverbatim]
 \frametitle{Flood example 2/4}
-\begin{adjustbox}{max width=\linewidth, margin=0pt}
-\begin{lstlisting}[language=Python,basicstyle=\ttfamily,keywordstyle=\color{red}]
 
-# probabilistic model
+\lstset{language=python}
+
+\begin{lstlisting}
+# Probabilistic model
 Q = ot.Gumbel(1./558., 1013.)
 Ks = ot.Normal(30.0, 7.5)
 Zv = ot.Uniform(49.0, 51.0)
@@ -281,7 +221,6 @@ Zm = ot.Uniform(54.0, 56.0)
 copula = ot.IndependentCopula(4)
 dist = ot.ComposedDistribution([Q, Ks, Zv, Zm], copula)
 \end{lstlisting}
-\end{adjustbox}
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/q_dist}
@@ -296,16 +235,15 @@ dist = ot.ComposedDistribution([Q, Ks, Zv, Zm], copula)
 
 \begin{frame}[containsverbatim]
 \frametitle{Flood example 3/4}
-\begin{adjustbox}{max width=\linewidth, margin=0pt}
-\begin{lstlisting}[language=Python,basicstyle=\ttfamily,keywordstyle=\color{red}]
 
-# random variable S=f(Q,Ks,Zv,Zm)
+\lstset{language=python}
+\begin{lstlisting}
+# Random variable S=G(Q,Ks,Zv,Zm)
 rv = ot.RandomVector(dist)
 f = ot.SymbolicFunction(['Q', 'Ks', 'Zv', 'Zm'],
   ['(Q/(Ks*300.*sqrt((Zm-Zv)/5000)))^(3.0/5.0)+Zv-55.5-3.'])
 S = ot.CompositeRandomVector(f, rv)
 \end{lstlisting}
-\end{adjustbox}
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/s_dist}
@@ -323,10 +261,9 @@ S = ot.CompositeRandomVector(f, rv)
 \begin{frame}[containsverbatim]
 \frametitle{Flood example 4/4}
 
-\begin{adjustbox}{max width=0.8\linewidth, margin=0pt}
+\lstset{language=python}
 \begin{lstlisting}
-
-# compute P(S>0) using First Order Reliability Method algorithm
+# Compute P(S>0) using First Order Reliability Method algorithm
 event = ot.Event(S, ot.Greater(), 0.0) # event S>0
 optimAlgo = ot.Cobyla()
 algo = ot.FORM(optimAlgo, event, dist.getMean())
@@ -335,7 +272,7 @@ result = algo.getResult()
 print('Pf=', result.getEventProbability()) # P(S>0)=0.00053
 result.drawImportanceFactors()
 \end{lstlisting}
-\end{adjustbox}
+
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/imp_fact}
 \end{center}
@@ -361,31 +298,40 @@ result.drawImportanceFactors()
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What's next ?}
 
-\section{Modules}
+\begin{frame}
+\frametitle{Fields}
+  \begin{columns}
+    \column{0.5\textwidth}
 
-\begin{frame}[containsverbatim]
-\frametitle{Modules}
-
+Field example : 
 \begin{itemize}
-\item otrobopt: Robust optimization module
-
-\item otfmi: FMI models manipulation
-
-\item otsvm: SVM classifiers, metamodels
-
-\item otagrum: Bayesian networks module
-
-\item otwrapy: wrap external simulation codes
-
-\item ...
+\item Input : 4 independent random variables
+\item Output : height of the river Garonne on a 100 km segment
+\item Computer code : TELEMAC2D
+\item Quantity of interest : pointwise average over 70 000 random simulations
 \end{itemize}
+
+Roadmap : 
+\begin{itemize}
+\item Now : massive Python/\ot{} scripting
+\item 2017-2018 : in OpenTURNS, then in the GUI
+\end{itemize}
+
+    \column{0.5\textwidth}
+
+\begin{center}
+\includegraphics[height=0.5\textheight]{figures/Garonne-Height-Mean.png}
+\end{center}
+
+	\end{columns}
 
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{}
+\section{Bibliography}
 
 \begin{frame}
 \frametitle{Bibliography}
@@ -424,5 +370,45 @@ Any questions?
 \end{center}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Features overview 1/3}
+
+
+Computer code G :
+\begin{itemize}
+\item Fast evaluations (multi-thread) of a symbolic formula (with exact 
+gradient based on symbolic differentiation)
+\item Distributed evaluation of a Python function (with 
+approximate gradient based on finite differences)
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Modules}
+
+\begin{frame}[containsverbatim]
+\frametitle{Modules}
+
+\begin{itemize}
+\item otrobopt: Robust optimization module
+
+\item otfmi: FMI models manipulation
+
+\item otsvm: SVM classifiers, metamodels
+
+\item otagrum: Bayesian networks module
+
+\item otwrapy: wrap external simulation codes
+
+\item ...
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
