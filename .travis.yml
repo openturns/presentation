@@ -12,7 +12,7 @@ addons:
     - lmodern
 
 script:
-  - cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex
+  - cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
