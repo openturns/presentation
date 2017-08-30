@@ -5,5 +5,5 @@
 OpenTURNS Presentations
 =======================
 
-- `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy2017-OpenTURNS.pdf>`_
+- `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy-2017.pdf>`_
 
