@@ -1,0 +1,54 @@
+% Copyright (C) 2012 - EDF R&D - Michael Baudin
+
+% To highlight source code
+\usepackage{listings}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{violet}{rgb}{0.5,0,1}
+
+\usepackage{algorithm,algorithmic}
+\usepackage{bbm}
+
+\usepackage{lmodern}% http://ctan.org/pkg/lm
+
+\usetheme{Montpellier}
+\setbeamertemplate{navigation symbols}{} % Remove navigation
+\useoutertheme{infolines}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%\usepackage[french]{babel}
+%\uselanguage{French}
+%\languagepath{French}
+
+\def\bx{{\bf x}}
+\def\RR{\mathbb{R}}
+
+\newcommand{\pyvar}[1]{\texttt{#1}}
+
+\def \ot {OpenTURNS}
+
+\hypersetup{colorlinks=true}
+
+\lstset{
+  % general command to set parameter(s)
+   %basicstyle=\footnotesize\ttfamily, %
+   %basicstyle=\normalsize \ttfamily, %
+   basicstyle=\scriptsize\ttfamily, %
+   keywordstyle=\color{violet}\bfseries,%
+   commentstyle=\color{darkgreen}\bfseries,%
+   showspaces=false,%
+   stringstyle=\color{red}\bfseries, 
+   otherkeywords={NumericalMathFunction, Gumbel, Normal, TruncatedDistribution, %
+       CompositeRandomVector, Uniform, PythonFunction, ComposedDistribution, RandomVector, %
+	   Event, MonteCarlo, NumericalSample, IntervalMesher, Field, HistogramFactory, %
+	   Graph, BoxCoxFactory, CompositeProcess, Indices, WhittleFactory, ARMAFactory, %
+	   Basis, TrendFactory, BoxCoxTransform, SpatialFunction, TimeSeries, %
+	   WelchFactory, GreaterOrEqual, SymbolicFunction, IndependentCopula, %
+	   FORM, Cobyla, getResult, getEventProbability, run, drawImportanceFactors},
+}
+
+\newcommand{\fcar}[2] {{\mathbbm{1}}_{#1}\left(#2\right)}
+\newcommand{\vect}[1]{{\underline{#1}}}
+\newcommand{\idx}{\vect{\alpha}}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
