@@ -1,0 +1,49 @@
+//                                               -*- C++ -*-
+/**
+ *  @file  MyClass.cxx
+ *  @brief MyClass is some myclass type to illustrate how to add some classes in Open TURNS
+ *
+ *  (C) Copyright 2005-2007 EDF-EADS-Phimeca
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License.
+ *
+ *  This library is distributed in the hope that it will be useful
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+ *
+ *  @author: $LastChangedBy$
+ *  @date:   $LastChangedDate: 2008-10-31 11:52:04 +0100 (Fri, 31 Oct 2008) $
+ *  Id:      $Id: MyClass.cxx 995 2008-10-31 10:52:04Z dutka $
+ */
+#include "MyClass.hxx"
+#include "PersistentObjectFactory.hxx"
+#include "MyClassImplementation.hxx"
+
+namespace MyClass {
+
+  CLASSNAMEINIT(MyClass);
+
+  /* Default constructor */
+  MyClass::MyClass()
+    : OT::Base::Common::TypedInterfaceObject<MyClassImplementation>(new MyClassImplementation)
+  {
+    // Nothing to do
+  }
+
+  /* String converter */
+  OT::String MyClass::str() const
+  {
+    return OT::OSS() << "class=" << MyClass::GetClassName()
+		     << " implementation=" << getImplementation()->str();
+  }
+
+
+} /* Namespace MyClass */

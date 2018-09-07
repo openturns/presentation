@@ -1,0 +1,28 @@
+// SWIG file openturnsmyclass.i
+// Author : $LastChangedBy$
+// Date : $LastChangedDate: 2008-08-28 17:36:47 +0200 (Thu, 28 Aug 2008) $
+// Id : $Id: openturnsmyclass.i 916 2008-08-28 15:36:47Z dutka $
+
+%module(docstring="Open TURNS MyClass module is an example on how to include new classes in Open TURNS") myclass
+%feature("autodoc","1");
+
+%pythoncode %{
+# Override the default SWIG function
+def _swig_repr(self):
+  return self.str()
+%}
+
+// Prerequisites needed
+%include typemaps.i
+%include exception.i
+
+%import OTtypes.i
+%import OTexceptions.i
+
+%import Object.i
+%import PersistentObject.i
+%import TypedInterfaceObject.i
+
+// The new classes
+%include MyClassImplementation.i
+%include MyClass.i

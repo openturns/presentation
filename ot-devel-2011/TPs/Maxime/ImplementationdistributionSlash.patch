@@ -1,0 +1,587 @@
+diff --git lib/m4/examples/Makefile.am lib/m4/examples/Makefile.am
+index 1ae5f93..50547b3 100644
+--- lib/m4/examples/Makefile.am
++++ lib/m4/examples/Makefile.am
+@@ -207,6 +207,7 @@
+ bin_PROGRAMS += t_Weibull_std
+ bin_PROGRAMS += t_WeibullFactory_std
+ bin_PROGRAMS += t_Distributions_draw
++bin_PROGRAMS += t_Slash_std
+ 
+ ## IsoProbabilisticTransformation
+ bin_PROGRAMS += t_IsoProbabilisticTransformation_IndependentCopula
+@@ -457,6 +458,7 @@
+ t_Weibull_std_SOURCES                                              = t_Weibull_std.cxx
+ t_WeibullFactory_std_SOURCES                                       = t_WeibullFactory_std.cxx
+ t_Distributions_draw_SOURCES                                       = t_Distributions_draw.cxx
++t_Slash_std_SOURCES                                                = t_Slash_std.cxx
+ 
+ ## IsoProbabilisticTransformation
+ t_IsoProbabilisticTransformation_IndependentCopula_SOURCES         = t_IsoProbabilisticTransformation_IndependentCopula.cxx
+diff --git lib/src/Uncertainty/Distribution/Makefile.am lib/src/Uncertainty/Distribution/Makefile.am
+index 910e51a..3fbb5b0 100644
+--- lib/src/Uncertainty/Distribution/Makefile.am
++++ lib/src/Uncertainty/Distribution/Makefile.am
+@@ -120,7 +120,8 @@
+ 	KernelSmoothing.hxx \
+ 	KernelMixture.hxx \
+ 	Rayleigh.hxx \
+-	RayleighFactory.hxx
++	RayleighFactory.hxx\
++	Slash.hxx
+ 
+ noinst_LTLIBRARIES     = libOTDistribution.la
+ libOTDistribution_la_CPPFLAGS = $(OT_CPPFLAGS)
+@@ -201,6 +202,7 @@
+ 	KernelSmoothing.cxx \
+ 	KernelMixture.cxx \
+ 	Rayleigh.cxx \
+-	RayleighFactory.cxx
++	RayleighFactory.cxx\
++	Slash.cxx
+ 
+ EXTRA_DIST = CMakeLists.txt
+diff --git lib/src/Uncertainty/Distribution/OTDistribution.hxx lib/src/Uncertainty/Distribution/OTDistribution.hxx
+index 771e1b8..1c96ee4 100644
+--- lib/src/Uncertainty/Distribution/OTDistribution.hxx
++++ lib/src/Uncertainty/Distribution/OTDistribution.hxx
+@@ -80,6 +80,7 @@
+ #include "RandomMixture.hxx"
+ #include "Rayleigh.hxx"
+ #include "RayleighFactory.hxx"
++#include "Slash.hxx"
+ #include "Student.hxx"
+ #include "StudentFactory.hxx"
+ #include "TracyWidomGOE.hxx"
+diff --git lib/src/Uncertainty/Distribution/Slash.cxx lib/src/Uncertainty/Distribution/Slash.cxx
+new file mode 0
+index 0000000..f8aae87 0
+--- /dev/null
++++ lib/src/Uncertainty/Distribution/Slash.cxx
+@@ -0,0 +1,106 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  Slash.cxx
++ *  @brief The Slash distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy$
++ *  @date:   $LastChangedDate$
++ *  Id:      $Id$
++ */
++#include <cmath>
++#include "Slash.hxx"
++//#include "RandomGenerator.hxx"
++//#include "SpecFunc.hxx"
++#include "DistFunc.hxx"
++//#include "PersistentObjectFactory.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++      CLASSNAMEINIT(Slash);
++
++      /* Default constructor */
++      Slash::Slash()
++        : NonEllipticalDistribution("Slash")
++      {
++        setDimension(1);
++        computeRange();
++      }
++
++      /* Comparison operator */
++      Bool Slash::operator ==(const Slash & other) const {
++        Bool sameObject = false;
++
++        if (this != &other) { // Other is NOT me, so I have to realize the comparison
++          // sameObject = ...
++          // TODO: Write Slash::operator ==(...)
++        } else sameObject = true;
++
++        return sameObject;
++      }
++
++      /* String converter */
++      String Slash::__repr__() const {
++        OSS oss;
++        oss << "class=" << Slash::GetClassName()
++            << " name=" << getName()
++            << " dimension=" << getDimension();
++        return oss;
++      }
++
++
++      /* Virtual constructor */
++      Slash * Slash::clone() const
++      {
++        return new Slash(*this);
++      }
++
++      /* Get the PDF of the distribution */
++      NumericalScalar Slash::computePDF(const NumericalPoint & point) const
++      {
++        const NumericalScalar x(point[0]);
++        ///@TODO utiliser les constantes de math.h
++        if(fabs(x) > 0.00033) {
++            return NumericalScalar( (1. - exp(-x*x/2.))/( x*x*sqrt(2*M_PI) ) );
++        }
++        // Mapple:  near 0 with good precision, Taylor's series for precision 1e-16
++        return NumericalScalar( (-1./16)*(sqrt(2.)* (x-2)*(x+2) )/(sqrt(M_PI)) );
++      }
++      /* Get the CDF of the distribution */
++      NumericalScalar Slash::computeCDF(const NumericalPoint & point,
++          const Bool tail) const
++      {
++        const NumericalScalar x(point[0]);
++
++        if(fabs(x) > 0.0023) {
++            const NumericalScalar cdf (DistFunc::pNormal(x) - (1 - exp(-x*x/2.))/( x*sqrt(2*M_PI) ) );
++            return tail?(1.-cdf):cdf;
++
++        }
++        // Mapple:  near 0 with good precision, Taylor's series for precision 1e-16
++        const NumericalScalar cdf ((-1./48)*(-24*sqrt(M_PI) -12*x*sqrt(2.) + sqrt(2.)*x*x*x)/sqrt(M_PI) );
++        return tail?(1.-cdf):cdf;
++      }
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
+diff --git lib/src/Uncertainty/Distribution/Slash.hxx lib/src/Uncertainty/Distribution/Slash.hxx
+new file mode 0
+index 0000000..130a7e8 0
+--- /dev/null
++++ lib/src/Uncertainty/Distribution/Slash.hxx
+@@ -0,0 +1,82 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  Slash.hxx
++ *  @brief The Slash distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy$
++ *  @date:   $LastChangedDate$
++ *  Id:      $Id$
++ */
++#ifndef OPENTURNS_Slash_HXX
++#define OPENTURNS_Slash_HXX
++
++#include "OTprivate.hxx"
++#include "NonEllipticalDistribution.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++
++      /**
++       * @class Slash
++       *
++       * The Slash distribution.
++       */
++      class Slash
++        : public Model::NonEllipticalDistribution
++      {
++        CLASSNAME;
++      public:
++
++        typedef Base::Common::InvalidArgumentException               InvalidArgumentException;
++        typedef Model::NonEllipticalDistribution                     NonEllipticalDistribution;  // required by SWIG
++        typedef NonEllipticalDistribution::NumericalPoint            NumericalPoint;
++        typedef NonEllipticalDistribution::NotDefinedException       NotDefinedException;
++        typedef NonEllipticalDistribution::StorageManager            StorageManager;
++
++        /** Default constructor */
++        Slash();
++
++        /** Comparison operator */
++        Bool operator ==(const Slash & other) const;
++
++        /** String converter */
++	String __repr__() const;
++
++        /** Get the PDF of the distribution */
++        NumericalScalar computePDF(const NumericalPoint & point) const;
++
++        /* Interface inherited from Distribution */
++        NumericalScalar computeCDF(const NumericalPoint & point,
++                                         const Bool tail = false) const;
++
++        /** Virtual constructor */
++        Slash * clone() const;
++
++      }; /* class Slash */
++
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
++
++#endif /* OPENTURNS_Slash_HXX */
+diff --git lib/test/Makefile.am lib/test/Makefile.am
+index 5ccb500..06a0c55 100644
+--- lib/test/Makefile.am
++++ lib/test/Makefile.am
+@@ -260,6 +260,7 @@
+ CHECK_TESTS += $(srcdir)/t_DistFunc_poisson.at
+ CHECK_TESTS += $(srcdir)/t_DistFunc_student.at
+ CHECK_TESTS += $(srcdir)/t_Distributions_draw.at
++CHECK_TESTS += $(srcdir)/t_Slash_std.at
+ 
+ ## Model
+ CHECK_TESTS += $(srcdir)/t_RandomVector_constant.at
+@@ -516,6 +517,7 @@
+ OUTFILES += $(srcdir)/t_DistFunc_poisson.expout
+ OUTFILES += $(srcdir)/t_DistFunc_student.expout
+ OUTFILES += $(srcdir)/t_Distributions_draw.expout
++OUTFILES += $(srcdir)/t_Slash_std.expout
+ 
+ ## Model
+ OUTFILES += $(srcdir)/t_RandomVector_constant.expout
+@@ -778,6 +780,7 @@
+ CHECK_PROGS += t_DistFunc_poisson
+ CHECK_PROGS += t_DistFunc_student
+ CHECK_PROGS += t_Distributions_draw
++CHECK_PROGS += t_Slash_std
+ 
+ ## IsoProbabilisticTransformation
+ CHECK_PROGS += t_MarginalTransformationEvaluation_std
+@@ -1750,6 +1753,7 @@
+ t_DistFunc_normal_SOURCES                                          = t_DistFunc_normal.cxx
+ t_DistFunc_poisson_SOURCES                                         = t_DistFunc_poisson.cxx
+ t_DistFunc_student_SOURCES                                         = t_DistFunc_student.cxx
++t_Slash_std_SOURCES                                                = t_Slash_std.cxx
+ 
+ examplesSources += $(t_Beta_std_SOURCES)
+ examplesSources += $(t_BetaFactory_std_SOURCES)
+@@ -1813,6 +1817,7 @@
+ examplesSources += $(t_Weibull_std_SOURCES)
+ examplesSources += $(t_WeibullFactory_std_SOURCES)
+ examplesSources += $(t_Distributions_draw_SOURCES)
++examplesSources += $(t_Slash_std_SOURCES)
+ 
+ ## IsoProbabilisticTransformation
+ t_MarginalTransformationEvaluation_std_SOURCES                     = t_MarginalTransformationEvaluation_std.cxx
+diff --git lib/test/check_testsuite.at lib/test/check_testsuite.at
+index 7261c7c..d1f32dc 100644
+--- lib/test/check_testsuite.at
++++ lib/test/check_testsuite.at
+@@ -208,6 +208,7 @@
+ m4_include(t_DistFunc_poisson.at)
+ m4_include(t_DistFunc_student.at)
+ m4_include(t_Distributions_draw.at)
++m4_include(t_Slash_std.at)
+ 
+ # Model
+ m4_include(t_RandomVector_constant.at)
+diff --git lib/test/t_Slash_std.at lib/test/t_Slash_std.at
+new file mode 0
+index 0000000..c220bc9 0
+--- /dev/null
++++ lib/test/t_Slash_std.at
+@@ -0,0 +1,14 @@
++AT_SETUP([Slash])
++
++AT_KEYWORDS([std Uncertainty Distribution Slash])
++
++#AT_TESTED([t_Slash_std])
++
++AT_CHECK([cp $abs_srcdir/t_Slash_std.expout expout],[0],[ignore],[ignore])
++
++AT_CHECK([t_Slash_std],
++         [0],
++         [expout],
++         [ignore])
++
++AT_CLEANUP
+diff --git lib/test/t_Slash_std.cxx lib/test/t_Slash_std.cxx
+new file mode 0
+index 0000000..d1fb95d 0
+--- /dev/null
++++ lib/test/t_Slash_std.cxx
+@@ -0,0 +1,123 @@
++/**
++ *  @file  t_Slash_std.cxx
++ *  @brief The test file of class Slash for standard methods
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy$
++ *  @date:   $LastChangedDate$
++ *  Id:      $Id$
++ */
++#include <iostream>
++#include <sstream>
++#include "OT.hxx"
++#include "OTtestcode.hxx"
++#include "OStream.hxx"
++#include "Slash.hxx"
++#include "NumericalPoint.hxx"
++#include "NumericalSample.hxx"
++////#include "Graph.hxx"
++
++using namespace OT;
++using namespace OT::Test;
++using namespace OT::Base::Common;
++using namespace OT::Base::Graph;
++using namespace OT::Base::Type;
++using namespace OT::Base::Stat;
++using namespace OT::Uncertainty::Distribution;
++
++
++class TestObject : public Slash
++{
++public:
++  explicit TestObject() : Slash() {}
++  explicit TestObject(const String & name) : Slash() {setName(name);}
++  virtual ~TestObject() {}
++};
++
++
++int main(int argc, char *argv[])
++{
++  TESTPREAMBLE;
++  OStream fullprint(std::cout);
++  setRandomGenerator();
++
++  try {
++    // Test basic functionnalities
++    ///checkClassWithClassName<TestObject>();
++
++    // Test some extra functionnalities
++    ///checkNameFeature<TestObject>();
++
++    // Instanciate one ds object
++    Slash ds;
++    fullprint << "Distribution " << ds << std::endl;
++//fullprint << "Distribution out " << distribution() << std::endl;
++
++    NumericalPoint point( 1, 0.5 );
++    fullprint << "Point1= " << point << std::endl;
++
++//    NumericalScalar PDF = ds.computePDF( point);
++//    fullprint << "pdf=" << PDF << std::endl;
++
++    NumericalScalar CDF = ds.computeCDF( point, false );
++    fullprint << "cdf=" << CDF << std::endl;
++
++
++/*
++    NumericalPoint p2( 1, -0.5 );
++    fullprint << "Point2= " << point << std::endl;
++
++    fullprint << "cdf=" << ds.computeCDF( p2 ) << std::endl;
++
++    NumericalPoint p3( 1, 1. );
++    fullprint << "Point3= " << point << std::endl;
++    fullprint << "cdf=" << ds.computeCDF( p3 ) << std::endl;
++
++    NumericalPoint p4( 1, -1. );
++    fullprint << "Point4= " << point << std::endl;
++    fullprint << "cdf=" << ds.computeCDF( p4 ) << std::endl;
++*/
++///    Graph graphCDF(distribution.drawCDF(-5., 5.));
++///    graphCDF.draw("toto");
++
++    // Is this distribution elliptical ?
++///    fullprint << "Elliptical = " << (distribution.isElliptical() ? "true" : "false") << std::endl;
++
++    // Is this distribution continuous ?
++////    fullprint << "Continuous = " << (distribution.isContinuous() ? "true" : "false") << std::endl;
++
++    // Test for realization of distribution
++////    NumericalPoint oneRealization = distribution.getRealization();
++////    fullprint << "oneRealization=" << oneRealization << std::endl;
++
++    // Test for sampling
++ /*   UnsignedLong size = 10000;
++    NumericalSample oneSample = distribution.getNumericalSample( size );
++    fullprint << "oneSample first=" << oneSample[0] << " last=" << oneSample[size - 1] << std::endl;
++    fullprint << "mean=" << oneSample.computeMean() << std::endl;
++    fullprint << "covariance=" << oneSample.computeCovariance() << std::endl;
++*/
++  }
++  catch (TestFailed & ex) {
++    std::cerr << ex << std::endl;
++    return ExitCode::Error;
++  }
++
++
++  return ExitCode::Success;
++}
+diff --git lib/test/t_Slash_std.expout lib/test/t_Slash_std.expout
+new file mode 0
+index 0000000..e69de29 0
+--- /dev/null
++++ lib/test/t_Slash_std.expout
+diff --git python/src/Makefile.am python/src/Makefile.am
+index 046fbf9..a09bf24 100644
+--- python/src/Makefile.am
++++ python/src/Makefile.am
+@@ -673,6 +673,7 @@
+ 	PoissonFactory.i \
+ 	Rayleigh.i \
+ 	RayleighFactory.i \
++	Slash.i \
+ 	Student.i \
+ 	StudentFactory.i \
+ 	TracyWidomGOE.i \
+diff --git python/src/Slash.i python/src/Slash.i
+new file mode 0
+index 0000000..50a2576 0
+--- /dev/null
++++ python/src/Slash.i
+@@ -0,0 +1,11 @@
++// SWIG file Slash.i
++// Author : $LastChangedBy$
++// Date : $LastChangedDate$
++// Id : $Id$
++
++%{
++#include "Slash.hxx"
++%}
++
++%include Slash.hxx
++namespace OpenTURNS { namespace Uncertainty { namespace Distribution { %extend Slash { Slash(const Slash & other) { return new OpenTURNS::Uncertainty::Distribution::Slash(other); } } }}}
+diff --git python/src/model_dist.i python/src/model_dist.i
+index 3b91ead..1a14894 100644
+--- python/src/model_dist.i
++++ python/src/model_dist.i
+@@ -80,6 +80,7 @@
+ %include PoissonFactory.i
+ %include Rayleigh.i
+ %include RayleighFactory.i
++%include Slash.i
+ %include Student.i
+ %include StudentFactory.i
+ %include TracyWidomGOE.i
+diff --git python/test/Makefile.am python/test/Makefile.am
+index 0a26ae6..20c88a4 100644
+--- python/test/Makefile.am
++++ python/test/Makefile.am
+@@ -241,6 +241,7 @@
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_PoissonFactory_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Rayleigh_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_RayleighFactory_std.atpy
++PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Slash_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Student_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_StudentFactory_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Trapezoidal_std.atpy
+@@ -852,6 +853,7 @@
+ PYTHONINSTALLCHECK_PROGS += t_PoissonFactory_std.py
+ PYTHONINSTALLCHECK_PROGS += t_Rayleigh_std.py
+ PYTHONINSTALLCHECK_PROGS += t_RayleighFactory_std.py
++PYTHONINSTALLCHECK_PROGS += t_Slash_std.py
+ PYTHONINSTALLCHECK_PROGS += t_Student_std.py
+ PYTHONINSTALLCHECK_PROGS += t_StudentFactory_std.py
+ PYTHONINSTALLCHECK_PROGS += t_Trapezoidal_std.py
+diff --git python/test/python_installcheck_testsuite.at python/test/python_installcheck_testsuite.at
+index 058641f..192b779 100644
+--- python/test/python_installcheck_testsuite.at
++++ python/test/python_installcheck_testsuite.at
+@@ -218,6 +218,7 @@
+ m4_include(t_Normal_wrongarg.atpy)
+ m4_include(t_Poisson_std.atpy)
+ m4_include(t_PoissonFactory_std.atpy)
++m4_include(t_Slash_std.atpy)
+ m4_include(t_Trapezoidal_std.atpy)
+ m4_include(t_TrapezoidalFactory_std.atpy)
+ m4_include(t_Triangular_std.atpy)
+diff --git python/test/t_Slash_std.atpy python/test/t_Slash_std.atpy
+new file mode 0
+index 0000000..12ff307 0
+--- /dev/null
++++ python/test/t_Slash_std.atpy
+@@ -0,0 +1,14 @@
++AT_SETUP([Slash])
++
++AT_KEYWORDS([std Uncertainty Distribution Slash])
++
++#AT_TESTED([t_Slash_std.py])
++
++AT_CHECK([cp $abs_srcdir/t_Slash_std.expout expout],[0],[ignore],[ignore])
++
++AT_CHECK([python ${examplesdir}/t_Slash_std.py],
++         [0],
++         [expout],
++         [ignore])
++
++AT_CLEANUP
+diff --git python/test/t_Slash_std.expout python/test/t_Slash_std.expout
+new file mode 0
+index 0000000..e69de29 0
+--- /dev/null
++++ python/test/t_Slash_std.expout
+diff --git python/test/t_Slash_std.py python/test/t_Slash_std.py
+new file mode 0
+index 0000000..2aea8c6 0
+--- /dev/null
++++ python/test/t_Slash_std.py
+@@ -0,0 +1,18 @@
++#! /usr/bin/env python
++
++from openturns import *
++
++TESTPREAMBLE()
++RandomGenerator().SetSeed(0)
++
++try :
++
++    # Instanciate one distribution object
++    distribution = Slash()
++    print  "Distribution " ,  distribution
++
++
++
++except :
++    import sys
++    print "t_Slash_std.py", sys.exc_type, sys.exc_value

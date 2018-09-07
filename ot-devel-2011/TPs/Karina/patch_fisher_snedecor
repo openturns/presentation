@@ -1,0 +1,671 @@
+Index: python/test/Makefile.am
+===================================================================
+--- python/test/Makefile.am	(révision 1842)
++++ python/test/Makefile.am	(copie de travail)
+@@ -182,6 +182,7 @@
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Epanechnikov_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Exponential_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_ExponentialFactory_std.atpy
++PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_FisherSnedecor_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_FrankCopula_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_FrankCopulaFactory_std.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Gamma_std.atpy
+@@ -458,6 +459,7 @@
+ PYTHONINSTALLCHECK_PROGS += t_ChiSquareFactory_std.py
+ PYTHONINSTALLCHECK_PROGS += t_ClaytonCopula_std.py
+ PYTHONINSTALLCHECK_PROGS += t_ClaytonCopulaFactory_std.py
++PYTHONINSTALLCHECK_PROGS += t_FisherSnedecor_std.py
+ PYTHONINSTALLCHECK_PROGS += t_FrankCopula_std.py
+ PYTHONINSTALLCHECK_PROGS += t_FrankCopulaFactory_std.py
+ PYTHONINSTALLCHECK_PROGS += t_Gamma_std.py
+Index: python/test/python_installcheck_testsuite.at
+===================================================================
+--- python/test/python_installcheck_testsuite.at	(révision 1842)
++++ python/test/python_installcheck_testsuite.at	(copie de travail)
+@@ -163,6 +163,7 @@
+ m4_include(t_Epanechnikov_std.atpy)
+ m4_include(t_Exponential_std.atpy)
+ m4_include(t_ExponentialFactory_std.atpy)
++m4_include(t_FisherSnedecor_std.atpy)
+ m4_include(t_FrankCopula_std.atpy)
+ m4_include(t_FrankCopulaFactory_std.atpy)
+ m4_include(t_Gamma_std.atpy)
+Index: python/test/t_FisherSnedecor_std.atpy
+===================================================================
+--- python/test/t_FisherSnedecor_std.atpy	(révision 0)
++++ python/test/t_FisherSnedecor_std.atpy	(révision 0)
+@@ -0,0 +1,20 @@
++AT_SETUP([FisherSnedecor])
++
++AT_KEYWORDS([std Uncertainty Distribution FisherSnedecor])
++
++#AT_TESTED([t_FisherSnedecor_std.py])
++
++AT_CHECK([python ${examplesdir}/t_FisherSnedecor_std.py],
++         [0],
++[[Distribution  class=FisherSnedecor name=FisherSnedecor dimension=1 d1=1 d2=1
++Elliptical =  False
++Continuous =  True
++oneRealization= class=NumericalPoint name=Unnamed dimension=1 values=[1.56275]
++oneSample first= class=NumericalPoint name=Unnamed dimension=1 values=[0.00708533]  last= class=NumericalPoint name=Unnamed dimension=1 values=[0.159578]
++Point=  class=NumericalPoint name=Unnamed dimension=1 values=[0.75]
++cdf=0.454371
++t_FisherSnedecor_std.py <type 'exceptions.TypeError'> InvalidArgumentException : Warning! As d2 <= 2, the mean of the distribution will not be defined
++]],
++         [ignore])
++
++AT_CLEANUP
+Index: python/test/t_FisherSnedecor_std.py
+===================================================================
+--- python/test/t_FisherSnedecor_std.py	(révision 0)
++++ python/test/t_FisherSnedecor_std.py	(révision 0)
+@@ -0,0 +1,46 @@
++#! /usr/bin/env python
++
++from openturns import *
++
++TESTPREAMBLE()
++RandomGenerator().SetSeed(0)
++
++try :
++    # Instanciate one distribution object
++    distribution = FisherSnedecor(1., 1.)
++    print "Distribution " , distribution
++
++    # Is this distribution elliptical ?
++    print "Elliptical = ", distribution.isElliptical()
++
++    # Is this distribution continuous ?
++    print "Continuous = ", distribution.isContinuous()
++
++    # Test for realization of distribution
++    oneRealization = distribution.getRealization()
++    print "oneRealization=", repr(oneRealization)
++
++    # Test for sampling
++    size = 10000
++    oneSample = distribution.getNumericalSample( size )
++    print "oneSample first=" , repr(oneSample[0]) , " last=" , repr(oneSample[size - 1])
++
++    # Define a point
++    point = NumericalPoint( distribution.getDimension() , 0.75)
++    print "Point= " , repr(point)
++
++    # Show PDF and CDF of point
++    eps = 1e-5
++
++    # derivative of the PDF with regards the parameters of the distribution
++    CDF = distribution.computeCDF( point )
++    print "cdf=%.6f" % CDF
++    
++    mean = distribution.getMean()
++    print "mean=", repr(mean)
++
++
++except :
++    import sys
++    print "t_FisherSnedecor_std.py", sys.exc_type, sys.exc_value
++
+
+Modification de propriétés sur python/test/t_FisherSnedecor_std.py
+___________________________________________________________________
+Ajouté : svn:executable
+   + *
+
+Index: python/src/uncertainty_model_dist.i
+===================================================================
+--- python/src/uncertainty_model_dist.i	(révision 1842)
++++ python/src/uncertainty_model_dist.i	(copie de travail)
+@@ -47,6 +47,7 @@
+ %include Epanechnikov.i
+ %include Exponential.i
+ %include ExponentialFactory.i
++%include FisherSnedecor.i
+ %include Gamma.i
+ %include GammaFactory.i
+ %include Geometric.i
+Index: python/src/Makefile.am
+===================================================================
+--- python/src/Makefile.am	(révision 1842)
++++ python/src/Makefile.am	(copie de travail)
+@@ -594,6 +594,7 @@
+         Epanechnikov.i \
+         Exponential.i \
+         ExponentialFactory.i \
++	FisherSnedecor.i \
+ 	Gamma.i \
+ 	GammaFactory.i \
+ 	Geometric.i \
+Index: python/src/FisherSnedecor.i
+===================================================================
+--- python/src/FisherSnedecor.i	(révision 0)
++++ python/src/FisherSnedecor.i	(révision 0)
+@@ -0,0 +1,11 @@
++// SWIG file FisherSnedecor.i
++// Author : $LastChangedBy: dutka $
++// Date : $LastChangedDate: 2007-03-07 15:50:39 +0100 (mer. 07 mars 2007) $
++// Id : $Id: FisherSnedecor.i 345 2007-03-07 14:50:39Z dutka $
++
++%{
++#include "FisherSnedecor.hxx"
++%}
++
++%include FisherSnedecor.hxx
++namespace OpenTURNS { namespace Uncertainty { namespace Distribution { %extend FisherSnedecor { FisherSnedecor(const FisherSnedecor & other) { return new OpenTURNS::Uncertainty::Distribution::FisherSnedecor(other); } } }}}
+Index: lib/test/t_FisherSnedecor_std.cxx
+===================================================================
+--- lib/test/t_FisherSnedecor_std.cxx	(révision 0)
++++ lib/test/t_FisherSnedecor_std.cxx	(révision 0)
+@@ -0,0 +1,101 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  t_FisherSnedecor_std.cxx
++ *  @brief The test file of class FisherSnedecor for standard methods
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: dutka $
++ *  @date:   $LastChangedDate: 2010-02-04 16:44:49 +0100 (jeu. 04 févr. 2010) $
++ *  Id:      $Id: t_FisherSnedecor_std.cxx 1473 2010-02-04 15:44:49Z dutka $
++ */
++#include <iostream>
++#include <sstream>
++#include "OT.hxx"
++#include "OTtestcode.hxx"
++#include "OStream.hxx"
++#include "FisherSnedecor.hxx"
++#include "NumericalPoint.hxx"
++#include "NumericalSample.hxx"
++
++using namespace OT;
++using namespace OT::Test;
++using namespace OT::Base::Common;
++using namespace OT::Base::Common;
++using namespace OT::Base::Type;
++using namespace OT::Base::Stat;
++using namespace OT::Uncertainty::Distribution;
++
++
++class TestObject : public FisherSnedecor
++{
++public:
++  explicit TestObject() : FisherSnedecor(1.0, 1.0) {}
++  explicit TestObject(const String & name) : FisherSnedecor(1.0, 1.0) {setName(name);}
++  virtual ~TestObject() {}
++};
++
++
++int main(int argc, char *argv[])
++{
++  TESTPREAMBLE;
++  OStream fullprint(std::cout);
++  setRandomGenerator();
++
++  try {
++    // Test basic functionnalities
++    checkClassWithClassName<TestObject>();
++
++    // Test some extra functionnalities
++    checkNameFeature<TestObject>();
++
++    // Instanciate one distribution object
++    FisherSnedecor distribution(1.0, 1.0);
++    fullprint << "Distribution " << distribution << std::endl;
++
++    // Is this distribution elliptical ?
++    fullprint << "Elliptical = " << (distribution.isElliptical() ? "true" : "false") << std::endl;
++
++    // Is this distribution continuous ?
++    fullprint << "Continuous = " << (distribution.isContinuous() ? "true" : "false") << std::endl;
++
++    // Test for realization of distribution
++    NumericalPoint oneRealization = distribution.getRealization();
++    fullprint << "oneRealization=" << oneRealization << std::endl;
++
++    // Test for sampling
++    UnsignedLong size = 10000;
++    NumericalSample oneSample = distribution.getNumericalSample( size );
++    fullprint << "oneSample first=" << oneSample[0] << " last=" << oneSample[size - 1] << std::endl;
++
++    // Define a point
++    NumericalPoint point( distribution.getDimension(), 0.75 );
++    fullprint << "Point= " << point << std::endl;
++
++    // Show PDF and CDF of point
++    NumericalScalar eps(1e-5);
++    NumericalScalar CDF = distribution.computeCDF( point );
++    fullprint << "cdf=" << CDF << std::endl;
++  }
++  catch (TestFailed & ex) {
++    std::cerr << ex << std::endl;
++    return ExitCode::Error;
++  }
++
++
++  return ExitCode::Success;
++}
+Index: lib/test/t_FisherSnedecor_std.at
+===================================================================
+--- lib/test/t_FisherSnedecor_std.at	(révision 0)
++++ lib/test/t_FisherSnedecor_std.at	(révision 0)
+@@ -0,0 +1,35 @@
++AT_SETUP([FisherSnedecor])
++
++AT_KEYWORDS([std Uncertainty Distribution FisherSnedecor])
++
++#AT_TESTED([t_FisherSnedecor_std])
++
++AT_CHECK([t_FisherSnedecor_std],
++         [0],
++[[Testing class FisherSnedecor
++checkConstructorAndDestructor()
++checkCopyConstructor()
++streamObject(const T & anObject)
++class=FisherSnedecor name=FisherSnedecor dimension=1 d1=1 d2=1
++streamObject(const T & anObject)
++class=FisherSnedecor name=FisherSnedecor dimension=1 d1=1 d2=1
++areSameObjects(const T & firstObject, const T & secondObject)
++areDifferentObjects(const T & firstObject, const T & secondObject)
++checkNameFeature()
++checkNameConstructor()
++streamObject(const T & anObject)
++class=FisherSnedecor name=myName dimension=1 d1=1 d2=1
++checkNameAccessors()
++streamObject(const T & anObject)
++class=FisherSnedecor name=myNewName dimension=1 d1=1 d2=1
++Distribution class=FisherSnedecor name=FisherSnedecor dimension=1 d1=1 d2=1
++Elliptical = false
++Continuous = true
++oneRealization=class=NumericalPoint name=Unnamed dimension=1 values=[1.56275]
++oneSample first=class=NumericalPoint name=Unnamed dimension=1 values=[0.00708533] last=class=NumericalPoint name=Unnamed dimension=1 values=[0.159578]
++Point= class=NumericalPoint name=Unnamed dimension=1 values=[0.75]
++cdf=0.454371
++]],
++         [ignore])
++
++AT_CLEANUP
+Index: lib/test/check_testsuite.at
+===================================================================
+--- lib/test/check_testsuite.at	(révision 1842)
++++ lib/test/check_testsuite.at	(copie de travail)
+@@ -180,6 +180,7 @@
+ m4_include(t_DistFunc_poisson.at)
+ m4_include(t_DistFunc_student.at)
+ m4_include(t_Distributions_draw.at)
++m4_include(t_FisherSnedecor_std.at)
+ 
+ # Model
+ m4_include(t_RandomVector_constant.at)
+Index: lib/test/Makefile.am
+===================================================================
+--- lib/test/Makefile.am	(révision 1842)
++++ lib/test/Makefile.am	(copie de travail)
+@@ -238,6 +238,7 @@
+ CHECK_TESTS += $(srcdir)/t_DistFunc_poisson.at
+ CHECK_TESTS += $(srcdir)/t_DistFunc_student.at
+ CHECK_TESTS += $(srcdir)/t_Distributions_draw.at
++CHECK_TESTS += $(srcdir)/t_FisherSnedecor_std.at
+ 
+ ## Model
+ CHECK_TESTS += $(srcdir)/t_RandomVector_constant.at
+@@ -471,6 +472,7 @@
+ CHECK_PROGS += t_DistFunc_poisson
+ CHECK_PROGS += t_DistFunc_student
+ CHECK_PROGS += t_Distributions_draw
++CHECK_PROGS += t_FisherSnedecor_std
+ 
+ ## IsoProbabilisticTransformation
+ CHECK_PROGS += t_MarginalTransformationEvaluation_std
+@@ -1269,6 +1271,7 @@
+ t_DistFunc_normal_SOURCES                                          = t_DistFunc_normal.cxx
+ t_DistFunc_poisson_SOURCES                                         = t_DistFunc_poisson.cxx
+ t_DistFunc_student_SOURCES                                         = t_DistFunc_student.cxx
++t_FisherSnedecor_std_SOURCES                                   = t_FisherSnedecor_std.cxx
+ 
+ examplesSources += $(t_Beta_std_SOURCES)
+ examplesSources += $(t_BetaFactory_std_SOURCES)
+@@ -1330,6 +1333,7 @@
+ examplesSources += $(t_Weibull_std_SOURCES)
+ examplesSources += $(t_WeibullFactory_std_SOURCES)
+ examplesSources += $(t_Distributions_draw_SOURCES)
++examplesSources += $(t_FisherSnedecor_std_SOURCES)
+ 
+ ## IsoProbabilisticTransformation
+ t_MarginalTransformationEvaluation_std_SOURCES                     = t_MarginalTransformationEvaluation_std.cxx
+Index: lib/include/OTconfig.h.in
+===================================================================
+--- lib/include/OTconfig.h.in	(révision 1842)
++++ lib/include/OTconfig.h.in	(copie de travail)
+@@ -166,6 +166,9 @@
+ /* Define to the one symbol short name of this package. */
+ #undef PACKAGE_TARNAME
+ 
++/* Define to the home page for this package. */
++#undef PACKAGE_URL
++
+ /* Define to the version of this package. */
+ #undef PACKAGE_VERSION
+ 
+Index: lib/src/Uncertainty/Distribution/FisherSnedecor.hxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/FisherSnedecor.hxx	(révision 0)
++++ lib/src/Uncertainty/Distribution/FisherSnedecor.hxx	(révision 0)
+@@ -0,0 +1,110 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  FisherSnedecor.hxx
++ *  @brief The Fisher-Snedecor distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: macocco $
++ *  @date:   $LastChangedDate: 2010-02-04 16:44:49 +0100 (jeu. 04 févr. 2010) $
++ *  Id:      $Id: FisherSnedecor.hxx 1473 2010-02-04 15:44:49Z dutka $
++ */
++#ifndef OPENTURNS_FISHERSNEDECOR_HXX
++#define OPENTURNS_FISHERSNEDECOR_HXX
++
++#include "NonEllipticalDistribution.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++
++      /**
++       * @class FisherSnedecor
++       *
++       * The Fisher-Snedecor distribution.
++       */
++      class FisherSnedecor
++        : public Model::NonEllipticalDistribution
++      {
++        CLASSNAME;
++      public:
++
++        typedef Base::Common::InvalidArgumentException               InvalidArgumentException;
++        typedef Model::NonEllipticalDistribution                     NonEllipticalDistribution;  // required by SWIG
++        typedef NonEllipticalDistribution::NumericalPoint            NumericalPoint;
++
++        /** Default constructor */
++        FisherSnedecor();
++
++        /** Parameters constructor */
++        FisherSnedecor(const NumericalScalar d1,
++                const NumericalScalar d2);
++
++
++        /** Comparison operator */
++        Bool operator ==(const FisherSnedecor & other) const;
++
++        /** String converter */
++        String __repr__() const;
++
++
++
++        /* Interface inherited from Distribution */
++
++        /** Virtual constructor */
++        FisherSnedecor * clone() const;
++
++        /** Get one realization of the distribution */
++        NumericalPoint getRealization() const;
++
++        /** Get the CDF of the distribution, i.e. P(X <= point) = CDF(point) */
++        using NonEllipticalDistribution::computeCDF;
++        NumericalScalar computeCDF(const NumericalPoint & point, const Bool tail = false) const;
++
++        /** Get the mean of the distribution */
++        NumericalPoint getMean() const /* throw(NotDefinedException) */;
++
++        /* Interface specific to FisherSnedecor */
++
++        /** D1 accessor */
++        void setD1(const NumericalScalar d1);
++        NumericalScalar getD1() const;
++
++        /** D2 accessor */
++        void setD2(const NumericalScalar d2);
++        NumericalScalar getD2() const;
++
++
++      protected:
++
++
++      private:
++        /** The main parameter set of the distribution */
++        NumericalScalar d1_;
++        NumericalScalar d2_;
++
++      }; /* class FisherSnedecor */
++
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
++
++#endif /* OPENTURNS_FISHERSNEDECOR_HXX */
+Index: lib/src/Uncertainty/Distribution/OTDistribution.hxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/OTDistribution.hxx	(révision 1842)
++++ lib/src/Uncertainty/Distribution/OTDistribution.hxx	(copie de travail)
+@@ -38,6 +38,7 @@
+ #include "Epanechnikov.hxx"
+ #include "Exponential.hxx"
+ #include "ExponentialFactory.hxx"
++#include "FisherSnedecor.hxx"
+ #include "FrankCopula.hxx"
+ #include "FrankCopulaFactory.hxx"
+ #include "Gamma.hxx"
+Index: lib/src/Uncertainty/Distribution/FisherSnedecor.cxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/FisherSnedecor.cxx	(révision 0)
++++ lib/src/Uncertainty/Distribution/FisherSnedecor.cxx	(révision 0)
+@@ -0,0 +1,157 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  FisherSnedecor.cxx
++ *  @brief The Fisher-Snedecor distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: dutka $
++ *  @date:   $LastChangedDate: 2010-02-04 16:44:49 +0100 (jeu. 04 févr. 2010) $
++ *  Id:      $Id: FisherSnedecor.cxx 1473 2010-02-04 15:44:49Z dutka $
++ */
++#include <cmath>
++#include "FisherSnedecor.hxx"
++#include "RandomGenerator.hxx"
++#include "IdentityMatrix.hxx"
++#include "PersistentObjectFactory.hxx"
++#include "DistFunc.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++      typedef Base::Type::IdentityMatrix  IdentityMatrix;
++      typedef Base::Stat::RandomGenerator RandomGenerator;
++
++      CLASSNAMEINIT(FisherSnedecor);
++
++      static Base::Common::Factory<FisherSnedecor> RegisteredFactory("FisherSnedecor");
++
++      /* Default constructor */
++      FisherSnedecor::FisherSnedecor()
++        : NonEllipticalDistribution("FisherSnedecor"),
++          d1_(1.0), d2_(1.0)
++      {
++        setDimension( 1 );
++        computeRange();
++      }
++
++      /* Parameters constructor */
++      FisherSnedecor::FisherSnedecor(const NumericalScalar d1,
++                                     const NumericalScalar d2)
++        : NonEllipticalDistribution("FisherSnedecor"),
++          d1_(d1), d2_(d2)
++      {
++        setDimension( 1 );
++        computeRange();
++      }
++
++      /* Comparison operator */
++      Bool FisherSnedecor::operator ==(const FisherSnedecor & other) const {
++        Bool sameObject = false;
++
++        if (this != &other) { // Other is NOT me, so I have to realize the comparison
++          // sameObject = ...
++          // TODO: Write FisherSnedecor::operator ==(...)
++          sameObject = 
++            (d1_ == other.d1_) && (d2_ == other.d2_);
++        } else sameObject = true;
++
++        return sameObject;
++      }
++
++      /* String converter */
++      String FisherSnedecor::__repr__() const {
++        OSS oss;
++        oss << "class=" << FisherSnedecor::GetClassName()
++            << " name=" << getName()
++            << " dimension=" << getDimension()
++            << " d1=" << d1_
++            << " d2=" << d2_;
++        return oss;
++      }
++
++      /* Virtual constructor */
++      FisherSnedecor * FisherSnedecor::clone() const
++      {
++        return new FisherSnedecor(*this);
++      }
++
++      /* Get one realization of the distribution */
++      FisherSnedecor::NumericalPoint FisherSnedecor::getRealization() const
++      {
++        return NumericalPoint(1, d2_ * DistFunc::rGamma(0.5*d1_) / (d1_ * DistFunc::rGamma(0.5*d2_)));
++      }
++
++
++      /* Compute the density generator of the ellipticalal generator, i.e.
++       *  the function phi such that the density of the distribution can
++       *  be written as p(x) = phi(t(x-mu)S^(-1)(x-mu))                      
++      FisherSnedecor FisherSnedecor::computeDensityGenerator(const NumericalScalar betaSquare) const
++      {
++        return exp(normalizationFactor_) * pow(d1_ * x / (d1_ * x + d2_), 0.5 * d1_) * pow(1.0 - d1_ * x / (d1_ * x + d2_),  0.5 * d2_) / x;
++      }*/
++
++      /* Get the CDF of the distribution */
++      NumericalScalar FisherSnedecor::computeCDF(const NumericalPoint & point,
++				       const Bool tail) const
++      {
++        NumericalScalar x(point[0]);
++        if (x <= 0) return (tail ? 1.0 : 0.0);
++        return DistFunc::pBeta(d1_/2, d2_/2, d1_*x / (d1_*x + d2_), tail);
++      }
++
++      /* Get the mean of the distribution */
++      FisherSnedecor::NumericalPoint FisherSnedecor::getMean() const /* throw(NotDefinedException) */
++      {
++        if (d2_ <= 2.0) throw InvalidArgumentException(HERE) << "Warning! As d2 <= 2, the mean of the distribution will not be defined";	
++        return NumericalPoint(1, d2_ / (d2_ - 2));
++      }
++
++      /* D1 accessor */
++      void FisherSnedecor::setD1(const NumericalScalar d1)
++      {
++        if (d1_ <= 0.0) throw InvalidArgumentException(HERE) << "Error d1 of a FisherSnedecor distribution must be positive";
++        d1_ = d1;
++        computeRange();
++      }
++
++      NumericalScalar FisherSnedecor::getD1() const
++      {
++        return d1_;
++      }
++
++
++      /* D2 accessor */
++      void FisherSnedecor::setD2(const NumericalScalar d2)
++      {
++        if (d2_ <= 0.0) throw InvalidArgumentException(HERE) << "Error d2 of a FisherSnedecor distribution must be positive";
++        d2_ = d2;
++        computeRange();
++      }
++
++      NumericalScalar FisherSnedecor::getD2() const
++      {
++        return d2_;
++      }
++
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
+Index: lib/src/Uncertainty/Distribution/Makefile.am
+===================================================================
+--- lib/src/Uncertainty/Distribution/Makefile.am	(révision 1842)
++++ lib/src/Uncertainty/Distribution/Makefile.am	(copie de travail)
+@@ -50,6 +50,7 @@
+ 	OTDistribution.hxx \
+ 	NormalCopula.hxx \
+ 	IndependentCopula.hxx \
++	FisherSnedecor.hxx \
+ 	FrankCopula.hxx \
+ 	FrankCopulaFactory.hxx \
+ 	ClaytonCopula.hxx \
+@@ -113,6 +114,7 @@
+ libOTDistribution_la_SOURCES = \
+ 	NormalCopula.cxx \
+ 	IndependentCopula.cxx \
++	FisherSnedecor.cxx \
+ 	FrankCopula.cxx \
+ 	FrankCopulaFactory.cxx \
+ 	ClaytonCopula.cxx \

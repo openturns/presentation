@@ -1,0 +1,4 @@
+swigflags: -I/home/macocco/essai_openturns/mon_module/trunk/build/install/share/UniformSphericalRandomVector/swig
+cppflags: -I/home/macocco/essai_openturns/mon_module/trunk/build/install/include/UniformSphericalRandomVector
+ldflags: -L/home/macocco/essai_openturns/mon_module/trunk/build/install/lib/UniformSphericalRandomVector
+libs: -lOTmon_module_0

@@ -1,0 +1,12 @@
+AT_SETUP([IntegralCompoundPoisson])
+
+AT_KEYWORDS([std Uncertainty Distribution IntegralCompoundPoisson])
+
+AT_CHECK([cp $abs_srcdir/t_IntegralCompoundPoisson_validation.expout expout],[0],[ignore],[ignore])
+
+AT_CHECK([python ${examplesdir}/t_IntegralCompoundPoisson_validation.py],
+         [0],
+         [expout],
+         [ignore])
+
+AT_CLEANUP

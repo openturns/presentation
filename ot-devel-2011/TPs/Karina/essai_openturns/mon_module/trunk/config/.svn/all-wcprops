@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/openturns-modules/!svn/ver/4/template/trunk/config
+END
+common.am
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/openturns-modules/!svn/ver/4/template/trunk/config/common.am
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/openturns-modules/!svn/ver/4/template/trunk/config/Makefile.am
+END
+test.am
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/openturns-modules/!svn/ver/4/template/trunk/config/test.am
+END

@@ -1,0 +1,14 @@
+AT_SETUP([IntegralCompoundPoisson])
+
+AT_KEYWORDS([std Uncertainty Distribution IntegralCompoundPoisson])
+
+#AT_TESTED([t_IntegralCompoundPoisson_std])
+
+AT_CHECK([cp $abs_srcdir/t_IntegralCompoundPoisson_std.expout expout],[0],[ignore],[ignore])
+
+AT_CHECK([t_IntegralCompoundPoisson_std],
+         [0],
+         [expout],
+         [ignore])
+
+AT_CLEANUP

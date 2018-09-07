@@ -1,0 +1,13 @@
+// SWIG file MyClassImplementation.i
+// Author : $LastChangedBy$
+// Date : $LastChangedDate: 2007-05-10 16:43:31 +0200 (Thu, 10 May 2007) $
+// Id : $Id: MyClassImplementation.i 434 2007-05-10 14:43:31Z dutka $
+
+%{
+#include "MyClassImplementation.hxx"
+%}
+
+%template(MyClassImplementationdInterfaceObject)           OpenTURNS::Base::Common::TypedInterfaceObject<MyClass::MyClassImplementation>;
+
+%include MyClassImplementation.hxx
+namespace MyClass { %extend MyClassImplementation { MyClassImplementation(const MyClassImplementation & other) { return new MyClass::MyClassImplementation(other); } } }

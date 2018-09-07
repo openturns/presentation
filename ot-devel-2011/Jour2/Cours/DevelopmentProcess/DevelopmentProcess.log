@@ -1,0 +1,1000 @@
+This is pdfTeX, Version 3.141592-1.40.5 (Web2C 7.5.5) (format=pdflatex 2011.1.13)  23 MAR 2011 10:22
+entering extended mode
+**DevelopmentProcess.tex
+(./DevelopmentProcess.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8h> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(/usr/share/texmf/tex/latex/beamer/beamer.cls
+(/usr/share/texmf/tex/latex/beamer/beamerbasercs.sty
+Package: beamerbasercs 2007/01/28 (rcs-revision 1.4)
+)
+Document Class: beamer 2007/03/11 cvs version 3.07 A class for typesetting pres
+entations (rcs-revision 1.70)
+(/usr/share/texmf/tex/latex/beamer/beamerbasemodes.sty
+Package: beamerbasemodes 2007/01/28 (rcs-revision 1.22)
+\beamer@tempbox=\box26
+\beamer@tempcount=\count79
+\c@beamerpauses=\count80
+
+(/usr/share/texmf/tex/latex/beamer/beamerbasedecode.sty
+Package: beamerbasedecode 2007/01/28 (rcs-revision 1.20)
+\beamer@slideinframe=\count81
+\beamer@minimum=\count82
+)
+\beamer@commentbox=\box27
+\beamer@modecount=\count83
+)
+\headheight=\dimen102
+\headdp=\dimen103
+\footheight=\dimen104
+\sidebarheight=\dimen105
+\beamer@tempdim=\dimen106
+\beamer@finalheight=\dimen107
+\beamer@animht=\dimen108
+\beamer@animdp=\dimen109
+\beamer@animwd=\dimen110
+\beamer@leftmargin=\dimen111
+\beamer@rightmargin=\dimen112
+\beamer@leftsidebar=\dimen113
+\beamer@rightsidebar=\dimen114
+\beamer@boxsize=\dimen115
+\beamer@vboxoffset=\dimen116
+\beamer@descdefault=\dimen117
+\beamer@descriptionwidth=\dimen118
+\beamer@lastskip=\skip41
+\beamer@areabox=\box28
+\beamer@animcurrent=\box29
+\beamer@animshowbox=\box30
+\beamer@sectionbox=\box31
+\beamer@logobox=\box32
+\beamer@linebox=\box33
+\beamer@sectioncount=\count84
+\beamer@subsubsectionmax=\count85
+\beamer@subsectionmax=\count86
+\beamer@sectionmax=\count87
+\beamer@totalheads=\count88
+\beamer@headcounter=\count89
+\beamer@partstartpage=\count90
+\beamer@sectionstartpage=\count91
+\beamer@subsectionstartpage=\count92
+\beamer@animationtempa=\count93
+\beamer@animationtempb=\count94
+\beamer@xpos=\count95
+\beamer@ypos=\count96
+\beamer@showpartnumber=\count97
+\beamer@currentsubsection=\count98
+\beamer@coveringdepth=\count99
+\beamer@sectionadjust=\count100
+\beamer@tocsectionnumber=\count101
+
+(/usr/share/texmf/tex/latex/beamer/beamerbaseoptions.sty
+Package: beamerbaseoptions 2007/01/28 (rcs-revision 1.8)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+))
+(/usr/share/texmf/tex/latex/pgf/pgfcore.sty
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/08/28 v1.4 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 90.
+
+(/usr/share/texmf/tex/latex/graphics/pdftex.def
+File: pdftex.def 2007/12/04 v0.04i Graphics/color for pdfTeX
+\Gread@gobject=\count102
+))
+\Gin@req@height=\dimen119
+\Gin@req@width=\dimen120
+)
+(/usr/share/texmf/tex/latex/pgf/pgfsys.sty
+(/usr/share/texmf/tex/latex/pgf/pgfrcs.sty
+(/usr/share/texmf/tex/generic/pgf/pgfutil-common.tex)
+(/usr/share/texmf/tex/generic/pgf/pgfutil-latex.def)
+(/usr/share/texmf/tex/generic/pgf/pgfrcs.code.tex
+Package: pgfrcs 2007/06/08 v1.18 (rcs-revision 1.16)
+))
+(/usr/share/texmf/tex/generic/pgf/pgfsys.code.tex
+Package: pgfsys 2007/06/07 v1.18 (rcs-revision 1.24)
+\pgf@x=\dimen121
+\pgf@y=\dimen122
+\pgf@xa=\dimen123
+\pgf@ya=\dimen124
+\pgf@xb=\dimen125
+\pgf@yb=\dimen126
+\pgf@xc=\dimen127
+\pgf@yc=\dimen128
+\c@pgf@counta=\count103
+\c@pgf@countb=\count104
+\c@pgf@countc=\count105
+\c@pgf@countd=\count106
+
+(/usr/share/texmf/tex/generic/pgf/pgf.cfg
+File: pgf.cfg 2007/03/20  (rcs-revision 1.4)
+)
+Package pgfsys Info: Driver file for pgf: pgfsys-pdftex.def on input line 846.
+
+(/usr/share/texmf/tex/generic/pgf/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2007/06/07  (rcs-revision 1.15)
+
+(/usr/share/texmf/tex/generic/pgf/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2006/10/16  (rcs-revision 1.7)
+)))
+(/usr/share/texmf/tex/generic/pgf/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2007/02/19  (rcs-revision 1.5)
+)
+(/usr/share/texmf/tex/generic/pgf/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+))
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texmf/tex/latex/graphics/color.cfg
+File: color.cfg 2005/08/28 v1.4 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcore.code.tex
+Package: pgfcore 2007/03/09 v1.18 (rcs-revision 1.5)
+
+(/usr/share/texmf/tex/generic/pgf/pgfmath.code.tex
+(/usr/share/texmf/tex/generic/pgf/pgfmathcalc.code.tex
+(/usr/share/texmf/tex/generic/pgf/pgfmathutil.code.tex)
+(/usr/share/texmf/tex/generic/pgf/pgfmathparser.code.tex
+\pgfmath@stack=\toks15
+\c@pgfmath@parsecounta=\count107
+\c@pgfmath@parsecountb=\count108
+\c@pgfmath@parsecountc=\count109
+\pgfmath@parsex=\dimen129
+)
+(/usr/share/texmf/tex/generic/pgf/pgfmathoperations.code.tex
+(/usr/share/texmf/tex/generic/pgf/pgfmathtrig.code.tex)
+(/usr/share/texmf/tex/generic/pgf/pgfmathrnd.code.tex))
+(/usr/share/texmf/tex/generic/pgf/pgfmathbase.code.tex)))
+(/usr/share/texmf/tex/generic/pgf/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2007/04/19  (rcs-revision 1.9)
+\pgf@picminx=\dimen130
+\pgf@picmaxx=\dimen131
+\pgf@picminy=\dimen132
+\pgf@picmaxy=\dimen133
+\pgf@pathminx=\dimen134
+\pgf@pathmaxx=\dimen135
+\pgf@pathminy=\dimen136
+\pgf@pathmaxy=\dimen137
+\pgf@xx=\dimen138
+\pgf@xy=\dimen139
+\pgf@yx=\dimen140
+\pgf@yy=\dimen141
+\pgf@zx=\dimen142
+\pgf@zy=\dimen143
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2007/06/07  (rcs-revision 1.9)
+\pgf@path@lastx=\dimen144
+\pgf@path@lasty=\dimen145
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2007/03/09  (rcs-revision 1.8)
+\pgf@shorten@end@additional=\dimen146
+\pgf@shorten@start@additional=\dimen147
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2007/06/07  (rcs-revision 1.24)
+\pgfpic=\box34
+\pgf@hbox=\box35
+\pgf@layerbox@main=\box36
+\pgf@picture@serial@count=\count110
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2007/03/09  (rcs-revision 1.7)
+\pgflinewidth=\dimen148
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2007/06/07  (rcs-revision 1.6)
+\pgf@pt@x=\dimen149
+\pgf@pt@y=\dimen150
+\pgf@pt@temp=\dimen151
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2007/03/09  (rcs-revision 1.6)
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2007/06/07  (rcs-revision 1.8)
+)
+(/usr/share/texmf/tex/generic/pgf/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2007/03/09  (rcs-revision 1.8)
+\pgf@max=\dimen152
+\pgf@sys@shading@range@num=\count111
+)))
+(/usr/share/texmf/tex/latex/pgf/pgfbaseimage.sty
+(/usr/share/texmf/tex/generic/pgf/pgfbaseimage.code.tex
+Package: pgfbaseimage 2007/05/31 v1.18 (rcs-revision 1.7)
+\pgfexternal@startupbox=\box37
+))
+(/usr/share/texmf/tex/latex/pgf/xxcolor.sty
+Package: xxcolor 2003/10/24 ver 0.1
+\XC@nummixins=\count112
+\XC@countmixins=\count113
+)
+(/usr/share/texmf/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2002/01/22 v2.2d
+
+(/usr/share/texmf/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2001/10/25 v2.2f
+\@emptytoks=\toks16
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 132.
+))
+(/usr/share/texmf/tex/latex/geometry/geometry.sty
+Package: geometry 2002/07/08 v3.2 Page Geometry
+\Gm@cnth=\count114
+\Gm@cntv=\count115
+\c@Gm@tempcnt=\count116
+\Gm@bindingoffset=\dimen153
+\Gm@wd@mp=\dimen154
+\Gm@odd@mp=\dimen155
+\Gm@even@mp=\dimen156
+\Gm@dimlist=\toks17
+
+(/usr/share/texmf/tex/latex/geometry/geometry.cfg))
+(/usr/share/texmf/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2008/01/09 v6.77i Hypertext links for LaTeX
+
+(/usr/share/texmf/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2007/04/11 v1.1 Code for color options of hyperref/bookmark (H
+O)
+)
+\@linkdim=\dimen157
+\Hy@linkcounter=\count117
+\Hy@pagecounter=\count118
+
+(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2008/01/09 v6.77i Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf/tex/latex/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+
+(/usr/share/texmf/tex/latex/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/share/texmf/tex/latex/hyperref/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+(/usr/share/texmf/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2007/10/18 v3.0 Keyval support for LaTeX options (HO)
+)
+Package hyperref Info: Option `bookmarks' set `true' on input line 2686.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 2686.
+Package hyperref Info: Option `implicit' set `false' on input line 2686.
+Package hyperref Info: Hyper figures OFF on input line 2722.
+Package hyperref Info: Link nesting OFF on input line 2727.
+Package hyperref Info: Hyper index ON on input line 2730.
+Package hyperref Info: Plain pages OFF on input line 2737.
+Package hyperref Info: Backreferencing OFF on input line 2742.
+
+Implicit mode OFF; no redefinition of LaTeX internals
+Package hyperref Info: Bookmarks ON on input line 2898.
+(/usr/share/texmf/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 3068.
+
+(/usr/share/texmf/tex/latex/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/share/texmf/tex/latex/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/share/texmf/tex/latex/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/share/texmf/tex/latex/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2007/12/12 v0.3 LuaTeX support for pdfTeX utility functions
+ (HO)
+Package pdftexcmds Info: LuaTeX not detected on input line 139.
+)))
+(/usr/share/texmf/tex/latex/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2007/09/29 v1.3 Key value parser with default handler suppor
+t (HO)
+)
+\Fld@menulength=\count119
+\Field@Width=\dimen158
+\Fld@charsize=\dimen159
+\Field@toks=\toks18
+Package hyperref Info: Hyper figures OFF on input line 3949.
+Package hyperref Info: Link nesting OFF on input line 3954.
+Package hyperref Info: Hyper index ON on input line 3957.
+Package hyperref Info: backreferencing OFF on input line 3964.
+Package hyperref Info: Link coloring OFF on input line 3969.
+
+(/usr/share/texmf/tex/latex/oberdiek/atbegshi.sty
+Package: atbegshi 2007/09/09 v1.6 At begin shipout hook (HO)
+
+(/usr/share/texmf/tex/latex/oberdiek/ifpdf.sty
+Package: ifpdf 2007/12/12 v1.6 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+))
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+Hyperref stopped early
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2008/01/09 v6.77i Hyperref driver for pdfTeX
+\Fld@listcount=\count120
+)
+(/usr/share/texmf/tex/latex/extsizes/size8.clo
+File: size8.clo 1999/11/11 v1.4a NON-Standard LaTeX file (size option)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasecompatibility.sty
+Package: beamerbasecompatibility 2007/01/28  (rcs-revision 1.63)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasefont.sty
+Package: beamerbasefont 2007/01/28  (rcs-revision 1.16)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasemisc.sty
+Package: beamerbasemisc 2007/01/28  (rcs-revision 1.24)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasetwoscreens.sty
+Package: beamerbasetwoscreens 2007/01/28  (rcs-revision 1.7)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbaseoverlay.sty
+Package: beamerbaseoverlay 2007/01/28  (rcs-revision 1.50)
+\beamer@argscount=\count121
+\beamer@lastskipcover=\skip42
+\beamer@trivlistdepth=\count122
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasetitle.sty
+Package: beamerbasetitle 2007/01/28  (rcs-revision 1.25)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasesection.sty
+Package: beamerbasesection 2007/01/28  (rcs-revision 1.21)
+\c@lecture=\count123
+\c@part=\count124
+\c@section=\count125
+\c@subsection=\count126
+\c@subsubsection=\count127
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbaseframe.sty
+Package: beamerbaseframe 2007/01/28  (rcs-revision 1.60)
+\beamer@framebox=\box38
+\beamer@frametitlebox=\box39
+\beamer@zoombox=\box40
+\beamer@zoomcount=\count128
+\beamer@zoomframecount=\count129
+\beamer@frametextheight=\dimen160
+\c@subsectionslide=\count130
+\beamer@frametopskip=\skip43
+\beamer@framebottomskip=\skip44
+\beamer@frametopskipautobreak=\skip45
+\beamer@framebottomskipautobreak=\skip46
+\beamer@envbody=\toks19
+\c@framenumber=\count131
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbaseverbatim.sty
+Package: beamerbaseverbatim 2007/01/28  (rcs-revision 1.8)
+\beamer@verbatimfileout=\write3
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbaseframesize.sty
+Package: beamerbaseframesize 2007/01/28  (rcs-revision 1.18)
+\beamer@splitbox=\box41
+\beamer@autobreakcount=\count132
+\beamer@autobreaklastheight=\dimen161
+\beamer@frametitletoks=\toks20
+\beamer@framesubtitletoks=\toks21
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbaseframecomponents.sty
+Package: beamerbaseframecomponents 2007/01/28  (rcs-revision 1.41)
+\beamer@footins=\box42
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasecolor.sty
+Package: beamerbasecolor 2007/01/28  (rcs-revision 1.42)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasenotes.sty
+Package: beamerbasenotes 2007/01/28  (rcs-revision 1.23)
+\beamer@frameboxcopy=\box43
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasetoc.sty
+Package: beamerbasetoc 2007/01/28  (rcs-revision 1.21)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasetemplates.sty
+Package: beamerbasetemplates 2007/01/28  (rcs-revision 1.51)
+\beamer@sbttoks=\toks22
+
+(/usr/share/texmf/tex/latex/beamer/beamerbaseauxtemplates.sty
+Package: beamerbaseauxtemplates 2007/01/28  (rcs-revision 1.28)
+
+(/usr/share/texmf/tex/latex/beamer/beamerbaseboxes.sty
+Package: beamerbaseboxes 2007/03/11  (rcs-revision 1.32)
+\bmb@box=\box44
+\bmb@colorbox=\box45
+\bmb@boxshadow=\box46
+\bmb@boxshadowball=\box47
+\bmb@boxshadowballlarge=\box48
+\bmb@temp=\dimen162
+\bmb@dima=\dimen163
+\bmb@dimb=\dimen164
+\bmb@prevheight=\dimen165
+)
+\beamer@blockheadheight=\dimen166
+))
+(/usr/share/texmf/tex/latex/beamer/beamerbaselocalstructure.sty
+Package: beamerbaselocalstructure 2007/01/28  (rcs-revision 1.53)
+
+(/usr/share/texmf/tex/latex/tools/enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks23
+)
+\c@figure=\count133
+\c@table=\count134
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasenavigation.sty
+Package: beamerbasenavigation 2007/01/28  (rcs-revision 1.36)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasetheorems.sty
+Package: beamerbasetheorems 2007/01/28  (rcs-revision 1.10)
+
+(/usr/share/texmf/tex/latex/beamer/translator/translator.sty
+Package: translator 2007/03/11 ver 1.00
+
+(/usr/share/texmf/tex/latex/beamer/translator/translator-language-mappings.tex)
+) (/usr/share/texmf/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks24
+\ex@=\dimen167
+))
+(/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen168
+)
+(/usr/share/texmf/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count135
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count136
+\leftroot@=\count137
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count138
+\DOTSCASE@=\count139
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box49
+\strutbox@=\box50
+\big@size=\dimen169
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count140
+\c@MaxMatrixCols=\count141
+\dotsspace@=\muskip11
+\c@parentequation=\count142
+\dspbrk@lvl=\count143
+\tag@help=\toks25
+\row@=\count144
+\column@=\count145
+\maxfields@=\count146
+\andhelp@=\toks26
+\eqnshift@=\dimen170
+\alignsep@=\dimen171
+\tagshift@=\dimen172
+\tagwidth@=\dimen173
+\totwidth@=\dimen174
+\lineht@=\dimen175
+\@envbody=\toks27
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks28
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf/tex/latex/amscls/amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks29
+\thm@bodyfont=\toks30
+\thm@headfont=\toks31
+\thm@notefont=\toks32
+\thm@headpunct=\toks33
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks34
+)
+\c@theorem=\count147
+)
+(/usr/share/texmf/tex/latex/beamer/beamerbasethemes.sty
+Package: beamerbasethemes 2007/01/28  (rcs-revision 1.10)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerthemedefault.sty
+Package: beamerthemedefault 2007/01/28  (rcs-revision 1.7)
+
+(/usr/share/texmf/tex/latex/beamer/beamerfontthemedefault.sty
+Package: beamerfontthemedefault 2007/01/28  (rcs-revision 1.13)
+)
+(/usr/share/texmf/tex/latex/beamer/beamercolorthemedefault.sty
+Package: beamercolorthemedefault 2007/01/28  (rcs-revision 1.28)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerinnerthemedefault.sty
+Package: beamerinnerthemedefault 2007/01/28  (rcs-revision 1.20)
+\beamer@dima=\dimen176
+\beamer@dimb=\dimen177
+)
+(/usr/share/texmf/tex/latex/beamer/beamerouterthemedefault.sty
+Package: beamerouterthemedefault 2007/01/28  (rcs-revision 1.14)
+)))
+(/usr/share/texmf/tex/latex/beamer/beamerthemeWarsaw.sty
+Package: beamerthemeWarsaw 2007/01/28  (rcs-revision 1.9)
+
+(/usr/share/texmf/tex/latex/beamer/beamerinnerthemerounded.sty
+Package: beamerinnerthemerounded 2007/01/28  (rcs-revision 1.5)
+)
+(/usr/share/texmf/tex/latex/beamer/beamerouterthemeshadow.sty
+Package: beamerouterthemeshadow 2007/01/28  (rcs-revision 1.9)
+
+(/usr/share/texmf/tex/latex/beamer/beamerouterthemesplit.sty
+Package: beamerouterthemesplit 2007/01/28  (rcs-revision 1.5)
+))
+(/usr/share/texmf/tex/latex/beamer/beamercolorthemeorchid.sty
+Package: beamercolorthemeorchid 2007/01/28  (rcs-revision 1.3)
+)
+(/usr/share/texmf/tex/latex/beamer/beamercolorthemewhale.sty
+Package: beamercolorthemewhale 2007/01/28  (rcs-revision 1.4)
+))
+(/usr/share/texmf/tex/latex/beamer/beamerfontthemestructurebold.sty
+Package: beamerfontthemestructurebold 2007/01/28  (rcs-revision 1.3)
+)
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2006/05/05 v1.1b Input encoding file
+\inpenc@prehook=\toks35
+\inpenc@posthook=\toks36
+
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2006/05/05 v1.1b Input encoding file
+))
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texmf/tex/generic/babel/babel.sty
+Package: babel 2005/11/23 v3.8h The Babel package
+
+(/usr/share/texmf/tex/generic/babel/frenchb.ldf
+Language: french 2005/02/06 v1.6g French support from the babel system
+
+(/usr/share/texmf/tex/generic/babel/babel.def
+File: babel.def 2005/11/23 v3.8h Babel common definitions
+LaTeX Info: Redefining \textlatin on input line 82.
+\babel@savecnt=\count148
+\U@D=\dimen178
+)
+Package babel Info: Making : an active character on input line 219.
+Package babel Info: Making ; an active character on input line 220.
+Package babel Info: Making ! an active character on input line 221.
+Package babel Info: Making ? an active character on input line 222.
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 299.
+\parindentFFN=\dimen179
+\std@mcc=\count149
+\dec@mcc=\count150
+
+*************************************
+* Local config file frenchb.cfg used
+*
+(/usr/share/texmf/tex/generic/babel/frenchb.cfg)))
+(/usr/share/texmf/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texmf/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+)
+(/usr/share/texmf/tex/latex/ms/multitoc.sty
+Package: multitoc 1999/06/08 v2.01 MultiToc Package (MS)
+
+(/usr/share/texmf/tex/latex/tools/multicol.sty
+Package: multicol 2006/05/18 v1.6g multicolumn formatting (FMi)
+\c@tracingmulticols=\count151
+\mult@box=\box51
+\multicol@leftmargin=\dimen180
+\c@unbalance=\count152
+\c@collectmore=\count153
+\doublecol@number=\count154
+\multicoltolerance=\count155
+\multicolpretolerance=\count156
+\full@width=\dimen181
+\page@free=\dimen182
+\premulticols=\dimen183
+\postmulticols=\dimen184
+\multicolsep=\skip55
+\multicolbaselineskip=\skip56
+\partial@page=\box52
+\last@line=\box53
+\mult@rightbox=\box54
+\mult@grightbox=\box55
+\mult@gfirstbox=\box56
+\mult@firstbox=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\c@columnbadness=\count157
+\c@finalcolumnbadness=\count158
+\last@try=\dimen185
+\multicolovershoot=\dimen186
+\multicolundershoot=\dimen187
+\mult@nat@firstbox=\box75
+\colbreak@box=\box76
+)
+(/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+))
+(/usr/share/texmf/tex/latex/mdwtools/mdwtab.sty
+Package: mdwtab 1998/04/28 1.9 Table typesetting with style
+\tab@state=\count159
+\tab@columns=\count160
+\tab@preamble=\toks37
+\tab@shortline=\toks38
+\extrarowheight=\dimen188
+\tabextrasep=\dimen189
+\arrayextrasep=\dimen190
+\smarraycolsep=\dimen191
+\smarrayextrasep=\dimen192
+\tab@width=\dimen193
+\col@sep=\dimen194
+\tab@endheight=\dimen195
+\tab@leftskip=\skip57
+\tab@rightskip=\skip58
+\fn@notes=\box77
+\fn@width=\dimen196
+) (./DevelopmentProcess.aux)
+\openout1 = `DevelopmentProcess.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for T1/lmr/m/n on input line 47.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 47.
+
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2006/04/24 v1.2 Font defs for Latin Modern
+)
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 47.
+
+(/usr/share/texmf/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 47.
+-------------------- Geometry parameters
+paper: user defined
+landscape: --
+twocolumn: --
+twoside: --
+asymmetric: --
+h-parts: 28.45274pt, 307.28987pt, 28.45274pt
+v-parts: 0.0pt, 273.14662pt, 0.0pt
+hmarginratio: --
+vmarginratio: --
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: true
+includefoot: true
+includemp: --
+driver: pdftex
+-------------------- Page layout dimensions and switches
+\paperwidth  364.19536pt
+\paperheight 273.14662pt
+\textwidth  307.28987pt
+\textheight 244.6939pt
+\oddsidemargin  -43.81725pt
+\evensidemargin -43.81725pt
+\topmargin  -72.26999pt
+\headheight 14.22636pt
+\headsep    0.0pt
+\footskip   14.22636pt
+\marginparwidth 4.0pt
+\marginparsep   10.0pt
+\columnsep  10.0pt
+\skip\footins  7.0pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+Package hyperref Info: Link coloring OFF on input line 47.
+
+(/usr/share/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+
+(/usr/share/texmf/tex/latex/oberdiek/refcount.sty
+Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
+)
+\c@section@level=\count161
+)
+LaTeX Info: Redefining \ref on input line 47.
+LaTeX Info: Redefining \pageref on input line 47.
+ (./DevelopmentProcess.out)
+(./DevelopmentProcess.out)
+\@outlinefile=\write4
+\openout4 = `DevelopmentProcess.out'.
+
+\AtBeginShipoutBox=\box78
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 47.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 47.
+\symnumbers=\mathgroup6
+\sympureletters=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 47.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> T1/cmss/bx/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> T1/cmss/bx/n on input line 47.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 47.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> T1/cmss/m/it on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> T1/cmss/m/it on input line 47.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 47.
+LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
+(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 47.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
+(Font)                  OT1/cmss/bx/n --> T1/cmr/bx/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  T1/cmss/bx/n --> T1/cmss/bx/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 47.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  T1/cmtt/m/n --> T1/cmtt/bx/n on input line 47.
+
+(/usr/share/texmf/tex/latex/beamer/translator/dicts/translator-theorem-dictiona
+ry/translator-theorem-dictionary-English.dict
+Dictionary: translator-theorem-dictionary, Language: English 
+)
+LaTeX Info: Redefining \dots on input line 47.
+ (./DevelopmentProcess.nav)
+<logoOT.jpg, id=29, 492.84125pt x 513.92pt>
+File: logoOT.jpg Graphic file (type jpg)
+ <use logoOT.jpg>
+
+LaTeX Font Warning: Font shape `T1/cmss/bx/n' in size <4> not available
+(Font)              size <5> substituted on input line 49.
+
+
+LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
+(Font)              size <5> substituted on input line 49.
+
+[1
+
+{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logoOT.jpg>]
+(./DevelopmentProcess.toc) [2
+
+] [3
+
+] [4
+
+] [5
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 130.
+
+(/usr/share/texmf/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2002/01/19 v2.2g AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 130.
+
+(/usr/share/texmf/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2002/01/19 v2.2g AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 130.
+
+
+(/usr/share/texmf/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [6
+
+] [7
+
+] [8
+
+] [9
+
+] [10
+
+] [11
+
+] [12
+
+]
+[13
+
+] [14
+
+] [15
+
+]
+\tf@nav=\write5
+\openout5 = `DevelopmentProcess.nav'.
+
+\tf@toc=\write6
+\openout6 = `DevelopmentProcess.toc'.
+
+\tf@snm=\write7
+\openout7 = `DevelopmentProcess.snm'.
+
+ (./DevelopmentProcess.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.0pt have occurred.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 14591 strings out of 94296
+ 249702 string characters out of 1164100
+ 327512 words of memory out of 4000000
+ 17444 multiletter control sequences out of 10000+50000
+ 15697 words of font info for 42 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 8191
+ 43i,19n,69p,477b,899s stack positions out of 3000i,1500n,5000p,200000b,15000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texmf/
+fonts/type1/public/cm-super/sfsi0800.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfss0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1095.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sfsx0500.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sftt0800.pfb>
+Output written on DevelopmentProcess.pdf (15 pages, 263617 bytes).
+PDF statistics:
+ 498 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 131072)
+ 120 words of extra memory for PDF output out of 10000 (max. 10000000)
+

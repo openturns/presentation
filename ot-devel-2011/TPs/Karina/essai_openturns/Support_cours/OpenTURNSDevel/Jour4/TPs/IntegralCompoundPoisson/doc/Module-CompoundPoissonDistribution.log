@@ -1,0 +1,372 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.1.18)  2 FEB 2011 09:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Module-CompoundPoissonDistribution.tex
+(./Module-CompoundPoissonDistribution.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/share/texmf-texlive/tex/latex/base/latin1.def
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+(/usr/share/texmf-texlive/tex/generic/babel/frenchb.ldf
+Language: frenchb 2009/03/16 v2.3d French support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `French'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@french = a dialect from \language0
+Package babel Info: Making : an active character on input line 120.
+Package babel Info: Making ; an active character on input line 121.
+Package babel Info: Making ! an active character on input line 122.
+Package babel Info: Making ? an active character on input line 123.
+\FB@Mht=\dimen104
+\std@mcc=\count88
+\dec@mcc=\count89
+\parindentFFN=\dimen105
+*************************************
+* Local config file frenchb.cfg used
+*
+(/usr/share/texmf-texlive/tex/generic/babel/frenchb.cfg)))
+(/usr/share/texmf-texlive/tex/latex/carlisle/scalefnt.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks17
+\ex@=\dimen106
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count90
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count91
+\leftroot@=\count92
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count93
+\DOTSCASE@=\count94
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count95
+\c@MaxMatrixCols=\count96
+\dotsspace@=\muskip10
+\c@parentequation=\count97
+\dspbrk@lvl=\count98
+\tag@help=\toks18
+\row@=\count99
+\column@=\count100
+\maxfields@=\count101
+\andhelp@=\toks19
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks20
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/share/texmf-texlive/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+\Gread@gobject=\count102
+))
+\Gin@req@height=\dimen115
+\Gin@req@width=\dimen116
+)
+(/usr/share/texmf-texlive/tex/latex/listings/listings.sty
+\lst@mode=\count103
+\lst@gtempboxa=\box28
+\lst@token=\toks22
+\lst@length=\count104
+\lst@currlwidth=\dimen117
+\lst@column=\count105
+\lst@pos=\count106
+\lst@lostspace=\dimen118
+\lst@width=\dimen119
+\lst@newlines=\count107
+\lst@lineno=\count108
+\lst@maxwidth=\dimen120
+
+(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count109
+\lst@skipnumbers=\count110
+\lst@framebox=\box29
+)
+(/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+(./Module-CompoundPoissonDistribution.aux)
+\openout1 = `Module-CompoundPoissonDistribution.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Info: Redefining \degres on input line 52.
+LaTeX Info: Redefining \dots on input line 52.
+LaTeX Info: Redefining \up on input line 52.
+
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count111
+\scratchdimen=\dimen121
+\scratchbox=\box30
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen122
+\MPnumerator=\count115
+\everyMPtoPDFconversion=\toks24
+)
+\c@lstlisting=\count116
+LaTeX Font Info:    Try loading font information for U+msa on input line 55.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 55.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+<logoOpenTURNS.jpg, id=1, 492.84125pt x 513.92pt>
+File: logoOpenTURNS.jpg Graphic file (type jpg)
+ <use logoOpenTURNS.jpg>
+(./Module-CompoundPoissonDistribution.toc)
+\tf@toc=\write3
+\openout3 = `Module-CompoundPoissonDistribution.toc'.
+
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logoOpenTURNS.jpg>]
+LaTeX Font Info:    Try loading font information for U+bbm on input line 75.
+
+(/usr/share/texmf-texlive/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 119--121
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+
+ []
+
+[3] <figAnp.png, id=29, 303.534pt x 316.18124pt>
+File: figAnp.png Graphic file (type png)
+ <use figAnp.png> [4 <./figAnp.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 223--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+
+ []
+
+
+Overfull \hbox (13.18404pt too wide) in paragraph at lines 240--242
+[]\T1/cmr/m/n/10.95 The re-la-tion (23[]) presents $\OML/cmm/m/it/10.95 mr[]p[]
+$ \T1/cmr/m/n/10.95 as the re-sult of a dis-crete Fast Fourier Trans-form of th
+e suite $\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^^\OT1/cmr/m/n/10.95 (\OML/cm
+m/m/it/10.95 re[]\OT1/cmr/m/n/10.95 ))[]$\T1/cmr/m/n/10.95 . 
+ []
+
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 279--281
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+
+ []
+
+<IntegCompPois_PDF.png, id=46, 1285.80376pt x 1027.84pt>
+File: IntegCompPois_PDF.png Graphic file (type png)
+
+<use IntegCompPois_PDF.png>
+<IntegCompPois_CDF.png, id=47, 1285.80376pt x 1027.84pt>
+File: IntegCompPois_CDF.png Graphic file (type png)
+
+<use IntegCompPois_CDF.png>
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+ []
+
+[8] [9 <./IntegCompPois_PDF.png (PNG copy)> <./IntegCompPois_CDF.png (PNG copy)
+>] [10]
+Overfull \hbox (50.29361pt too wide) in paragraph at lines 554--555
+[]$\OML/cmm/m/it/10.95 IntegralUserDefinedFactory$ \T1/cmr/m/n/10.95 is a stati
+c class which is used through its unique method $\OML/cmm/m/it/10.95 buildImple
+mentation$\T1/cmr/m/n/10.95 . 
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 597--599
+
+ []
+
+[12] [13] [14] [15] (./Module-CompoundPoissonDistribution.aux) ) 
+Here is how much of TeX's memory you used:
+ 4422 strings out of 495061
+ 55349 string characters out of 1182621
+ 126531 words of memory out of 3000000
+ 7546 multiletter control sequences out of 15000+50000
+ 19226 words of font info for 53 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 27i,11n,32p,692b,1532s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/willaum
+e/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1200.600pk> </home/willaume/.texmf
+-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </home/willaume/.texmf-var/fon
+ts/pk/ljfour/public/bbm/bbm10.657pk> </home/willaume/.texmf-var/fonts/pk/ljfour
+/jknappen/ec/ecbx1200.600pk> </home/willaume/.texmf-var/fonts/pk/ljfour/jknappe
+n/ec/ecti1095.600pk> </home/willaume/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
+m1095.600pk> </home/willaume/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.60
+0pk> </home/willaume/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </h
+ome/willaume/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/will
+aume/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
+texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/symbols/msbm10.pfb>
+Output written on Module-CompoundPoissonDistribution.pdf (15 pages, 320566 byte
+s).
+PDF statistics:
+ 407 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+
