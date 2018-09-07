@@ -1,0 +1,50 @@
+from openturns import *
+from openturns.viewer import ViewImage
+from TcDistribution import *
+
+# First, build the elementary duration distributions
+d = list()
+d.append(IntegralUserDefined([1, 2, 4, 7], [0.1, 0.2, 0.3, 0.4]))
+d.append(IntegralUserDefined([2, 3, 5, 9], [0.1, 0.5, 0.2, 0.2]))
+d.append(IntegralUserDefined([1, 2, 10], [0.2, 0.2, 0.6]))
+# Second, build the lambdas
+lambdas = NumericalPoint()
+lambdas.add(0.2)
+lambdas.add(0.3)
+lambdas.add(0.4)
+# Third, build t
+t = 2.5
+# Build the Tc distribution
+myTc = TcDistribution(d, lambdas, t)
+
+
+xMin = -10.0
+xMax = 70.0
+
+# Trace de la loi de Tc
+gPDF = myTc.drawPDF(xMin, xMax)
+
+drawPDF = gPDF.getDrawable(0)
+drawPDF.setLegendName("")
+gPDF.setDrawable(drawPDF,0)
+gPDF.setTitle("Loi de myTc (calcul analytique)")
+gPDF.setXTitle("support de myTc")
+gPDF.setYTitle("poids du support")
+Show(gPDF)
+gPDF.draw("myTc_PDF")
+
+# Trace de la CDF de Tc
+gCDF = myTc.drawCDF(xMin, xMax)
+
+drawCDF = gCDF.getDrawable(0)
+drawCDF.setLegendName("")
+gCDF.setDrawable(drawCDF,0)
+gCDF.setTitle("CDF de myTc (calcul analytique)")
+gCDF.setXTitle("support de myTc")
+gCDF.setYTitle("CDF")
+Show(gCDF)
+gCDF.draw("myTc_CDF")
+
+print "poids de la valeur ", 5, "=", myTc.computePDF(5)
+
+print "CDF en ", 5, "=", myTc.computeCDF(5)

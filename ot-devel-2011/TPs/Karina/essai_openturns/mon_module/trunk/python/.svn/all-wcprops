@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/openturns-modules/!svn/ver/5/template/trunk/python
+END
+MyClass.i
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/openturns-modules/!svn/ver/4/template/trunk/python/MyClass.i
+END
+myclass.i
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/openturns-modules/!svn/ver/4/template/trunk/python/myclass.i
+END
+myclass.pth
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/openturns-modules/!svn/ver/4/template/trunk/python/myclass.pth
+END
+MyClassImplementation.i
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/openturns-modules/!svn/ver/4/template/trunk/python/MyClassImplementation.i
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/openturns-modules/!svn/ver/5/template/trunk/python/Makefile.am
+END

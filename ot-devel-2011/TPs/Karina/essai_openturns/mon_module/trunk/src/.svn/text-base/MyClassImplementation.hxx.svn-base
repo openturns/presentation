@@ -1,0 +1,68 @@
+//                                               -*- C++ -*-
+/**
+ *  @file  MyClassImplementation.hxx
+ *  @brief MyClassImplementation is some myclass type to illustrate how to add some classes in Open TURNS
+ *
+ *  (C) Copyright 2005-2007 EDF-EADS-Phimeca
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License.
+ *
+ *  This library is distributed in the hope that it will be useful
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+ *
+ *  @author: $LastChangedBy$
+ *  @date:   $LastChangedDate: 2008-10-31 11:52:04 +0100 (Fri, 31 Oct 2008) $
+ *  Id:      $Id: MyClassImplementation.hxx 995 2008-10-31 10:52:04Z dutka $
+ */
+#ifndef MYCLASS_MYCLASSIMPLEMENTATION_HXX
+#define MYCLASS_MYCLASSIMPLEMENTATION_HXX
+
+#include "PersistentObject.hxx"
+#include "StorageManager.hxx"
+
+namespace MyClass {
+
+  /**
+   * @class MyClassImplementation
+   *
+   * MyClassImplementation is some myclass type to illustrate how to add some classes in Open TURNS
+   */
+  class MyClassImplementation
+    : public OT::Base::Common::PersistentObject
+  {
+    CLASSNAME;
+
+  public:
+    typedef OT::Base::Common::StorageManager StorageManager;
+
+    /** Default constructor */
+    MyClassImplementation();
+
+    /** Virtual constructor method */
+    MyClassImplementation * clone() const;
+	
+    /** String converter */
+    OT::String str() const;
+
+    /** Method save() stores the object through the StorageManager */
+    virtual void save(const StorageManager::Advocate & adv) const;
+
+    /** Method load() reloads the object from the StorageManager */
+    virtual void load(const StorageManager::Advocate & adv);
+
+  private:
+
+  }; /* class MyClassImplementation */
+
+} /* Namespace MyClass */
+
+#endif /* MYCLASS_MYCLASSIMPLEMENTATION_HXX */

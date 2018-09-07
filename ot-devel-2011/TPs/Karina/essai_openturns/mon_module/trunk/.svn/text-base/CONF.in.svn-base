@@ -1,0 +1,10 @@
+# CONF : configuration file for extra module
+# Only lines following the regexp "^keyword: value" are meaningful
+//keyword: value
+
+# The name of the package as referenced by other packages for dependency tracking
+# and by python for module importation
+name: @PACKAGE@
+
+# The list of packages (one per line) that needs to be installed before installing this one
+//needs: package

@@ -1,0 +1,14 @@
+AT_SETUP([IntegralUserDefined])
+
+AT_KEYWORDS([std Uncertainty Distribution IntegralUserDefined])
+
+#AT_TESTED([t_IntegralUserDefined_std])
+
+AT_CHECK([cp $abs_srcdir/t_IntegralUserDefined_std.expout expout],[0],[ignore],[ignore])
+
+AT_CHECK([t_IntegralUserDefined_std],
+         [0],
+         [expout],
+         [ignore])
+
+AT_CLEANUP

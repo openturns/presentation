@@ -1,0 +1,10 @@
+(python)
+
+ Debug level is message
+
+ Support for          is
+ -----------------------------
+  Python               OK
+  SWIG                 OK
+  Doxygen              OK
+  dot                  OK

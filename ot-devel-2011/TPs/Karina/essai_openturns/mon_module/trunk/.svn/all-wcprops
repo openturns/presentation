@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/openturns-modules/!svn/ver/7/template/trunk
+END
+customize
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/openturns-modules/!svn/ver/4/template/trunk/customize
+END
+configure.ac
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/openturns-modules/!svn/ver/7/template/trunk/configure.ac
+END
+AUTHORS
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/openturns-modules/!svn/ver/4/template/trunk/AUTHORS
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/openturns-modules/!svn/ver/4/template/trunk/TODO
+END
+INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/openturns-modules/!svn/ver/4/template/trunk/INSTALL
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/openturns-modules/!svn/ver/4/template/trunk/ChangeLog
+END
+Doxyfile.in
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/openturns-modules/!svn/ver/4/template/trunk/Doxyfile.in
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/openturns-modules/!svn/ver/4/template/trunk/COPYING
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/openturns-modules/!svn/ver/4/template/trunk/Makefile.am
+END
+CONF.in
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/openturns-modules/!svn/ver/4/template/trunk/CONF.in
+END
+NEWS
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/openturns-modules/!svn/ver/4/template/trunk/NEWS
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/openturns-modules/!svn/ver/4/template/trunk/README
+END
+bootstrap
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/openturns-modules/!svn/ver/4/template/trunk/bootstrap
+END

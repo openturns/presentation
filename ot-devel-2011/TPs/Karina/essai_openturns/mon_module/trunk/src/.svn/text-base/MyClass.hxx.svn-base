@@ -1,0 +1,62 @@
+//                                               -*- C++ -*-
+/**
+ *  @file  MyClass.hxx
+ *  @brief MyClass is some myclass type to illustrate how to add some classes in Open TURNS
+ *
+ *  (C) Copyright 2005-2007 EDF-EADS-Phimeca
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License.
+ *
+ *  This library is distributed in the hope that it will be useful
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+ *
+ *  @author: $LastChangedBy$
+ *  @date:   $LastChangedDate: 2008-10-31 11:52:04 +0100 (Fri, 31 Oct 2008) $
+ *  Id:      $Id: MyClass.hxx 995 2008-10-31 10:52:04Z dutka $
+ */
+#ifndef MYCLASS_MYCLASS_HXX
+#define MYCLASS_MYCLASS_HXX
+
+#include "TypedInterfaceObject.hxx"
+#include "StorageManager.hxx"
+
+namespace MyClass {
+
+  /* forward declaration */
+  class MyClassImplementation;
+
+  /**
+   * @class MyClass
+   *
+   * MyClass is some myclass type to illustrate how to add some classes in Open TURNS
+   */
+  class MyClass
+    : public OT::Base::Common::TypedInterfaceObject<MyClassImplementation>
+  {
+    CLASSNAME;
+
+  public:
+    typedef OT::Base::Common::StorageManager             StorageManager;
+
+    /** Default constructor */
+    MyClass();
+
+    /** String converter */
+    OT::String str() const;
+
+  private:
+
+  }; /* class MyClass */
+
+} /* Namespace MyClass */
+
+#endif /* MYCLASS_MYCLASS_HXX */

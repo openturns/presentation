@@ -1,0 +1,19 @@
+#                                               -*- Autotest -*-
+#
+#  atconfig.in
+#
+#  (C) Copyright 2005-2010 EDF
+#
+#  Permission to copy, use, modify, sell and distribute this software
+#  is granted provided this copyright notice appears in all copies.
+#  This software is provided "as is" without express or implied
+#  warranty, and with no claim as to its suitability for any purpose.
+#
+#
+#  Author : $LastChangedBy: dutka $
+#  Date : $LastChangedDate: 2006-11-30 12:12:22 +0100 (Thu, 30 Nov 2006) $
+#  Id : $Id: atlocal.in 244 2006-11-30 11:12:22Z dutka $
+#
+#  Process this file with autoconf to produce a autotest script.
+#
+

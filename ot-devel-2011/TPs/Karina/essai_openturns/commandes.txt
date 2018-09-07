@@ -1,0 +1,32 @@
+Pour une compil accelere:
+-------------------------
+make -j4 
+
+Pour compiler en particulier:
+-----------------------------
+g++ -I /usr/include/openturns/ -I /usr/include/libxml2/ -I /home/macocco/openturns-0.13.2/lib/src/Uncertainty/Distribution/ t_FisherSnedecor_std.cxx -L/home/macocco/openturns-0.13.2/build/lib/src/.libs -lOT -lxml2 -o t_FisherSnedecor_std
+
+Pour executer en particulier:
+-----------------------------
+LD_LIBRARY_PATH=/home/macocco/openturns-0.13.2/build/lib/src/.libs ./t_FisherSnedecor_std 
+
+Pour executer en particulier:
+-----------------------------
+make check CHECKTESTSUITE_FLAGS='139'
+
+
+La reference en non-regression se trouve dans le repertoire 
+-----------------------------------------------------------
+lib/test/check_testsuite/139/check_testsuite.log
+
+
+Pour la partie python dans le répertoire build/python
+-----------------------------------------------------
+make install
+make installcheck
+
+Attention si debian supprimer les packages de openturns.
+
+PYTHONPATH=/home/macocco/essai_openturns/openturns-0.13.2/build/install/lib/python2.6/site-packages/ python valid_FisherSnedecor.py
+
+PYTHONPATH=/home/macocco/essai_openturns/openturns-0.13.2/build/install/lib/python2.6/site-packages/ python t_FisherSnedecor.py

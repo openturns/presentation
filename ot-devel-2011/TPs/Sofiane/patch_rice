@@ -1,0 +1,1593 @@
+Index: python/test/t_NonCentralChiSquare_std.expout
+===================================================================
+--- python/test/t_NonCentralChiSquare_std.expout	(révision 1842)
++++ python/test/t_NonCentralChiSquare_std.expout	(copie de travail)
+@@ -1,10 +1,10 @@
+ Distribution  class=NonCentralChiSquare name=NonCentralChiSquare dimension=1 nu=1.5 lambda=2.5
+ Elliptical =  False
+ Continuous =  True
+-oneRealization= class=NumericalPoint name=Unnamed dimension=1 values=[6.91696]
+-oneSample first= class=NumericalPoint name=Unnamed dimension=1 values=[2.55156]  last= class=NumericalPoint name=Unnamed dimension=1 values=[3.97974]
+-mean= class=NumericalPoint name=Unnamed dimension=1 values=[2.73861]
+-covariance= class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[6.51666]
++oneRealization= class=NumericalPoint name=Unnamed dimension=1 values=[5.14874]
++oneSample first= class=NumericalPoint name=Unnamed dimension=1 values=[10.3181]  last= class=NumericalPoint name=Unnamed dimension=1 values=[3.44075]
++mean= class=NumericalPoint name=Unnamed dimension=1 values=[4.01363]
++covariance= class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[12.6416]
+ Point=  class=NumericalPoint name=Unnamed dimension=1 values=[1]
+ ddf     = class=NumericalPoint name=Unnamed dimension=1 values=[-0.0277166]
+ ddf (FD)= class=NumericalPoint name=Unnamed dimension=1 values=[-0.0277166]
+Index: python/test/t_Rice_std.expout
+===================================================================
+--- python/test/t_Rice_std.expout	(révision 0)
++++ python/test/t_Rice_std.expout	(révision 0)
+@@ -0,0 +1,24 @@
++Distribution  class=Rice name=Rice dimension=1 sigma=5 nu=4
++Elliptical =  False
++Continuous =  True
++oneRealization= class=NumericalPoint name=Unnamed dimension=1 values=[8.76728]
++oneSample first= class=NumericalPoint name=Unnamed dimension=1 values=[13.769]  last= class=NumericalPoint name=Unnamed dimension=1 values=[18.2056]
++mean= class=NumericalPoint name=Unnamed dimension=1 values=[7.24923]
++covariance= class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[13.4599]
++Point=  class=NumericalPoint name=Unnamed dimension=1 values=[1]
++pdf     = 0.0286533178617
++pdf (FD)= 0.028653318
++cdf= 0.0144246216851
++characteristic function= (-0.0317197572683-9.42295870783e-06j)
++pdf gradient (FD)= class=NumericalPoint name=Unnamed dimension=2 values=[-0.0153695,-0.029342]
++cdf gradient (FD)= class=NumericalPoint name=Unnamed dimension=2 values=[-0.00784159,-0.0151443]
++quantile= class=NumericalPoint name=Unnamed dimension=1 values=[13.9273]
++cdf(quantile)= 0.95
++mean= class=NumericalPoint name=Unnamed dimension=1 values=[7.23115]
++covariance= class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[13.7104]
++parameters= [class=NumericalPointWithDescription name=marginal 1 dimension=2 description=[sigma,nu] values=[5,4]]
++nu= 4.0
++standard deviation= class=NumericalPoint name=Unnamed dimension=1 values=[3.70276]
++skewness= class=NumericalPoint name=Unnamed dimension=1 values=[0.569607]
++kurtosis= class=NumericalPoint name=Unnamed dimension=1 values=[3.10633]
++sigma= 5.0
+Index: python/test/t_DistFunc_noncentralchisquare.expout
+===================================================================
+--- python/test/t_DistFunc_noncentralchisquare.expout	(révision 1842)
++++ python/test/t_DistFunc_noncentralchisquare.expout	(copie de travail)
+@@ -248,128 +248,128 @@
+ pNonCentralChiSquare( 5.0 ,  5.0 ,  0.5 )=0.000768256 , complementary=0.999232
+ pNonCentralChiSquare( 5.0 ,  5.0 ,  0.7 )=0.00177404 , complementary=0.998226
+ pNonCentralChiSquare( 5.0 ,  5.0 ,  0.9 )=0.0033069 , complementary=0.996693
+-rNonCentralChiSquare( 0.2 ,  0.2 )=3.4903
+-rNonCentralChiSquare( 0.2 ,  0.2 )=0.260734
+-rNonCentralChiSquare( 0.2 ,  0.2 )=1.29071e-10
+-rNonCentralChiSquare( 0.2 ,  0.2 )=0.876167
+-rNonCentralChiSquare( 0.2 ,  0.2 )=0.274177
+-rNonCentralChiSquare( 0.2 ,  1.4 )=0.724046
+-rNonCentralChiSquare( 0.2 ,  1.4 )=3.19873
+-rNonCentralChiSquare( 0.2 ,  1.4 )=0.292373
+-rNonCentralChiSquare( 0.2 ,  1.4 )=0.100142
+-rNonCentralChiSquare( 0.2 ,  1.4 )=2.60677
+-rNonCentralChiSquare( 0.2 ,  2.6 )=1.79275
+-rNonCentralChiSquare( 0.2 ,  2.6 )=1.41723
+-rNonCentralChiSquare( 0.2 ,  2.6 )=0.115991
+-rNonCentralChiSquare( 0.2 ,  2.6 )=0.848327
+-rNonCentralChiSquare( 0.2 ,  2.6 )=0.768144
+-rNonCentralChiSquare( 0.2 ,  3.8 )=0.00675226
+-rNonCentralChiSquare( 0.2 ,  3.8 )=2.41056
+-rNonCentralChiSquare( 0.2 ,  3.8 )=2.27925
+-rNonCentralChiSquare( 0.2 ,  3.8 )=2.90574
+-rNonCentralChiSquare( 0.2 ,  3.8 )=0.908695
+-rNonCentralChiSquare( 0.2 ,  5.0 )=0.16298
+-rNonCentralChiSquare( 0.2 ,  5.0 )=2.31141
+-rNonCentralChiSquare( 0.2 ,  5.0 )=0.335075
+-rNonCentralChiSquare( 0.2 ,  5.0 )=0.336471
+-rNonCentralChiSquare( 0.2 ,  5.0 )=1.76228
+-rNonCentralChiSquare( 1.4 ,  0.2 )=0.851088
+-rNonCentralChiSquare( 1.4 ,  0.2 )=8.51938
+-rNonCentralChiSquare( 1.4 ,  0.2 )=0.0427146
+-rNonCentralChiSquare( 1.4 ,  0.2 )=3.77044
+-rNonCentralChiSquare( 1.4 ,  0.2 )=1.16183
+-rNonCentralChiSquare( 1.4 ,  1.4 )=0.027216
+-rNonCentralChiSquare( 1.4 ,  1.4 )=1.62713
+-rNonCentralChiSquare( 1.4 ,  1.4 )=0.16583
+-rNonCentralChiSquare( 1.4 ,  1.4 )=1.65282
+-rNonCentralChiSquare( 1.4 ,  1.4 )=1.78949
+-rNonCentralChiSquare( 1.4 ,  2.6 )=0.372631
+-rNonCentralChiSquare( 1.4 ,  2.6 )=1.50822
+-rNonCentralChiSquare( 1.4 ,  2.6 )=7.48336
+-rNonCentralChiSquare( 1.4 ,  2.6 )=2.66778
+-rNonCentralChiSquare( 1.4 ,  2.6 )=0.155533
+-rNonCentralChiSquare( 1.4 ,  3.8 )=2.7425
+-rNonCentralChiSquare( 1.4 ,  3.8 )=0.41058
+-rNonCentralChiSquare( 1.4 ,  3.8 )=2.85484
+-rNonCentralChiSquare( 1.4 ,  3.8 )=0.13203
+-rNonCentralChiSquare( 1.4 ,  3.8 )=0.255706
+-rNonCentralChiSquare( 1.4 ,  5.0 )=8.90784
+-rNonCentralChiSquare( 1.4 ,  5.0 )=2.56048
+-rNonCentralChiSquare( 1.4 ,  5.0 )=2.17985
+-rNonCentralChiSquare( 1.4 ,  5.0 )=1.62126
+-rNonCentralChiSquare( 1.4 ,  5.0 )=6.14318
+-rNonCentralChiSquare( 2.6 ,  0.2 )=0.512605
+-rNonCentralChiSquare( 2.6 ,  0.2 )=12.0828
+-rNonCentralChiSquare( 2.6 ,  0.2 )=4.81616
+-rNonCentralChiSquare( 2.6 ,  0.2 )=0.611605
+-rNonCentralChiSquare( 2.6 ,  0.2 )=1.07009
+-rNonCentralChiSquare( 2.6 ,  1.4 )=4.08848
+-rNonCentralChiSquare( 2.6 ,  1.4 )=5.61948
+-rNonCentralChiSquare( 2.6 ,  1.4 )=4.16086
+-rNonCentralChiSquare( 2.6 ,  1.4 )=0.662028
+-rNonCentralChiSquare( 2.6 ,  1.4 )=3.03797
+-rNonCentralChiSquare( 2.6 ,  2.6 )=6.74168
+-rNonCentralChiSquare( 2.6 ,  2.6 )=3.62108
+-rNonCentralChiSquare( 2.6 ,  2.6 )=1.50662
+-rNonCentralChiSquare( 2.6 ,  2.6 )=4.44476
+-rNonCentralChiSquare( 2.6 ,  2.6 )=3.7592
+-rNonCentralChiSquare( 2.6 ,  3.8 )=8.92263
+-rNonCentralChiSquare( 2.6 ,  3.8 )=3.35365
+-rNonCentralChiSquare( 2.6 ,  3.8 )=7.34716
+-rNonCentralChiSquare( 2.6 ,  3.8 )=2.55406
+-rNonCentralChiSquare( 2.6 ,  3.8 )=0.410979
+-rNonCentralChiSquare( 2.6 ,  5.0 )=9.12305
+-rNonCentralChiSquare( 2.6 ,  5.0 )=7.76738
+-rNonCentralChiSquare( 2.6 ,  5.0 )=2.78131
+-rNonCentralChiSquare( 2.6 ,  5.0 )=2.54366
+-rNonCentralChiSquare( 2.6 ,  5.0 )=3.32312
+-rNonCentralChiSquare( 3.8 ,  0.2 )=5.17522
+-rNonCentralChiSquare( 3.8 ,  0.2 )=1.68226
+-rNonCentralChiSquare( 3.8 ,  0.2 )=5.3288
+-rNonCentralChiSquare( 3.8 ,  0.2 )=6.2677
+-rNonCentralChiSquare( 3.8 ,  0.2 )=5.11757
+-rNonCentralChiSquare( 3.8 ,  1.4 )=8.9785
+-rNonCentralChiSquare( 3.8 ,  1.4 )=4.68758
+-rNonCentralChiSquare( 3.8 ,  1.4 )=0.541685
+-rNonCentralChiSquare( 3.8 ,  1.4 )=2.42757
+-rNonCentralChiSquare( 3.8 ,  1.4 )=3.2973
+-rNonCentralChiSquare( 3.8 ,  2.6 )=4.91978
+-rNonCentralChiSquare( 3.8 ,  2.6 )=11.7179
+-rNonCentralChiSquare( 3.8 ,  2.6 )=3.91239
+-rNonCentralChiSquare( 3.8 ,  2.6 )=9.63329
+-rNonCentralChiSquare( 3.8 ,  2.6 )=8.43166
+-rNonCentralChiSquare( 3.8 ,  3.8 )=4.4972
+-rNonCentralChiSquare( 3.8 ,  3.8 )=4.82369
+-rNonCentralChiSquare( 3.8 ,  3.8 )=9.2884
+-rNonCentralChiSquare( 3.8 ,  3.8 )=11.1414
+-rNonCentralChiSquare( 3.8 ,  3.8 )=7.3818
+-rNonCentralChiSquare( 3.8 ,  5.0 )=4.01663
+-rNonCentralChiSquare( 3.8 ,  5.0 )=6.69929
+-rNonCentralChiSquare( 3.8 ,  5.0 )=13.5755
+-rNonCentralChiSquare( 3.8 ,  5.0 )=4.33059
+-rNonCentralChiSquare( 3.8 ,  5.0 )=9.94492
+-rNonCentralChiSquare( 5.0 ,  0.2 )=4.1096
+-rNonCentralChiSquare( 5.0 ,  0.2 )=7.48841
+-rNonCentralChiSquare( 5.0 ,  0.2 )=8.89536
+-rNonCentralChiSquare( 5.0 ,  0.2 )=9.33688
+-rNonCentralChiSquare( 5.0 ,  0.2 )=3.32268
+-rNonCentralChiSquare( 5.0 ,  1.4 )=10.4751
+-rNonCentralChiSquare( 5.0 ,  1.4 )=2.39122
+-rNonCentralChiSquare( 5.0 ,  1.4 )=4.61347
+-rNonCentralChiSquare( 5.0 ,  1.4 )=2.87089
+-rNonCentralChiSquare( 5.0 ,  1.4 )=2.92552
+-rNonCentralChiSquare( 5.0 ,  2.6 )=11.3926
+-rNonCentralChiSquare( 5.0 ,  2.6 )=9.02266
+-rNonCentralChiSquare( 5.0 ,  2.6 )=4.37911
+-rNonCentralChiSquare( 5.0 ,  2.6 )=6.37773
+-rNonCentralChiSquare( 5.0 ,  2.6 )=2.36229
+-rNonCentralChiSquare( 5.0 ,  3.8 )=3.42945
+-rNonCentralChiSquare( 5.0 ,  3.8 )=11.4611
+-rNonCentralChiSquare( 5.0 ,  3.8 )=8.38095
+-rNonCentralChiSquare( 5.0 ,  3.8 )=3.55157
+-rNonCentralChiSquare( 5.0 ,  3.8 )=11.1244
+-rNonCentralChiSquare( 5.0 ,  5.0 )=4.60208
+-rNonCentralChiSquare( 5.0 ,  5.0 )=8.33619
+-rNonCentralChiSquare( 5.0 ,  5.0 )=4.71801
+-rNonCentralChiSquare( 5.0 ,  5.0 )=5.93797
+-rNonCentralChiSquare( 5.0 ,  5.0 )=3.91235
++rNonCentralChiSquare( 0.2 ,  0.2 )=0.0612653
++rNonCentralChiSquare( 0.2 ,  0.2 )=4.76134
++rNonCentralChiSquare( 0.2 ,  0.2 )=0.038133
++rNonCentralChiSquare( 0.2 ,  0.2 )=1.71477e-05
++rNonCentralChiSquare( 0.2 ,  0.2 )=0.000417952
++rNonCentralChiSquare( 0.2 ,  1.4 )=0.00325601
++rNonCentralChiSquare( 0.2 ,  1.4 )=2.07897
++rNonCentralChiSquare( 0.2 ,  1.4 )=0.0239742
++rNonCentralChiSquare( 0.2 ,  1.4 )=0.0361934
++rNonCentralChiSquare( 0.2 ,  1.4 )=0.561101
++rNonCentralChiSquare( 0.2 ,  2.6 )=0.608614
++rNonCentralChiSquare( 0.2 ,  2.6 )=2.47661
++rNonCentralChiSquare( 0.2 ,  2.6 )=5.28009
++rNonCentralChiSquare( 0.2 ,  2.6 )=3.31977
++rNonCentralChiSquare( 0.2 ,  2.6 )=2.93009
++rNonCentralChiSquare( 0.2 ,  3.8 )=0.934387
++rNonCentralChiSquare( 0.2 ,  3.8 )=9.20111
++rNonCentralChiSquare( 0.2 ,  3.8 )=6.10443
++rNonCentralChiSquare( 0.2 ,  3.8 )=11.642
++rNonCentralChiSquare( 0.2 ,  3.8 )=1.06002
++rNonCentralChiSquare( 0.2 ,  5.0 )=3.14006
++rNonCentralChiSquare( 0.2 ,  5.0 )=3.85811
++rNonCentralChiSquare( 0.2 ,  5.0 )=5.44288
++rNonCentralChiSquare( 0.2 ,  5.0 )=16.3424
++rNonCentralChiSquare( 0.2 ,  5.0 )=9.41437
++rNonCentralChiSquare( 1.4 ,  0.2 )=0.26634
++rNonCentralChiSquare( 1.4 ,  0.2 )=2.37055
++rNonCentralChiSquare( 1.4 ,  0.2 )=3.48665
++rNonCentralChiSquare( 1.4 ,  0.2 )=0.89323
++rNonCentralChiSquare( 1.4 ,  0.2 )=1.79408
++rNonCentralChiSquare( 1.4 ,  1.4 )=0.0821739
++rNonCentralChiSquare( 1.4 ,  1.4 )=2.20005
++rNonCentralChiSquare( 1.4 ,  1.4 )=3.39576
++rNonCentralChiSquare( 1.4 ,  1.4 )=1.23198
++rNonCentralChiSquare( 1.4 ,  1.4 )=0.991647
++rNonCentralChiSquare( 1.4 ,  2.6 )=0.375739
++rNonCentralChiSquare( 1.4 ,  2.6 )=6.61233
++rNonCentralChiSquare( 1.4 ,  2.6 )=2.81355
++rNonCentralChiSquare( 1.4 ,  2.6 )=8.49984
++rNonCentralChiSquare( 1.4 ,  2.6 )=1.07351
++rNonCentralChiSquare( 1.4 ,  3.8 )=4.59694
++rNonCentralChiSquare( 1.4 ,  3.8 )=8.596
++rNonCentralChiSquare( 1.4 ,  3.8 )=4.46206
++rNonCentralChiSquare( 1.4 ,  3.8 )=6.91333
++rNonCentralChiSquare( 1.4 ,  3.8 )=7.15488
++rNonCentralChiSquare( 1.4 ,  5.0 )=2.46596
++rNonCentralChiSquare( 1.4 ,  5.0 )=0.350294
++rNonCentralChiSquare( 1.4 ,  5.0 )=2.41434
++rNonCentralChiSquare( 1.4 ,  5.0 )=1.12
++rNonCentralChiSquare( 1.4 ,  5.0 )=4.45259
++rNonCentralChiSquare( 2.6 ,  0.2 )=1.08586
++rNonCentralChiSquare( 2.6 ,  0.2 )=1.68427
++rNonCentralChiSquare( 2.6 ,  0.2 )=0.955528
++rNonCentralChiSquare( 2.6 ,  0.2 )=10.587
++rNonCentralChiSquare( 2.6 ,  0.2 )=3.40341
++rNonCentralChiSquare( 2.6 ,  1.4 )=1.00498
++rNonCentralChiSquare( 2.6 ,  1.4 )=3.55186
++rNonCentralChiSquare( 2.6 ,  1.4 )=3.70253
++rNonCentralChiSquare( 2.6 ,  1.4 )=4.49896
++rNonCentralChiSquare( 2.6 ,  1.4 )=4.58234
++rNonCentralChiSquare( 2.6 ,  2.6 )=5.95968
++rNonCentralChiSquare( 2.6 ,  2.6 )=1.0963
++rNonCentralChiSquare( 2.6 ,  2.6 )=0.981728
++rNonCentralChiSquare( 2.6 ,  2.6 )=2.7402
++rNonCentralChiSquare( 2.6 ,  2.6 )=6.14636
++rNonCentralChiSquare( 2.6 ,  3.8 )=1.09154
++rNonCentralChiSquare( 2.6 ,  3.8 )=8.64628
++rNonCentralChiSquare( 2.6 ,  3.8 )=0.0890308
++rNonCentralChiSquare( 2.6 ,  3.8 )=8.45384
++rNonCentralChiSquare( 2.6 ,  3.8 )=13.5536
++rNonCentralChiSquare( 2.6 ,  5.0 )=9.99927
++rNonCentralChiSquare( 2.6 ,  5.0 )=1.86201
++rNonCentralChiSquare( 2.6 ,  5.0 )=10.1853
++rNonCentralChiSquare( 2.6 ,  5.0 )=4.2474
++rNonCentralChiSquare( 2.6 ,  5.0 )=7.71897
++rNonCentralChiSquare( 3.8 ,  0.2 )=4.19774
++rNonCentralChiSquare( 3.8 ,  0.2 )=2.88942
++rNonCentralChiSquare( 3.8 ,  0.2 )=10.1338
++rNonCentralChiSquare( 3.8 ,  0.2 )=3.30303
++rNonCentralChiSquare( 3.8 ,  0.2 )=0.721482
++rNonCentralChiSquare( 3.8 ,  1.4 )=6.08327
++rNonCentralChiSquare( 3.8 ,  1.4 )=9.54997
++rNonCentralChiSquare( 3.8 ,  1.4 )=5.78148
++rNonCentralChiSquare( 3.8 ,  1.4 )=0.630014
++rNonCentralChiSquare( 3.8 ,  1.4 )=5.81862
++rNonCentralChiSquare( 3.8 ,  2.6 )=7.27571
++rNonCentralChiSquare( 3.8 ,  2.6 )=0.975429
++rNonCentralChiSquare( 3.8 ,  2.6 )=6.61349
++rNonCentralChiSquare( 3.8 ,  2.6 )=6.98297
++rNonCentralChiSquare( 3.8 ,  2.6 )=3.25552
++rNonCentralChiSquare( 3.8 ,  3.8 )=0.767204
++rNonCentralChiSquare( 3.8 ,  3.8 )=3.36333
++rNonCentralChiSquare( 3.8 ,  3.8 )=3.57949
++rNonCentralChiSquare( 3.8 ,  3.8 )=4.263
++rNonCentralChiSquare( 3.8 ,  3.8 )=2.89343
++rNonCentralChiSquare( 3.8 ,  5.0 )=4.22781
++rNonCentralChiSquare( 3.8 ,  5.0 )=12.4908
++rNonCentralChiSquare( 3.8 ,  5.0 )=9.15028
++rNonCentralChiSquare( 3.8 ,  5.0 )=4.54976
++rNonCentralChiSquare( 3.8 ,  5.0 )=12.439
++rNonCentralChiSquare( 5.0 ,  0.2 )=1.69273
++rNonCentralChiSquare( 5.0 ,  0.2 )=2.81985
++rNonCentralChiSquare( 5.0 ,  0.2 )=7.24405
++rNonCentralChiSquare( 5.0 ,  0.2 )=11.4825
++rNonCentralChiSquare( 5.0 ,  0.2 )=2.01198
++rNonCentralChiSquare( 5.0 ,  1.4 )=2.97689
++rNonCentralChiSquare( 5.0 ,  1.4 )=4.89329
++rNonCentralChiSquare( 5.0 ,  1.4 )=3.70067
++rNonCentralChiSquare( 5.0 ,  1.4 )=4.16863
++rNonCentralChiSquare( 5.0 ,  1.4 )=11.0268
++rNonCentralChiSquare( 5.0 ,  2.6 )=2.48859
++rNonCentralChiSquare( 5.0 ,  2.6 )=6.32029
++rNonCentralChiSquare( 5.0 ,  2.6 )=5.56539
++rNonCentralChiSquare( 5.0 ,  2.6 )=9.47491
++rNonCentralChiSquare( 5.0 ,  2.6 )=13.9559
++rNonCentralChiSquare( 5.0 ,  3.8 )=10.361
++rNonCentralChiSquare( 5.0 ,  3.8 )=1.09388
++rNonCentralChiSquare( 5.0 ,  3.8 )=5.42167
++rNonCentralChiSquare( 5.0 ,  3.8 )=11.1485
++rNonCentralChiSquare( 5.0 ,  3.8 )=12.514
++rNonCentralChiSquare( 5.0 ,  5.0 )=11.3336
++rNonCentralChiSquare( 5.0 ,  5.0 )=6.2603
++rNonCentralChiSquare( 5.0 ,  5.0 )=14.7487
++rNonCentralChiSquare( 5.0 ,  5.0 )=11.6438
++rNonCentralChiSquare( 5.0 ,  5.0 )=12.4474
+Index: python/test/t_Rice_std.py
+===================================================================
+--- python/test/t_Rice_std.py	(révision 0)
++++ python/test/t_Rice_std.py	(révision 0)
+@@ -0,0 +1,83 @@
++#! /usr/bin/env python
++# -*- coding: iso-8859-15 -*-
++
++from openturns import *
++
++TESTPREAMBLE()
++RandomGenerator().SetSeed(0)
++
++try :
++    # Instanciate one distribution object
++    distribution = Rice(5, 4)
++    print "Distribution ", distribution
++
++    # Is this distribution elliptical ?
++    print "Elliptical = ", distribution.isElliptical()
++
++    # Is this distribution continuous ?
++    print "Continuous = ", distribution.isContinuous()
++
++    # Test for realization of distribution
++    oneRealization = distribution.getRealization()
++    print "oneRealization=", repr(oneRealization)
++
++    # Test for sampling
++    size = 10000
++    oneSample = distribution.getNumericalSample( size )
++    print "oneSample first=", repr(oneSample[0]), " last=", repr(oneSample[size - 1])
++    print "mean=", repr(oneSample.computeMean())
++    print "covariance=", repr(oneSample.computeCovariance())
++
++    # Define a point
++    point = NumericalPoint( distribution.getDimension(), 1.0 )
++    print "Point= ", repr(point)
++
++    # Show PDF and CDF of point
++    eps = 1e-5
++    PDF = distribution.computePDF( point )
++    print "pdf     =", PDF
++    print "pdf (FD)= %.9f" % ( (distribution.computeCDF( point + NumericalPoint(1, eps) ) - distribution.computeCDF( point  + NumericalPoint(1, -eps) )) / (2.0 * eps), )
++    CDF = distribution.computeCDF( point )
++    print "cdf=", CDF
++    CF = distribution.computeCharacteristicFunction( point[0] )
++    print "characteristic function=", CF
++    PDFgrFD = NumericalPoint(2)
++    PDFgrFD[0] = (Rice(distribution.getSigma() + eps).computePDF(point) -
++                  Rice(distribution.getSigma() - eps).computePDF(point)) / (2.0 * eps);
++                  
++    PDFgrFD[1] = (Rice(distribution.getNu() + eps).computePDF(point) -
++                  Rice(distribution.getNu() - eps).computePDF(point)) / (2.0 * eps);
++    print "pdf gradient (FD)=", repr(PDFgrFD)
++    CDFgrFD = NumericalPoint(2)
++    CDFgrFD[0] = (Rice(distribution.getSigma() + eps).computeCDF(point) -
++                  Rice(distribution.getSigma() - eps).computeCDF(point)) / (2.0 * eps);
++		  
++    CDFgrFD[1] = (Rice(distribution.getNu() + eps).computeCDF(point) -
++                  Rice(distribution.getNu() - eps).computeCDF(point)) / (2.0 * eps);
++    print "cdf gradient (FD)=", repr(CDFgrFD)
++    quantile = distribution.computeQuantile( 0.95 )
++    print "quantile=", repr(quantile)
++    print "cdf(quantile)=", distribution.computeCDF(quantile)
++    mean = distribution.getMean()
++    print "mean=", repr(mean)
++    covariance = distribution.getCovariance()
++    print "covariance=", repr(covariance)
++    parameters = distribution.getParametersCollection()
++    print "parameters=", repr(parameters)
++
++    # Specific to this distribution
++    nu = distribution.getNu()
++    print "nu=", nu
++    standardDeviation = distribution.getStandardDeviation()
++    print "standard deviation=", repr(standardDeviation)
++    skewness = distribution.getSkewness()
++    print "skewness=", repr(skewness)
++    kurtosis = distribution.getKurtosis()
++    print "kurtosis=", repr(kurtosis)
++    sigma = distribution.getSigma()
++    print "sigma=", sigma
++
++except :
++    import sys
++    print "t_Rice_std.py", sys.exc_type, sys.exc_value
++
+
+Modification de propriétés sur python/test/t_Rice_std.py
+___________________________________________________________________
+Ajouté : svn:executable
+   + *
+
+Index: python/test/t_SensitivityAnalysis_std.py
+===================================================================
+--- python/test/t_SensitivityAnalysis_std.py	(révision 1842)
++++ python/test/t_SensitivityAnalysis_std.py	(copie de travail)
+@@ -1,4 +1,5 @@
+ #! /usr/bin/env python
++# -*- coding: iso-8859-15 -*-
+ 
+ from openturns import *
+ 
+@@ -17,7 +18,7 @@
+     outputName = Description(outputDimension)
+     outputName[0] = "Y"
+     formula = Description(outputDimension)
+-    formula[0] = "sin(_pi*X1)+7*sin(_pi*X2)*sin(_pi*X2)+0.1*((_pi*X3)*(_pi*X3)*(_pi*X3)*(_pi*X3))*sin(_pi*X1)"
++    formula[0] = "sin(e_*X1)+7*sin(e_*X2)*sin(e_*X2)+0.1*((e_*X3)*(e_*X3)*(e_*X3)*(e_*X3))*sin(e_*X1)"
+ 
+     model = NumericalMathFunction(inputName, outputName, formula)
+ 
+Index: python/test/Makefile.am
+===================================================================
+--- python/test/Makefile.am	(révision 1842)
++++ python/test/Makefile.am	(copie de travail)
+@@ -270,6 +270,7 @@
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_DistFunc_poisson.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_DistFunc_student.atpy
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Distributions_draw.atpy
++PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Rice_std.atpy
+ 
+ ## Experiments
+ PYTHONINSTALLCHECK_TESTS += $(srcdir)/t_Axial_std.atpy
+@@ -582,6 +583,7 @@
+ OUTFILES += $(srcdir)/t_DistFunc_poisson.expout
+ OUTFILES += $(srcdir)/t_DistFunc_student.expout
+ OUTFILES += $(srcdir)/t_Distributions_draw.expout
++OUTFILES += $(srcdir)/t_Rice_std.expout
+ 
+ ## Experiments
+ OUTFILES += $(srcdir)/t_Axial_std.expout
+@@ -893,6 +895,7 @@
+ PYTHONINSTALLCHECK_PROGS += t_DistFunc_poisson.py
+ PYTHONINSTALLCHECK_PROGS += t_DistFunc_student.py
+ PYTHONINSTALLCHECK_PROGS += t_Distributions_draw.py
++PYTHONINSTALLCHECK_PROGS += t_Rice_std.py
+ 
+ ## Experiments
+ PYTHONINSTALLCHECK_PROGS += t_Axial_std.py
+Index: python/test/python_installcheck_testsuite.at
+===================================================================
+--- python/test/python_installcheck_testsuite.at	(révision 1842)
++++ python/test/python_installcheck_testsuite.at	(copie de travail)
+@@ -246,7 +246,9 @@
+ m4_include(t_DistFunc_poisson.atpy)
+ m4_include(t_DistFunc_student.atpy)
+ m4_include(t_Distributions_draw.atpy)
++m4_include(t_Rice_std.atpy)
+ 
++
+ ## Experiments
+ m4_include(t_Axial_std.atpy)
+ m4_include(t_Box_std.atpy)
+Index: python/test/t_Rice_std.atpy
+===================================================================
+--- python/test/t_Rice_std.atpy	(révision 0)
++++ python/test/t_Rice_std.atpy	(révision 0)
+@@ -0,0 +1,14 @@
++AT_SETUP([Rice])
++
++AT_KEYWORDS([std Uncertainty Distribution Rice])
++
++#AT_TESTED([t_Rice_std.py])
++
++AT_CHECK([cp $abs_srcdir/t_Rice_std.expout expout],[0],[ignore],[ignore])
++
++AT_CHECK([python ${examplesdir}/t_Rice_std.py],
++         [0],
++         [expout],
++         [ignore])
++
++AT_CLEANUP
+Index: python/test/CMakeLists.txt
+===================================================================
+--- python/test/CMakeLists.txt	(révision 1842)
++++ python/test/CMakeLists.txt	(copie de travail)
+@@ -299,6 +299,7 @@
+ ot_pyinstallcheck_test ( DistFunc_poisson )
+ ot_pyinstallcheck_test ( DistFunc_student )
+ ot_pyinstallcheck_test ( Distributions_draw )
++ot_pyinstallcheck_test ( Rice_std )
+ 
+ ## Experiments
+ ot_pyinstallcheck_test ( Axial_std )
+Index: python/src/Makefile.am
+===================================================================
+--- python/src/Makefile.am	(révision 1842)
++++ python/src/Makefile.am	(copie de travail)
+@@ -35,8 +35,8 @@
+ 
+ otswigdir = $(includedir)/openturns/swig
+ otincludedir = $(includedir)/openturns
+-noinst_HEADERS = PythonNumericalMathEvaluationImplementation.hxx PythonWrappingFunctions.hxx
+-otinclude_HEADERS =
++noinst_HEADERS = PythonNumericalMathEvaluationImplementation.hxx 
++otinclude_HEADERS = PythonNumericalMathEvaluationImplementation.hxx PythonWrappingFunctions.hxx
+ 
+ BUILT_SOURCES           = swig_runtime.hxx
+ pkgpyexec_PYTHON        =
+@@ -365,6 +365,7 @@
+ 	FunctionCache.i \
+ 	Basis.i \
+ 	BasisSequence.i \
++	BasisSequenceImplementation.i \
+ 	BasisSequenceFactoryImplementation.i \
+ 	BasisSequenceFactory.i \
+ 	LAR.i \
+@@ -716,7 +717,8 @@
+ 	ConditionalRandomVector.i \
+ 	Event.i \
+ 	StandardEvent.i \
+-	UncertaintyModelDistTemplateDefs.i
++	UncertaintyModelDistTemplateDefs.i \
++	Rice.i
+ 
+ 
+ #OPENTURNS_WRAPPER_DEPEND =
+@@ -800,7 +802,9 @@
+ otswig_DATA += orthogonalbasis.i $(OPENTURNS_ORTHOGONALBASIS_SWIG_SRC)
+ 
+ OPENTURNS_ORTHOGONALBASIS_SWIG_SRC = \
++	EnumerateFunction.i \
+ 	LinearEnumerateFunction.i \
++	HyperbolicAnisotropicEnumerateFunction.i\
+ 	OrthogonalUniVariatePolynomial.i \
+ 	OrthogonalUniVariatePolynomialFactory.i \
+ 	HermiteFactory.i \
+Index: python/src/model_dist.i
+===================================================================
+--- python/src/model_dist.i	(révision 1842)
++++ python/src/model_dist.i	(copie de travail)
+@@ -114,6 +114,7 @@
+ %include Mixture.i
+ %include KernelMixture.i
+ %include KernelSmoothing.i
++%include Rice.i 
+ 
+ /* Uncertainty/Model */
+ %include RandomVectorImplementation.i
+Index: python/src/Rice.i
+===================================================================
+--- python/src/Rice.i	(révision 0)
++++ python/src/Rice.i	(révision 0)
+@@ -0,0 +1,11 @@
++// SWIG file Rice.i
++// Author : $LastChangedBy: dutka $
++// Date : $LastChangedDate: 2009-11-09 17:38:15 +0100 (lun. 09 nov. 2009) $
++// Id : $Id: Rice.i 1403 2009-11-09 16:38:15Z dutka $
++
++%{
++#include "Rice.hxx"
++%}
++
++%include Rice.hxx
++namespace OpenTURNS { namespace Uncertainty { namespace Distribution { %extend Rice { Rice(const Rice & other) { return new OpenTURNS::Uncertainty::Distribution::Rice(other); } } }}}
+Index: lib/test/t_NonCentralChiSquare_std.expout
+===================================================================
+--- lib/test/t_NonCentralChiSquare_std.expout	(révision 1842)
++++ lib/test/t_NonCentralChiSquare_std.expout	(copie de travail)
+@@ -17,10 +17,10 @@
+ Distribution class=NonCentralChiSquare name=NonCentralChiSquare dimension=1 nu=1.5 lambda=2.5
+ Elliptical = false
+ Continuous = true
+-oneRealization=class=NumericalPoint name=Unnamed dimension=1 values=[6.91696]
+-oneSample first=class=NumericalPoint name=Unnamed dimension=1 values=[2.55156] last=class=NumericalPoint name=Unnamed dimension=1 values=[3.97974]
+-mean=class=NumericalPoint name=Unnamed dimension=1 values=[2.73861]
+-covariance=class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[6.51666]
++oneRealization=class=NumericalPoint name=Unnamed dimension=1 values=[5.14874]
++oneSample first=class=NumericalPoint name=Unnamed dimension=1 values=[10.3181] last=class=NumericalPoint name=Unnamed dimension=1 values=[3.44075]
++mean=class=NumericalPoint name=Unnamed dimension=1 values=[4.01363]
++covariance=class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[12.6416]
+ Point= class=NumericalPoint name=Unnamed dimension=1 values=[1]
+ ddf     =class=NumericalPoint name=Unnamed dimension=1 values=[-0.0277166]
+ ddf (FD)=class=NumericalPoint name=Unnamed dimension=1 values=[-0.0277166]
+Index: lib/test/t_Rice_std.expout
+===================================================================
+--- lib/test/t_Rice_std.expout	(révision 0)
++++ lib/test/t_Rice_std.expout	(révision 0)
+@@ -0,0 +1,41 @@
++Testing class Rice
++checkConstructorAndDestructor()
++checkCopyConstructor()
++streamObject(const T & anObject)
++class=Rice name=Rice dimension=1 sigma=5 nu=4
++streamObject(const T & anObject)
++class=Rice name=Rice dimension=1 sigma=5 nu=4
++areSameObjects(const T & firstObject, const T & secondObject)
++areDifferentObjects(const T & firstObject, const T & secondObject)
++checkNameFeature()
++checkNameConstructor()
++streamObject(const T & anObject)
++class=Rice name=myName dimension=1 sigma=5 nu=4
++checkNameAccessors()
++streamObject(const T & anObject)
++class=Rice name=myNewName dimension=1 sigma=5 nu=4
++Distribution class=Rice name=Rice dimension=1 sigma=5 nu=4
++Elliptical = false
++Continuous = true
++oneRealization=class=NumericalPoint name=Unnamed dimension=1 values=[8.76728]
++oneSample first=class=NumericalPoint name=Unnamed dimension=1 values=[13.769] last=class=NumericalPoint name=Unnamed dimension=1 values=[18.2056]
++mean=class=NumericalPoint name=Unnamed dimension=1 values=[7.24923]
++covariance=class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[13.4599]
++Point= class=NumericalPoint name=Unnamed dimension=1 values=[10]
++ddf     =class=NumericalPoint name=Unnamed dimension=1 values=[-0.0138143]
++ddf (FD)=class=NumericalPoint name=Unnamed dimension=1 values=[-0.0138143]
++pdf     =0.0687907
++pdf (FD)=0.0687907
++cdf=0.778505
++characteristic function=(-0.000290697,1.90277e-15)
++pdf gradient (FD)=class=NumericalPoint name=Unnamed dimension=2 values=[0.0216536,0.0291769]
++cdf gradient (FD)=class=NumericalPoint name=Unnamed dimension=2 values=[-0.108268,-0.0686515]
++quantile=class=NumericalPoint name=Unnamed dimension=1 values=[13.9273]
++cdf(quantile)=0.95
++mean=class=NumericalPoint name=Unnamed dimension=1 values=[7.23115]
++covariance=class=CovarianceMatrix dimension=1 implementation=class=MatrixImplementation name=Unnamed rows=1 columns=1 values=[13.7104]
++parameters=[class=NumericalPointWithDescription name=marginal 1 dimension=2 description=[sigma,nu] values=[5,4]]
++nu=4
++standard deviation=class=NumericalPoint name=Unnamed dimension=1 values=[3.70276]
++skewness=class=NumericalPoint name=Unnamed dimension=1 values=[0.569607]
++kurtosis=class=NumericalPoint name=Unnamed dimension=1 values=[3.10633]
+Index: lib/test/t_DistFunc_noncentralchisquare.expout
+===================================================================
+--- lib/test/t_DistFunc_noncentralchisquare.expout	(révision 1842)
++++ lib/test/t_DistFunc_noncentralchisquare.expout	(copie de travail)
+@@ -248,128 +248,128 @@
+ pNonCentralChiSquare(5, 5, 0.5)=0.000768256, complementary=0.999232
+ pNonCentralChiSquare(5, 5, 0.7)=0.00177404, complementary=0.998226
+ pNonCentralChiSquare(5, 5, 0.9)=0.0033069, complementary=0.996693
+-rNonCentralChiSquare(0.2, 0.2)=3.4903
+-rNonCentralChiSquare(0.2, 0.2)=0.260734
+-rNonCentralChiSquare(0.2, 0.2)=1.29071e-10
+-rNonCentralChiSquare(0.2, 0.2)=0.876167
+-rNonCentralChiSquare(0.2, 0.2)=0.274177
+-rNonCentralChiSquare(0.2, 1.4)=0.724046
+-rNonCentralChiSquare(0.2, 1.4)=3.19873
+-rNonCentralChiSquare(0.2, 1.4)=0.292373
+-rNonCentralChiSquare(0.2, 1.4)=0.100142
+-rNonCentralChiSquare(0.2, 1.4)=2.60677
+-rNonCentralChiSquare(0.2, 2.6)=1.79275
+-rNonCentralChiSquare(0.2, 2.6)=1.41723
+-rNonCentralChiSquare(0.2, 2.6)=0.115991
+-rNonCentralChiSquare(0.2, 2.6)=0.848327
+-rNonCentralChiSquare(0.2, 2.6)=0.768144
+-rNonCentralChiSquare(0.2, 3.8)=0.00675226
+-rNonCentralChiSquare(0.2, 3.8)=2.41056
+-rNonCentralChiSquare(0.2, 3.8)=2.27925
+-rNonCentralChiSquare(0.2, 3.8)=2.90574
+-rNonCentralChiSquare(0.2, 3.8)=0.908695
+-rNonCentralChiSquare(0.2, 5)=0.16298
+-rNonCentralChiSquare(0.2, 5)=2.31141
+-rNonCentralChiSquare(0.2, 5)=0.335075
+-rNonCentralChiSquare(0.2, 5)=0.336471
+-rNonCentralChiSquare(0.2, 5)=1.76228
+-rNonCentralChiSquare(1.4, 0.2)=0.851088
+-rNonCentralChiSquare(1.4, 0.2)=8.51938
+-rNonCentralChiSquare(1.4, 0.2)=0.0427146
+-rNonCentralChiSquare(1.4, 0.2)=3.77044
+-rNonCentralChiSquare(1.4, 0.2)=1.16183
+-rNonCentralChiSquare(1.4, 1.4)=0.027216
+-rNonCentralChiSquare(1.4, 1.4)=1.62713
+-rNonCentralChiSquare(1.4, 1.4)=0.16583
+-rNonCentralChiSquare(1.4, 1.4)=1.65282
+-rNonCentralChiSquare(1.4, 1.4)=1.78949
+-rNonCentralChiSquare(1.4, 2.6)=0.372631
+-rNonCentralChiSquare(1.4, 2.6)=1.50822
+-rNonCentralChiSquare(1.4, 2.6)=7.48336
+-rNonCentralChiSquare(1.4, 2.6)=2.66778
+-rNonCentralChiSquare(1.4, 2.6)=0.155533
+-rNonCentralChiSquare(1.4, 3.8)=2.7425
+-rNonCentralChiSquare(1.4, 3.8)=0.41058
+-rNonCentralChiSquare(1.4, 3.8)=2.85484
+-rNonCentralChiSquare(1.4, 3.8)=0.13203
+-rNonCentralChiSquare(1.4, 3.8)=0.255706
+-rNonCentralChiSquare(1.4, 5)=8.90784
+-rNonCentralChiSquare(1.4, 5)=2.56048
+-rNonCentralChiSquare(1.4, 5)=2.17985
+-rNonCentralChiSquare(1.4, 5)=1.62126
+-rNonCentralChiSquare(1.4, 5)=6.14318
+-rNonCentralChiSquare(2.6, 0.2)=0.512605
+-rNonCentralChiSquare(2.6, 0.2)=12.0828
+-rNonCentralChiSquare(2.6, 0.2)=4.81616
+-rNonCentralChiSquare(2.6, 0.2)=0.611605
+-rNonCentralChiSquare(2.6, 0.2)=1.07009
+-rNonCentralChiSquare(2.6, 1.4)=4.08848
+-rNonCentralChiSquare(2.6, 1.4)=5.61948
+-rNonCentralChiSquare(2.6, 1.4)=4.16086
+-rNonCentralChiSquare(2.6, 1.4)=0.662028
+-rNonCentralChiSquare(2.6, 1.4)=3.03797
+-rNonCentralChiSquare(2.6, 2.6)=6.74168
+-rNonCentralChiSquare(2.6, 2.6)=3.62108
+-rNonCentralChiSquare(2.6, 2.6)=1.50662
+-rNonCentralChiSquare(2.6, 2.6)=4.44476
+-rNonCentralChiSquare(2.6, 2.6)=3.7592
+-rNonCentralChiSquare(2.6, 3.8)=8.92263
+-rNonCentralChiSquare(2.6, 3.8)=3.35365
+-rNonCentralChiSquare(2.6, 3.8)=7.34716
+-rNonCentralChiSquare(2.6, 3.8)=2.55406
+-rNonCentralChiSquare(2.6, 3.8)=0.410979
+-rNonCentralChiSquare(2.6, 5)=9.12305
+-rNonCentralChiSquare(2.6, 5)=7.76738
+-rNonCentralChiSquare(2.6, 5)=2.78131
+-rNonCentralChiSquare(2.6, 5)=2.54366
+-rNonCentralChiSquare(2.6, 5)=3.32312
+-rNonCentralChiSquare(3.8, 0.2)=5.17522
+-rNonCentralChiSquare(3.8, 0.2)=1.68226
+-rNonCentralChiSquare(3.8, 0.2)=5.3288
+-rNonCentralChiSquare(3.8, 0.2)=6.2677
+-rNonCentralChiSquare(3.8, 0.2)=5.11757
+-rNonCentralChiSquare(3.8, 1.4)=8.9785
+-rNonCentralChiSquare(3.8, 1.4)=4.68758
+-rNonCentralChiSquare(3.8, 1.4)=0.541685
+-rNonCentralChiSquare(3.8, 1.4)=2.42757
+-rNonCentralChiSquare(3.8, 1.4)=3.2973
+-rNonCentralChiSquare(3.8, 2.6)=4.91978
+-rNonCentralChiSquare(3.8, 2.6)=11.7179
+-rNonCentralChiSquare(3.8, 2.6)=3.91239
+-rNonCentralChiSquare(3.8, 2.6)=9.63329
+-rNonCentralChiSquare(3.8, 2.6)=8.43166
+-rNonCentralChiSquare(3.8, 3.8)=4.4972
+-rNonCentralChiSquare(3.8, 3.8)=4.82369
+-rNonCentralChiSquare(3.8, 3.8)=9.2884
+-rNonCentralChiSquare(3.8, 3.8)=11.1414
+-rNonCentralChiSquare(3.8, 3.8)=7.3818
+-rNonCentralChiSquare(3.8, 5)=4.01663
+-rNonCentralChiSquare(3.8, 5)=6.69929
+-rNonCentralChiSquare(3.8, 5)=13.5755
+-rNonCentralChiSquare(3.8, 5)=4.33059
+-rNonCentralChiSquare(3.8, 5)=9.94492
+-rNonCentralChiSquare(5, 0.2)=4.1096
+-rNonCentralChiSquare(5, 0.2)=7.48841
+-rNonCentralChiSquare(5, 0.2)=8.89536
+-rNonCentralChiSquare(5, 0.2)=9.33688
+-rNonCentralChiSquare(5, 0.2)=3.32268
+-rNonCentralChiSquare(5, 1.4)=10.4751
+-rNonCentralChiSquare(5, 1.4)=2.39122
+-rNonCentralChiSquare(5, 1.4)=4.61347
+-rNonCentralChiSquare(5, 1.4)=2.87089
+-rNonCentralChiSquare(5, 1.4)=2.92552
+-rNonCentralChiSquare(5, 2.6)=11.3926
+-rNonCentralChiSquare(5, 2.6)=9.02266
+-rNonCentralChiSquare(5, 2.6)=4.37911
+-rNonCentralChiSquare(5, 2.6)=6.37773
+-rNonCentralChiSquare(5, 2.6)=2.36229
+-rNonCentralChiSquare(5, 3.8)=3.42945
+-rNonCentralChiSquare(5, 3.8)=11.4611
+-rNonCentralChiSquare(5, 3.8)=8.38095
+-rNonCentralChiSquare(5, 3.8)=3.55157
+-rNonCentralChiSquare(5, 3.8)=11.1244
+-rNonCentralChiSquare(5, 5)=4.60208
+-rNonCentralChiSquare(5, 5)=8.33619
+-rNonCentralChiSquare(5, 5)=4.71801
+-rNonCentralChiSquare(5, 5)=5.93797
+-rNonCentralChiSquare(5, 5)=3.91235
++rNonCentralChiSquare(0.2, 0.2)=0.0612653
++rNonCentralChiSquare(0.2, 0.2)=4.76134
++rNonCentralChiSquare(0.2, 0.2)=0.038133
++rNonCentralChiSquare(0.2, 0.2)=1.71477e-05
++rNonCentralChiSquare(0.2, 0.2)=0.000417952
++rNonCentralChiSquare(0.2, 1.4)=0.00325601
++rNonCentralChiSquare(0.2, 1.4)=2.07897
++rNonCentralChiSquare(0.2, 1.4)=0.0239742
++rNonCentralChiSquare(0.2, 1.4)=0.0361934
++rNonCentralChiSquare(0.2, 1.4)=0.561101
++rNonCentralChiSquare(0.2, 2.6)=0.608614
++rNonCentralChiSquare(0.2, 2.6)=2.47661
++rNonCentralChiSquare(0.2, 2.6)=5.28009
++rNonCentralChiSquare(0.2, 2.6)=3.31977
++rNonCentralChiSquare(0.2, 2.6)=2.93009
++rNonCentralChiSquare(0.2, 3.8)=0.934387
++rNonCentralChiSquare(0.2, 3.8)=9.20111
++rNonCentralChiSquare(0.2, 3.8)=6.10443
++rNonCentralChiSquare(0.2, 3.8)=11.642
++rNonCentralChiSquare(0.2, 3.8)=1.06002
++rNonCentralChiSquare(0.2, 5)=3.14006
++rNonCentralChiSquare(0.2, 5)=3.85811
++rNonCentralChiSquare(0.2, 5)=5.44288
++rNonCentralChiSquare(0.2, 5)=16.3424
++rNonCentralChiSquare(0.2, 5)=9.41437
++rNonCentralChiSquare(1.4, 0.2)=0.26634
++rNonCentralChiSquare(1.4, 0.2)=2.37055
++rNonCentralChiSquare(1.4, 0.2)=3.48665
++rNonCentralChiSquare(1.4, 0.2)=0.89323
++rNonCentralChiSquare(1.4, 0.2)=1.79408
++rNonCentralChiSquare(1.4, 1.4)=0.0821739
++rNonCentralChiSquare(1.4, 1.4)=2.20005
++rNonCentralChiSquare(1.4, 1.4)=3.39576
++rNonCentralChiSquare(1.4, 1.4)=1.23198
++rNonCentralChiSquare(1.4, 1.4)=0.991647
++rNonCentralChiSquare(1.4, 2.6)=0.375739
++rNonCentralChiSquare(1.4, 2.6)=6.61233
++rNonCentralChiSquare(1.4, 2.6)=2.81355
++rNonCentralChiSquare(1.4, 2.6)=8.49984
++rNonCentralChiSquare(1.4, 2.6)=1.07351
++rNonCentralChiSquare(1.4, 3.8)=4.59694
++rNonCentralChiSquare(1.4, 3.8)=8.596
++rNonCentralChiSquare(1.4, 3.8)=4.46206
++rNonCentralChiSquare(1.4, 3.8)=6.91333
++rNonCentralChiSquare(1.4, 3.8)=7.15488
++rNonCentralChiSquare(1.4, 5)=2.46596
++rNonCentralChiSquare(1.4, 5)=0.350294
++rNonCentralChiSquare(1.4, 5)=2.41434
++rNonCentralChiSquare(1.4, 5)=1.12
++rNonCentralChiSquare(1.4, 5)=4.45259
++rNonCentralChiSquare(2.6, 0.2)=1.08586
++rNonCentralChiSquare(2.6, 0.2)=1.68427
++rNonCentralChiSquare(2.6, 0.2)=0.955528
++rNonCentralChiSquare(2.6, 0.2)=10.587
++rNonCentralChiSquare(2.6, 0.2)=3.40341
++rNonCentralChiSquare(2.6, 1.4)=1.00498
++rNonCentralChiSquare(2.6, 1.4)=3.55186
++rNonCentralChiSquare(2.6, 1.4)=3.70253
++rNonCentralChiSquare(2.6, 1.4)=4.49896
++rNonCentralChiSquare(2.6, 1.4)=4.58234
++rNonCentralChiSquare(2.6, 2.6)=5.95968
++rNonCentralChiSquare(2.6, 2.6)=1.0963
++rNonCentralChiSquare(2.6, 2.6)=0.981728
++rNonCentralChiSquare(2.6, 2.6)=2.7402
++rNonCentralChiSquare(2.6, 2.6)=6.14636
++rNonCentralChiSquare(2.6, 3.8)=1.09154
++rNonCentralChiSquare(2.6, 3.8)=8.64628
++rNonCentralChiSquare(2.6, 3.8)=0.0890308
++rNonCentralChiSquare(2.6, 3.8)=8.45384
++rNonCentralChiSquare(2.6, 3.8)=13.5536
++rNonCentralChiSquare(2.6, 5)=9.99927
++rNonCentralChiSquare(2.6, 5)=1.86201
++rNonCentralChiSquare(2.6, 5)=10.1853
++rNonCentralChiSquare(2.6, 5)=4.2474
++rNonCentralChiSquare(2.6, 5)=7.71897
++rNonCentralChiSquare(3.8, 0.2)=4.19774
++rNonCentralChiSquare(3.8, 0.2)=2.88942
++rNonCentralChiSquare(3.8, 0.2)=10.1338
++rNonCentralChiSquare(3.8, 0.2)=3.30303
++rNonCentralChiSquare(3.8, 0.2)=0.721482
++rNonCentralChiSquare(3.8, 1.4)=6.08327
++rNonCentralChiSquare(3.8, 1.4)=9.54997
++rNonCentralChiSquare(3.8, 1.4)=5.78148
++rNonCentralChiSquare(3.8, 1.4)=0.630014
++rNonCentralChiSquare(3.8, 1.4)=5.81862
++rNonCentralChiSquare(3.8, 2.6)=7.27571
++rNonCentralChiSquare(3.8, 2.6)=0.975429
++rNonCentralChiSquare(3.8, 2.6)=6.61349
++rNonCentralChiSquare(3.8, 2.6)=6.98297
++rNonCentralChiSquare(3.8, 2.6)=3.25552
++rNonCentralChiSquare(3.8, 3.8)=0.767204
++rNonCentralChiSquare(3.8, 3.8)=3.36333
++rNonCentralChiSquare(3.8, 3.8)=3.57949
++rNonCentralChiSquare(3.8, 3.8)=4.263
++rNonCentralChiSquare(3.8, 3.8)=2.89343
++rNonCentralChiSquare(3.8, 5)=4.22781
++rNonCentralChiSquare(3.8, 5)=12.4908
++rNonCentralChiSquare(3.8, 5)=9.15028
++rNonCentralChiSquare(3.8, 5)=4.54976
++rNonCentralChiSquare(3.8, 5)=12.439
++rNonCentralChiSquare(5, 0.2)=1.69273
++rNonCentralChiSquare(5, 0.2)=2.81985
++rNonCentralChiSquare(5, 0.2)=7.24405
++rNonCentralChiSquare(5, 0.2)=11.4825
++rNonCentralChiSquare(5, 0.2)=2.01198
++rNonCentralChiSquare(5, 1.4)=2.97689
++rNonCentralChiSquare(5, 1.4)=4.89329
++rNonCentralChiSquare(5, 1.4)=3.70067
++rNonCentralChiSquare(5, 1.4)=4.16863
++rNonCentralChiSquare(5, 1.4)=11.0268
++rNonCentralChiSquare(5, 2.6)=2.48859
++rNonCentralChiSquare(5, 2.6)=6.32029
++rNonCentralChiSquare(5, 2.6)=5.56539
++rNonCentralChiSquare(5, 2.6)=9.47491
++rNonCentralChiSquare(5, 2.6)=13.9559
++rNonCentralChiSquare(5, 3.8)=10.361
++rNonCentralChiSquare(5, 3.8)=1.09388
++rNonCentralChiSquare(5, 3.8)=5.42167
++rNonCentralChiSquare(5, 3.8)=11.1485
++rNonCentralChiSquare(5, 3.8)=12.514
++rNonCentralChiSquare(5, 5)=11.3336
++rNonCentralChiSquare(5, 5)=6.2603
++rNonCentralChiSquare(5, 5)=14.7487
++rNonCentralChiSquare(5, 5)=11.6438
++rNonCentralChiSquare(5, 5)=12.4474
+Index: lib/test/t_Rayleigh_std.cxx
+===================================================================
+--- lib/test/t_Rayleigh_std.cxx	(révision 1842)
++++ lib/test/t_Rayleigh_std.cxx	(copie de travail)
+@@ -35,7 +35,6 @@
+ using namespace OT;
+ using namespace OT::Test;
+ using namespace OT::Base::Common;
+-using namespace OT::Base::Common;
+ using namespace OT::Base::Type;
+ using namespace OT::Base::Stat;
+ using namespace OT::Uncertainty::Distribution;
+Index: lib/test/check_testsuite.at
+===================================================================
+--- lib/test/check_testsuite.at	(révision 1842)
++++ lib/test/check_testsuite.at	(copie de travail)
+@@ -213,6 +213,7 @@
+ m4_include(t_DistFunc_poisson.at)
+ m4_include(t_DistFunc_student.at)
+ m4_include(t_Distributions_draw.at)
++m4_include(t_Rice_std.at)
+ 
+ # Model
+ m4_include(t_RandomVector_constant.at)
+Index: lib/test/t_Rice_std.cxx
+===================================================================
+--- lib/test/t_Rice_std.cxx	(révision 0)
++++ lib/test/t_Rice_std.cxx	(révision 0)
+@@ -0,0 +1,141 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  t_Rice_std.cxx
++ *  @brief The test file of class Rice for standard methods
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: lebrun $
++ *  @date:   $LastChangedDate: 2008-11-23 16:03:50 +0100 (dim, 23 nov 2008) $
++ *  Id:      $Id: t_Rice_std.cxx 1026 2008-11-23 15:03:50Z lebrun $
++ */
++#include <iostream>
++#include <sstream>
++#include "OT.hxx"
++#include "OTtestcode.hxx"
++#include "OStream.hxx"
++#include "Rice.hxx"
++#include "NumericalPoint.hxx"
++#include "NumericalSample.hxx"
++
++
++using namespace OT;
++using namespace OT::Test;
++using namespace OT::Base::Common;
++using namespace OT::Base::Type;
++using namespace OT::Base::Stat;
++using namespace OT::Uncertainty::Distribution;
++
++class TestObject : public Rice
++{
++public:
++  explicit TestObject() : Rice(5, 4) {}
++  explicit TestObject(const String & name) : Rice(5, 4) {setName(name);}
++  virtual ~TestObject() {}
++};
++
++int main(int argc, char *argv[])
++{
++ 
++  TESTPREAMBLE;
++  OStream fullprint(std::cout);
++  setRandomGenerator();
++
++  try {
++    // Test basic functionnalities
++    checkClassWithClassName<TestObject>();
++
++    // Test some extra functionnalities
++    checkNameFeature<TestObject>();
++
++    // Instanciate one distribution object
++    Rice distribution(5,4);
++    fullprint << "Distribution " << distribution << std::endl;
++    // Is this distribution elliptical ?
++    fullprint << "Elliptical = " << (distribution.isElliptical() ? "true" : "false") << std::endl;
++    // Is this distribution continuous ?
++    fullprint << "Continuous = " << (distribution.isContinuous() ? "true" : "false") << std::endl;
++    // Test for realization of distribution
++    NumericalPoint oneRealization = distribution.getRealization();
++    fullprint << "oneRealization=" << oneRealization << std::endl;
++    // Test for sampling
++    UnsignedLong size = 10000;
++    NumericalSample oneSample = distribution.getNumericalSample( size );
++    fullprint << "oneSample first=" << oneSample[0] << " last=" << oneSample[size - 1] << std::endl;
++    fullprint << "mean=" << oneSample.computeMean() << std::endl;
++    fullprint << "covariance=" << oneSample.computeCovariance() << std::endl;    
++    // Define a point
++    NumericalPoint point( distribution.getDimension(), 10.0 );
++    fullprint << "Point= " << point << std::endl;
++    
++    // Show PDF and CDF of point
++    NumericalScalar eps(1e-5);
++    NumericalPoint DDF = distribution.computeDDF( point );
++    fullprint << "ddf     =" << DDF << std::endl;
++    fullprint << "ddf (FD)=" << NumericalPoint(1, (distribution.computePDF( point + NumericalPoint(1, eps) ) - distribution.computePDF( point  + NumericalPoint(1, -eps) )) / (2.0 * eps)) << std::endl;
++    NumericalScalar PDF = distribution.computePDF( point );
++    fullprint << "pdf     =" << PDF << std::endl;
++    fullprint << "pdf (FD)=" << (distribution.computeCDF( point + NumericalPoint(1, eps) ) - distribution.computeCDF( point  + NumericalPoint(1, -eps) )) / (2.0 * eps) << std::endl;
++    NumericalScalar CDF = distribution.computeCDF( point );
++    fullprint << "cdf=" << CDF << std::endl;
++    NumericalComplex CF = distribution.computeCharacteristicFunction( point[0] );
++    fullprint << "characteristic function=" << CF << std::endl;
++    NumericalPoint PDFgrFD(2);
++    PDFgrFD[0] = (Rice(distribution.getSigma() + eps).computePDF(point) -
++                  Rice(distribution.getSigma() - eps).computePDF(point)) / (2.0 * eps);
++
++    PDFgrFD[1] = (Rice(distribution.getNu() + eps).computePDF(point) -
++                  Rice(distribution.getNu() - eps).computePDF(point)) / (2.0 * eps);
++		  
++    fullprint << "pdf gradient (FD)=" << PDFgrFD << std::endl;
++    NumericalPoint CDFgrFD(2);
++    CDFgrFD[0] = (Rice(distribution.getSigma() + eps).computeCDF(point) -
++                  Rice(distribution.getSigma() - eps).computeCDF(point)) / (2.0 * eps);
++		  
++    CDFgrFD[1] = (Rice(distribution.getNu() + eps).computeCDF(point) -
++                  Rice(distribution.getNu() - eps).computeCDF(point)) / (2.0 * eps);
++		  
++    fullprint << "cdf gradient (FD)=" << CDFgrFD << std::endl;
++    NumericalPoint quantile = distribution.computeQuantile( 0.95 );
++    fullprint << "quantile=" << quantile << std::endl;
++    fullprint << "cdf(quantile)=" << distribution.computeCDF(quantile) << std::endl;
++    NumericalPoint mean = distribution.getMean();
++    fullprint << "mean=" << mean << std::endl;
++    CovarianceMatrix covariance = distribution.getCovariance();
++    fullprint << "covariance=" << covariance << std::endl;
++    Rice::NumericalPointWithDescriptionCollection parameters = distribution.getParametersCollection();
++    fullprint << "parameters=" << parameters << std::endl;
++
++    // Specific to this distribution
++    NumericalScalar nu(distribution.getNu());
++    fullprint << "nu=" << nu << std::endl;
++    NumericalPoint standardDeviation = distribution.getStandardDeviation();
++    fullprint << "standard deviation=" << standardDeviation << std::endl;
++    NumericalPoint skewness = distribution.getSkewness();
++    fullprint << "skewness=" << skewness << std::endl;
++    NumericalPoint kurtosis = distribution.getKurtosis();
++    fullprint << "kurtosis=" << kurtosis << std::endl;
++  }
++  catch (TestFailed & ex) {
++    std::cerr << ex << std::endl;
++    return ExitCode::Error;
++  }
++
++
++  return ExitCode::Success;
++}
++
+Index: lib/test/Makefile.am
+===================================================================
+--- lib/test/Makefile.am	(révision 1842)
++++ lib/test/Makefile.am	(copie de travail)
+@@ -265,6 +265,7 @@
+ CHECK_TESTS += $(srcdir)/t_DistFunc_poisson.at
+ CHECK_TESTS += $(srcdir)/t_DistFunc_student.at
+ CHECK_TESTS += $(srcdir)/t_Distributions_draw.at
++CHECK_TESTS += $(srcdir)/t_Rice_std.at
+ 
+ ## Model
+ CHECK_TESTS += $(srcdir)/t_RandomVector_constant.at
+@@ -526,7 +527,7 @@
+ OUTFILES += $(srcdir)/t_DistFunc_poisson.expout
+ OUTFILES += $(srcdir)/t_DistFunc_student.expout
+ OUTFILES += $(srcdir)/t_Distributions_draw.expout
+-
++OUTFILES += $(srcdir)/t_Rice_std.expout
+ ## Model
+ OUTFILES += $(srcdir)/t_RandomVector_constant.expout
+ OUTFILES += $(srcdir)/t_RandomVector_conditional.expout
+@@ -793,6 +794,7 @@
+ CHECK_PROGS += t_DistFunc_poisson
+ CHECK_PROGS += t_DistFunc_student
+ CHECK_PROGS += t_Distributions_draw
++CHECK_PROGS += t_Rice_std
+ 
+ ## IsoProbabilisticTransformation
+ CHECK_PROGS += t_MarginalTransformationEvaluation_std
+@@ -1770,6 +1772,7 @@
+ t_DistFunc_normal_SOURCES                                          = t_DistFunc_normal.cxx
+ t_DistFunc_poisson_SOURCES                                         = t_DistFunc_poisson.cxx
+ t_DistFunc_student_SOURCES                                         = t_DistFunc_student.cxx
++t_Rice_std_SOURCES                                            	   = t_Rice_std.cxx
+ 
+ examplesSources += $(t_Beta_std_SOURCES)
+ examplesSources += $(t_BetaFactory_std_SOURCES)
+@@ -1837,6 +1840,7 @@
+ examplesSources += $(t_Weibull_std_SOURCES)
+ examplesSources += $(t_WeibullFactory_std_SOURCES)
+ examplesSources += $(t_Distributions_draw_SOURCES)
++examplesSources += $(t_Rice_std_SOURCES)
+ 
+ ## IsoProbabilisticTransformation
+ t_MarginalTransformationEvaluation_std_SOURCES                     = t_MarginalTransformationEvaluation_std.cxx
+Index: lib/test/t_Rice_std.at
+===================================================================
+--- lib/test/t_Rice_std.at	(révision 0)
++++ lib/test/t_Rice_std.at	(révision 0)
+@@ -0,0 +1,14 @@
++AT_SETUP([Rice])
++
++AT_KEYWORDS([std Uncertainty Distribution Rice])
++
++#AT_TESTED([t_Rice_std])
++
++AT_CHECK([cp $abs_srcdir/t_Rice_std.expout expout],[0],[ignore],[ignore])
++
++AT_CHECK([t_Rice_std],
++         [0],
++         [expout],
++         [ignore])
++
++AT_CLEANUP
+Index: lib/src/Uncertainty/Distribution/DistFunc.cxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/DistFunc.cxx	(révision 1842)
++++ lib/src/Uncertainty/Distribution/DistFunc.cxx	(copie de travail)
+@@ -798,7 +798,8 @@
+         if (lambda == 0.0) return 2.0 * rGamma(0.5 * nu);
+         // Use the decomposition of a zero degree of freedom non-central chisquare and a nu degrees of freedom central chisquare
+         const NumericalScalar n(rPoisson(0.5 * lambda));
+-        return 2.0 * (rGamma(0.5 * n) + rGamma(0.5 * nu));
++	return 2.0 *  rGamma(0.5 * nu + n);
++//         return 2.0 * (rGamma(0.5 * n) + rGamma(0.5 * nu));
+       }
+       /************************************************************************************************************/
+       /* Normalized NonCentralStudent distribution, i.e. with a PDF equals to (eq. 31.15 p.516 of the reference): */
+Index: lib/src/Uncertainty/Distribution/Rice.hxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/Rice.hxx	(révision 0)
++++ lib/src/Uncertainty/Distribution/Rice.hxx	(révision 0)
+@@ -0,0 +1,143 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  Rice.hxx
++ *  @brief The Rice distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: lebrun $
++ *  @date:   $LastChangedDate: 2008-09-09 23:26:29 +0200 (mar, 09 sep 2008) $
++ *  Id:      $Id: Rice.hxx 924 2008-09-09 21:26:29Z lebrun $
++ */
++#ifndef OPENTURNS_RICE_HXX
++#define OPENTURNS_RICE_HXX
++
++#include "NonEllipticalDistribution.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++
++      /**
++       * @class Rice
++       *
++       * The Rice distribution.
++       */
++      class Rice
++        : public Model::NonEllipticalDistribution
++      {
++        CLASSNAME;
++      public:
++
++        typedef Base::Common::InvalidArgumentException               InvalidArgumentException;
++        typedef Model::NonEllipticalDistribution                     NonEllipticalDistribution; // required by SWIG
++        typedef NonEllipticalDistribution::NumericalPoint            NumericalPoint;
++        typedef NonEllipticalDistribution::NumericalSample           NumericalSample;
++        typedef NonEllipticalDistribution::CovarianceMatrix          CovarianceMatrix;
++        typedef NonEllipticalDistribution::NumericalPointWithDescriptionCollection  NumericalPointWithDescriptionCollection;
++        typedef NonEllipticalDistribution::NotDefinedException       NotDefinedException;
++        typedef NonEllipticalDistribution::StorageManager            StorageManager;
++
++        /** Default constructor */
++        Rice();
++
++        /** Parameters constructor */
++        Rice(const NumericalScalar sigma,
++                 const NumericalScalar nu = 0.0)
++          /* throw (InvalidArgumentException) */;
++
++
++        /** Comparison operator */
++        Bool operator ==(const Rice & other) const;
++
++        /** String converter */
++        String __repr__() const;
++
++
++
++        /* Interface inherited from Distribution */
++
++        /** Virtual constructor */
++        virtual Rice * clone() const;
++
++        /** Get one realization of the Rice distribution */
++        NumericalPoint getRealization() const;
++
++        /** Get the PDF of the distribution, i.e. P(point < X < point+dx) = PDF(point)dx + o(dx) */
++        using NonEllipticalDistribution::computePDF;
++        NumericalScalar computePDF(const NumericalPoint & point) const;
++
++        /** Get the CDF of the distribution, i.e. P(X <= point) = CDF(point). If tail=true, compute P(X >= point) */
++        using NonEllipticalDistribution::computeCDF;
++        NumericalScalar computeCDF(const NumericalPoint & point, const Bool tail = false) const;
++
++        /** Get the standard deviation of the distribution */
++       NumericalPoint getStandardDeviation() const /* throw(NotDefinedException) */;
++
++        /** Parameters value and description accessor */
++        NumericalPointWithDescriptionCollection getParametersCollection() const;
++        using NonEllipticalDistribution::setParametersCollection;
++        void setParametersCollection(const NumericalPointCollection & parametersCollection);
++
++        /* Interface specific to Rice */
++
++        /** Sigma accessor */
++        void setSigma(const NumericalScalar sigma)
++          /* throw(InvalidArgumentException) */;
++        NumericalScalar getSigma() const;
++
++        /** Nu accessor */
++        void setNu(const NumericalScalar nu);
++        NumericalScalar getNu() const;
++
++        /** Method save() stores the object through the StorageManager */
++        void save(StorageManager::Advocate & adv) const;
++
++        /** Method load() reloads the object from the StorageManager */
++        void load(StorageManager::Advocate & adv);
++
++      protected:
++
++      private:
++
++        /** Compute the mean of the distribution */
++        void computeMean() const;
++
++        /** Compute the covariance of the distribution */
++        void computeCovariance() const;
++
++        /** Compute the numerical range of the distribution given the parameters values */
++        void computeRange();
++
++        /** The dispersion parameter */
++        NumericalScalar sigma_;
++
++        /** The position parameter */
++        NumericalScalar nu_;
++
++
++      }; /* class Rice */
++
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
++
++#endif /* OPENTURNS_RICE_HXX */
+Index: lib/src/Uncertainty/Distribution/OTDistribution.hxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/OTDistribution.hxx	(révision 1842)
++++ lib/src/Uncertainty/Distribution/OTDistribution.hxx	(copie de travail)
+@@ -102,5 +102,6 @@
+ #include "UserDefinedFactory.hxx"
+ #include "Weibull.hxx"
+ #include "WeibullFactory.hxx"
++#include "Rice.hxx"
+ 
+ #endif /* OPENTURNS_OTDISTRIBUTION_HXX */
+Index: lib/src/Uncertainty/Distribution/Makefile.am
+===================================================================
+--- lib/src/Uncertainty/Distribution/Makefile.am	(révision 1842)
++++ lib/src/Uncertainty/Distribution/Makefile.am	(copie de travail)
+@@ -126,7 +126,8 @@
+ 	KernelSmoothing.hxx \
+ 	KernelMixture.hxx \
+ 	Rayleigh.hxx \
+-	RayleighFactory.hxx
++	RayleighFactory.hxx\
++	Rice.hxx
+ 
+ 
+ noinst_LTLIBRARIES     = libOTDistribution.la
+@@ -214,6 +215,7 @@
+ 	KernelSmoothing.cxx \
+ 	KernelMixture.cxx \
+ 	Rayleigh.cxx \
+-	RayleighFactory.cxx
++	RayleighFactory.cxx \
++	Rice.cxx
+ 
+ EXTRA_DIST = CMakeLists.txt
+Index: lib/src/Uncertainty/Distribution/CMakeLists.txt
+===================================================================
+--- lib/src/Uncertainty/Distribution/CMakeLists.txt	(révision 1842)
++++ lib/src/Uncertainty/Distribution/CMakeLists.txt	(copie de travail)
+@@ -104,8 +104,8 @@
+ ot_add_source_file ( KernelMixture.cxx )
+ ot_add_source_file ( Rayleigh.cxx )
+ ot_add_source_file ( RayleighFactory.cxx )
++ot_add_source_file ( Rice.cxx )
+ 
+-
+ ot_install_header_file ( Mvndstpack.hxx )
+ ot_install_header_file ( Mvtdstpack.hxx )
+ ot_install_header_file ( DistFunc.hxx )
+@@ -181,3 +181,4 @@
+ ot_install_header_file ( UserDefinedPair.hxx )
+ ot_install_header_file ( ClaytonCopulaFactory.hxx )
+ ot_install_header_file ( FrankCopula.hxx )
++ot_install_header_file ( Rice.hxx )
+\ No newline at end of file
+Index: lib/src/Uncertainty/Distribution/Rice.cxx
+===================================================================
+--- lib/src/Uncertainty/Distribution/Rice.cxx	(révision 0)
++++ lib/src/Uncertainty/Distribution/Rice.cxx	(révision 0)
+@@ -0,0 +1,239 @@
++//                                               -*- C++ -*-
++/**
++ *  @file  Rice.cxx
++ *  @brief The Rice distribution
++ *
++ *  (C) Copyright 2005-2010 EDF-EADS-Phimeca
++ *
++ *  This library is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public
++ *  License as published by the Free Software Foundation; either
++ *  version 2.1 of the License.
++ *
++ *  This library is distributed in the hope that it will be useful
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ *  Lesser General Public License for more details.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this library; if not, write to the Free Software
++ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
++ *
++ *  @author: $LastChangedBy: lebrun $
++ *  @date:   $LastChangedDate: 2008-09-24 09:07:16 +0200 (mer, 24 sep 2008) $
++ *  Id:      $Id: Rice.cxx 942 2008-09-24 07:07:16Z lebrun $
++ */
++#include <cmath>
++#include "Rice.hxx"
++#include "SpecFunc.hxx"
++#include "RandomGenerator.hxx"
++#include "PersistentObjectFactory.hxx"
++#include "DistFunc.hxx"
++#include "SpecFunc.hxx"
++
++namespace OpenTURNS {
++
++  namespace Uncertainty {
++
++    namespace Distribution {
++
++      typedef Base::Func::SpecFunc        SpecFunc;
++      typedef Base::Stat::RandomGenerator RandomGenerator;
++
++      CLASSNAMEINIT(Rice);
++
++      static Base::Common::Factory<Rice> RegisteredFactory("Rice");
++
++      /* Default constructor */
++      Rice::Rice()
++        : NonEllipticalDistribution("Rice"),
++          sigma_(1.0),
++          nu_(0.0)
++      {
++        setDimension(1);
++        computeRange();
++      }
++
++      /* Parameters constructor */
++      Rice::Rice(const NumericalScalar sigma,
++                         const NumericalScalar nu)
++        /* throw (InvalidArgumentException) */
++        : NonEllipticalDistribution("Rice"),
++          sigma_(1.0), nu_(nu)
++      {
++        // This call set also the range
++        setSigma(sigma);
++        setDimension(1);
++      }
++
++      /* Comparison operator */
++      Bool Rice::operator ==(const Rice & other) const
++      {
++        if (this == &other) return true;
++        return (sigma_ == other.sigma_) && (nu_ == other.nu_);
++      }
++
++      /* String converter */
++      String Rice::__repr__() const
++      {
++        OSS oss;
++        oss << "class=" << Rice::GetClassName()
++            << " name=" << getName()
++            << " dimension=" << getDimension()
++            << " sigma=" << sigma_
++            << " nu=" << nu_;
++        return oss;
++      }
++
++      /* Virtual constructor */
++      Rice * Rice::clone() const
++      {
++        return new Rice(*this);
++      }
++
++      /* Compute the numerical range of the distribution given the parameters values */
++      void Rice::computeRange()
++      {
++        const NumericalPoint lowerBound(1, 0. );
++        const NumericalPoint upperBound(computeUpperBound());
++        const Interval::BoolCollection finiteLowerBound(1, true);
++        const Interval::BoolCollection finiteUpperBound(1, false);
++        setRange(Interval(lowerBound, upperBound, finiteLowerBound, finiteUpperBound));
++      }
++
++
++      /* Get one realization of the distribution */
++      Rice::NumericalPoint Rice::getRealization() const
++      {
++	const NumericalScalar lambda(pow(nu_ / sigma_, 2));
++	return NumericalPoint(1, sigma_ * sqrt(DistFunc::rNonCentralChiSquare(2, lambda )) ) ;
++      }
++
++
++      /* Get the PDF of the distribution */
++      NumericalScalar Rice::computePDF(const NumericalPoint & point) const
++      {
++        const NumericalScalar x(point[0]);
++        if (x <= 0.0) return 0.0;
++  	const NumericalScalar lambda(pow(nu_ / sigma_, 2));
++	const NumericalScalar y(pow(x / sigma_, 2));
++	const NumericalScalar z(x * pow(1 / sigma_, 2));
++	return 2.0 * z * DistFunc::dNonCentralChiSquare(2, lambda , y ) ;
++      }
++
++
++      /* Get the CDF of the distribution */
++      NumericalScalar Rice::computeCDF(const NumericalPoint & point, const Bool tail) const
++      {
++        if (point[0] <= 0.0) return (tail ? 1.0 : 0.0);
++	const NumericalScalar lambda(pow(nu_ / sigma_, 2));
++	const NumericalScalar y(pow(point[0] / sigma_, 2));
++	return DistFunc::pNonCentralChiSquare(2, lambda , y, tail );
++      }
++
++      /* Compute the mean of the distribution */
++      void Rice::computeMean() const
++      {
++	//1.253314137315500251207882 = sqrt(pi/2)
++	const NumericalScalar x(-0.5 * pow(nu_/sigma_, 2) ); 
++        mean_ = NumericalPoint(1, sigma_ * 1.253314137315500251207882 * SpecFunc::HyperGeom_1_1(-0.5,1,x));
++        isAlreadyComputedMean_ = true;
++      }
++
++      /* Get the standard deviation of the distribution */
++      Rice::NumericalPoint Rice::getStandardDeviation() const /* throw(NotDefinedException) */
++      {
++	if (!isAlreadyComputedCovariance_) computeCovariance();
++        return NumericalPoint(1, sqrt(covariance_(0,0)));
++      }
++
++      /* Compute the covariance of the distribution */
++      void Rice::computeCovariance() const
++      {
++	  covariance_ = CovarianceMatrix(1);
++	  NumericalScalar covariance(0.0);
++	  const NumericalScalar mu(getMean()[0]);
++	  covariance = 2. * sigma_ * sigma_ + nu_ * nu_ - mu * mu;
++	  covariance_(0, 0) = covariance;
++	  isAlreadyComputedCovariance_ = true;
++      }
++
++      /* Parameters value and description accessor */
++      Rice::NumericalPointWithDescriptionCollection Rice::getParametersCollection() const
++      {
++        NumericalPointWithDescriptionCollection parameters(1);
++        NumericalPointWithDescription point(2);
++        Description description(point.getDimension());
++        point[0] = sigma_;
++        description[0] = "sigma";
++        point[1] = nu_;
++        description[1] = "nu";
++        point.setDescription(description);
++        point.setName(getDescription()[0]);
++        parameters[0] = point;
++        return parameters;
++      }
++
++      void Rice::setParametersCollection(const NumericalPointCollection & parametersCollection)
++      {
++        *this = Rice(parametersCollection[0][0], parametersCollection[0][1]);
++      }
++
++
++      /* Sigma accessor */
++      void Rice::setSigma(const NumericalScalar sigma)
++      /* throw(InvalidArgumentException) */
++      {
++        if (sigma <= 0.) throw InvalidArgumentException(HERE) << "Sigma MUST be positive";
++        if (sigma != sigma_)
++          {
++            sigma_ = sigma;
++            isAlreadyComputedMean_ = false;
++            isAlreadyComputedCovariance_ = false;
++            computeRange();
++          }
++      }
++
++      NumericalScalar Rice::getSigma() const
++      {
++        return sigma_;
++      }
++
++      /* Nu accessor */
++      void Rice::setNu(const NumericalScalar nu)
++      {	
++	if (nu <= 0.) throw InvalidArgumentException(HERE) << "Nu MUST be positive";
++        if (nu != nu_)
++          {
++            nu_ = nu;
++            isAlreadyComputedMean_ = false;
++            // The covariance does not depend on nu
++            computeRange();
++          }
++      }
++
++      NumericalScalar Rice::getNu() const
++      {
++        return nu_;
++      }
++
++      /* Method save() stores the object through the StorageManager */
++      void Rice::save(StorageManager::Advocate & adv) const
++      {
++        NonEllipticalDistribution::save(adv);
++        adv.saveAttribute( "sigma_", sigma_ );
++        adv.saveAttribute( "nu_", nu_ );
++      }
++
++      /* Method load() reloads the object from the StorageManager */
++      void Rice::load(StorageManager::Advocate & adv)
++      {
++        NonEllipticalDistribution::load(adv);
++        adv.loadAttribute( "sigma_", sigma_ );
++        adv.loadAttribute( "nu_", nu_ );
++        computeRange();
++      }
++
++    } /* namespace Distribution */
++  } /* namespace Uncertainty */
++} /* namespace OpenTURNS */
+Index: lib/src/Base/Graph/Contour.cxx
+===================================================================
+--- lib/src/Base/Graph/Contour.cxx	(révision 1842)
++++ lib/src/Base/Graph/Contour.cxx	(copie de travail)
+@@ -196,7 +196,7 @@
+         yFileName_ = "";
+         OSS oss;
+         // Stores the data in a temporary file
+-        oss << DrawableImplementation::draw() << "\n";
++//         oss << DrawableImplementation::draw() << "\n";
+         // The specific R command for drawing
+         if (x_.getDimension() * x_.getSize() > DataThreshold)
+           {

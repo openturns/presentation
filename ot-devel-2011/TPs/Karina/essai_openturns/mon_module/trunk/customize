@@ -1,0 +1,102 @@
+#!/bin/bash
+#                                               -*- Shell-script -*-
+#
+#  (C) Copyright 2005-2009 EDF-EADS-Phimeca
+#
+#  This library is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Lesser General Public
+#  License as published by the Free Software Foundation; either
+#  version 2.1 of the License.
+#
+#  This library is distributed in the hope that it will be useful
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public
+#  License along with this library; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+#
+#  @author: $LastChangedBy: dutka $
+#  @date:   $LastChangedDate: 2007-10-05 12:49:51 +0200 (ven, 05 oct 2007) $
+#  Id:      $Id: bootstrap 555 2007-10-05 10:49:51Z dutka $
+#
+#  This file customizes the file tree to the user's needs
+#  Call it before the bootstrap script
+#
+
+if [[ $# < 1 ]]
+then
+  echo "usage: $0 ClassName [ filename ]"
+  echo "example: $0 MyClass"
+  echo "         will convert all template files so they will define a new class named MyClass"
+  echo "         Please notice the upper/lower cases in class name"
+  exit 1
+fi
+
+name=$1
+
+# We convert Oldname to Newname, OLDNAME to NEWNAME, oldname to newname, etc.
+Oldname="MyClass"
+Newname=$1
+
+# Upper/lower cases
+OLDNAME=$(echo $Oldname | tr "[[:lower:]]" "[[:upper:]]")
+NEWNAME=$(echo $Newname | tr "[[:lower:]]" "[[:upper:]]")
+
+oldname=$(echo $Oldname | tr "[[:upper:]]" "[[:lower:]]")
+newname=$(echo $Newname | tr "[[:upper:]]" "[[:lower:]]")
+
+echo "Conversion of $Oldname to $Newname"
+echo "Conversion of $OLDNAME to $NEWNAME"
+echo "Conversion of $oldname to $newname"
+
+
+case $# in
+  1)
+    filelist_1="configure.ac Makefile.am python/myclass.i python/MyClass.i python/Makefile.am python/MyClassImplementation.i python/myclass.pth src/MyClass.cxx src/MyClassImplementation.cxx src/MyClassImplementation.hxx src/Makefile.am src/MyClass.hxx"
+
+    for file in $filelist_1
+    do
+     if [[ -f $file ]]
+     then
+       echo -n "Converting $file... "
+       sed -e "s/${oldname}/${newname}/g" -e "s/${OLDNAME}/${NEWNAME}/g" -e "s/${Oldname}/${Newname}/g" < $file > $file.mod && mv $file.mod $file
+       echo "OK"
+     else
+       echo "$file not found"
+     fi
+    done
+
+    filelist_2="python/myclass.i python/MyClass.i python/MyClassImplementation.i python/myclass.pth src/MyClass.cxx src/MyClassImplementation.cxx src/MyClassImplementation.hxx src/MyClass.hxx"
+
+    for file in $filelist_2
+    do
+     if [[ -f $file ]]
+     then
+         echo -n "Renaming... "
+	 newfile=$(echo $file | sed -e "s/${oldname}/${newname}/g" -e "s/${OLDNAME}/${NEWNAME}/g" -e "s/${Oldname}/${Newname}/g")
+	 mv -v $file $newfile
+     else
+       echo "$file not found"
+     fi
+    done
+    ;;
+
+  2)
+    file=$2
+    if [[ -f $file ]]
+    then
+       echo -n "Converting $file... "
+       sed -e "s/${oldname}/${newname}/g" -e "s/${OLDNAME}/${NEWNAME}/g" -e "s/${Oldname}/${Newname}/g" < $file > $file.mod && mv $file.mod $file
+       echo "OK"
+       echo -n "Renaming... "
+       newfile=$(echo $file | sed -e "s/${oldname}/${newname}/g" -e "s/${OLDNAME}/${NEWNAME}/g" -e "s/${Oldname}/${Newname}/g")
+       test "$file" != "$newfile" && mv -v $file $newfile
+    else
+      echo "$file not found"
+      exit 1
+    fi
+    ;;
+esac
+

@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {french}
+\beamer@sectionintoc {1}{OpenTURNS Textual User Interface}{3}{1}{1}
+\beamer@sectionintoc {2}{Development process}{6}{1}{2}
