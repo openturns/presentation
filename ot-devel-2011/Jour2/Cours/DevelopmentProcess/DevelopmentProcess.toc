@@ -1,4 +1,0 @@
-\beamer@endinputifotherversion {3.07pt}
-\select@language {french}
-\beamer@sectionintoc {1}{Autotools, CMake}{3}{1}{1}
-\beamer@sectionintoc {2}{Development process}{5}{1}{2}

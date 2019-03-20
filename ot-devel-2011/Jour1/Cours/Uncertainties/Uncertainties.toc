@@ -1,5 +1,0 @@
-\beamer@endinputifotherversion {3.07pt}
-\select@language {french}
-\beamer@sectionintoc {1}{What is uncertainty propagation?}{3}{1}{1}
-\beamer@sectionintoc {2}{Numerical models: the differential calculus potion}{4}{1}{2}
-\beamer@sectionintoc {3}{A cloud of probabilities in my code, please}{6}{1}{3}
