@@ -16,6 +16,7 @@ addons:
 script:
   - cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
   - cd lowranktensor && pdflatex -halt-on-error lowranktensor.tex && pdflatex lowranktensor.tex && cd -
+  - for subdir in agenda overview architecture uncertainties library_development module_development tps; do cd developer/${subdir} pdflatex -halt-on-error ${subdir}.tex && pdflatex ${subdir}.tex && cd -; done
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
@@ -25,7 +26,7 @@ after_success:
         TRAVIS_BRANCH=${TRAVIS_TAG:1};
     fi
   - mkdir -p openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
-  - cp -v ${TRAVIS_BUILD_DIR}/*/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/*/*.pdf ${TRAVIS_BUILD_DIR}/developer/*/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"

@@ -1,4 +1,0 @@
-swigflags: -I/home/regis/Formation_Cours/OpenTURNSDevel/TPs/Denis/integralcompoundpoisson/build/install/share/integralcompoundpoisson/swig
-cppflags: -I/home/regis/Formation_Cours/OpenTURNSDevel/TPs/Denis/integralcompoundpoisson/build/install/include/integralcompoundpoisson
-ldflags: -L/home/regis/Formation_Cours/OpenTURNSDevel/TPs/Denis/integralcompoundpoisson/build/install/lib/integralcompoundpoisson
-libs: -lOTIntegralCompoundPoisson
