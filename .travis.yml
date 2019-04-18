@@ -16,7 +16,7 @@ addons:
 script:
   - cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
   - cd lowranktensor && pdflatex -halt-on-error lowranktensor.tex && pdflatex lowranktensor.tex && cd -
-  - for subdir in agenda overview architecture uncertainties library_development module_development tps; do cd developer/${subdir} pdflatex -halt-on-error ${subdir}.tex && pdflatex ${subdir}.tex && cd -; done
+  - for subdir in agenda overview architecture uncertainties library_development module_development tps; do cd developer/${subdir} && pdflatex -halt-on-error ${subdir}.tex && pdflatex ${subdir}.tex && cd -; done
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0

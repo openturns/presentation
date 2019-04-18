@@ -19,7 +19,7 @@
 \setbeamercovered{dynamic}
 \DeclareMathOperator*{\argmin}{argmin}
 
-\title[OpenTURNS Developer training]{OpenTURNS Developer training: first steps with OpenTURNS}
+\title[OpenTURNS Developer training]{OpenTURNS Developer training: first steps}
 \author[OpenTURNS Consortium, 2019]
 {
   Trainer : Sofiane Haddad \\
@@ -29,7 +29,7 @@
 
 
 
-\date[March 22-25th 2011]
+\date[May 14-17th 2019]
 {
   Developers training \\
 
@@ -40,9 +40,6 @@
 
 \subject{OpenTURNS Developers Training}
 
-% \part<presentation>{Corps de presentation}
-
-
 \begin{document}
 
 \frame{\titlepage}
@@ -52,15 +49,15 @@
 
 % table des matieres
 \begin{frame}
-  \frametitle{First steps with OpenTURNS}
+  \frametitle{OpenTURNS: first steps}
   \tableofcontents[part=1]
 \end{frame}
+
+\section{Navigation in the source code}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Navigation in the source code %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%% 
-% Global picture %
-%%%%%%%%%%%%%%%%%% 
 \begin{frame}
   \frametitle{Navigation in the source code}
   \begin{block}{The Uniform distribution}
@@ -76,48 +73,51 @@
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Navigation in the source code %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Library development}
+
 %%%%%%%%%%%%%%%%%% 
 % Global picture %
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Module development}
+  \frametitle{Library development 1/2}
   \begin{block}{Projects}
     \begin{enumerate}
-      \item Implementation of a BoundConstrainedAlgorithm using L-BFGS-B. The module must adopt the GPL license. The objective is to solve:
-        \begin{equation}
-          \min_{\vect{a}\geq\vect{x}\leq{b}}f(\vect{x})
-        \end{equation}
-        where $f\in\mathcal{F}(\R^n,\R)$
-      \item Interface of the kissFFT library to convert a Collection< NumericalComplex > into another Collection< NumericalComplex > using direct or inverse Discrete Fourier Transform (DFT or iDFT):
-        \begin{equation}
-          DFT(\vect{x})_j=\sum_{k=0}^{N-1}x_j\exp(2i\pi jk/N)\quad iDFT(\vect{x})_j=\frac{1}{N}\sum_{k=0}^{N-1}x_j\exp(-2i\pi jk/N)
-        \end{equation}
       \item Weighted interpolation: create a new NumericalMathEvaluation that interpolate between points of a NumericalSample using weighted kernel interpolation.
         \begin{equation}
           f(\vect{x})=\alpha\sum_{i=0}^{N-1}K(\vect{x}-\vect{X}^i)\vect{Y}^i
         \end{equation}
 where $K$ is a given Distribution and $\alpha$ is a normalization factor.
+      \item CloudMesher: mesh generation over a cloud of points using kernel mixture, pca, rotation, then levelset mesher on an interval
+      \item ClenshawCurtis 1-d integration: https://people.maths.ox.ac.uk/trefethen/cctalk.pdf + ClenshawCurtisProductExperiment
+      \item TawnCopula/JoeCopula/MaxCopula 2-d copulas
     \end{enumerate}
   \end{block}
 \end{frame}
 
 \begin{frame}
+  \frametitle{Library development 2/2}
+  \begin{block}{Projects}
+    \begin{enumerate}
+      \setcounter{enumi}{4}
+      \item Extend archimedian copulas from 2-d to $n$-d (FarlieGumbelMorgenstern, FrankCopula, ClaytonCopula, AliMikhailHaqCopula)
+      \item ArchiMaxCopula, see ExtremeValueCopula
+      \item Extend ComposedDistribution to accept a list of n-d distributions
+      \item Add a method to SobolSimulationAlgorithm to draw sobol indices (openturns/issues/1001)
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+
+
+\section{Module development}
+
+\begin{frame}
   \frametitle{Module development}
   \begin{block}{Projects}
     \begin{enumerate}
-      \setcounter{enumi}{3}
-      \item Add a drawing capability to the NumericalMathFunction in the 1D and 2D cases (take inspiration from the drawPDF() method of the DistributionImplementation class)
       \item Convert the IntegralCompoundPoisson distribution python module into an OpenTURNS C++ module
-      \item Create a new Drawable using the {\ttfamily pairs} command of R.
-      \item Create an Event that check a point against an Interval.
-      \item Create a RandomVector distributed uniformly over an $n$ dimensional sphere;
-      \item Create a RandomVector distributed uniformly over an $n$ dimensional ball;
-      \item Create a RandomVector distributed uniformly over an $n$ dimensional simplex;
+      \item Create a RandomVector distributed uniformly over an $n$ dimensional sphere/ball/simplex;
     \end{enumerate}
-    The projects 2, 3 and 5 can be written in pure Python, without using the OpenTURNS module infrastructure.
   \end{block}
 \end{frame}
 \end{document}
