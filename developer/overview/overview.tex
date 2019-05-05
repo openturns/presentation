@@ -155,14 +155,14 @@
 \begin{frame}
   \frametitle{The target OSes}
   \begin{block}{A linux platform that works on windows}
-    The historic platform of OpenTURNS is linux. The first stage of developments have been made on 32 bits Intel Linux platforms (debian, mandriva), then the (minor) adaptations have been made in order to run on 64 bits Intel platforms as well.\\
+    The historic platform of OpenTURNS is Linux. The first stage of developments have been made on 32 bits Intel Linux platforms (debian, mandriva), then the (minor) adaptations have been made in order to run on 64 bits Intel platforms as well.\\
     Currently, the platform works on the following platforms:
     \begin{itemize}
-      \item Debian 32 bits / 64 bits (Hetch to current);
-      \item Mandriva 32 bits / 64 bits (2005 to current);
-      \item Windows 32 bits / 64 bits (XP, Vista, seven).
+      \item Linux;
+      \item macOS;
+      \item Windows
     \end{itemize}
-    The development platform remains Linux, the Windows version is obtain by cross compilation under Linux (using the mingw tools). A native Windows version is planed.
+    The development platform remains Linux, the Windows version is obtained by cross compilation under Linux (using the MinGW tools). Native compilation is possible too.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -172,7 +172,9 @@
 \begin{frame}
   \frametitle{The development infrastructure}
   \begin{block}{Compilation infrastructure}
-    Two alternative compilation infrastructures are present: the historic one (autotools + libtools) and the newcommer (CMake). For now, only the first infrastructure is running smoothly. It covers:
+    The present compilation infrastructure relies on CMake.
+    In the past the autotools were used. 
+    It covers:
     \begin{itemize}
     \item The detection and configuration aspects of the platform;
     \item The dependency management of the sources;
@@ -180,20 +182,20 @@
     \item The regression tests;
     \item The library packaging.
     \end{itemize}
-    The use of the autotools also greatly simplify the Linux packaging (.deb, .rpm). The CMake infrastructure is still in a beta state, but should greatly improve the configuration and compilation steps, and provide a way to compile the Windows version using Microsoft compilers, in order to easily reuse the C++ library in native Windows projects.
+    The use of CMake provides a way to compile the Windows version using Microsoft compilers, in order to easily reuse the C++ library in native Windows projects.
   \end{block}
 \end{frame}
 \begin{frame}
   \frametitle{The development infrastructure}
   \begin{block}{Versioning system}
-    The versioning system used for the development of the whole platform is Subversion (SVN), on top of which stands a TRAC website.
+    The versioning system used for the development of the whole platform is Git, the project is currently hosted by GitHub.
     \begin{itemize}
-    \item \alert{Apache Subversion} is a software versioning and a revision control system issued from the Apache project. It is used for both the sources of the platform and the documentation, as well as for the development of modules.
-    \item \alert{Trac} is an open source, web-based project management and bug-tracking tool. Trac allows hyperlinking information between a bug database, revision control and wiki content. It also serves as a web interface to several revision control systems including Subversion.
+    \item \alert{Git} is a software versioning and a revision control system started by Linus Torvalds. It is used for the sources of the platform, the documentation, as well as for the development of modules.
+    \item \alert{GitHub} is GitHub is a web-based hosting service for version control using Git. GitHub allows hyperlinking information between a bug database, revision control and wiki content.
     \end{itemize}
   \end{block}
   \begin{block}{Repositories}
-    Three repositories are used for the development of the platform, its documentation and its modules. This choice has been made for the following reasons:
+    Several repositories are used for the development of the platform, its documentation and its modules. This choice has been made for the following reasons:
     \begin{itemize}
     \item The time scale is not the same for these three activities;
     \item The teams are different partly in term of people, but mainly in term of expertise.
@@ -206,13 +208,14 @@
 \begin{frame}
   \frametitle{The development infrastructure}
   \begin{block}{Platform repository}
-    This repository is in charge of both the C++ library source code and the python interface. It has the following organization, which is quite standard:
+    This repository is in charge of both the C++ library source code and the Python interface. It has the following layout, which is quite standard:
     \begin{itemize}
-    \item A trunk that stores the source code of the upcoming version of the platform. The rule is to have only source code that pass with success all the tests embedded with both the library and the python module.
-    \item Several development branches, dedicated to contributors or to specific developments. There are curently 6 active branches.
-    \item A branch for the tags with one entry for each release candidate or official releases. 17 releases have been tagged so far.
+    \item A master branch that stores the source code of the upcoming version of the platform. The rule is to have only source code that pass with success all the tests embedded with both the library and the python module.
+    \item Maintenance branches that contain stable versions.
+    \item Several development branches, dedicated to contributors or to specific developments.
+    \item Several tags for each release candidate or official releases. 20 releases have been tagged so far in Git.
     \end{itemize}
-    The usage of this infrastructure is described in the Contribution Guide, one of the several documents that come with the platform. In particular, a specific role is assigned to an \alert{integrator}, in charge of the merges from the different branches into the trunk.
+    The usage of this infrastructure is described in the Contribution Guide, one of the several documents that come with the platform. In particular, a specific role is assigned to an \alert{integrator}, in charge of the merges from the different branches into master.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -220,27 +223,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
   \frametitle{The development infrastructure}
-  \begin{block}{Documentation repository}
-    This repository is in charge of the whole documentation of the platform (10 different documents). It has been separated from the main repository by the middle of 2009 in order to allow for more frequent updates of the documentation with respect to the whole platform. It shares the same structure as the main repository:
+  \begin{block}{Continuous integration}
+    OpenTURNS makes extensive use of online continuous integration providers to test the platform thoughout the development process. Currently the following services are used for the library:
     \begin{itemize}
-    \item A trunk that stores the source code of the upcoming version of the documentation. The rule is to have only LaTeX source code able to generate the PDF version of all the documents.
-    \item Several documentation branches, dedicated to contributors. There are currently 3 active branches.
-    \item A branch for the tags with one entry for each release of the documentation. 4 releases have been tagged since july 2009.
-    \end{itemize}
-    The usage of this infrastructure is the same as for the main repository.
-  \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% The development infrastructure %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\begin{frame}
-  \frametitle{The development infrastructure}
-  \begin{block}{Modules repository}
-    This repository is dedicated to the development of extra functionalities that have not yet been integrated into the main library, due to the lack of maturity of their dependencies for example. This repository is organized in a different way than the previous repositories:
-    \begin{itemize}
-    \item There is a branch for each module
-    \item Within these branches, \alert{the same organization as the main repository is proposed} but the developers are free to organize the things the way they want. Nevertheless, the commitment to the standard organization should ease the future integration into the mainstream development.
-    \item For now, there are 2 active modules and one template.
+    \item CircleCI: Linux, MinGW
+    \item Travis: macOS
+    \item Appveyor: native Windows
     \end{itemize}
   \end{block}
 \end{frame}
@@ -248,28 +236,28 @@
 % The development infrastructure %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Trac interface: the timeline}
+  \frametitle{GitHub interface: the timeline}
   \centering \resizebox{!}{7cm}{\includegraphics{Timeline.png}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % The development infrastructure %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Trac interface: the source navigator}
+  \frametitle{GitHub interface: the source navigator}
   \centering \resizebox{!}{7cm}{\includegraphics{BrowseSource.png}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % The development infrastructure %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Trac interface: the bug tracking (1/2)}
+  \frametitle{GitHub interface: the bug tracking (1/2)}
   \centering \resizebox{!}{7cm}{\includegraphics{Tickets1.png}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % The development infrastructure %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Trac interface: the bug tracking (2/2)}
+  \frametitle{GitHub interface: the bug tracking (2/2)}
   \centering \resizebox{!}{7cm}{\includegraphics{Tickets2.png}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -280,7 +268,7 @@
   \Large
   \frametitle{Conclusion}
   \begin{itemize}
-  \item A quite mature project: 6 full years of development
+  \item A quite mature project: 12 full years of development
   \item A structured (rigid ;-)?) development process
   \item A working infrastructure to help the developer in his/her hard job!
   \end{itemize}
