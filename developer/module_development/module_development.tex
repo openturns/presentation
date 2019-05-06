@@ -82,7 +82,15 @@
 \begin{frame}
   \frametitle{OpenTURNS modules}
   \begin{block}{And fo a Python module?}
-    For now, there is (almost) no way to use a Python object within the OpenTURNS C++ library. The concept of "OpenTURNS Python module" is not very specific: any set of Python classes or Python functions that use the OpenTURNS Python interface can be called an OpenTURNS Python module. In this case, the notion of OpenTURNS module is mainly a packaging notion, and the use of the Python setup tools is probably more mature and more adapted!
+    For now, there is (almost) no way to use a Python object within the OpenTURNS C++ library, excepting:
+    \begin{itemize}
+    \item A Distribution;
+    \item a function;
+    \item An experiment
+    \item ...
+    \end{itemize}
+    The concept of "OpenTURNS Python module" is not very specific: we get some packages `full python` such as \texttt{oticp},  \texttt{otwrap} , \texttt{otsklearn}. But these examples are in a way independent as they rely on the API and the API is not able to `integrate` them.
+    In other words, any set of Python classes or Python functions that use the OpenTURNS Python interface can be called an OpenTURNS Python module. In this case, the notion of OpenTURNS module is mainly a packaging notion, and the use of the Python setup tools is probably more mature and more adapted!
   \end{block}
 \end{frame}
 \section[Module development]{Module development}
@@ -92,7 +100,7 @@
     \begin{itemize}
     \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
 
-      {\ttfamily svn export https://svn.openturns.org/openturns-modules/template MyModule}
+      {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule}
     \item Adapt the template to your module:\\
       {\ttfamily ./customize MyModule}\\
       This command change the module name into all the scripts, and adapt the example class to this new name.
@@ -107,11 +115,10 @@
     \item Implement your module. You are free to use the rules you want, but if the final objective of the module is to be integrated in the official release of OpenTURNS, it is wise to adopt the OpenTURNS development process and rules.
     \item Build your module as usual:
       \begin{tabular}{l}
-        \ttfamily ./bootstrap\\
         \ttfamily mkdir build\\
         \ttfamily cd build\\
-        \ttfamily ../configure --with-swig=SWIG\_INSTALLDIR \\
-        \ttfamily --with-openturns=OPENTURNS\_INSTALLDIR\\
+        \ttfamily cmake .. -DCMAKE\_INSTALL\_PREFIX=INSTALLDIR \\
+        \ttfamily -DOpenTURNS\_DIR=OPENTURNS\_INSTALLDIR/lib/cmake/openturns\\
         \ttfamily make
       \end{tabular}
     \item Create a source package of your module:\\
@@ -121,25 +128,40 @@
   \end{block}
 \end{frame}
 
+
 \begin{frame}
   \frametitle{Module development}
-  \begin{block}{Step 3: install and test the module}
+  \begin{block}{Step 3: documentation}
+    Module documentation is very close to API one:
+    \begin{itemize}
+    \item Developer guide : Architecture, validation
+    \item SWIG documentation is to be completed;
+    \item User manual and examples
+    \item Theory (if needed)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 4: install and test the module}
     \begin{itemize}
     \item Check that you have a working OpenTURNS installation, for example by trying to load the OpenTURNS module within an interactive python session:
       \begin{tabular}{l}
         \ttfamily python\\
-        \ttfamily >>> from openturns import *\\
+        \ttfamily >>> import openturns as ot\\
       \end{tabular}
 
       and python should not complain about a non existing openturns module.
-    \item In the python directory of the OpenTURNS install directory, you can find a script named {\itshape openturns-module}. You use this script to install the tarball mymodule.tar.gz (or mymodule.tar.bz2) in your home directory ({\itshape \$HOME/openturns}):\\
-      {\ttfamily openturns-module --install=mymodule-X.Y.Z.tar.gz --prefix=user}\\
+    %\item In the python directory of the OpenTURNS install directory, you can find a script named {\itshape openturns-module}. You use this script to install the tarball mymodule.tar.gz (or mymodule.tar.bz2) in your home directory ({\itshape \$HOME/openturns}):\\
+     % {\ttfamily openturns-module --install=mymodule-X.Y.Z.tar.gz --prefix=user}\\
       The installation script has many more capabilities, you can access to its embedded documentation by invoking it without argument.
     \item Test your module within python:\\
       \begin{tabular}{l}
         \ttfamily python \\
-        \ttfamily >>> from openturns import * \\
-        \ttfamily >>> from mymodule import * \\
+        \ttfamily >>> import openturns as ot \\
+        \ttfamily >>> import mymodule \\
       \end{tabular}
 
       and python should not complain about a non existing mymodule module.
@@ -147,58 +169,26 @@
   \end{block}
 \end{frame}
 
+
 \begin{frame}
   \frametitle{Module development}
-  \begin{block}{OpenTURNS module management}
-    \scriptsize
-    \begin{tabular}{l}
-      \ttfamily openturns-module \\
-      \ttfamily Usage: openturns-module [--silent] {--install=<module> | --remove=<module>} [--prefix=PFX] [extra\_configure\_args] \\
-      \ttfamily openturns-module [--silent] {--install <module> | --remove <module>} [--prefix PFX] [extra\_configure\_args] \\
-      \ttfamily  openturns-module [--silent] {--module=<module> | --module <module>} [options] \\
-      \ttfamily  Note: \\
-      \ttfamily For installation, 'module' can be either a path to a directory \\
-      \ttfamily  or a path to a archive file (compressed or not). \\
-      \ttfamily For removal, 'module' is the module name. \\
-      \ttfamily The extra configure args are passed as is to the module configure \\
-      \ttfamily script. \\
-      \\
-      \ttfamily Example: \\
-      \ttfamily (install) \\
-      \ttfamily openturns-module --install=mymodule/ \\
-      \ttfamily openturns-module --install=/path/to/mymodule/ \\
-      \ttfamily openturns-module --install=mymodule.tar \\
-      \ttfamily openturns-module --install=mymodule.tar.gz \\
-      \ttfamily openturns-module --install=mymodule.tgz \\
-      \ttfamily openturns-module --install=mymodule.tar.bz2 \\
-      \ttfamily openturns-module --install=mymodule.tbz \\
-      \\
-      \ttfamily You can provide a prefix to choose where the module will be installed. \\
-      \ttfamily PFX can take one of the following values: \\
-      \ttfamily * openturns : the module will be installed in the Open TURNS installation tree
-    \end{tabular}
+  \begin{block}{Step 5: Maintenance}
+    Developer is responsible of his package should maintain it!
+    \begin{itemize}
+    \item We can rely on continuous integration tool accounting API changes
+    \item He is in charge of bugs (except if underlying bug is in the API)
+    \end{itemize}
+    Exception : modules maintained by the consortium!
+  \end{block}
+  \begin{block}{Step 6: Packaging}
+    No specific rule concerning the packaging!
+    \begin{itemize}
+    \item Tarball generation
+    \item Git
+    \item conda...
+    \end{itemize}
+    Exception : modules maintained by the consortium!
   \end{block}
 \end{frame}
-\begin{frame}
-  \frametitle{Module development}
-  \begin{block}{OpenTURNS module management}
-    \scriptsize
-    \begin{tabular}{l}
-      \ttfamily * user : the module will be installed in the Open TURNS user directory (/home/regis/openturns) \\
-      \ttfamily * <dir> : the module will be installed in <dir>. You should append <dir> to the \\
-      \ttfamily OPENTURNS\_MODULE\_PATH envvar to tell Open TURNS where to find the module \\
-      \\
-      \ttfamily (remove) \\
-      \ttfamily openturns-module --remove=mymodule \\
-      \\
-      \ttfamily (mixed form) \\
-      \ttfamily openturns-module --remove=myoldmodule1 --install=mynewmodule1 --install=mymodule2 \\
-      \ttfamily (module) \\
-      \ttfamily openturns-module --module=mymodule \\
-      \\
-      \ttfamily Options: \\
-      \ttfamily --silent          Do not output any message \\
-    \end{tabular}
-  \end{block}
-\end{frame}
+
 \end{document}
