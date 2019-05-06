@@ -123,7 +123,7 @@
   \begin{block}{A multilayered library}
     The two main layers in the C++ library are the \alert{Base} layer and the \alert{Uncertainty} layer.
     \begin{itemize}
-    \item \alert{Base} layer: it contains all the classes not related to the probabilistic concepts. It covers the elementary data types (vectors as NumericalPoint, samples as NumericalSamples), the concept of models (NumericalMathFunction), the linear algebra (Matrix, Tensor) and the general interest classes (memory management, resource management);
+    \item \alert{Base} layer: it contains all the classes not related to the probabilistic concepts. It covers the elementary data types (vectors as Point, samples as Sample), the concept of models (Function), the linear algebra (Matrix, Tensor) and the general interest classes (memory management, resource management);
     \item \alert{Uncertainty} layer: it contains all the classes that deal with probabilistic concepts. It covers the probabilistic modelling (Distribution, RandomVector), the stochastic algorithms (MonteCarlo, FORM), the statistical estimation (DistributionFactory), the statistical testing (FittingTest)
     \end{itemize}
     A class in the Uncertainty layer can use any class in the Base or the Uncertainty layer. A class in the Base layer can ONLY USE classes in the Base layer.
@@ -146,7 +146,7 @@
   \begin{block}{Interfacing python and C++ libraries: SWIG}
     In order to provide a convenient interface to the user, the C++ library can be manipulated as a set of Python modules (18) that are organized through a hierarchy, on top of which stands the openturns module. The binding of the library is done almost automatically by SWIG (Simplified Wrapper Interface Generator) through a set of SWIG interface files.\\
     An additional significant work has been made in order to ease the interation between the OpenTURNS objects and the native Python objects.\\
-    A unique feature of the Python interface is the ability to wrap a Python function into an OpenTURNS concept of mathematical function, namely the NumericalMathFunction, using a specific class: the OpenTURNSPythonFunction. Using this mechanism, it is possible to adress virtually all the scenarios of coupling with an external simulation software.
+    A unique feature of the Python interface is the ability to wrap a Python function into an OpenTURNS concept of mathematical function, namely the Function, using a specific class: the OpenTURNSPythonFunction. Using this mechanism, it is possible to adress virtually all the scenarios of coupling with an external simulation software.
   \end{block}
 \end{frame}
 %%%%%%%%%% 
