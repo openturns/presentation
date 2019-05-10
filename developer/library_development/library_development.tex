@@ -239,13 +239,13 @@
   \begin{block}{Practical case: adding a new distribution to the C++ library}
     \begin{itemize}
     \item Each trainee has to implement a new distribution in the C++ library, this distribution being chosen without replacement in an urn containing a dozen of distributions.
-    \item From an algorithmic point of view, the minimum to do is to implement the {\ttfamily NumericalScalar computeCDF(const NumericalPoint \& point)} method.
+    \item From an algorithmic point of view, the minimum to do is to implement the {\ttfamily Scalar computeCDF(const Point \& point)} method.
     \item From a development process point of view, each trainee is expected to go through at least the 6 first steps.
     \item The other methods should be added in the following order:
       \begin{enumerate}
-      \item {\ttfamily NumericalScalar computePDF(const NumericalPoint \& point)}
-      \item {\ttfamily NumericalPoint getRealization()}
-      \item {\ttfamily NumericalScalar computeScalarQuantile(const NumericalScalar prob, const Bool tail, const NumericalScalar precision)}
+      \item {\ttfamily Scalar computePDF(const Point \& point)}
+      \item {\ttfamily Point getRealization()}
+      \item {\ttfamily Scalar computeScalarQuantile(const Scalar prob, const Bool tail, const Scalar precision)}
       \item {\ttfamily void computeMean() const}
       \item {\ttfamily void computeCovariance() const}
       \end{enumerate}

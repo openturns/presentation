@@ -86,11 +86,11 @@
 \begin{frame}
   \frametitle{Numerical models}
   \begin{block}{OpenTURNS concept}
-    Mathematically speaking, a \emph{numerical model $f$} is a function defined over a subset of $\R^n$ and taking values in a subset of $\R^p$. In OpenTURNS, such a concept is implemented by the \emph{NumericalMathFunction} class. This class proposes 3 main services:
+    Mathematically speaking, a \emph{numerical model $f$} is a function defined over a subset of $\R^n$ and taking values in a subset of $\R^p$. In OpenTURNS, such a concept is implemented by the \emph{Function} class. This class proposes 3 main services:
     \begin{itemize}
-    \item An \emph{evaluation} method: for all vector $\vect{x}\in\R^n$, a NumericalMathFunction must either compute the value of $f(\vect{x})$ if it is well defined, or throw an exception. \emph{Warning: the domain of definition of $f$ is only implicitely known.}. The evaluation is delegated to the \emph{NumericalMathEvaluationImplementation} class, which is a \emph{mandatory} part of the NumericalMathFunction.
-    \item A \emph{gradient} method: for all vector $\vect{x}\in\R^n$, a NumericalMathFunction may compute the value of $\nabla f(\vect{x})\in\mathcal{M}_{n,p}(\R)$ if it is well defined, or throw an exception. The gradient computation is delegated to the \emph{NumericalMathGradientImplementation} class, which is an \emph{optional} part of the NumericalMathFunction.
-    \item An \emph{hessian} method: for all vector $\vect{x}\in\R^n$, a NumericalMathFunction may compute the value of $\nabla^2 f(\vect{x})\in\mathcal{T}_{n,n,p}(\R)$ if it is well defined, or throw an exception. The hessian computation is delegated to the \emph{NumericalMathHessianImplementation} class, which is an \emph{optional} part of the NumericalMathFunction.
+    \item An \emph{evaluation} method: for all vector $\vect{x}\in\R^n$, a Function must either compute the value of $f(\vect{x})$ if it is well defined, or throw an exception. \emph{Warning: the domain of definition of $f$ is only implicitely known.}. The evaluation is delegated to the \emph{EvaluationImplementation} class, which is a \emph{mandatory} part of the Function.
+    \item A \emph{gradient} method: for all vector $\vect{x}\in\R^n$, a Function may compute the value of $\nabla f(\vect{x})\in\mathcal{M}_{n,p}(\R)$ if it is well defined, or throw an exception. The gradient computation is delegated to the \emph{GradientImplementation} class, which is an \emph{optional} part of the Function.
+    \item An \emph{hessian} method: for all vector $\vect{x}\in\R^n$, a Function may compute the value of $\nabla^2 f(\vect{x})\in\mathcal{T}_{n,n,p}(\R)$ if it is well defined, or throw an exception. The hessian computation is delegated to the \emph{HessianImplementation} class, which is an \emph{optional} part of the Function.
     \end{itemize}
   \end{block}
   This concept is refined in several sub-classes in a hierarchy that is one of the key part of OpenTURNS.
