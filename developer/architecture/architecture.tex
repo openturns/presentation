@@ -199,7 +199,7 @@
   \begin{block}{Usage in OpenTURNS}
     This pattern is used in many places in order to permit recursive definition of concepts:
     \begin{itemize}
-    \item \alert{ComposedNumericalMathFunction}, that implements the functional composition of the function algebra.
+    \item \alert{ComposedFunction}, that implements the functional composition of the function algebra.
     \item \alert{ComposedDistribution}, for the creation and manipulation of distributions defined by a copula and a collection of marginal distributions.
     \item \alert{ComposedCopula}, for the creation and manipulation of copulas defined by a collection of lower dimensional copulas.
     \item \alert{CompositeRandomVector}, in charge of the creation and manipulation of random vectors built as the image by a numerical function of other random vectors.
@@ -212,7 +212,7 @@
 \begin{frame}
   \frametitle{Design patterns}
   \begin{block}{Bridge pattern}
-    The \alert{bridge pattern} is a design pattern used in software engineering which is meant to "decouple an abstraction from its implementation so that the two can vary independently". The bridge uses encapsulation, aggregation, and can use inheritance to separate responsibilities into different classes.\\
+    The \alert{bridge pattern} is a design pattern used in software engineering which is meant to "uncouple an abstraction from its implementation so that the two can vary independently". The bridge uses encapsulation, aggregation, and can use inheritance to separate responsibilities into different classes.\\
     When a class varies often, the features of object-oriented programming become very useful because changes to a program's code can be made easily with minimal prior knowledge about the program. The bridge pattern is useful when both the class as well as what it does vary often. The class itself can be thought of as the implementation and what the class can do as the abstraction. The bridge pattern can also be thought of as two layers of abstraction.
   \end{block}
   \begin{block}{Usage in OpenTURNS}
