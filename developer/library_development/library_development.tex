@@ -28,7 +28,7 @@
 
 
 
-\date[March 22-25th 2011]
+\date[May 14-15th 2019]
 {
   Developers training \\
 
@@ -57,32 +57,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%% 
 % The OpenTURNS package %
 %%%%%%%%%%%%%%%%%%%%%%%%% 
-\section[Autotools, CMake]{Autotools, CMake}
+\section[CMake]{CMake}
 %%%%%%%%%%%%% 
 % The tools %
 %%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Two compilation infrastructures}
-  \begin{block}{The autotools}
-    The autotools are a set of tools that aim to ease the configuration and compilation of large software projects in the UNIX world. The objective is to generate Makefiles from a set of templates and the information gathered during a configuration step. The main tools are:
-    \begin{itemize}
-    \item \emph{aclocal} in charge of the management of the several \emph{detection macros} needed for the configuration of the project: the dependencies, the compilers and so on.
-    \item \emph{automake} in charge of producing parameterized Makefiles (\emph{Makefile.in}) from template Makefiles (\emph{Makefiles.am}).
-    \item \emph{autoconf} in charge of the parameterization of both the Makefiles and the sources of the project (notably for the conditional compilation of parts of the project). The main purpose of this tool is to produce a shell script (\emph{configure}) based on a template (\emph{autoconf.ac}) and the macros gathered by aclocal (\emph{aclocal.m4}). This shell script converts the parameterized Makefiles (Makefile.in) into ready to use Makefiles.
-    \item \emph{autotest} in charge of the unit tests. Such a test is described as an association between a shell script command to be executed and a reference standard output and error output that is expected. The validation is done using a character-based comparison of the shell script output and the reference output, and through the return code of the shell script command.
-    \end{itemize}
+  \frametitle{The CMake compilation infrastructure}
+  \begin{block}{Basics}
+
+  CMake is an extensible, open-source system that manages the build process in an operating system and in a compiler-independent manner.
+\begin{itemize}
+  \item All the configuration is done through a hierarchy of text files written in the CMake macro language.
+  
+  \item Unlike many cross-platform systems, CMake is designed to be used in conjunction with the native build environment.
+\end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Two compilation infrastructures}
+  \frametitle{The CMake compilation infrastructure}
   \begin{block}{CMake}
-    CMake is another compilation infrastructure with the same objectives as the autotools. All the configuration is done through a hierarchy of text files written in the CMake macro language, and a GUI is available to ease the creation of this hierarchy. The same topics are covered:
+    It consists configuration files placed in each source directory (called CMakeLists.txt files) and cover:
     \begin{itemize}
-    \item \emph{dependency detection} through a set of detection macros: the several .cmake files;
     \item \emph{configuration} through a master configuration file: the top-level CMakeLists.txt file;
-    \item \emph{source organization} through a set of CMakeLists.txt files disseminated in the whole source tree: each such file includes the declaration of the several source files and associated header files, and make a recursive call to the subdirectories.
-    \item \emph{testing} using a mechanism that is not completely clear to me at this time...
+    \item \emph{source organization} through a set of CMakeLists.txt files disseminated in the whole source tree: each
+    \item \emph{dependency detection} through a set of detection macros: the several .cmake files;
+        such file includes the declaration of the several source files and associated header files, and make a recursive call to the subdirectories.
+    \item \emph{testing} using the associated CTest testing utility, responsible for running C++ and Python tests.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -99,7 +100,7 @@
       \item The introduction of a new concept.
     \end{itemize}
     The associated development process shares the same principles in both cases, but the details are more involved in the second case.\\
-    Both cases are covered in the \alert{Contribution Guide} documentation that comes with OpenTURNS, only the first situation will be covered here. We suppose that our extension consist in the creation of a new class called MyClass in an existing directory.
+    Both cases are covered in the \alert{Developer} documentation that comes with OpenTURNS, only the first situation will be covered here. We suppose that our extension consist in the creation of a new class called MyClass in an existing directory.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%% 
@@ -108,22 +109,20 @@
 \begin{frame}
   \frametitle{Populate an existing concept}
   \begin{block}{Step 1: create the header file and the associated source file}
-    Create MyClass.hxx and MyClass.cxx in the same directory. The files must have the standard OpenTURNS header, with a brief description of the class using the Doxygen format and the standard reference to the LGPL license.
+    Create MyClass.cxx and openturns/MyClass.hxx in the lib/src directory. The files must have the standard OpenTURNS header, with a brief description of the class using the Doxygen format and the standard reference to the LGPL license.
   
-  For the header file MyClass.hxx, the interface must be embraced between the preprocessing clauses:
+  For the header file MyClass.hxx, the interface must be embraced between the preprocessing clauses to prevent from multiple inclusions.
   
 \begin{tabular}{l}
 \ttfamily \#ifndef OPENTURNS\_MYCLASS\_HXX\\
 \ttfamily \#define OPENTURNS\_MYCLASS\_HXX\\
 \ttfamily ...\\
-\ttfamily your interface\\
+\ttfamily class OT\_API MyClass {...};\\
 \ttfamily ...\\
 \ttfamily \#endif OPENTURNS\_MYCLASS\_HXX
 \end{tabular}
-  
-  to prevent from multiple inclusions.
-  
-  See any pair of .hxx/.cxx files in the current directory and the OpenTURNS Coding Rules document as a guide for your development: the use of namespaces, case convention for the static methods, the other methods and the attributes, the trailing underscore for the attribute names to name a few rules.
+
+  See any pair of .hxx/.cxx files in the current directory and the coding section as a guide for your development: the use of namespaces, case convention for the static methods, the other methods and the attributes, the trailing underscore for the attribute names to name a few rules.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%% 
@@ -131,16 +130,11 @@
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
   \frametitle{Populate an existing concept}
-  \begin{block}{Step 2: update the automake file and the CMake file}
-    Modify the Makefile.am file in the directory containing MyClass.hxx and MyClass.cxx:
+  \begin{block}{Step 2: update the CMake source configuration}
+    Modify the CMakeList.txt file in some lib/src subdirectory:
     \begin{itemize}
-    \item add MyClass.hxx to the {\ttfamily otinclude\_HEADERS} variable
-    \item add MyClass.cxx to the {\ttfamily libOTXXXXXX\_la\_\_SOURCES} variable, where XXXXXX is the name of the current directory.
-    \end{itemize}
-    Modify the CMakeList.txt file in the same directory:
-    \begin{itemize}
-    \item add MyClass.hxx using the instruction {\ttfamily ot\_install\_header\_file ( MyClass.hxx )}
-    \item add MyClass.cxx using the instruction {\ttfamily ot\_add\_source\_file ( MyClass.cxx )}
+    \item add MyClass.hxx using the instruction {\ttfamily ot\_install\_header\_file (MyClass.hxx)}
+    \item add MyClass.cxx using the instruction {\ttfamily ot\_add\_source\_file (MyClass.cxx)}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -158,9 +152,9 @@
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
   \frametitle{Populate an existing concept}
-  \begin{block}{Step 4: the autotest file(s) of the test(s)}
-    Create an autotest file t\_MyClass\_std.at in the directory lib/test. This file describes the test, how to run it and what is the expected output (copy-paste the \emph{validated} output of the test in the proper section of t\_MyClass\_std.at).\\
-    For the CMake infrastructure, there is no such step.
+  \begin{block}{Step 4: update the CMake test configuration}
+    Modify the CMakeList.txt file in the lib/test directory:
+    {\ttfamily ot\_check\_test (MyClass\_std)}
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%
@@ -168,26 +162,14 @@
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
   \frametitle{Populate an existing concept}
-  \begin{block}{Step 5: update the automake file and the CMake file of the lib/test directory}
-  \begin{itemize}
-  \item add t\_MyClass\_std (which is the name of the test executable) to the variable CHECK\_PROGS or INSTALLCHECK\_PROGS depending on the fact the test checks the correct behaviour of OpenTURNS independently of its installation or not. The several executables are organized following the library organization, you must follow this rule.
-  \item add t\_MyClass\_std.at to the variable CHECK\_TESTS or INSTALLCHECK\_TESTS and in the correct set of autotest files, following the same rules than for the executable.
-  \item Create a variable called t\_MyClass\_std\_SOURCES and set its value to t\_MyClass.cxx in the relevant set of sources.
-  \end{itemize}
-  For the CMake infrastructure, add the line ot\_installcheck\_test ( MyClass\_std ) in the relevant section of the CMakeLists.txt file.
+  \begin{block}{Step 5: update the CMake file of the lib/test directory}
+    Add an expected test result named t\_MyClass\_std.expout
+    
+    The content of this file is compared to the output of the cxx test executable when regression tests are run.
+
   \end{block}
 \end{frame}
-%%%%%%%%%%%%%%%%%%
-% Add a new class
-%%%%%%%%%%%%%%%%%% 
-\begin{frame}
-  \frametitle{Populate an existing concept}
-  \begin{block}{Step 6: update the autotest infrastructure}
-    Add t\_MyClass\_std.at to the file check\_testsuite.at or installcheck\_testsuite.at using the same rule than for the Makefile.am modification.\\
-    If the test checks functionalities available after the installation of OpenTURNS, use the installcheck\_testsuite.at file as your test is a post-installation test, else use the check\_testsuite.at file.\\
-    There is no such step in the CMake infrastructure.
-  \end{block}
-\end{frame}
+
 %%%%%%%%%%%%%%%%%%
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
@@ -195,10 +177,7 @@
   \frametitle{Populate an existing concept}
   \begin{block}{Step 7: validation}
     If the validation of your class involved advanced mathematics, or was a significant work using other tools, you can add this validation in the validation/src directory.
-    \begin{itemize}
-    \item copy all of your files in the validation/src directory.
-    \item modify the Makefile.am file by appending the list of your files to the dist\_validation\_DATA variable.
-    \end{itemize}
+
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%
@@ -209,9 +188,8 @@
   \begin{block}{Step 8: update the documentation}
     The documentation must be written in English, using LaTeX. For an addition to the C++ library, you may have to update the following documents in the OpenTURNS documentation source tree:
     \begin{itemize}
-    \item Add an entry in the document src/ArchitectureGuide/OpenTURNS\_ArchitectureGuide.tex if your class has a significant impact on the library architecture.
-    \item Add an entry in the document src/WrappersGuide/OpenTURNS\_WrappersGuide.tex if your class has a significant impact on the way OpenTURNS interfaces external codes.
-    \item Add an entry in the document src/ReferenceGuide/OpenTURNS\_ReferenceGuide.tex if your class add a new concept not already described in the reference guide. Your entry must take the form of a specific description using the same template than the other descriptions.
+    \item Add an entry in the document python/doc/developer\_guide/wrapper\_development.rst if your class has a significant impact on the way external codes are interfaced.
+    \item Add an entry in the document python/doc/theory if your class add a new concept not already described in the theoric documentation.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -262,12 +240,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%% 
 % The OpenTURNS package %
 %%%%%%%%%%%%%%%%%%%%%%%%% 
-\section[OpenTURNS TUI]{OpenTURNS Textual User Interface}
+\section[Python bindings]{Python bindings}
 %%%%%%%%%%%%% 
 % The tools %
 %%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{OpenTURNS Textual Interface}
+  \frametitle{OpenTURNS Python bindings}
   \begin{block}{A user-friendly interface for the OpenTURNS library}
     OpenTURNS is intended to be used for complex industrial application. It means the ability to pilot complex simulation softwares, but also complex probabilistic modelling and involved strategies for uncertainty propagation. A typical graphical user interface does not provide the flexibility to address such needs, so OpenTURNS is proposed to the user as a Python module.\\
     Python is a full-featured object oriented programming language, and allows for complex scripting of functionalities comming from numerous modules. A typical uncertainty propagation study can be fully implemented using OpenTURNS only, but it can be easier to delegate some treatments to other graphical, statistical or numerical packages. For complex studies, it is the only way to do the job.\\
@@ -305,33 +283,30 @@
     \small
     \begin{tabular}{l}
       \ttfamily // SWIG file MyClass.i \\
-      \ttfamily // Author : \$LastChangedBy: dutka \$ \\
-      \ttfamily // Date : \$LastChangedDate: 2007-03-07 15:50:39 +0100 (mer. 07 mars 2007) \$ \\
-      \ttfamily // Id : \$Id: Triangular.i 345 2007-03-07 14:50:39Z dutka \$ \\
       \ttfamily  \\
       \ttfamily \% \{ \\
       \ttfamily \#include "MyClass.hxx" \\
       \ttfamily \%\} \\
       \ttfamily  \\
       \ttfamily \%include MyClass.hxx \\
-      \ttfamily namespace OpenTURNS \{ namespace NameSpace1 \{ namespace NameSpace2 \{ \\
+      \ttfamily namespace OT \{ \\
       \ttfamily \%extend MyClass \{ MyClass(const MyClass \& other) \{ \\
-      \ttfamily return new OpenTURNS::NameSpace1::NameSpace2::MyClass(other); \\
-      \ttfamily \} \} \}\}\}
+      \ttfamily return new OT::MyClass(other); \\
+      \ttfamily \}\}\}
     \end{tabular}
     \normalsize
-    supposing that your class is in the namespace {\ttfamily OpenTURNS::NameSpace1::NameSpace2}.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%% 
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Integration of the new class in the TUI}
+  \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 11: integrate the SWIG interface file into the whole Python interface}
     \begin{itemize}
-    \item Modify the Makefile.am file in python/src: add MyClass.i to the variable OPENTURNS\_SWIG\_SRC
-    \item Locate in which of the Python submodule SWIG file you have to include MyClass.i (look for the file corresponding to the last level of namespace of your class)
+    \item Locate in which of the Python submodule SWIG file you have to include MyClass.i (look for classes from the same source subdirectory) 
+    \item Add MyClass.i in the SWIG module source python/src/xxx\_module.i
+    \item Modify the CMakeLists file in python/src: add MyClass.i to the identified SWIG module
     \end{itemize}
   \end{block}
 \end{frame}
@@ -339,16 +314,13 @@
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Integration of the new class in the TUI}
+  \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 12: test the new class in the Python module}
     \begin{itemize}
-    \item Create a test file t\_MyClass\_std.py in the directory python/test. This test implements the same tests than t\_MyClass\_std.cxx, but using python.
-    \item Create an autotest file t\_MyClass\_std.atpy that has the same role than t\_MyClass\_std.at, but for the python test.
-    \item Modify the Makefile.am file in python/test:
-      \begin{itemize}
-      \item add t\_MyClass\_std.py to the variable PYTHONINSTALLCHECK\_PROGS. The several executables are organized following the library organization, you must follow this rule.
-      \item add t\_MyClass\_std.atpy to the variable PYTHONINSTALLCHECK\_TESTS.
-      \end{itemize}
+    \item Create a test file t\_MyClass\_std.py in the directory python/test. This test implements the same tests than t\_MyClass\_std.cxx, but using Python.
+    \item Create an expected result file t\_MyClass\_std.expout for the python test.
+    \item Modify the CMakeLists file in python/test:
+      {\ttfamily ot\_pyinstallcheck\_test (MyClass\_std)}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -356,18 +328,18 @@
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Integration of the new class in the TUI}
-  \begin{block}{Step 12: document your new class in the TUI documentation}
-    Comment your python test as a new use-case in the document\\ src/OpenTURNS\_UseCasesGuide/UseCasesGuide.tex following the generic format of this document:
+  \frametitle{Integration of the new class in the Python bindings}
+  \begin{block}{Step 12: document your new class in the documentation}
+    Create a docstring file python/src/MyClass\_doc.i.in
     \begin{itemize}
     \item describe the inputs of your use-case.
     \item extract code snippets that show the user interaction with your class.
     \item add the relevant keywords to the index.
     \end{itemize}
-    Gives a description of your class in the document src/UserManual/OpenTURNS\_UserManual.tex
+    Gives a description of your class
     \begin{itemize}
     \item following the general form of this document, fill-in the sections but only describe the methods the user is intended to use (forget the most computer programming inclined methods).
-    \item give some reminders of theoretical aspects if needed, in the form of an equation or a short (1 or 2 sentences) mathematical explanation. Give a pointer to the relevant reference guide section.
+    \item give some reminders of theoretical aspects if needed, in the form of an equation or a short (1 or 2 sentences) mathematical explanation. Give a pointer from relevant theoric section.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -375,7 +347,7 @@
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Integration of the new class in the TUI}
+  \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Pitfalls, tips and tricks}
     Python does not support nested classes. As such, SWIG does  not propose any automatic mechanism to expose such classes in Python. The solution retained in OpenTURNS is to typedef the instanciations of the parametric classes to explicit new classes. Example:
     \begin{itemize}
@@ -389,8 +361,8 @@
     \item In the SWIG interface file:
       \small
       \begin{tabular}{l}
-        \ttfamily \% template(DistributionCollection) OpenTURNS::Base::Type::\\
-        \ttfamily Collection<OpenTURNS::Uncertainty::Model::Distribution>;
+        \ttfamily \% template(DistributionCollection) OT::\\
+        \ttfamily Collection<OT::Distribution>;
       \end{tabular}
       \normalsize
     \end{itemize}
@@ -401,7 +373,7 @@
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Integration of the new class in the TUI}
+  \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Automatic conversion between C++ types into Python types}
     The automatic conversion of types is needed both to ease the writing of OpenTURNS scripts by Python users. Two distinct cases are of concern with OpenTURNS:
     \begin{itemize}
