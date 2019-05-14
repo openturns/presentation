@@ -208,14 +208,14 @@
 \begin{frame}
   \frametitle{The development infrastructure}
   \begin{block}{Platform repository}
-    This repository is in charge of both the C++ library source code and the Python interface. It has the following layout, which is quite standard:
+    The openturns Git repository is in charge of both the C++ library source code and the Python interface. It has the following layout, which is quite standard:
     \begin{itemize}
     \item A master branch that stores the source code of the upcoming version of the platform. The rule is to have only source code that pass with success all the tests embedded with both the library and the python module.
     \item Maintenance branches that contain stable versions.
-    \item Several development branches, dedicated to contributors or to specific developments.
-    \item Several tags for each release candidate or official releases. 20 releases have been tagged so far in Git.
+    \item The development branches are part of contributors forks and integrated into master via pull requests.
+    \item Several tags for each release candidates or official releases. 20 releases have been tagged so far in Git.
     \end{itemize}
-    The usage of this infrastructure is described in the Contribution Guide, one of the several documents that come with the platform. In particular, a specific role is assigned to an \alert{integrator}, in charge of the merges from the different branches into master.
+    The usage of this infrastructure is described in the developer documentation, one of the several documents that come with the platform. In particular, a specific role is assigned to an \alert{integrator}, in charge of the merges from the different branches into master.
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -224,11 +224,11 @@
 \begin{frame}
   \frametitle{The development infrastructure}
   \begin{block}{Continuous integration}
-    OpenTURNS makes extensive use of online continuous integration providers to test the platform thoughout the development process. Currently the following services are used for the library:
+    OpenTURNS makes extensive use of online continuous integration providers to test the library throughout the development process. Currently the following services are used to test the library under several platforms:
     \begin{itemize}
-    \item CircleCI: Linux, MinGW
+    \item CircleCI: Linux and MinGW
     \item Travis: macOS
-    \item Appveyor: native Windows
+    \item Appveyor: MSVC
     \end{itemize}
   \end{block}
 \end{frame}
