@@ -1,4 +1,6 @@
 from openturns import *
+from openturns.viewer import *
+
 s = 2.0
 dist = Normal()
 event = Event(CompositeRandomVector(SymbolicFunction(["x"], ["x"]), RandomVector(dist)), Greater(), s)
@@ -19,4 +21,8 @@ limit.setLegend("Theoretical limit")
 limit.setColor("blue")
 limit.setLineStyle("dashed")
 graph.add(limit)
-graph.draw("MonteCarloConvergence")
+graph.setTitle("Monte-Carlo convergence")
+#graph.draw("MonteCarloConvergence")
+view = View(graph)
+view.save("MonteCarloConvergence.pdf")
+view.close()
