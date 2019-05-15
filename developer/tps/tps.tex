@@ -174,13 +174,14 @@
       for $k=0,\dots,n$. There also exist fast implementations based on FFT or modified moments, see the references for Clenshaw Curtis.
     \item~(**) \alert{\ttfamily ClenshawCurtisProductExperiment} as a specialization of {\ttfamily WeightedExperiment}: same algorithm as for {\ttfamily ClenshawCurtis} but with adaptation to any weight function.
     \item~(*) \alert{\ttfamily MarshallOlkinCopula} as a specialization of {\ttfamily CopulaImplementation} (see {\ttfamily lib/src/Uncertainty/Distribution}). This copula is defined by:
-      \begin{align}
-        \forall (u,v)\in[0,1]^2, C(u, v)=\left\{\begin{array}{ll}
-                                                  u^{1-\alpha}v & \mbox{ for }u^{1-\alpha}v\geq v^\beta\\
-                                                  uv^{1-\beta} & \mbox{ for }uv^{1-\beta}< v^\beta
-                                                \end{array}{ll}
-                                                                  \right.
-      \end{align}
+      \begin{equation}
+        \forall (u,v)\in[0,1]^2, C(u, v)=\left\{
+          \begin{array}{ll}
+            u^{1-\alpha}v & \mbox{ for }u^\alpha\geq v^\beta \\
+            uv^{1-\beta} & \mbox{ for }u^\alpha< v^\beta
+          \end{array}{ll}
+        \right.
+      \end{equation}
       where $0<\alpha, \beta<1$.
     \end{enumerate}
   \end{block}
