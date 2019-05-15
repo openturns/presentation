@@ -28,7 +28,7 @@
 
 
 
-\date[March 22-25th 2011]
+\date[Mai 14-17th 2011]
 {
   Developers training \\
 
@@ -85,11 +85,12 @@
     For now, there is (almost) no way to use a Python object within the OpenTURNS C++ library, excepting:
     \begin{itemize}
     \item A Distribution;
-    \item a function;
+    \item a Function;
     \item An experiment
     \item ...
     \end{itemize}
-    The concept of "OpenTURNS Python module" is not very specific: we get some packages `full python` such as \texttt{oticp},  \texttt{otwrap} , \texttt{otsklearn}. But these examples are in a way independent as they rely on the API and the API is not able to `integrate` them.
+    and use these one as "OpenTURNS classes".\\
+    The concept of "OpenTURNS Python module" is not very specific: we get some `full python` packages such as \texttt{oticp}, \texttt{otwrap} , \texttt{otsklearn}. But these examples are in a way independent as they rely on the "OpenTURNS API" and the API is not able to `integrate` them.
     In other words, any set of Python classes or Python functions that use the OpenTURNS Python interface can be called an OpenTURNS Python module. In this case, the notion of OpenTURNS module is mainly a packaging notion, and the use of the Python setup tools is probably more mature and more adapted!
   \end{block}
 \end{frame}
@@ -135,8 +136,8 @@
     Module documentation is very close to API one:
     \begin{itemize}
     \item Developer guide : Architecture, validation
-    \item SWIG documentation is to be completed;
-    \item User manual and examples
+    \item SWIG documentation is to be completed (docstrings); 
+    \item Examples and API documentation;
     \item Theory (if needed)
     \end{itemize}
   \end{block}
@@ -152,10 +153,7 @@
         \ttfamily python\\
         \ttfamily >>> import openturns as ot\\
       \end{tabular}
-
       and python should not complain about a non existing openturns module.
-    %\item In the python directory of the OpenTURNS install directory, you can find a script named {\itshape openturns-module}. You use this script to install the tarball mymodule.tar.gz (or mymodule.tar.bz2) in your home directory ({\itshape \$HOME/openturns}):\\
-     % {\ttfamily openturns-module --install=mymodule-X.Y.Z.tar.gz --prefix=user}\\
       The installation script has many more capabilities, you can access to its embedded documentation by invoking it without argument.
     \item Test your module within python:\\
       \begin{tabular}{l}
@@ -163,7 +161,6 @@
         \ttfamily >>> import openturns as ot \\
         \ttfamily >>> import mymodule \\
       \end{tabular}
-
       and python should not complain about a non existing mymodule module.
     \end{itemize}
   \end{block}
@@ -173,13 +170,14 @@
 \begin{frame}
   \frametitle{Module development}
   \begin{block}{Step 5: Maintenance}
-    Developer is responsible of his package should maintain it!
+    Each developer is responsible of his package should maintain it!
     \begin{itemize}
     \item We can rely on continuous integration tool accounting API changes
     \item He is in charge of bugs (except if underlying bug is in the API)
     \end{itemize}
     Exception : modules maintained by the consortium!
   \end{block}
+  
   \begin{block}{Step 6: Packaging}
     No specific rule concerning the packaging!
     \begin{itemize}
