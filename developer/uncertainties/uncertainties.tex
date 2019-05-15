@@ -75,11 +75,22 @@
     \item \alert{Statistics} = observation and modelling of random quantities, partial knowledge
     \item \alert{Treatment} = algorithmic tools to analyse, model and quantify the previous points
     \end{itemize}
-    The main objective of OpenTURNS is to quantify and analyse a critical \emph{event $E$} built upon a \emph{quantity of interest $Y$} that is linked to \emph{sources of uncertainty $\vect{X}$} through a \emph{numerical model $f$}:
-    \begin{equation}
-      E=\mathbf{1}_{Y>s}\quad,Y=f(\vect{X})
-    \end{equation}
-    where $s\in\R$ is a given threshold, $\vect{X}$ is a random vector, $E$ is the critical event. The quantification of this event is typically the evaluation of its \emph{probability of occurence $\P(E)$}.
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Main objective}
+  \begin{block}{UQ in a nutshell}
+    Given:
+    \begin{itemize}
+    \item a function $f:\R^n\rightarrow\R^p$ called a \alert{model}
+    \item a random vector $X$ of known joint distribution $\cl$ of dimension $n$ called the \alert{sources of uncertainties}
+    \end{itemize}
+    Uncertainty quantification is focused on getting information about the \alert{push-forward} distribution of the random vector $Y=f(X)$:
+    \begin{itemize}
+      \item Moments $\Esp{h(Y)}$ where $h:\R^p\rightarrow\R^q$
+      \item Probability of events $\Prob{Y\in B}$ as a special case ($h(y)=1_{y\in B}$)
+      \item Sensitivity of $Y$ to part of $X$
+    \end{itemize}
   \end{block}
 \end{frame}
 \section[Numerical models: the differential calculus potion]{Numerical models: the differential calculus potion}
@@ -90,7 +101,7 @@
   \frametitle{Numerical models}
   \begin{block}{Function, gradient, hessian}
     \begin{itemize}
-    \item \alert{Function:} the notion of \alert{numerical model} is identified with the notion of \alert{numerical function}, it means a function $f$ maps $\R^n$ to $\R^p$. A shortcut is to say that:
+    \item \alert{Function:} the notion of \alert{numerical model} is a function $f$ maps $\R^n$ to $\R^p$. A shortcut is to say that:
       \begin{equation}
         f\in\mathcal{F}(\R^n,\R^p)
       \end{equation}
@@ -183,7 +194,7 @@
   \frametitle{PDF and CDF, 2D case}
   \begin{tabular}{ccc}
     Continuous & Discrete & General \\
-    \fbox{\resizebox{3cm}{!}{\includegraphics{ContinuousPDF2D.pdf}}} & & \\[1em]
+    \fbox{\resizebox{3cm}{!}{\includegraphics{ContinuousPDF2D.pdf}}} &  \fbox{\resizebox{3cm}{!}{\includegraphics{DiscretePDF2D.pdf}}} & \\[1em]
     \fbox{\resizebox{3cm}{!}{\includegraphics{ContinuousCDF2D.pdf}}} & \fbox{\resizebox{3cm}{!}{\includegraphics{DiscreteCDF2D.pdf}}} & \fbox{\resizebox{3cm}{!}{\includegraphics{GeneralCDF2D.pdf}}}
   \end{tabular}
 \end{frame}
