@@ -123,7 +123,7 @@
         \ttfamily make
       \end{tabular}
     \item Create a source package of your module:\\
-      {\ttfamily make dist}\\
+      {\ttfamily make package\_source}\\
       It will create a tarball named mymodule-X.Y.Z.tar.gz (and mymodule-X.Y.Z.tar.bz2), where X.Y.Z is the version number of the module.
     \end{itemize}
   \end{block}
@@ -133,7 +133,7 @@
 \begin{frame}
   \frametitle{Module development}
   \begin{block}{Step 3: documentation}
-    Module documentation is very close to API one:
+    Module documentation is very close to the API one:
     \begin{itemize}
     \item Developer guide : Architecture, validation
     \item SWIG documentation is to be completed (docstrings); 
@@ -150,18 +150,18 @@
     \begin{itemize}
     \item Check that you have a working OpenTURNS installation, for example by trying to load the OpenTURNS module within an interactive python session:
       \begin{tabular}{l}
-        \ttfamily python\\
+        \ttfamily \$python\\
         \ttfamily >>> import openturns as ot\\
+      and python should not complain about a non existing openturns module.\\
       \end{tabular}
-      and python should not complain about a non existing openturns module.
-      The installation script has many more capabilities, you can access to its embedded documentation by invoking it without argument.
-    \item Test your module within python:\\
+    \item Since first step is ok, test your module within python:\\
       \begin{tabular}{l}
-        \ttfamily python \\
+        \ttfamily \$python \\
         \ttfamily >>> import openturns as ot \\
         \ttfamily >>> import mymodule \\
-      \end{tabular}
       and python should not complain about a non existing mymodule module.
+      \end{tabular}
+      \item You can now use your module as any python module.
     \end{itemize}
   \end{block}
 \end{frame}
