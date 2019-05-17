@@ -100,8 +100,9 @@
   \begin{block}{Step 1: copy and adapt an existing template}
     \begin{itemize}
     \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
-
       {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule}
+    \item Set the url of the remote (meaning you already created a repository):\\
+      {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
     \item Adapt the template to your module:\\
       {\ttfamily ./customize MyModule}\\
       This command change the module name into all the scripts, and adapt the example class to this new name.
