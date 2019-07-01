@@ -16,9 +16,9 @@ script:
   - cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
   - cd lowranktensor && pdflatex -halt-on-error lowranktensor.tex && pdflatex lowranktensor.tex && cd -
   - for subdir in agenda overview architecture uncertainties library_development module_development tps; do cd developer/${subdir} && pdflatex -halt-on-error ${subdir}.tex && pdflatex ${subdir}.tex && cd -; done
-  - cd uncecomp2017/Uncecomp2017-article-OT && pdflatex -halt-on-error uncecomp-2017-article-OpenTURNS.tex && pdflatex uncecomp-2017-article-OpenTURNS.tex && cd -
+  - cd uncecomp2017/Uncecomp2017-article-OT && pdflatex -halt-on-error uncecomp-2017-article-OpenTURNS.tex && bibtex uncecomp-2017-article-OpenTURNS && pdflatex uncecomp-2017-article-OpenTURNS.tex && pdflatex uncecomp-2017-article-OpenTURNS.tex && cd -
   - cd uncecomp2017/Uncecomp2017-slides-OT && pdflatex -halt-on-error uncecomp-2017-slides-OpenTURNS.tex && pdflatex uncecomp-2017-slides-OpenTURNS.tex && cd -
-  - cd uncecomp2019/Uncecomp2019-article-OT && pdflatex -halt-on-error uncecomp-2019-article-OpenTURNS.tex && pdflatex uncecomp-2019-article-OpenTURNS.tex && cd -
+  - cd uncecomp2019/Uncecomp2019-article-OT && pdflatex -halt-on-error uncecomp-2019-article-OpenTURNS.tex && bibtex uncecomp-2019-article-OpenTURNS && pdflatex uncecomp-2019-article-OpenTURNS.tex && pdflatex uncecomp-2019-article-OpenTURNS.tex && cd -
   - cd uncecomp2019/Uncecomp2019-slides-OT && pdflatex -halt-on-error uncecomp-2019-slides-OpenTURNS.tex && pdflatex uncecomp-2019-slides-OpenTURNS.tex && cd -
 
 after_success:
