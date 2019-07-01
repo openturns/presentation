@@ -6,8 +6,8 @@ OpenTURNS Presentations
 =======================
 
 - `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy-2017.pdf>`_
-- `SIAM-UQ 2016 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OpenTURNS_SIAM-UQ-2016.pptx>`_
-- `SIAM-UQ 2018 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OpenTURNS_SIAM-UQ-2018.pptx>`_
+- `SIAM-UQ 2016 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2016-OpenTURNS.pdf>`_
+- `SIAM-UQ 2018 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2018-OpenTURNS.pdf>`_
 - Uncecomp 2017
   - `Article <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2017-article-OpenTURNS.pdf>`_
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2017-slides-OpenTURNS.pdf>`_
