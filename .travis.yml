@@ -30,6 +30,12 @@ after_success:
     fi
   - mkdir -p openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/*/*.pdf ${TRAVIS_BUILD_DIR}/developer/*/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/uncecomp2017/Uncecomp2017-article-OT/uncecomp-2017-article-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/uncecomp2017/Uncecomp2017-slides-OT/uncecomp-2017-slides-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/uncecomp2019/Uncecomp2019-article-OT/uncecomp-2019-article-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/uncecomp2019/Uncecomp2019-slides-OT/uncecomp-2019-slides-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/siamuq2016/siamuq-2016-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/siamuq2018/siamuq-2018-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"
