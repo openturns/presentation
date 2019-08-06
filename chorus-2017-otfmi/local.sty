@@ -95,15 +95,21 @@
 
 % Math
 \renewcommand{\vec}[1]{\boldsymbol{#1}}  % vector
-\usepackage{systeme}
 
 \newcommand{\insymb}{e}
 \newcommand{\outsymb}{s}
 
-\newcommand{\systemeequation}{\syseqsep{;}
-$ \systeme*{\dot{\vec{x}}(t) = f\left(\vec{x}(t), \vec{u}(t), t\right) ;
-    \vec{y}(t) = g\left(\vec{x}(t), \vec{u}(t), t\right) }$
-}% Annexes
+\newcommand{\systemeequation}{
+$
+\left \{
+\begin{array}{c}
+    \dot{\vec{x}}(t) = f\left(\vec{x}(t), \vec{u}(t), t\right) \\
+    \vec{y}(t) = g\left(\vec{x}(t), \vec{u}(t), t\right) \\
+\end{array}
+\right.
+$
+}
+% Annexes
 \usepackage[title,titletoc]{appendix}
 
 % Code
