@@ -1,0 +1,757 @@
+% -*- coding: utf-8 -*-
+\ProvidesPackage{graphiques}
+% Charge les packages nécessaire pour construire des graphiques avec latex.
+% Définit des commandes utiles dans ce contexte.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%======================= Index =================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages et library et leurs paramètres
+% Paramètres généraux des graphiques
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages et library et leurs paramètres
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{plotmarks}
+\pgfplotsset{compat=newest}
+% \pgfplotsset{plot coordinates/math parser=false} % Pour accélérer la compilation
+% \pgfkeys{/pgf/number format/.cd, set decimal separator={,}, set thousands separator={}}
+
+\usepackage{tikz}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=figure/tikz/]
+
+% \usepgfplotslibrary{groupplots}
+\usetikzlibrary{pgfplots.groupplots}
+\usetikzlibrary{patterns}
+\usepgfplotslibrary{dateplot}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{pgfplots.statistics}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paramètres généraux des graphiques
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfplotsset{epnorm/.style={line width=.5pt}}%épaisseur normale
+\pgfplotsset{epnort/.style={line width=.75pt}}%épaisseur NOrm-foRT
+\pgfplotsset{epfort/.style={line width=1pt}}%épaisseur forte
+
+% \pgfplotsset{every axis plot/.append style={line width=.5pt}}
+\pgfplotsset{every axis plot/.append style={epnorm}}
+\pgfplotsset{legend style={cells={anchor=west}}}  % symbole aligné avec le texte correspondant dans les légendes
+\pgfplotsset{xticklabel style={text height=2ex}}  % corrige les problèmes d'alignement lorsqu'il y a des exposants
+
+% styles des directions principales
+\pgfplotsset{pccoul/.style={epfort}}
+\pgfplotsset{pcgris/.style={epnorm}}
+\pgfplotsset{pca/.style={epnorm}}
+\pgfplotsset{pcb/.style={epnorm, densely dashed, every mark/.append style={solid}}}
+
+\pgfplotsset{mark1/.style={mark={}}                                          }
+\pgfplotsset{mark2/.style={mark=x}                                           }
+\pgfplotsset{mark3/.style={mark=+}                                           }
+\pgfplotsset{mark4/.style={mark=o}                                           }
+\pgfplotsset{mark5/.style={mark=square}                                      }
+\pgfplotsset{mark6/.style={mark=triangle}                                    }
+\pgfplotsset{mark7/.style={mark=diamond}                                     }
+\pgfplotsset{mark8/.style={mark=triangle,every mark/.append style={rotate=90}}}
+
+\tikzset{nopetexte/.style={font=\scriptsize\itshape,text height=1.5ex,text depth=.25ex}}% Attention, lorsque l'élément est en mode mathématique, cela ne fonctionne pas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alignement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Commande pour changer les /bounding boxes/.
+% \usetikzlibrary{calc}
+% \setlength{\fboxsep}{0pt}%
+\def\MyAlign{%
+    \pgfresetboundingbox
+    \path ( current axis.south west) rectangle (current axis.north east);
+}
+
+\newcommand{\MyAlignCm}[4]{%
+  \pgfresetboundingbox
+  \path ( $(current axis.south west)-(#1cm,#2cm)$) rectangle
+  ($(current axis.north east)+(#3cm,#4cm)$);
+}
+
+\newcommand{\dumMyAlignCm}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Calcul de la distance entre deux coordinate
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\def\calcLength(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}%
+             {\pgfpointanchor{#2}{center}}%
+\pgf@xa=\pgf@x%
+\pgf@ya=\pgf@y%
+\FPeval\@temp@a{\pgfmath@tonumber{\pgf@xa}}%
+\FPeval\@temp@b{\pgfmath@tonumber{\pgf@ya}}%
+\FPeval\@temp@sum{(\@temp@a*\@temp@a+\@temp@b*\@temp@b)}%
+\FProot{\FPMathLen}{\@temp@sum}{2}%
+\FPround\FPMathLen\FPMathLen5\relax
+\global\expandafter\edef\csname #3\endcsname{\FPMathLen}
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Symboles de légende dans le texte sans utiliser \ref \label
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{customlegend}[1][]{%
+    \begingroup
+    \csname pgfplots@init@cleared@structures\endcsname
+    \pgfplotsset{#1}%
+}{%
+    \csname pgfplots@createlegend\endcsname
+    \endgroup
+}%
+\def\addlegendimage{\csname pgfplots@addlegendimage\endcsname}
+
+\newcommand{\legendetexte}[2]{%
+\tikzsetnextfilename{#1}
+    \tikz {
+        \begin{customlegend}[
+            legend entries={\empty},
+            legend style={
+                draw=none,
+                inner sep=0pt,
+                column sep=0pt,
+                nodes={inner sep=0pt}}]
+        \addlegendimage{#2}
+        \end{customlegend}
+    }%
+}
+
+\newcommand{\legendetextesep}[3]{%
+\tikzsetnextfilename{#1}
+    \tikz {
+        \begin{customlegend}[
+            legend entries={\empty},
+            legend style={
+                draw=none,
+                inner sep=#3pt,
+                column sep=0pt,
+                nodes={inner sep=0pt}}]
+        \addlegendimage{#2}
+        \end{customlegend}
+    }%
+}
+
+\newcommand{\legendintext}[1]{%
+\tikzexternaldisable
+    \tikz {
+        \begin{customlegend}[
+            legend entries={\empty},
+            legend style={
+                draw=none,
+                inner sep=0pt,
+                column sep=0pt,
+                nodes={inner sep=0pt}}]
+        \addlegendimage{#1}
+        \end{customlegend}
+    }%
+\tikzexternalenable
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Symbole de flèche dans le texte
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\fle}[2]{\tikzsetnextfilename{#1}\tikz{\draw[semithick, #2] (0,0) to (0.25,0.25);}} %dessine des flèches dans le texte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Numéro entouré
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\numrond}[2][numrond]{\tikzsetnextfilename{#1#2}\tikz[baseline=-.25em]
+{\node
+[font={\tiny},line width=.5pt,circle,
+draw=black,text=black,fill=white,
+inner sep=0pt,minimum size=3.25mm]
+{#2};}}
+
+\newcommand{\numdiam}[2][numdiam]{\tikzsetnextfilename{#1#2}\tikz[baseline=-.25em]
+{\node
+[font={\tiny},line width=.5pt,diamond,
+draw=black,text=black,fill=white,
+inner sep=0pt,minimum size=4.25mm]
+{#2};}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Couleurs et marqueurs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Palette de couleurs optimisée pour les daltoniens
+\definecolor{dbleu}{rgb}{0,0.45,0.7}
+\definecolor{dorange}{rgb}{0.9,0.6,0}
+\definecolor{dvertdeau}{rgb}{0,0.6,0.5}
+\definecolor{dbleuciel}{rgb}{0.35,0.7,0.9}
+\definecolor{dvermillon}{rgb}{0.8,0.4,0}
+\definecolor{zdlilas}{rgb}{0.8,0.6,0.7}
+\colorlet{dlilas}{zdlilas!85!black}
+\definecolor{zdjaune}{rgb}{0.95,0.9,0.25}
+\colorlet{djaune}{zdjaune!90!black}
+
+\colorlet{coul1}{dbleu}
+\colorlet{coul2}{dorange}
+\colorlet{coul3}{dlilas}
+\colorlet{coul4}{dvertdeau}
+\colorlet{coul5}{dvermillon}
+\colorlet{coul6}{dbleuciel}
+\colorlet{coul7}{djaune}
+\colorlet{coul8}{black}
+
+\pgfplotscreateplotcyclelist{couleur}{%
+  {color=coul1},
+  {color=coul2},
+  {color=coul3},
+  {color=coul4},
+  {color=coul5},
+  {color=coul6},
+  {color=coul7},
+  {color=coul8}}
+
+\pgfplotscreateplotcyclelist{marqueur}{%
+  {mark={}},
+  {mark=x},
+  {mark=+},
+  {mark=o},
+  {mark=square},
+  {mark=triangle},
+  {mark=diamond}}
+
+\pgfplotscreateplotcyclelist{coulmarq}{%
+  {color=coul1,mark={}},
+  {color=coul2,mark=x},
+  {color=coul3,mark=+},
+  {color=coul4,mark=o},
+  {color=coul5,mark=square},
+  {color=coul6,mark=triangle},
+  {color=coul7,mark=diamond},
+  {color=coul8,mark=triangle,every mark/.append style={rotate=90}}}
+
+\pgfplotscreateplotcyclelist{coulmarqq}{%
+  {color=coul1,mark=x},
+  {color=coul2,mark=+},
+  {color=coul3,mark=o},
+  {color=coul4,mark=square},
+  {color=coul5,mark=triangle},
+  {color=coul6,mark=diamond},
+  {color=coul7,mark=triangle,every mark/.append style={rotate=90}},
+  {color=coul8,mark={}}}
+
+\pgfplotscreateplotcyclelist{coulmarqqinv}{%
+  {color=coul8,mark={}},
+  {color=coul7,mark=triangle,every mark/.append style={rotate=90}},
+  {color=coul6,mark=diamond},
+  {color=coul5,mark=triangle},
+  {color=coul4,mark=square},
+  {color=coul3,mark=o},
+  {color=coul2,mark=+},
+  {color=coul1,mark=x}}
+
+\pgfplotscreateplotcyclelist{altern21}{%
+{color=coul2,mark=+},
+{color=coul1,mark=x},
+{color=coul1,mark=x},
+{color=coul1,mark=x},
+{color=coul1,mark=x}}
+
+\pgfplotscreateplotcyclelist{alternbleu}{%
+{color=dbleuciel,mark=+},
+{color=dbleu,mark=x},
+{color=dbleu,mark=x},
+{color=dbleu,mark=x},
+{color=dbleu,mark=x}}
+
+\pgfplotscreateplotcyclelist{altern61}{%
+{color=coul6,mark=+},
+{color=coul1,mark=x},
+{color=coul1,mark=x},
+{color=coul1,mark=x},
+{color=coul1,mark=x}}
+
+\pgfplotscreateplotcyclelist{altern62}{%
+{color=coul6,mark=+},
+{color=coul2,mark=x},
+{color=coul2,mark=x},
+{color=coul2,mark=x},
+{color=coul2,mark=x}}
+
+\pgfplotscreateplotcyclelist{altern63}{%
+{color=coul6,mark=+},
+{color=coul3,mark=x},
+{color=coul3,mark=x},
+{color=coul3,mark=x},
+{color=coul3,mark=x}}
+
+\pgfplotscreateplotcyclelist{altern64}{%
+{color=coul6,mark=+},
+{color=coul4,mark=x},
+{color=coul4,mark=x},
+{color=coul4,mark=x},
+{color=coul4,mark=x}}
+
+\pgfplotscreateplotcyclelist{chaud}{%
+{djaune                },
+{dorange               },
+{dorange!30!dvermillon },
+{black!5 !dvermillon   },
+{black!25!dvermillon   },
+{black!40!dvermillon   },
+{black!55!dvermillon   },
+{black!90!dvermillon   }}
+
+\pgfplotscreateplotcyclelist{froid}{%
+{dbleuciel          },
+{dbleu!50!dbleuciel },
+{dbleu!50!dvertdeau },
+{black!5 !dvertdeau },
+{black!25!dvertdeau },
+{black!40!dvertdeau },
+{black!55!dvertdeau },
+{black!90!dvertdeau }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newlength\imghaut
+\newlength\imglarg
+\newlength\imghautL
+\newlength\imglargL
+\setlength{\imghaut}{5cm}%valeur par défaut
+\setlength{\imglarg}{8cm}%valeur par défaut
+\setlength{\imghautL}{\textwidth}%valeur par défaut
+\setlength{\imglargL}{0.3\textheight}%valeur par défaut
+
+\newcommand{\soaw}{0.8\textwidth}
+\newcommand{\soah}{0.25\textheight}
+
+\newcommand{\psoah}{0.2\textheight}
+\newcommand{\gsoah}{0.3\textheight}
+
+\newcommand{\tpsoah}{0.125\textheight}
+
+\newlength{\margg}
+\newlength{\margc}
+\newlength{\margd}
+\setlength{\margg}{1cm}
+\setlength{\margc}{1cm}
+\setlength{\margd}{1cm}
+
+\newcommand{\plotref}[1]{\tikzexternaldisable\ref{#1}\tikzexternalenable}
+\newcommand{\id}{}
+\newcommand{\dumlabel}{}
+\newcommand{\dumlabelarg}[1]{}
+
+\newcommand{\legloc}[1]{#1}
+
+\newcommand{\grmult}{1}
+\newcommand{\gramplif}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tableaux (avec pgfplotstable)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Supprimer la ligne des en-tête %%%%
+\makeatletter
+\pgfplotsset{
+    /pgfplots/table/omit header/.style={%
+        /pgfplots/table/typeset cell/.append code={%
+            \ifnum\c@pgfplotstable@rowindex=-1
+                \pgfkeyslet{/pgfplots/table/@cell content}\pgfutil@empty%
+            \fi
+        }
+    }
+}
+\makeatother
+
+%%%% Mélanger string type et dec sep align %%%%
+\pgfkeys{
+    /pgfplots/table/string type in dec sep align/.style={
+        string type,
+        postproc cell content/.code={%
+            \ifnum\pgfplotstablepartno=0%
+                \pgfkeys{/pgfplots/table/@cell content/.add={}{&}}
+            \fi
+        }%
+    }
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commandes spécifiques à certains types de graphiques
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ================================================================
+% Diagramme de Tukey (box-plot)
+% ================================================================
+% Issu de http://tex.stackexchange.com/questions/3983/can-i-use-pgfplots-to-make-a-boxplot
+% Obsolète depuis la version 1.8 de pgfplots
+\pgfplotsset{epboxp/.style={epnort}}%épaisseur pour les box plots
+\pgfplotsset{
+    box plot/.style={
+        /pgfplots/.cd,
+        black,
+        only marks,
+        mark=-,
+        mark size=.5em,
+        every mark/.append style={/pgfplots/epfort},
+        /pgfplots/error bars/.cd,
+        y dir=plus,
+        y explicit,
+        error bar style={epfort},
+        /pgfplots/.cd, % ajouté pour permettre de modifier les style de l'extérieur avec /.append style
+    },
+    box plot box/.style={
+        /pgfplots/error bars/draw error bar/.code 2 args={%
+            \draw  ##1 -- ++(.5em,0pt) |- ##2 -- ++(-.5em,0pt) |- ##1 -- cycle;
+        },
+        /pgfplots/table/.cd,
+        y index=2,
+        y error expr={\thisrowno{3}-\thisrowno{2}},
+        /pgfplots/box plot
+    },
+    box plot top whisker/.style={
+        /pgfplots/error bars/draw error bar/.code 2 args={%
+            \pgfkeysgetvalue{/pgfplots/error bars/error mark}%
+            {\pgfplotserrorbarsmark}%
+            \pgfkeysgetvalue{/pgfplots/error bars/error mark options}%
+            {\pgfplotserrorbarsmarkopts}%
+            \path ##1 -- ##2;
+        },
+        /pgfplots/table/.cd,
+        y index=4,
+        y error expr={\thisrowno{2}-\thisrowno{4}},
+        /pgfplots/box plot
+    },
+    box plot bottom whisker/.style={
+        /pgfplots/error bars/draw error bar/.code 2 args={%
+            \pgfkeysgetvalue{/pgfplots/error bars/error mark}%
+            {\pgfplotserrorbarsmark}%
+            \pgfkeysgetvalue{/pgfplots/error bars/error mark options}%
+            {\pgfplotserrorbarsmarkopts}%
+            \path ##1 -- ##2;
+        },
+        /pgfplots/table/.cd,
+        y index=5,
+        y error expr={\thisrowno{3}-\thisrowno{5}},
+        /pgfplots/box plot
+    },
+    box plot median/.style={
+        /pgfplots/box plot
+    }
+}
+
+
+% Avec pgfplots > 1.8
+% http://tex.stackexchange.com/q/117435/12136
+
+\makeatletter
+\pgfplotsset{
+    boxplot prepared from table/.code={
+        \def\tikz@plot@handler{\pgfplotsplothandlerboxplotprepared}%
+        \pgfplotsset{
+            /pgfplots/boxplot prepared from table/.cd,
+            #1,
+        }
+    },
+    /pgfplots/boxplot prepared from table/.cd,
+        table/.code={\pgfplotstablecopy{#1}\to\boxplot@datatable},
+        row/.initial=0,
+        make style readable from table/.style={
+            #1/.code={
+                \pgfplotstablegetelem{\pgfkeysvalueof{/pgfplots/boxplot prepared from table/row}}{##1}\of\boxplot@datatable
+                \pgfplotsset{boxplot/#1/.expand once={\pgfplotsretval}}
+            }
+        },
+        make style readable from table=lower whisker,
+        make style readable from table=upper whisker,
+        make style readable from table=lower quartile,
+        make style readable from table=upper quartile,
+        make style readable from table=median,
+        make style readable from table=lower notch,
+        make style readable from table=upper notch
+}
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Droites (bissectrices)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% http://tex.stackexchange.com/q/142367/12136
+\newcommand{\straightline}[2][]{%
+    \draw[#1] (axis cs:\pgfkeysvalueof{/pgfplots/xmin},#2*\pgfkeysvalueof{/pgfplots/xmin})
+        -- (axis cs:\pgfkeysvalueof{/pgfplots/xmax},#2*\pgfkeysvalueof{/pgfplots/xmax});
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Marquer le max et le min
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\pgfplotsset{
+    /tikz/max node/.style={
+        anchor=south
+    },
+    /tikz/min node/.style={
+        anchor=north
+    },
+    mark min/.style={
+        point meta rel=per plot,
+        visualization depends on={x \as \xvalue},
+        scatter/@pre marker code/.code={%
+            \ifx\pgfplotspointmeta\pgfplots@metamin
+                \def\markopts{}%
+                \node [min node] {
+                    \pgfmathprintnumber[fixed]{\xvalue},%
+                    \pgfmathprintnumber[fixed]{\pgfplotspointmeta}
+                };
+            \else
+                \def\markopts{mark=none}
+            \fi
+            \expandafter\scope\expandafter[\markopts,every node near coord/.style=green]
+        },%
+        scatter/@post marker code/.code={%
+            \endscope
+        },
+        scatter,
+    },
+    mark max/.style={
+        point meta rel=per plot,
+        visualization depends on={x \as \xvalue},
+        scatter/@pre marker code/.code={%
+        \ifx\pgfplotspointmeta\pgfplots@metamax
+            \def\markopts{}%
+            \node [max node] {
+                \pgfmathprintnumber[fixed]{\xvalue},%
+                \pgfmathprintnumber[fixed]{\pgfplotspointmeta}
+            };
+        \else
+            \def\markopts{mark=none}
+        \fi
+            \expandafter\scope\expandafter[\markopts]
+        },%
+        scatter/@post marker code/.code={%
+            \endscope
+        },
+        scatter
+    }
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Couleurs indexées dans un tableau
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfplotsset{
+    make value available/.code args={#1 of #2}{
+        \pgfplotstablegetelem{#1}{[index]0}\of#2
+        \pgfmathtruncatemacro{\xx}{\pgfplotsretval}
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Éliminer des points en fonctions de la valeur d'une colonne
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfplotsset{
+    discard if below/.style 2 args={
+        x filter/.code={%
+            \let\tempa=\pgfmathresult% Save the original value
+            \pgfmathparse{\thisrow{#1}<#2?\tempa:"inf"}% Test against #2
+        }
+    },
+    discard if above/.style 2 args={
+        x filter/.code={%
+            \let\tempa=\pgfmathresult% Save the original value
+            \pgfmathparse{\thisrow{#1}>=#2?\tempa:"inf"}% Test against #2
+        }
+    }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fixer la position dans la cycle list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\def\pgfplots@getautoplotspec into#1{%
+    \begingroup
+    \let#1=\pgfutil@empty
+    \pgfkeysgetvalue{/pgfplots/cycle multi list/@dim}\pgfplots@cycle@dim
+    %
+    \let\pgfplots@listindex=\pgfplots@numplots
+    %%% Start new code
+    \pgfkeysgetvalue{/pgfplots/cycle list set}\pgfplots@listindex@set
+    \ifx\pgfplots@listindex@set\pgfutil@empty
+    \else
+        \c@pgf@counta=\pgfplots@listindex
+        \c@pgf@countb=\pgfplots@listindex@set
+        \advance\c@pgf@countb by -\c@pgf@counta
+        \globaldefs=1\relax
+        \edef\setshift{%
+            \noexpand\pgfkeys{
+                /pgfplots/cycle list shift=\the\c@pgf@countb,
+                /pgfplots/cycle list set=
+            }
+        }%
+        \setshift%
+    \fi
+    %%% End new code
+    \pgfkeysgetvalue{/pgfplots/cycle list shift}\pgfplots@listindex@shift
+    \ifx\pgfplots@listindex@shift\pgfutil@empty
+    \else
+        \c@pgf@counta=\pgfplots@listindex\relax
+        \advance\c@pgf@counta by\pgfplots@listindex@shift\relax
+        \ifnum\c@pgf@counta<0
+            \c@pgf@counta=-\c@pgf@counta
+        \fi
+        \edef\pgfplots@listindex{\the\c@pgf@counta}%
+    \fi
+    \ifnum\pgfplots@cycle@dim>0
+        % use the 'cycle multi list' feature.
+        %
+        % it employs a scalar -> multiindex map like
+        % void fromScalar( size_t d, size_t scalar, size_t* Iout, const size_t* N )
+        % {
+        %   size_t ret=scalar;
+        %   for( int i = d-1; i>=0; --i ) {
+        %       Iout[i] = ret % N[i];
+        %       ret /= N[i];
+        %   }
+        % }
+        % to get the different indices into the cycle lists.
+        %--------------------------------------------------
+        \c@pgf@counta=\pgfplots@cycle@dim\relax
+        \c@pgf@countb=\pgfplots@listindex\relax
+        \advance\c@pgf@counta by-1
+        \pgfplotsloop{%
+            \ifnum\c@pgf@counta<0
+                \pgfplotsloopcontinuefalse
+            \else
+                \pgfplotsloopcontinuetrue
+            \fi
+        }{%
+            \pgfkeysgetvalue{/pgfplots/cycle multi list/@N\the\c@pgf@counta}\pgfplots@cycle@N
+            % compute list index:
+            \pgfplotsmathmodint{\c@pgf@countb}{\pgfplots@cycle@N}%
+            \divide\c@pgf@countb by \pgfplots@cycle@N\relax
+            %
+            \expandafter\pgfplots@getautoplotspec@
+                \csname pgfp@cyclist@/pgfplots/cycle multi list/@list\the\c@pgf@counta @\endcsname
+                {\pgfplots@cycle@N}%
+                {\pgfmathresult}%
+            \t@pgfplots@toka=\expandafter{#1,}%
+            \t@pgfplots@tokb=\expandafter{\pgfplotsretval}%
+            \edef#1{\the\t@pgfplots@toka\the\t@pgfplots@tokb}%
+            \advance\c@pgf@counta by-1
+        }%
+    \else
+        % normal cycle list:
+        \pgfplotslistsize\autoplotspeclist\to\c@pgf@countd
+        \pgfplots@getautoplotspec@{\autoplotspeclist}{\c@pgf@countd}{\pgfplots@listindex}%
+        \let#1=\pgfplotsretval
+    \fi
+    \pgfmath@smuggleone#1%
+    \endgroup
+}
+
+\pgfplotsset{
+    cycle list set/.initial=
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%
+% Icônes et dessins %
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\fileicon}{\tikzexternaldisable{}\begin{tikzpicture}[scale=.15]
+  \draw (0,0) -- (0,1.2) -- (0.7,1.2) -- (0.7,0.8) -- (1,0.8) -- (1,0) -- cycle;
+  \draw (0.7,1.2) -- (1,0.8);
+  \foreach \y in {0.2,0.4,0.6}{
+     \draw (0.2,\y) -- (0.8,\y);
+     \draw (0.2,0.8) -- (0.6,0.8);
+     \draw (0.2,1) -- (0.6,1);
+  }
+\end{tikzpicture}
+}
+
+%%%%%%%%%%
+% Beamer %
+%%%%%%%%%%
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+% ================================================================
+\usetikzlibrary{matrix,chains,scopes,fit,quotes,calc,backgrounds}
+\tikzset{
+  pic shift/.store in=\shiftcoord,
+  pic shift={(0,0)},
+  file icon/.pic ={
+    \begin{scope}[shift={\shiftcoord}]
+      \draw[pic actions, fill=white] (0,0) -- (0,1.2) -- (0.7,1.2) -- (1,0.8) -- (1,0.8) -- (1,0) -- cycle;
+      \draw[pic actions] (0.7,1.2) -- (0.7,0.8) -- (1,0.8);
+      --
+      \foreach \y in {0.2,0.4,0.6}{
+        \draw[pic actions] (0.2,\y) -- (0.8,\y);
+        \draw[pic actions] (0.2,0.8) -- (0.6,0.8);
+        \draw[pic actions] (0.2,1) -- (0.6,1);
+      }
+      \coordinate (-bottom) at (0.5, 0.) {};
+      \coordinate (-top) at (0.5, 1.2) {};
+      \node[fill=white, inner sep=.4ex, draw, anchor=south] (-txt) at (0.5, 0.1) {\tikzpictext};
+    \end{scope}
+  },
+  file style/.style={pic shift={(-.5,-.4)}, scale=.65, line width=1pt, font={\scriptsize}, anchor=center},
+}
+
+\tikzset{font cellule/.style={font=\footnotesize}}
+\tikzset{font link/.style={font=\scriptsize}}
+
+\tikzset{nudge up/.style={yshift=4.5mm}}
+\tikzset{nudge down/.style={yshift=-4.5mm}}
+\tikzset{nudge right/.style={xshift=2.mm}}
+\tikzset{nudge left/.style={xshift=-2.mm}}
+
+\tikzset{hors sujet/.style={black!30}}
+
+\tikzset{trait/.style={line width=1pt}}
+\tikzset{link/.style={trait, ->, font link}}
+\tikzset{reverse/.style={<-}}
+\tikzset{action/.style={font link, align=center}}
+
+\tikzset{cellule/.style={draw,
+    trait,
+    text centered,
+    rounded corners,
+    minimum height=8mm,
+    font cellule,
+    align=center,
+    anchor=center},
+  etiquette/.style={%
+    cellule,
+    % inner sep=0mm,
+    minimum height=0mm,
+    fill=white,
+    font cellule},
+  donnee/.style={%
+    cellule,
+    ellipse,
+    % minimum width=0mm,
+    inner sep=-1mm,
+  },
+  phantom/.style={transparent},
+}
+
+
+\usetikzlibrary{svg.path,overlay-beamer-styles}

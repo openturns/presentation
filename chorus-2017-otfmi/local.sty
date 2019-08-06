@@ -1,0 +1,152 @@
+% -*- coing: utf-8 -*-
+\ProvidesPackage{local}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[babel=true]{microtype}
+\usepackage[british]{babel}
+
+% Beamer style
+\usetheme{Montpellier}
+\setbeamertemplate{navigation symbols}{} % Remove navigation
+\useoutertheme{infolines}
+
+% Graphics
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
+
+\usepackage{tikz}
+
+
+% Bibliographie
+    % with bibtex
+\usepackage{csquotes}
+\PassOptionsToPackage{backend=biber}{biblatex}
+\usepackage[style=authoryear-comp, sorting=nty, language=autobib,
+            maxcitenames=3, mincitenames=1, maxbibnames=4, minbibnames=1,
+            firstinits=false, natbib=true]{biblatex}%
+\let\cite\textcite
+% \DefineBibliographyStrings{french}{andothers={et coll\adddot}}
+
+\usepackage{enumerate}
+
+% Couleurs
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\usepackage{xcolor}
+
+\usepackage[xspace]{ellipsis}
+\renewcommand{\ellipsisgap}{0.05ex} % for french
+
+\newcommand{\zzlogo}[2][1.5em]{\raisebox{-.3em}{\includegraphics[height=#1]{./figure/#2}}~}
+\newcommand{\zlogo}[2][1.5em]{\hfill\zzlogo[#1]{#2}}
+
+\newcommand{\secondaire}[1]{{\small\itshape{}#1}}
+
+% Macros, defined by Sylvain
+\newcommand{\module}[1]{\texttt{#1}}
+
+\newcommand{\openturns}{\module{OpenTURNS}}
+\newcommand{\pyfmi}{\module{PyFMI}}
+\newcommand{\assimulo}{\module{Assimulo}}
+\newcommand{\sundials}{\module{SUNDIALS}}
+\newcommand{\pypi}{PyPI}
+\newcommand{\anaconda}{Anaconda}
+\newcommand{\windows}{Windows}
+\newcommand{\linux}{Linux}
+\newcommand{\sqbit}{64~bits}
+\newcommand{\tdbit}{32~bits}
+\newcommand{\fmipp}{\module{FMI++}}
+\newcommand{\fmilib}{\module{FMI lib}}
+\newcommand{\pysystem}{\module{PySystem}}
+\newcommand{\fmi}{FMI}
+\newcommand{\fmu}{FMU}
+\newcommand{\fmus}{FMUs}
+
+\newcommand{\otfmi}{\module{OtFMI}}
+\newcommand{\edf}{\module{EDF}}
+
+\newcommand{\odid}{0D/1D}
+\newcommand{\bilcent}{BIL100}
+
+\newcommand{\openmodelica}{OpenModelica}
+\newcommand{\dymola}{Dymola}
+
+\newcommand{\cosimulation}{co-simulation}
+\newcommand{\modelexchange}{model exchange}
+
+\newcommand{\iteaopenprod}{ITEA OPENPROD}
+
+\newcommand{\linespan}[2]{lines~\numrange{#1}{#2}}
+
+\newcommand{\eme}{\textsuperscript{ème}}
+\newcommand{\langage}[1]{#1}
+\newcommand{\lpython}{\langage{Python}}
+\newcommand{\lxml}{\langage{XML}}
+\newcommand{\ltxt}{\langage{txt}}
+\newcommand{\lcpp}{\langage{C++}}
+\newcommand{\lc}{\langage{C}}
+\newcommand{\lR}{\langage{R}}
+\newcommand{\lfortran}{\langage{FORTRAN}}
+\newcommand{\ljava}{\langage{Java}}
+\newcommand{\lmodelica}{\langage{Modelica}}
+\newcommand{\lsimulink}{\langage{Simulink}}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\continue}{\hfill[}
+
+\newcommand{\textshell}[1]{\texttt{#1}}
+\newcommand{\chemin}[1]{\textshell{#1}}
+\newcommand{\filename}[1]{\textshell{#1}}
+\newcommand{\namefile}[1]{\filename{#1}}
+
+\newcommand{\vfilll}{\vskip0pt plus 1filll}
+\newcommand{\fakefootnote}{\vfilll \scriptsize\hrule\vspace{.2em}}
+
+% Math
+\renewcommand{\vec}[1]{\boldsymbol{#1}}  % vector
+\usepackage{systeme}
+
+\newcommand{\insymb}{e}
+\newcommand{\outsymb}{s}
+
+\newcommand{\systemeequation}{\syseqsep{;}
+$ \systeme*{\dot{\vec{x}}(t) = f\left(\vec{x}(t), \vec{u}(t), t\right) ;
+    \vec{y}(t) = g\left(\vec{x}(t), \vec{u}(t), t\right) }$
+}% Annexes
+\usepackage[title,titletoc]{appendix}
+
+% Code
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{verbatim}
+
+\newcommand{\pythonstyle}{%
+  \lstset{%
+    language=Python,
+    basicstyle=\ttfamily\small,
+    showstringspaces=false,
+    upquote=true,
+    columns=flexible,
+    keepspaces=true,
+    breaklines=true,
+% otherkeywords={self},
+% keywordstyle=\ttb\color{deepblue},
+% emph={MyClass,__init__},
+% emphstyle=\ttb\color{deepred},
+% stringstyle=\color{deepgreen},
+% frame=tb,
+    % showspaces=true,
+}}
+
+\lstnewenvironment{python}[1][]{%
+  % \marginnote{$\lceil$}[6pt]
+  \pythonstyle \lstset{#1}}
+{%\marginnote{$\lfloor$}[-22pt]
+  \global\csname @topnum\endcsname 0}
+
+\newcommand{\pythonfile}[2][]{{\pythonstyle\lstinputlisting[#1]{#2}}%
+    \global\csname @topnum\endcsname 0}
+
+\newcommand{\textpython}[1]{{\pythonstyle\lstinline!#1!}}
