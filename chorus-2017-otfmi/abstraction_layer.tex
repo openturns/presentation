@@ -1,0 +1,69 @@
+  \begin{tikzpicture}
+    \tikzset{layer/.style={gray},
+      limit/.style={thick, dashed, layer},
+      realm/.style={opacity=.2},
+      new/.style={draw=red, text={red}},
+    node distance=15mm}
+
+    \pgfdeclarelayer{foreground}
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main,foreground}
+
+    \node[cellule] (tool) at (0,0) {Modelica tool GUI};
+
+    \coordinate[below=of tool,  xshift=\nudge] (mos);
+    \coordinate[below=of tool, xshift=-10mm] (zmo);
+    \pic[file style, "script.mos", gray] at (mos)  {file icon};
+    \node[cellule, below=18mm of mos] (compiler) {compiler};
+
+    \coordinate (mo) at (zmo|-compiler);
+    \pic[file style, "model.mo"] at (mo) {file icon};
+
+    \coordinate[below=20mm of mo] (C);
+    \pic[file style, "compiled C"] at (C)  {file icon};
+    \coordinate[xshift=15mm] (fmu) at (C-|compiler);
+    \pic[file style, "FMU"] at (fmu)  {file icon};
+
+
+    \node[cellule, xshift=14mm, yshift=0mm] (fmi lib) at (fmu|-compiler) {FMI lib};
+    \node[cellule, above right=5mm and 3mm of fmi lib] (pyfmi)  {\module{PyFMI}};
+    \node[cellule, above left=5mm of pyfmi, new] (otfmi)  {\otfmi};
+    \node[cellule, above right=5mm of pyfmi] (openturns)  {\openturns};
+    \node[cellule, xshift=0mm, yshift=0mm] (openturns gui) at (pyfmi|-tool) {\openturns{} GUI};
+
+    \begin{pgfonlayer}{background}
+      \node[realm, above left=4mm and -10mm of compiler] {\includegraphics[height=15mm] {./figure/logo_modelica}};
+      \node[realm, above left=4mm and -10mm of fmu] {\includegraphics[clip=true, height=15mm, trim=0mm 0mm 40mm 0mm] {./figure/logo_fmi}};
+      \node[realm, above left=-4mm and 2mm of openturns] {\includegraphics[height=15mm] {./figure/logo_openturns}};
+      \node[realm, below left=-0mm and -4mm of pyfmi.north] {\includegraphics[height=12mm] {./figure/logo_python}};
+
+      % \node[realm] at (fmu) {\includegraphics[height=10mm, clip=true, trim=10cm 16cm 10cm 5cm] {./figure/logotype_FMI_horizontal}};
+
+
+      \coordinate (west) at (tool.west);
+      \coordinate (east) at (openturns.east);
+      \coordinate (y gui) at ([yshift=-2mm] tool.south);
+      \coordinate (y code) at ([yshift=3mm] fmi lib.north);
+      \draw[limit]  ([xshift=-2mm]west|-y gui) -- ([xshift=2mm]east|-y gui) coordinate (limit gui);
+      \draw[limit]  ([xshift=-2mm]west|-y code) -- (limit gui|-y code) coordinate (limit code);
+
+      \node[layer, above left=2mm and -3mm of limit gui] {Graphical};
+      \node[layer, above left=2mm and -3mm of limit code] {Code};
+      \node[layer, left=-3mm] at (fmu.south-|limit gui) {Compiled};
+
+
+      \draw[link] ([xshift=1mm]tool.south) to[in=90, out=-90] (compiler);
+      \draw[link, shorten >=6mm] ([xshift=-1mm]tool.south) to [in=90, out=-90] (mo);
+      \draw[link] (mo) to (compiler);
+
+      \draw[link, shorten >=6mm] ([xshift=-1mm]compiler.south) to[in=45, out=-90] (C);
+      \draw[link, shorten >=7mm] ([xshift=2mm]compiler) to[in=140, out=-90] (fmu);
+
+      \draw[link] (fmu) to[out=0,in=-90] (fmi lib);
+      \draw[link] (fmi lib) to [out=0,in=-90] (pyfmi);
+      \draw[link, new] (pyfmi) to [out=170,in=-90] (otfmi)
+                          to[out=680, in=180] ([yshift=-2mm]openturns.west);
+      \draw[link, new] (openturns) to [out=180,in=-90] (openturns gui);
+     \end{pgfonlayer}
+
+\end{tikzpicture}

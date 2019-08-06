@@ -1,0 +1,239 @@
+% -*- coding: utf-8 -*-
+\documentclass{beamer}
+\usepackage{local}
+
+\usepackage{graphiques}
+
+\mode<handout>{
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]}
+
+\title[OtFMI]{\otfmi, an \openturns{} module for~uncertainties~analysis with~\odid~system~models}
+
+\author[Baudin et al.]{
+Michaël Baudin \inst{1} \and
+Audrey Jardin \inst{1} \and
+Mathias Bouquerel \inst{1} \and
+Anne-Laure Popelin \inst{1} \and
+Audrey Jardin \inst{1} \and
+\newline
+Julien~Schueller \inst{2} \and
+Sylvain~Girard \inst{2}
+}\institute[EDF \& Phimeca]{
+\inst{1} EDF R\&D. 6, quai Watier, 78401,
+Chatou Cedex - France, \url{michael.baudin@edf.fr}
+\inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly,
+75012 Paris - France, \url{girard@phimeca.com}
+}\date[]{October 19th 2017}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Context}
+\label{sec:context}
+
+% ====
+\begin{frame}{Industrial issue}
+\begin{itemize}
+\item \edf{} uses \alert{\odid{} system models} programmed in \alert{\lmodelica{}} as decision support for the conception and operation of its industrial assets.
+  % \begin{itemize}
+  % \item \edf{} models are programmed in \alert{\lmodelica{}}
+  % \end{itemize}
+\vfill
+\item How to apply \alert{\openturns{}'} panoply of methods to these models?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile, label=comparaison]{“Regular” models \textit{vs} \odid{} system models}
+\tikzexternaldisable{}
+
+\makebox[\textwidth][c]{\centering
+\input{comparison}
+}
+\end{frame}
+
+\begin{frame}{\lmodelica{} programming language}
+  \begin{itemize}
+  \item \lmodelica{} is an open language for programming models based on \alert{differential algebraic systems of equations}
+    \vfill
+    \makebox[0.9\textwidth][c]{\centering%
+\includegraphics[height=1.5cm]{./figure/logo_modelica}}
+  \item Equations are written in almost \alert{natural language}, and solved by a multipurpose third party tool.
+    \vfill
+  \item It is object-oriented: available \alert{module libraries} cover most applications
+    \begin{itemize}
+    \item Complex models can be achieved simply by combining this modules using a graphical interface!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\lmodelica{} tools}
+  \begin{itemize}
+  \item Main tools :
+    \begin{itemize}
+    \item Dymola (Dassault Systèmes, proprietary)
+    \item \openmodelica{} (Open Source Modelica Consortium, open source)
+  \end{itemize}
+\vfill
+  \item Functions
+    \begin{itemize}
+    \item Flatten equation systems
+    \item Compile to machine code after including a solver
+    \item Development environment
+    \item Model graphical interface
+    \item Basic post-processing\ldots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\openmodelica{}, model graphical view}
+\makebox[\textwidth][c]{\centering%
+\includegraphics[height=.86\textheight]{./figure/open_modelica_screenshot}
+}\end{frame}
+
+\newcommand{\inout}[3]{%
+  \foreach \x in {0,1,...,#2} \coordinate (#1 in \x) at ($\x/#2 *(#1.south west) +  1 - \x/#2 *(#1.north west)$);
+  \foreach \y in {0,1,...,#3} \coordinate (#1 out \y) at ($\y/#3 *(#1.south east) +  1 - \y/#3 *(#1.north east)$);
+}\newcommand{\inmod}[4][1cm]{\draw[link, reverse] (#2 in #3)--++(-#1, 0) node[pos=.5, above] {#4};}
+\newcommand{\outmod}[4][1cm]{\draw[link] (#2 out #3)--++(#1, 0) node[pos=.5, above] {#4};}
+
+\begin{frame}{Piloting models}
+  \tikzexternaldisable{}
+  \begin{itemize}
+  \item Most \openturns{} methods apply to functional \alert{black boxes}
+    \begin{itemize}
+    \item Uncertainty propagation and reliability analysis
+    \item Sensitivity analysis
+    \item Emulation
+    \item Parameter estimation
+    \end{itemize}
+  \end{itemize}
+
+  \makebox[\textwidth][c]%
+  {%
+    \centering
+    \begin{tikzpicture}
+      \node[cellule, minimum height=20mm] (modele) {Model\\$y_1, y_2 = f(x_1, x_2, x_3) $};
+      \inout{modele}{4}{4}
+      \inmod{modele}{1}{$x_1$}
+      \inmod{modele}{2}{$x_2$}
+      \inmod{modele}{3}{$x_3$}
+      \outmod{modele}{1}{$y_1$}
+      \outmod{modele}{3}{$y_2$}
+    \end{tikzpicture}
+  }
+\vfill
+\begin{itemize}
+  \item We need efficient \alert{input--output data interfaces},\\a.k.a. \emph{wrappers} in \openturns{} jargon.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Functional mock-up interface (FMI)}
+  \begin{itemize}
+  \item FMI is a standard for input--output data interface for numerical model.
+    \makebox[0.9\textwidth][c]{\centering%
+      \includegraphics[height=1.85cm, clip=true, trim=10cm 16cm 10cm 5cm] {./figure/logotype_FMI_horizontal}}
+  \vfilll
+  \item A \alert{functional mock-up unit (FMU)} is a black box following the standard.
+  % \tikzsetnextfilename{fmu}
+  % \item PyFMI\footnote{\color{gray}\url{http://www.jmodelica.org/page/4924}} est un \alert{module \python} pour l'échange de modèle.
+  \end{itemize}
+  \vfilll
+    \tikzexternaldisable{}
+  \makebox[0.9\textwidth][c]%
+  {%
+    \centering
+    \begin{tikzpicture}
+      % \node[cellule]
+      \coordinate (origin) at (0,0);
+      \pic[file style, "XML", xshift=5mm] (xml) at (origin) {file icon};
+      \foreach \x in {0,1,...,4}
+      \path ([xshift=20mm, yshift=1mm] origin)++($\x*(2mm, -.5mm)$) node (fichier C \x) {X};
+
+      \foreach \x in {0,1,...,4}
+      \pic[file style, "C"] at (fichier C \x) {file icon};
+
+      \node[cellule, fit=(origin) (fichier C 4) (xml-top), inner sep=2mm] (fmu) {};
+      \node[etiquette, yshift=1mm, xshift=3mm] at (fmu.north west) {FMU};
+    \end{tikzpicture}}
+\fakefootnote{\color{gray}\url{https://www.fmi-standard.org/}}
+\end{frame}
+
+\section{\otfmi}
+
+\begin{frame}{\otfmi: integrating \fmi{} support into \openturns}
+  \begin{itemize}
+  \item The new open source module \otfmi{} allows transparent use of \fmu{} with \openturns{} methods.
+    \vfill
+  \item It provides high level classes derived from \textpython{ot.PythonFunction}:\\running an \fmu{} instead of a \lpython{} function only requires to \alert{change~a~single~code~line}!
+  \end{itemize}
+\vfill
+  \makebox[\textwidth][c]{\centering%
+\pythonfile{./python/instantiate.py}
+}\end{frame}
+
+\begin{frame}{Implementation overview}
+\tikzexternaldisable{}
+
+\newcommand{\nudge}{10mm}
+\makebox[\textwidth][c]{\centering
+\input{abstraction_layer}
+}\end{frame}
+
+\section{\otfmi{} grahical interface}
+
+\begin{frame}{\otfmi{} grahical interface}
+Motivations
+\begin{itemize}
+\item Provide access to \openturns{}' methods for \lmodelica{} users unfamiliar~with~\lpython{}
+\item Considerably ease simple studies
+\end{itemize}
+\vfill
+Issues
+\begin{itemize}
+\item \lmodelica{} models often define \alert{hundreds or thousands of variables}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{\otfmi{} grahical interface, \fmu{} overview}
+\makebox[\textwidth][c]{\centering%
+  \includegraphics[height=.6\textheight]{./figure/bil100-resume}
+}\end{frame}
+
+\begin{frame}{\otfmi{} grahical interface, picking inputs and outputs}
+\makebox[\textwidth][c]{\centering%
+  \includegraphics[height=.6\textheight]{./figure/bil100-variables}
+}\end{frame}
+
+\section*{}
+
+\begin{frame}{Perspectives}
+  \begin{itemize}
+  \item Most 0D/1D system model are dynamical.\\
+    We need methods for sensitivity analysis and emulation of model with \alert{time series inputs or outputs}.
+    \vfill
+  \item EDF is interested into \alert{data assimilation} with its \lmodelica{} models.
+    \vfill
+  \item What are the opportunities of \alert{extending the \lmodelica{} language} to support stochastic description of variables?
+  % \item Information about the stochastic
+  \end{itemize}
+\end{frame}
+
+\section*{}
+\pagestyle{empty}
+\begin{frame}
+\vfill
+\vfill
+\hfill{}\huge\structure{Thank you for your attention.}
+
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% eval: (ispell-change-dictionary "british")
+%%% End:

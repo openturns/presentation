@@ -18,7 +18,11 @@ OpenTURNS Presentations
   - `Article <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2019-article-OpenTURNS.pdf>`_
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2019-slides-OpenTURNS.pdf>`_
 
-- `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
+- CHORUS
+
+  - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
+  - `OtFMI, an OpenTURNS module for uncertainties analysis with 0D/1D system models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/chorus-2017-otfmi.pdf>`_
+  
 - Developer training:
 
   - `Agenda <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/agenda.pdf>`_
