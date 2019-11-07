@@ -32,3 +32,8 @@ OpenTURNS Presentations
   - `Library developement <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/library_development.pdf>`_
   - `Module development <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/module_development.pdf>`_
   - `TPs <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/tps.pdf>`_
+
+- Robust optimization workshop:
+
+  - `Robust optimization elements (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/robust-optimization-onera.pdf>`_
+  - `Robust optimization with OpenTURNS: the otrobopt module (Airbus) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/otrobopt-airbus.pdf>`_
