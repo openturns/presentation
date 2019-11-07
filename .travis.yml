@@ -38,6 +38,7 @@ after_success:
   - cp -v ${TRAVIS_BUILD_DIR}/siamuq2016/siamuq-2016-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/siamuq2018/siamuq-2018-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/chorus-2017-otfmi/chorus-2017-otfmi.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/robust-optimization-2019/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"
