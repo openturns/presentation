@@ -5,6 +5,11 @@
 OpenTURNS Presentations
 =======================
 
+- User day 2020
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2020relhi.pdf>`_
+  - `Group kernels for Gaussian process metamodels with categorical input <https://github.com/openturns/presentation/blob/master/userday2020/catkriging_talk.pdf>`_
+
 - `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy-2017.pdf>`_
 - `SIAM-UQ 2016 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2016-OpenTURNS.pdf>`_
 - `SIAM-UQ 2018 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2018-OpenTURNS.pdf>`_
@@ -37,3 +42,4 @@ OpenTURNS Presentations
 
   - `Robust optimization elements (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/robust-optimization-onera.pdf>`_
   - `Robust optimization with OpenTURNS: the otrobopt module (Airbus) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/otrobopt-airbus.pdf>`_
+
