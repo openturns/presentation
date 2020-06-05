@@ -332,9 +332,9 @@ The Karhunen-Loeve decomposition of a covariance model on a mesh results in the 
 \item Using an iterative algorithm for the eigen decomposition, the product $z=Mx$ for a given vector $v$ can be done using two products $y=Gx$ and $z=Cy$, both allowing for optimizations.
 \end{itemize}
 
-We rely on the \alert{spectra} library (https://github.com/yixuan/spectra) for the iterative algorithm, we use a compressed sparse column compression scheme for $G$ and an hmat compression for $C$ (no regularization/factorization step here).
+We rely on the \alert{Spectra} library (https://github.com/yixuan/Spectra) for the iterative algorithm, we use a compressed sparse column compression scheme for $G$ and an hmat compression for $C$ (no regularization/factorization step here).
 
-\alert{Bonus: using spectra, one can select the maximum number of modes to be computed. Here we choose to compute 20 modes}.
+\alert{Bonus: using Spectra, one can select the maximum number of modes to be computed. Here we choose to compute 20 modes}.
 
 \begin{figure}
 \begin{center}
@@ -353,9 +353,9 @@ We rely on the \alert{spectra} library (https://github.com/yixuan/spectra) for t
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figures/Decomposition.pdf}
+\includegraphics[width=0.6\textwidth]{figures/Decomposition.pdf}
 \end{center}
-\caption{Decomposition time using spectra and either LAPACK of HMAT}
+\caption{Decomposition time using LAPACK, Spectra/LAPACK and Spectra/HMAT}
 \end{figure}
 
 \end{frame}
