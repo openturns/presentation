@@ -7,3 +7,5 @@
 *.vrb
 *.log
 *.out
+*.bbl
+*.blg
