@@ -10,7 +10,11 @@
 
 \title[PERSALYS]{PERSALYS, the graphical interface of OpenTURNS}
 
+<<<<<<< HEAD
 \author[Baudin et al.]{
+=======
+\author[PERSALYS Team]{
+>>>>>>> b408b51... Draft of UD Persalys slides.
 Michaël Baudin \inst{1} \and
 Thibault Delage \inst{1} \and
 Antoine Dumas \inst{2} \and \\
@@ -209,7 +213,12 @@ where $\epsilon$ is a random variable.
 Calibration outputs:
 \begin{itemize}
 \item the optimal value $\theta^\star$,
+<<<<<<< HEAD
 \item the distribution of $\theta^\star$.
+=======
+\item the distribution of $\theta^\star$,
+\item the distribution of the residuals $y_i - H(x_i, \theta)$.
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \end{itemize}
 
 This allows to get confidence intervals of $\theta^\star$.
@@ -273,7 +282,11 @@ In PERSALYS, this requires:
 \frametitle{Calibration}
 	
 \begin{center}
+<<<<<<< HEAD
 \includegraphics[width=0.7\textwidth]{figures/calibration_ResultWindow.png}
+=======
+\includegraphics[width=0.7\textwidth]{figures/calibration-ks-zv-zm-optimal.png}
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \end{center}
 
 \end{frame}
@@ -283,7 +296,13 @@ In PERSALYS, this requires:
 \begin{frame}
 \frametitle{Calibration}
 	
+<<<<<<< HEAD
 TODO : PDF de $\theta$ -> capture d'écran par Thibault ?
+=======
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/calibration-Zv-prior-posterior.png}
+\end{center}
+>>>>>>> b408b51... Draft of UD Persalys slides.
 
 \end{frame}
 
@@ -293,13 +312,18 @@ TODO : PDF de $\theta$ -> capture d'écran par Thibault ?
 \frametitle{Calibration}
 	
 \begin{center}
+<<<<<<< HEAD
 \includegraphics[width=0.9\textwidth]{figures/S94-Resultat-3DVAR.png}
+=======
+\includegraphics[width=0.7\textwidth]{figures/calibration-residual-analysis.png}
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \end{center}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+<<<<<<< HEAD
 \section{TODO}
 
 \begin{frame}
@@ -308,11 +332,80 @@ TODO : PDF de $\theta$ -> capture d'écran par Thibault ?
 \begin{itemize}
 \item Couping tools
 \item website ?
+=======
+\section{Coupling tools}
+
+\begin{frame}
+\frametitle{Coupling with external code}
+
+A new physical coupling dialog was created:
+\begin{itemize}
+\item Execute any computer code from system
+\item Create a pipeline of commands
+\item Exchange data with files
+\item Manage input and output cache to save simulations
+\item Can be parallel : multithread or distributed (in SALOME)
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<<<<<< HEAD
+=======
+
+\begin{frame}
+\frametitle{Coupling with external code}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/coupling-input-focus.png}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Coupling with external code}
+
+Resources are files to copy to run the simulation : mesh, parameters, etc...
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/coupling-ressources-focus.png}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Coupling with external code}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/coupling-output-focus.png}
+
+\includegraphics[width=0.8\textwidth]{figures/coupling-cache-focus.png}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Website}
+
+\begin{frame}
+\frametitle{Website}
+
+\url{persalys.fr} : download (source, binaries), doc (videos tutorials), news
+	
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/persalys-web.png}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \section{What's next ?}
 
 \begin{frame}
@@ -322,7 +415,10 @@ TODO : PDF de $\theta$ -> capture d'écran par Thibault ?
 
 PERSALYS Roadmap : 
 \begin{itemize}
+<<<<<<< HEAD
 \item Calibration
+=======
+>>>>>>> b408b51... Draft of UD Persalys slides.
 \item 2D Fields, 3D Fields
 \item In-Situ fields based on the MELISSA library (with INRIA): 
 when we cannot store the whole sample in memory or on the hard drive, 
