@@ -26,7 +26,7 @@ script:
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
-  - git clone https://${GH_TOKEN}@github.com/openturns/openturns.github.io.git
+  - git clone --depth 1 https://${GH_TOKEN}@github.com/openturns/openturns.github.io.git
   - PROJECT_REPONAME=`echo "${TRAVIS_REPO_SLUG}" | cut -d "/" -f 2`
   - if test -n "${TRAVIS_TAG}"; then
         TRAVIS_BRANCH=${TRAVIS_TAG:1};
