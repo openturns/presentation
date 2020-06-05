@@ -27,8 +27,10 @@ OpenTURNS Presentations
 
 - User day 2020
 
-  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2020relhi.pdf>`_
   - `Group kernels for Gaussian process metamodels with categorical input <https://github.com/openturns/presentation/blob/master/userday2020/catkriging_talk.pdf>`_
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2020relhi.pdf>`_
+  - `Probabilistic analyses of a spatial vehicle equipment bay <https://github.com/openturns/presentation/blob/master/userday2020/JU_OT_2020_CNES-Study.pdf>`_
+  - `Uncertainties in civil engineering: A FE-model calibration process for cultural heritage applications <https://github.com/openturns/presentation/blob/master/userday2020/kobe_OT_user_day_2020_v00.pdf>`_
 
 - CHORUS
 
