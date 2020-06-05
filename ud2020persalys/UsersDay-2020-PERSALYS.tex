@@ -13,10 +13,11 @@
 \author[Baudin et al.]{
 Michaël Baudin \inst{1} \and
 Thibault Delage \inst{1} \and
-Anne Dutfoy \inst{1} \and \\
+Antoine Dumas \inst{2} \and \\
+Anne Dutfoy \inst{1} \and
 Anthony Geay \inst{1} \and
-Ovidiu Mircescu \inst{1} \and
-Aurélie Ladier \inst{2} \and \\
+Ovidiu Mircescu \inst{1} \and \\
+Aurélie Ladier \inst{2} \and
 Julien Schueller \inst{2} \and
 Thierry Yalamas \inst{2}
 }
@@ -78,7 +79,7 @@ I would like to thank the organizers to inviting us to present our tools.
 	\item Uncertainty quantification : definition of the 
 	probabilistic model (including dependence), distribution fitting (including 
 	copulas), central tendency, sensitivity analysis, probability estimate, 
-	meta-modeling (polynomial chaos, kriging), screening with Morris, 
+	meta-modeling (polynomial chaos, kriging), screening (Morris), 
 	optimization, design of experiments
 	\item Generic (not dedicated to a specific application)
 	\item GUI language : English, French
@@ -104,69 +105,14 @@ I would like to thank the organizers to inviting us to present our tools.
 We created a new tool within SALOME, called PERSALYS. 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{PERSALYS: define the dependence}
-	
-  \begin{columns}
-    \column{0.4\textwidth}
-	
-\begin{itemize}
-\item Dependence is defined using copulas
-\item Define arbitrary groups of dependent variables
-\item Available copulas (same as in OT): gaussian, Ali-Mikhail-Haq, 
-    Clayton, Farlie-Gumbel-Morgenstern, Frank, Gumbel
-\item Dependence inference from a sample : Bayesian Information Criteria (BIC) 
-or Kendall plot
-\end{itemize}
-
-    \column{0.6\textwidth}
-
-\begin{center}
-\includegraphics[width=0.95\textwidth]{figures/persalys-dependence-extract.png}
-\end{center}
-
-	\end{columns}
-
-\end{frame}
-
-\note{
-To define the dependence in PERSALYS, we use the copula tools available in OpenTURNS. 
-
-The Dependence tab shows the list of input variables: you can create a group 
-of dependent variables using the checkbutton and add it to the group. 
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{PERSALYS: 1D fields}
-	
+\section{PERSALYS v7: 1D fields}
 
-\begin{itemize}
-\item Mesh definition and visualization
-\item Import from text or csv file
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-define-mesh.png}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-visualize-mesh-extract.png}
-\end{center}
-
-\end{frame}
-
-\note{
-The most important new feature is the management of 1D stochastic processes. 
-
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{PERSALYS: 1D fields}
+\frametitle{1D fields}
 	
 \begin{itemize}
 \item Functional model definition and probabilistic model
@@ -192,7 +138,7 @@ one evaluation of the function is then a trajectory which depends on the time.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{PERSALYS: 1D fields}
+\frametitle{1D fields}
 	
 \begin{itemize}
 \item Probabilistic model
@@ -217,7 +163,7 @@ of 100 (one hundred) trajectories.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{PERSALYS: 1D fields}
+\frametitle{1D fields}
 	
 \begin{itemize}
 \item BagChart and Functional Bagchart (from Paraview) 
@@ -245,7 +191,7 @@ which uses the High Density Regions algorithm .
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Calibration}
+\section{PERSALYS v8: Calibration}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -260,6 +206,21 @@ y_i = H(x_i, \theta) + \epsilon
 $$
 where $\epsilon$ is a random variable.
 
+Calibration outputs:
+\begin{itemize}
+\item the optimal value $\theta^\star$,
+\item the distribution of $\theta^\star$.
+\end{itemize}
+
+This allows to get confidence intervals of $\theta^\star$.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Calibration}
+
 In PERSALYS, this requires:
 \begin{itemize}
 \item a physical model $H$, 
@@ -269,7 +230,6 @@ In PERSALYS, this requires:
 \begin{center}
 \includegraphics[width=0.4\textwidth]{figures/observations_contextMenu.png}
 \end{center}
-
 
 \end{frame}
 
@@ -302,17 +262,6 @@ In PERSALYS, this requires:
 \frametitle{Calibration}
 	
 \begin{center}
-\includegraphics[width=0.7\textwidth]{figures/calibration_ResultWindow.png}
-\end{center}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Calibration}
-	
-\begin{center}
 \includegraphics[width=0.9\textwidth]{figures/S94-Calage-Gaussien-prior.png}
 \end{center}
 
@@ -324,8 +273,42 @@ In PERSALYS, this requires:
 \frametitle{Calibration}
 	
 \begin{center}
+\includegraphics[width=0.7\textwidth]{figures/calibration_ResultWindow.png}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Calibration}
+	
+TODO : PDF de $\theta$ -> capture d'écran par Thibault ?
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Calibration}
+	
+\begin{center}
 \includegraphics[width=0.9\textwidth]{figures/S94-Resultat-3DVAR.png}
 \end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{TODO}
+
+\begin{frame}
+\frametitle{TODO}
+	
+\begin{itemize}
+\item Couping tools
+\item website ?
+\end{itemize}
 
 \end{frame}
 
@@ -886,6 +869,60 @@ Meta-modeling :
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}
+\frametitle{Dependence}
+	
+  \begin{columns}
+    \column{0.4\textwidth}
+	
+\begin{itemize}
+\item Dependence is defined using copulas
+\item Define arbitrary groups of dependent variables
+\item Available copulas (same as in OT): gaussian, Ali-Mikhail-Haq, 
+    Clayton, Farlie-Gumbel-Morgenstern, Frank, Gumbel
+\item Dependence inference from a sample : Bayesian Information Criteria (BIC) 
+or Kendall plot
+\end{itemize}
+
+    \column{0.6\textwidth}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/persalys-dependence-extract.png}
+\end{center}
+
+	\end{columns}
+
+\end{frame}
+
+\note{
+To define the dependence in PERSALYS, we use the copula tools available in OpenTURNS. 
+
+The Dependence tab shows the list of input variables: you can create a group 
+of dependent variables using the checkbutton and add it to the group. 
+}
+
+\begin{frame}
+\frametitle{1D fields}
+	
+
+\begin{itemize}
+\item Mesh definition and visualization
+\item Import from text or csv file
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-define-mesh.png}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-visualize-mesh-extract.png}
+\end{center}
+
+\end{frame}
+
+\note{
+The most important new feature is the management of 1D stochastic processes. 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
