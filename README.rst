@@ -5,23 +5,30 @@
 OpenTURNS Presentations
 =======================
 
-- User day 2020
-
-  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2020relhi.pdf>`_
-  - `Group kernels for Gaussian process metamodels with categorical input <https://github.com/openturns/presentation/blob/master/userday2020/catkriging_talk.pdf>`_
-
 - `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy-2017.pdf>`_
+
 - `SIAM-UQ 2016 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2016-OpenTURNS.pdf>`_
-- `SIAM-UQ 2018 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2018-OpenTURNS.pdf>`_
+
 - Uncecomp 2017
 
   - `Article <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2017-article-OpenTURNS.pdf>`_
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2017-slides-OpenTURNS.pdf>`_
 
+- `EuroSciPy 2017 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/euroscipy-2017.pdf>`_
+
+- `SIAM-UQ 2018 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2018-OpenTURNS.pdf>`_
+
 - Uncecomp 2019
 
   - `Article <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2019-article-OpenTURNS.pdf>`_
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp-2019-slides-OpenTURNS.pdf>`_
+
+- `SIAM-UQ 2020 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2020-slides-OpenTURNS.pdf>`_
+
+- User day 2020
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2020relhi.pdf>`_
+  - `Group kernels for Gaussian process metamodels with categorical input <https://github.com/openturns/presentation/blob/master/userday2020/catkriging_talk.pdf>`_
 
 - CHORUS
 
