@@ -14,19 +14,24 @@
 \author[Baudin et al.]{
 =======
 \author[PERSALYS Team]{
+<<<<<<< HEAD
 >>>>>>> b408b51... Draft of UD Persalys slides.
 Micha�l Baudin \inst{1} \and
+=======
+Michaël Baudin \inst{1} \and
+>>>>>>> d198f90... Add slides from 2019. Add figures.
 Thibault Delage \inst{1} \and
 Antoine Dumas \inst{2} \and \\
 Anne Dutfoy \inst{1} \and
-Anthony Geay \inst{1} \and
-Ovidiu Mircescu \inst{1} \and \\
-Aur�lie Ladier \inst{2} \and
-Julien Schueller \inst{2} \and
+Guillaume Garcia \inst{2} \and
+Anthony Geay \inst{1} \and \\
+Ovidiu Mircescu \inst{1} \and
+Aurélie Ladier \inst{2} \and
+Julien Schueller \inst{2} \and  \\
 Thierry Yalamas \inst{2}
 }
 
-\institute[EDF-Phim�ca]{
+\institute[EDF-Phiméca]{
 \inst{1} EDF R\&D. 6, quai Watier, 78401, Chatou Cedex - France, michael.baudin@edf.fr \and %
 \inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France, yalamas@phimeca.com
 }
@@ -73,6 +78,43 @@ I would like to thank the organizers to inviting us to present our tools.
 \section{Overview}
 
 \begin{frame}
+\frametitle{Bring Uncertainty Methodology to Engineers}
+\begin{itemize}
+\item 4 years ago
+
+\begin{itemize}
+\item EDF R\&D wants to maximize the use of OpenTURNS\textregistered{} by its engineer/researcher (and improve an existing GUI) => develop a GUI to make more easy to use
+
+\item Phimeca has already developed an "OpenTURNS GUI" (PhimecaSoft\textregistered{}) which satisfy some needs of EDF R\&D but not all.
+
+\item EDF R\&D and Phimeca decided to start a specific partnership in order to develop a new GUI based on OpenTURNS\textregistered{} and "Salome Tools": Paraview, Yacs, ...
+\end{itemize}
+
+\item Persalys is available, on Salome website, in EDF Specific Salome version and commercialized by Phimeca
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Some expectations regarding the GUI}
+\begin{itemize}
+\item As easy to use as possible and, when it is possible, a GUI which can guide the user 
+
+\item Possibility to use it inside Salome Platform to 
+\begin{itemize}
+\item Use supercomputing resources (e.g. Gaïaë, 3 052 Tflops peak, 41 000 cores)
+\item Connect to EDF numerical code users (Code\_Aster for example)
+\end{itemize}
+
+\item Take benefit from the advanced visualization capability from Paraview
+
+\item Drive the GUI from a python script usable in an "expert" mode
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
 \frametitle{PERSALYS, the graphical user interface of \ot{}}
 	
 \begin{itemize}
@@ -82,22 +124,23 @@ I would like to thank the organizers to inviting us to present our tools.
 	\begin{itemize}
 	\item Uncertainty quantification : definition of the 
 	probabilistic model (including dependence), distribution fitting (including 
-	copulas), central tendency, sensitivity analysis, probability estimate, 
-	meta-modeling (polynomial chaos, kriging), screening (Morris), 
+	copulas), physical model with vector input 
+	and vector output or 1D Fields,
+	central tendency, sensitivity analysis, probability estimate, 
+	metamodeling (polynomial chaos, kriging), screening (Morris), 
 	optimization, design of experiments
 	\item Generic (not dedicated to a specific application)
 	\item GUI language : English, French
 	\end{itemize}
 
-\item Partners : EDF, Phim�ca
+\item Partners : EDF, Phiméca
 \item Licence : LGPL
 
 \item Schedule : 
 	\begin{itemize}
 	\item Since summer 2016, one EDF release per year
-	\item On the internet (free) : SALOME\_EDF since 2018 on 
-	
-	\url{https://www.salome-platform.org}
+	\item On the internet (free) : SALOME\_EDF in the "CONTRIBUTIONS" section 
+	since 2018 on \url{https://www.salome-platform.org}
 	
 	\end{itemize}
 
@@ -110,88 +153,6 @@ We created a new tool within SALOME, called PERSALYS.
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{PERSALYS v7: 1D fields}
-
-
-\begin{frame}
-\frametitle{1D fields}
-	
-\begin{itemize}
-\item Functional model definition and probabilistic model
-\item Python or symbolic
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-define-python-model-extract.png}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-evaluation.png}
-\end{center}
-
-\end{frame}
-
-\note{
-The Python function has 4 (four) inputs named z0, v0, m and c. 
-
-Moreover, the Python function depends on the index parameter which name is "t". 
-
-On the right figure, this is what appears when we click on the "Evaluate" button: 
-one evaluation of the function is then a trajectory which depends on the time. 
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{1D fields}
-	
-\begin{itemize}
-\item Probabilistic model
-\item Uncertainty propagation with simple Monte-Carlo sampling
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-probabilistic-model.png}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-montecarlo-trajectories-extract.png}
-\end{center}
-
-\end{frame}
-
-\note{
-Then we can perform the central dispersion analysis of the model. 
-
-On the left, we define the distribution of the input random vector. 
-
-On the right, this is the result of the simulation: a sample made 
-of 100 (one hundred) trajectories. 
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{1D fields}
-	
-\begin{itemize}
-\item BagChart and Functional Bagchart (from Paraview) 
-based on High Density Regions (Hyndman, 1996).
-\item To do this, Paraview uses a principal component analysis  
-decomposition. 
-\item Linked and interactive selections in the views. 
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-bagchart.png}
-\includegraphics[width=0.45\textwidth]{figures/persalys-field-functional-bagchart.png}
-\end{center}
-
-\end{frame}
-
-\note{
-To analyze these trajectories requires more advanced tools than with 
-classical multivariate samples, so that we can take into account for the 
-time dependence. 
-
-We use the BagChart and Functional Bagchart (from Paraview) tools, 
-which uses the High Density Regions algorithm . 
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -217,8 +178,12 @@ Calibration outputs:
 \item the distribution of $\theta^\star$.
 =======
 \item the distribution of $\theta^\star$,
+<<<<<<< HEAD
 \item the distribution of the residuals $y_i - H(x_i, \theta)$.
 >>>>>>> b408b51... Draft of UD Persalys slides.
+=======
+\item the distribution of the residuals $r_i = y_i - H(x_i, \theta^\star)$.
+>>>>>>> d198f90... Add slides from 2019. Add figures.
 \end{itemize}
 
 This allows to get confidence intervals of $\theta^\star$.
@@ -320,6 +285,12 @@ TODO : PDF de $\theta$ -> capture d'�cran par Thibault ?
 \end{center}
 
 \end{frame}
+
+\note{
+Rouge : la distribution des résidus avant calage.
+Vert : la distribution des résidus après calage.
+Bleu : la distribution gaussienne des résidus. Gaussien (TODO : préciser)
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1020,5 +991,84 @@ The most important new feature is the management of 1D stochastic processes.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{1D fields}
+	
+\begin{itemize}
+\item Functional model definition and probabilistic model
+\item Python or symbolic
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-define-python-model-extract.png}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-evaluation.png}
+\end{center}
+
+\end{frame}
+
+\note{
+The Python function has 4 (four) inputs named z0, v0, m and c. 
+
+Moreover, the Python function depends on the index parameter which name is "t". 
+
+On the right figure, this is what appears when we click on the "Evaluate" button: 
+one evaluation of the function is then a trajectory which depends on the time. 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{1D fields}
+	
+\begin{itemize}
+\item Probabilistic model
+\item Uncertainty propagation with simple Monte-Carlo sampling
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-probabilistic-model.png}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-montecarlo-trajectories-extract.png}
+\end{center}
+
+\end{frame}
+
+\note{
+Then we can perform the central dispersion analysis of the model. 
+
+On the left, we define the distribution of the input random vector. 
+
+On the right, this is the result of the simulation: a sample made 
+of 100 (one hundred) trajectories. 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{1D fields}
+	
+\begin{itemize}
+\item BagChart and Functional Bagchart (from Paraview) 
+based on High Density Regions (Hyndman, 1996).
+\item To do this, Paraview uses a principal component analysis  
+decomposition. 
+\item Linked and interactive selections in the views. 
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-bagchart.png}
+\includegraphics[width=0.45\textwidth]{figures/persalys-field-functional-bagchart.png}
+\end{center}
+
+\end{frame}
+
+\note{
+To analyze these trajectories requires more advanced tools than with 
+classical multivariate samples, so that we can take into account for the 
+time dependence. 
+
+We use the BagChart and Functional Bagchart (from Paraview) tools, 
+which uses the High Density Regions algorithm . 
+}
+
 
 \end{document}
