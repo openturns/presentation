@@ -23,6 +23,7 @@ script:
   - cd chorus-2017-otfmi && pdflatex -halt-on-error chorus-2017-otfmi.tex && pdflatex chorus-2017-otfmi.tex && cd -
   - cd siamuq2020 && pdflatex -halt-on-error siamuq-2020-slides-OpenTURNS.tex && pdflatex siamuq-2020-slides-OpenTURNS.tex && cd -
   - cd userday2020/userday2020relhi/ && pdflatex -halt-on-error userday2020relhi.tex && pdflatex userday2020relhi.tex && cd -
+  - cd userday2020/ud2020persalys && pdflatex -halt-on-error UsersDay-2020-PERSALYS.tex && pdflatex UsersDay-2020-PERSALYS.tex && cd -
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
@@ -43,6 +44,8 @@ after_success:
   - cp -v ${TRAVIS_BUILD_DIR}/robust-optimization-2019/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/siamuq2020/siamuq-2020-slides-OpenTURNS.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/userday2020/userday2020relhi/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/userday2020/ud2020persalys/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/ud2019persalys/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"
