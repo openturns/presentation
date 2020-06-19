@@ -32,10 +32,9 @@ OpenTURNS Presentations
   - `Probabilistic analyses of a spatial vehicle equipment bay <https://github.com/openturns/presentation/blob/master/userday2020/JU_OT_2020_CNES-Study.pdf>`_
   - `Uncertainties in civil engineering: A FE-model based process for research and applications <https://github.com/openturns/presentation/blob/master/userday2020/kobe_OT_user_day_2020_v01.pdf>`_
   - `New calibration and coupling features in PERSALYS v8 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2020-PERSALYS.pdf>`_
-  - Immersive and interactive scientific visualisation with Skyreal linked to OpenTURNS
+  - `Immersive and interactive scientific visualisation with Skyreal linked to OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2020/Skyreal_OTUserDay_VisuScientific.pdf>`_
   - `Gaussian process approximation of a multidisciplinary system and sensitivity analysis to model uncertainty <https://github.com/openturns/presentation/blob/master/userday2020/ju_ot_dubreuil.pdf>`_
   - `Understanding and improvement of ingot manufacturing process using a numerical sensitivity analysis <https://github.com/openturns/presentation/blob/master/userday2020/DEMAY_OT_200619.pdf>`_
-  - Uncertainty quantification in hydraulics: overview of EDF applications
 
 - User day 2019
 
