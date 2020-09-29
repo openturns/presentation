@@ -131,7 +131,7 @@
       \end{align*}
       where $x_k=\cos\theta_k$, $\theta_k=\dfrac{k\pi}{n}$ and $w_k$ is given by:
       \begin{align}
-        w_k=\dfrac{c_k}{n}\left(1-\sum_{j=1}{\lfloor n/2\rfloor}\dfrac{b_j}{4j^2-1}\cos\left(2j\theta_k\right)\right)
+        w_k=\dfrac{c_k}{n}\left(1-\sum_{j=1}^{\lfloor n/2\rfloor}\dfrac{b_j}{4j^2-1}\cos\left(2j\theta_k\right)\right)
       \end{align}
     \end{enumerate}
   \end{block}
@@ -169,9 +169,9 @@
       \setcounter{enumi}{4}
     \item~(*) \alert{\ttfamily Fejer2} integration algorithm as a specialization of  \alert{\ttfamily IntegrationAlgorithmImplementation} (see {\ttfamily lib/src/Base/Algo}). This integration algorithm is based on the nodes $x_k=\cos\theta_k$ and weights:
       \begin{align}
-        w_k^{f2}=\dfrac{4}{n}\sin\theta_k\sum_{j=1}{\lfloor n/2\rfloor}\dfrac{\sin\left((2j-1)\theta_k\right)}{2j-1}
+        w_k^{f2}=\dfrac{4}{n+1}\sin\theta_{k+1}\sum_{j=1}^{\lfloor n/2\rfloor}\dfrac{\sin\left((2j-1)\theta_k\right)}{2j-1}
       \end{align}
-      for $k=0,\dots,n$. There also exist fast implementations based on FFT or modified moments, see the references for Clenshaw Curtis.
+      for $k=0,\dots,n-1$. There also exist fast implementations based on FFT or modified moments, see the references for Clenshaw Curtis.
     \item~(**) \alert{\ttfamily ClenshawCurtisProductExperiment} as a specialization of {\ttfamily WeightedExperiment}: same algorithm as for {\ttfamily ClenshawCurtis} but with adaptation to any weight function.
     \item~(*) \alert{\ttfamily MarshallOlkinCopula} as a specialization of {\ttfamily CopulaImplementation} (see {\ttfamily lib/src/Uncertainty/Distribution}). This copula is defined by:
       \begin{equation}
