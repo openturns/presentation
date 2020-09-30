@@ -25,6 +25,10 @@ OpenTURNS Presentations
 
 - `SIAM-UQ 2020 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2020-slides-OpenTURNS.pdf>`_
 
+- User day 2019
+
+  - `New features of the 1.12 & 1.13 releases <https://github.com/openturns/presentation/blob/master/ud2019OpenTURNS/JU12_JulienS_RLN.pdf>`_
+
 - User day 2020
 
   - `Group kernels for Gaussian process metamodels with categorical inputs <https://github.com/openturns/presentation/blob/master/userday2020/catkriging_talk-2.pdf>`_
