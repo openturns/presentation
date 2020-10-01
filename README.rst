@@ -28,6 +28,7 @@ OpenTURNS Presentations
 - User day 2019
 
   - `New features of the 1.12 & 1.13 releases <https://github.com/openturns/presentation/blob/master/ud2019OpenTURNS/JU12_JulienS_RLN.pdf>`_
+  - `Overview of recently developed features in Persalys <https://github.com/openturns/presentation/blob/master/userday2019/journee_OT_2019_06_07_Phimeca.pdf>`_
 
 - User day 2020
 
@@ -39,10 +40,6 @@ OpenTURNS Presentations
   - `Gaussian process approximation of a multidisciplinary system and sensitivity analysis to model uncertainty <https://github.com/openturns/presentation/blob/master/userday2020/ju_ot_dubreuil.pdf>`_
   - `Immersive and interactive scientific visualisation with Skyreal linked to OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2020/Skyreal_OTUserDay_VisuScientific.pdf>`_
   - `Understanding and improvement of ingot manufacturing process using a numerical sensitivity analysis <https://github.com/openturns/presentation/blob/master/userday2020/DEMAY_OT_200619.pdf>`_
-
-- User day 2019
-
-  - `Overview of recently developed features in Persalys <https://github.com/openturns/presentation/blob/master/userday2019/journee_OT_2019_06_07_Phimeca.pdf>`_
 
 - CHORUS
 
