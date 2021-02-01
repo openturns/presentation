@@ -27,7 +27,7 @@ OpenTURNS Presentations
 
 - User day 2019
 
-  - `New features of the 1.12 & 1.13 releases <https://github.com/openturns/presentation/blob/master/ud2019OpenTURNS/JU12_JulienS_RLN.pdf>`_
+  - `New features of the 1.12 & 1.13 releases <https://github.com/openturns/presentation/blob/master/userday2019/JU12_JulienS_RLN.pdf>`_
   - `Overview of recently developed features in Persalys <https://github.com/openturns/presentation/blob/master/userday2019/journee_OT_2019_06_07_Phimeca.pdf>`_
 
 - User day 2020
