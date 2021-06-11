@@ -41,6 +41,10 @@ OpenTURNS Presentations
   - `Immersive and interactive scientific visualisation with Skyreal linked to OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2020/Skyreal_OTUserDay_VisuScientific.pdf>`_
   - `Understanding and improvement of ingot manufacturing process using a numerical sensitivity analysis <https://github.com/openturns/presentation/blob/master/userday2020/DEMAY_OT_200619.pdf>`_
 
+- User day 2021
+
+  - `Sensitivity analysis based on HSIC dependence measures <https://github.com/openturns/presentation/blob/master/userday2021/JourneeOT_Marrel_Chabridon_Pelmatti_2021_06_11-V3.pdf>`_
+
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
