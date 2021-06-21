@@ -45,6 +45,7 @@ OpenTURNS Presentations
   - `Learning wall models for turbulent flow computations <https://github.com/openturns/presentation/blob/master/userday2021/wall_models_JU_openturns.pdf>`_
   - `Probabilistic models for penstock integrity assessment <https://github.com/openturns/presentation/blob/master/userday2021/Persalys-Penstock.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2021relhi.pdf>`_
+  - `Sensitivity analysis and uncertainty in CFD simulations of multiphase flow <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_chenry.pdf>`_
 
 - CHORUS
 
