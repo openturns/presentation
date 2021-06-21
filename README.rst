@@ -42,6 +42,7 @@ OpenTURNS Presentations
 - User day 2021
 
   - `Sensitivity analysis based on HSIC dependence measures <https://github.com/openturns/presentation/blob/master/userday2021/JourneeOT_Marrel_Chabridon_Pelmatti_2021_06_11-V3.pdf>`_
+  - `Learning wall models for turbulent flow computations <https://github.com/openturns/presentation/blob/master/userday2021/wall_models_JU_openturns.pdf>`_
   - `Probabilistic models for penstock integrity assessment <https://github.com/openturns/presentation/blob/master/userday2021/Persalys-Penstock.pdf>`_
 
 - CHORUS
