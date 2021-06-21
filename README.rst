@@ -1,3 +1,6 @@
+.. image:: https://github.com/openturns/presentation/actions/workflows/build.yml/badge.svg?branch=master
+    :target: https://github.com/openturns/presentation/actions/workflows/build.yml
+
 .. image:: https://travis-ci.org/openturns/presentation.svg?branch=master
     :target: https://travis-ci.org/openturns/presentation
 
