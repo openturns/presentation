@@ -1,0 +1,37 @@
+name: Build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science lmodern
+      - name: Build
+        run: |
+          cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
+          cd lowranktensor && pdflatex -halt-on-error lowranktensor.tex && pdflatex lowranktensor.tex && cd -
+          for subdir in agenda overview architecture uncertainties library_development module_development tps; do cd developer/${subdir} && pdflatex -halt-on-error ${subdir}.tex && pdflatex ${subdir}.tex && cd -; done
+          cd uncecomp2017/Uncecomp2017-article-OT && pdflatex -halt-on-error uncecomp-2017-article-OpenTURNS.tex && bibtex uncecomp-2017-article-OpenTURNS && pdflatex uncecomp-2017-article-OpenTURNS.tex && pdflatex uncecomp-2017-article-OpenTURNS.tex && cd -
+          cd uncecomp2017/Uncecomp2017-slides-OT && pdflatex -halt-on-error uncecomp-2017-slides-OpenTURNS.tex && pdflatex uncecomp-2017-slides-OpenTURNS.tex && cd -
+          cd uncecomp2019/Uncecomp2019-article-OT && pdflatex -halt-on-error uncecomp-2019-article-OpenTURNS.tex && bibtex uncecomp-2019-article-OpenTURNS && pdflatex uncecomp-2019-article-OpenTURNS.tex && pdflatex uncecomp-2019-article-OpenTURNS.tex && cd -
+          cd uncecomp2019/Uncecomp2019-slides-OT && pdflatex -halt-on-error uncecomp-2019-slides-OpenTURNS.tex && pdflatex uncecomp-2019-slides-OpenTURNS.tex && cd -
+          cd chorus-2017-otfmi && pdflatex -halt-on-error chorus-2017-otfmi.tex && pdflatex chorus-2017-otfmi.tex && cd -
+          cd siamuq2020 && pdflatex -halt-on-error siamuq-2020-slides-OpenTURNS.tex && pdflatex siamuq-2020-slides-OpenTURNS.tex && cd -
+          cd userday2020/userday2020relhi/ && pdflatex -halt-on-error userday2020relhi.tex && pdflatex userday2020relhi.tex && cd -
+          cd userday2020/ud2020persalys && pdflatex -halt-on-error UsersDay-2020-PERSALYS.tex && pdflatex UsersDay-2020-PERSALYS.tex && cd -
+          cd userday2021/userday2021relhi/ && pdflatex -halt-on-error userday2021relhi.tex && pdflatex userday2021relhi.tex && cd -
+      - name: Upload
+        run: |
+          git clone --depth 1 "https://${{ secrets.API_TOKEN_GITHUB }}@github.com/openturns/openturns.github.io.git" /tmp/openturns.github.io
+          mkdir -p /tmp/openturns.github.io/presentation/master
+          rm -r developer/tps/annex
+          find . -name "*.pdf" | grep -v figure | xargs -I{} cp -v {} /tmp/openturns.github.io/presentation/master
+          cd /tmp/openturns.github.io
+          touch .nojekyll
+          git config user.email "support@travis-ci.com"
+          git config user.name "Travis CI"
+          git add -A .
+          git commit -a -m "Travis build presentation"
+          git push --quiet origin master
+        if: ${{ github.event_name == 'push' }}
