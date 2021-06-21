@@ -43,6 +43,7 @@ OpenTURNS Presentations
 
   - `Sensitivity analysis based on HSIC dependence measures <https://github.com/openturns/presentation/blob/master/userday2021/JourneeOT_Marrel_Chabridon_Pelmatti_2021_06_11-V3.pdf>`_
   - `Learning wall models for turbulent flow computations <https://github.com/openturns/presentation/blob/master/userday2021/wall_models_JU_openturns.pdf>`_
+  - `otbenchmark: an open source Python package for benchmarking and validating uncertainty quantification algorithms <https://github.com/openturns/presentation/blob/master/userday2021/jot_efekhari21.pdf>`_
   - `Probabilistic models for penstock integrity assessment <https://github.com/openturns/presentation/blob/master/userday2021/Persalys-Penstock.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2021relhi.pdf>`_
   - `Surrogate-base based system reliability analysis applied to space-variant problems modeled by random-fields<https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_Amrane>`_
