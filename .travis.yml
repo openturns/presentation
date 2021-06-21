@@ -47,6 +47,7 @@ after_success:
   - cp -v ${TRAVIS_BUILD_DIR}/userday2020/userday2020relhi/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/userday2020/ud2020persalys/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cp -v ${TRAVIS_BUILD_DIR}/ud2019persalys/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
+  - cp -v ${TRAVIS_BUILD_DIR}/userday2021/userday2021relhi/*.pdf openturns.github.io/${PROJECT_REPONAME}/${TRAVIS_BRANCH}
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"
