@@ -49,6 +49,7 @@ OpenTURNS Presentations
   - `Surrogate-base based system reliability analysis applied to space-variant problems modeled by random-fields <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_Amrane>`_
   - `Sensitivity analysis and uncertainty in CFD simulations of multiphase flow <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_chenry.pdf>`_
   - `Interfacing a Modelica modeling tool and Persalys with OpenTURNS for the analysis of a solar collector <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/modelica_persalys.pdf>`_
+  - `Metamodeling the water temperature <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/frasilOTUsers2021.pdf>`_
 
 - CHORUS
 

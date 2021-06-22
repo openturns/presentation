@@ -1,0 +1,484 @@
+% Copyright (C) 2017 - 2021 - Michael Baudin - Fabien Souillé
+
+\documentclass[10pt]{beamer}
+
+\include{macros}
+
+\title[Water temperature metamodel]{Metamodeling the water temperature}
+
+\author[Baudin and Souillé]{
+Michaël Baudin \inst{1} \and
+Fabien Souillé \inst{1} \\
+\emph{with contributions by Chu Mai}
+}
+
+\institute[EDF]{
+\inst{1} EDF R\&D. 6, quai Watier, 78401, Chatou Cedex - France, michael.baudin@edf.fr \and %
+}
+
+\date[]{June 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\titlepage
+  
+\begin{center}
+\includegraphics[height=0.15\textheight]{figures/edf.jpg}
+\end{center}
+
+\end{frame}
+
+\note{
+Remercier Chu Mai. 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+\begin{frame}
+\frametitle{Goals}
+
+Industrial topic:
+\begin{itemize}
+\item Frazil ice are small crystal disks. 
+\item They may appear when the water temperature falls below the fusion point. 
+\item The growth can be fast. 
+\item They may accumulate on water intake racks of nuclear power plants 
+\cite{souille2020multi}: we focus on the Blayais power plant. 
+\end{itemize}
+
+\begin{columns}
+\column{0.45\textwidth}
+\includegraphics[height=0.45\textwidth]{figures/Frazil_ice_in_Yosemite_Creek.png} \\
+\emph{Frazil ice in Yosemite Creek, \cite{wikiFrazil}}
+
+\column{0.45\textwidth}
+\begin{center}
+\includegraphics[height=0.45\textwidth]{figures/Blayais-CNPE.PNG} \\
+\emph{Blayais CNPE, © OpenStreetMap contributors}
+\end{center}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Goals}
+
+Goals of the study :
+\begin{itemize}
+\item We have measures of water temperature, air temperature, 
+water level and flowrate of the Gironde river in the estuary.
+
+\item We want to predict the frazil near the Blayais nuclear power plant. 
+
+\item We make the hypothesis that the frazil appears when the water temperature 
+of the Gironde falls below 0$\degree$ C.
+
+\item The simulation horizon is 7 days:
+we make the hypothesis that the water temperature is known from days 
+1 to 6 and want to predict the water temperature on day 7 
+(we may want to update this time interval). 
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Data}
+\begin{frame}
+\frametitle{Data}
+
+\begin{itemize}
+\item We have water observations from the Magest station from 2005 to 2016 
+\cite{Schmidt2014}.
+\item We also have observations from the power plant water temperatures sensors 
+from the Blayais power plant for 2015, 2016 and 2017.
+\item Some observations are lacking for short or longer times (from minutes to 
+months). 
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Data}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/Teau-semaines-continues.png}
+\end{center}
+
+Observations of the water temperature from the Magest station and Blayais 
+power plan, merged from 2005 to 2019 at hour time step : 468 continuous 
+weeks. 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Data}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/Teau-semaines.png}
+\end{center}
+
+Observations of the water temperature from the Magest station and Blayais 
+power plan, merged from 2005 to 2019 at hour time step : 468 continuous 
+weeks. 
+The vertical black line represents the cut between the days 1 to 6 (input) and 
+the 7th day (output to be predicted).
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mathematical problem}
+
+\begin{frame}
+\frametitle{Mathematical problem}
+
+Below are the goals and constraints:
+\begin{enumerate}
+\item Predict $T_{\textrm{future water}}$ depending on  $T_{\textrm{past water}}$. 
+
+\item Using directly the temporal grid in input and output leads to a too 
+large number of input ($24 \times 6 = 144$ time steps) and output variables (24 time 
+steps). 
+
+\item We would like to change easily the time grid. 
+
+\item The link between input and output is complicated and not necessarily 
+linear.
+
+\item Possible to take into account other physical variables such as 
+air temperature or water level (not necessarily discretised on the same grid).
+
+\item The observations are noisy and the sample set is large (hundreds). 
+
+\item We would like to estimate a confidence interval of the future temperature.
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Suggested solutions}
+
+Suggested solutions :
+\begin{enumerate}
+\item Reduce the dimension using the Karhunen-Loève decomposition (e.g. 
+\cite{Sullivan2015}, chap.11).
+
+\item Use sparse generalized polynomial chaos metamodel 
+\cite{ghanem2003stochastic, xiu2002wiener, LeMaitre2010, blatman2011adaptive}.
+
+\item The method suggested in \cite{Dutfoy2017} combine both previous methods 
+(and discusses sensitivity analysis). 
+\end{enumerate}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Karhunen-Loève decomposition}
+
+\begin{frame}
+\frametitle{Karhunen-Loève decomposition}
+The Karhunen-Loève decomposition of a stochastic process $X(t)$ is:
+$$
+X(t) = \sum_{k\geq 0} \sqrt{\lambda_k} \xi_k \bphi_k(t)
+$$
+where $\xi_k \in\RR$ is the k-th coefficient in the decomposition:
+$$
+\xi_k = \frac{1}{\sqrt{\lambda_k}} \int_\rD X(t) \bphi_k(t) dt
+$$
+for $k\geq 0$ and
+\begin{itemize}
+\item $(\lambda_k)_{k\geq 0}$ are the eigenvalues, 
+\item $(\bphi_k)_{k\geq 0}$ are the eigenvectors,
+\end{itemize}
+of the Fredholm problem. 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Karhunen-Loève decomposition}
+
+\begin{center}
+\includegraphics[height=0.7\textheight]{figures/decompositionKL-1H-log.pdf}
+\end{center}
+
+Decreasing sequence of eigenvalues of the Karhunen-Loève decomposition 
+of the Gironde water temperature time series. 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Karhunen-Loève decomposition}
+
+\begin{center}
+\includegraphics[height=0.6\textheight]{figures/decompositionKL-1H-comparaison-249.pdf}
+\end{center}
+
+Comparison of the 249th trajectory of the Gironde water temperature 
+and its projection on the truncated Karhunen-Loève decomposition with 9 modes. 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Field metamodel}
+
+%\begin{frame}
+%\frametitle{Field metamodel}
+
+%\begin{itemize}
+%\item On output, we predict the water temperature of the 7th day. 
+%\item On input, we consider the water temperature for days 1 to 6. 
+%\item Optionally, we want to consider the air temperature from weather predictions. 
+%\item Since these are stochastic processes, using the time grid directly 
+%would lead to a too large number of input and output variables: we 
+%reduced the dimension of the problem with Karhunen-Loève decomposition. 
+%\end{itemize}
+
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Field metamodel}
+
+\begin{center}
+\includegraphics[height=0.3\textheight]{figures/metamodele-champ.pdf}
+\end{center}
+
+Dimension reduction and metamodel of the stochastic process for water temperature 
+of the Gironde. 
+
+\begin{itemize}
+\item The function $g$ is the model from the input (past) water temperature $X$ 
+to the output (future) water temperature $Y$. 
+\item The projection of $X$ on the K.L. basis leads to the coefficients 
+$(\xi_k)_{k\geq 0}$ and the projection of $Y$ leads to the coefficients 
+$(\xi_k')_{k\geq 0}$. 
+\item The model $g_\xi$ maps the K.L. coefficients.
+\item The metamodel $\tilde{g}_\xi$ is a surrogate for $g_\xi$.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Field metamodel: polynomial chaos decomposition}
+
+The method has three steps: project, predict, lift.
+\begin{enumerate}
+\item Project. We decompose the input on $m_X \in \NN$ K.-L. modes 
+$$
+\xi_k(\omega) = \frac{1}{\sqrt{\lambda_k}} \int_{\mathcal{D}_{past}} X(t, \omega) \bphi_k(t) dt
+$$
+for $k = 1, \ldots, m_X$, where $\mathcal{D}_{past} = [0, t_{present}]$.
+
+\item Predict. Map from the input to the output coefficients of the basis, based 
+on a vector-to-vector metamodel :
+$$
+\boldsymbol{\xi}'(\omega) = \tilde{g}_{\boldsymbol{\xi}} (\boldsymbol{\xi}(\omega))
+$$
+where $\boldsymbol{\xi} \in \RR^{m_X}$, $\boldsymbol{\xi}' \in \RR^{m_Y}$. 
+
+\item Lift. Compute the output on $m_Y \in \NN$ K.-L. modes :
+$$
+Y(t, \omega) = \sum_{k = 0}^{m_Y} \sqrt{\lambda^{(Y)}_k} \xi_k'(\omega) \bphi^{(Y)}_k(t)
+$$
+for any $t \in \mathcal{D}_{future} = [t_{present}, t_{final}]$.
+
+\end{enumerate}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Field metamodel: KL decomposition of inputs and ouputs}
+
+We consider a basis of orthogonal multivariate polynomials $\psi_j$, 
+that is, for which the weighted $\mathcal{L}^2$ scalar product is 
+zero for different polynomials:
+$$
+\left( \psi_j,\psi_k \right) = 0,
+$$
+for $j\neq k$.
+
+The output coefficients in the K.L. decomposition 
+can be decomposed into a linear combination of multivariate polynomials:
+$$
+\boldsymbol{\xi}' 
+= \sum_{j = 0}^p \boldsymbol{a}_j\psi_j \left(\mathring{\boldsymbol{\xi}} \right),
+\qquad \mathring{\boldsymbol{\xi}} = T^{-1}(\boldsymbol{\xi})
+$$
+where $p \in \mathbb{N}$ is the number of coefficients in the truncated polynomial 
+chaos decomposition, $\boldsymbol{a}_1, \ldots, \boldsymbol{a}_p \in\mathbb{R}^{m_Y}$ are the coefficients of the 
+decomposition, $m_X \in \NN$ is the number of input K.-L. modes,  
+$\mathring{\boldsymbol{\xi}} \in\mathbb{R}^{m_X}$ 
+is a random vector, $m_Y \in \NN$ is the number of output K.-L. modes,  
+$\boldsymbol{\xi}' \in \RR^{m_Y}$ 
+is the output random vector, 
+$T$ is the isoprobabilistic transformation, 
+$\boldsymbol{\xi} \in \RR^{m_X}$ are the input K.L. coefficients. 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Field metamodel}
+
+\begin{itemize}
+\item We use $m_X = 8$ K.L. coefficients on input and $m_Y = 4$ K.L. coefficients on output.
+
+\item The distribution of the input is modeled by histograms, with independent 
+marginals. 
+
+\item The multivariate polynomial basis was based on linear enumeration. 
+
+\item The polynomial was created based on a degree 3 sparse least squares 
+polynomial : 31 coefficients to estimate. 
+
+\item The cross validation (75\% for training) leads to a predictivity 
+coefficient equal to 99\% for the first output K.L. mode and 
+between 49\% and 62\% for modes 2, 3, 4. 
+
+\item The standard deviation of the metamodel residual is an increasing function 
+of time (remote future predictions are less accurate) and between 0.17 
+and 0.38~$\degree$C. 
+
+\item Some trajectories, especially with late change of trend, are 
+predicted less accurately. 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Field metamodel}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/validation-chaos-observation-vs-prediction.pdf}
+\end{center}
+
+For a given trajectory in the validation sub-sample, comparison with the 
+trajectory predicted by the metamodel.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Conclusions and future works}
+
+OpenTURNS classes used:
+\begin{itemize}
+\item This work was performed using OpenTURNS v1.16. 
+\item We used the \pyvar{KarhunenLoeveSVDAlgorithm} for the K.L. decomposition 
+and \pyvar{FunctionalChaosAlgorithm} for P.C. decomposition. 
+\item The example \cite{MetamodelFieldOT} showing how to create a metamodel 
+of a field function was used as a starting point. 
+\end{itemize}
+
+OpenTURNS evolutions: development of new classes:
+\begin{itemize}
+\item new field classes: 
+\pyvar{VertexValuePointToFieldFunction}, \pyvar{KarhunenLoeveReduction}, 
+\pyvar{KarhunenLoeveValidation}. 
+\item new methods for K.L. validation: \pyvar{KarhunenLoeveResult.drawEigenValues()} 
+and \pyvar{ProcessSample.drawCorrelation()}
+\item new metamodel classes: \pyvar{KFoldSplitter}, \pyvar{LeaveOneOutSplitter}
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{End}
+
+Future work:
+\begin{itemize}
+\item Provide the \pyvar{FieldMetamodelAlgorithm}, 
+\pyvar{FieldMetamodelResult} and \pyvar{FieldMetamodelValidation} 
+classes in OpenTURNS?
+\item Analysis of a simplified ordinary differential equation which models 
+dynamics of frazil ice concentration. 
+\item Estimate confidence intervals for the temperature mean and 
+of a future observation. 
+\end{itemize}
+
+\hspace{1cm}
+
+\begin{center}
+Thank you for your attention!
+
+Questions?
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{OpenTURNS: \url{www.openturns.org}}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/OT.pdf}
+\end{center}
+	
+\begin{itemize}
+\item Multivariate probabilistic modeling including dependence
+\item Numerical tools dedicated to the treatment of uncertainties
+\item Generic coupling to any type of physical model
+\item Open source, LGPL licensed, C++/Python library
+\end{itemize}
+
+
+\end{frame}
+
+\note{
+OpenTURNS is a software for uncertainty quantification, uncertainty propagation, 
+sensitivity analysis and metamodeling. 
+
+The software is available with the open source LGPL licence on Linux and Windows. 
+
+In order to use OpenTURNS, you can use directly the C++ library, or 
+program your Python scripts. 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Références}
+\begin{frame}[allowframebreaks]
+\frametitle{Références}
+\nocite{*}
+\bibliographystyle{apalike}
+\bibliography{Biblio}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
