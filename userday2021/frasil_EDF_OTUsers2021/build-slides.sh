@@ -1,0 +1,6 @@
+pdflatex frasilOTUsers2021
+pdflatex frasilOTUsers2021
+bibtex frasilOTUsers2021
+pdflatex frasilOTUsers2021
+pdflatex frasilOTUsers2021
+
