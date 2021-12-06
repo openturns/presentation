@@ -72,3 +72,10 @@ OpenTURNS Presentations
   - `Robust optimization elements (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/robust-optimization-onera.pdf>`_
   - `Robust optimization with OpenTURNS: the otrobopt module (Airbus) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/otrobopt-airbus.pdf>`_
 
+- High dimension meta-modeling workshop:
+
+  - `A.I. technics for physical simulation (CERFACS) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/Apprentissage_GdeDimension_CERFACS.pdf>`_
+  - `Meta-modeling and global sensitivity analysis in large dimension in fluvial hydrodynamics (CERFACS) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/CERFACS-OpenTURNS_MetaModel_CERFACS.pdf>`_
+  - `Physical constraints for generative adversial networks (ONERA) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/GAN_nuages_OT_ONERA.pdf>`_
+  - `High dimension meta-modeling as a preconditioner for aeroacoustic simulation (Airbus) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/Metamodelisation_Goldstein_Airbus.pdf>`_
+  - `Auto-associative models as a nonlinear PCA for dimension reduction (Phimeca) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/modele_autoassociatif_PHIMECA.pdf>`_
