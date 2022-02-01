@@ -1,8 +1,32 @@
-\documentclass[8pt, handout]{beamer}
+\documentclass[8pt]{beamer}
 
 \usepackage{listings}
 
-%\usetheme[sectionpage = none, subsectionpage = simple, numbering = fraction, block = fill, titleformat = smallcaps]{metropolis}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\small,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
+}
+
+\usetheme[sectionpage=none]{metropolis}
 \setbeamertemplate{section in toc}[sections numbered]
 
 \title{Developing the OpenTURNS documentation}
@@ -10,7 +34,6 @@
 \date{February 14th-17th 2022}
 \titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
 \institute{\small OpenTURNS Consortium}
-
 
 
 \begin{document}
@@ -73,14 +96,12 @@ You may also want to check out:
 
 \begin{frame}{Looking up the source file of a theory page}
 
-What holds for the \alert{Theory} section also mostly holds for the \alert{Contribute} (developer guide) and \alert{Common use cases} sections.
 
 Let us consider the \alert{Using QQ-plot to compare two samples} page:
 
 \url{https://openturns.github.io/openturns/master/theory/data_analysis/qqplot_graph.html}
 
 All Theory files are RST and the URL fits the source folder structure, so the relevant source file is:
-
 \href{https://github.com/openturns/openturns/blob/master/python/doc/theory/data_analysis/qqplot_graph.rst}{\texttt{python/doc/theory/data\_analysis/qqplot\_graph.rst}}
 
 There are great RST and Sphinx \href{https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html}{\alert{cheatsheet}} available,
@@ -97,6 +118,8 @@ but here are the basics:
     
     \texttt{~~~~a = b}
     \item \alert{Macros} are defined in \href{https://github.com/openturns/openturns/blob/master/python/doc/math_notations.sty}{\texttt{python/doc/math\_notations.sty}}
+    \item Try to use notations \alert{consistent} with other theory pages.
+    \item The \alert{bibliography} can be found at \href{https://github.com/openturns/openturns/blob/master/python/doc/bibliography.rst}{\texttt{python/doc/bibliography.rst}}
 \end{itemize}
 
 \end{frame}
@@ -104,6 +127,8 @@ but here are the basics:
 
 \begin{frame}[fragile]{Adding a new theory page}
 Code of the main table of contents (\href{https://github.com/openturns/openturns/blob/master/python/doc/theory/theory.rst}{python/doc/theory/theory.rst}):
+
+\lstset{style=mystyle}
 
 \begin{lstlisting}
 .. _theory:
@@ -125,6 +150,8 @@ This contains an in-depth description of all algorithms.
     numerical_methods/numerical_methods.rst
 \end{lstlisting}
 Table of contents of subdirectories are essentially the same.
+
+What holds for the \alert{Theory} section also mostly holds for the \alert{Contribute} (developer guide) and \alert{Common use cases} sections.
 \end{frame}
 
 
@@ -134,7 +161,7 @@ Table of contents of subdirectories are essentially the same.
 %%%%%%%%%%%%%%%%%%%%%
 \section{Examples}
 
-\againframe{tableofcontents}
+\againframe<2>{tableofcontents}
 
 
 \begin{frame}{Looking up the source Python script of an example}
@@ -151,14 +178,12 @@ but the \texttt{auto\_} part is a Sphinx-gallery artifact. Its source file is:
 
 \href{https://github.com/openturns/openturns/blob/master/python/doc/examples/meta_modeling/kriging_metamodel/plot_kriging_isotropic.py}{\texttt{python/doc/examples/meta\_modeling/kriging\_metamodel/\\plot\_kriging\_isotropic.py}}
 
-Example Python scripts can be viewed as RST-based Jupyter notebook source files.
-
 \begin{itemize}
     \item Use \alert{\texttt{\# \%\%}} to start a \alert{new cell}.
     \item Write \alert{Python code} as you \alert{normally} would.
     \item Write \alert{text as RST code}, but each RST line must start with \alert{\texttt{\#}}.
     \item A cell can contain both RST and Python code, but \alert{RST must come first}.  
-    \item A page can be \alert{indexed} as \texttt{page\_name} by writing \texttt{.. \_page\_name:} at the top.
+    \item \alert{RST rules are the same} as in the Theory section.
     \item A \alert{blank line} interrupts RST code and \alert{switches to Python}. For the remainder of the cell, lines starting with \alert{\texttt{\#}} are simply interpreted as Python comments.
     \item By default, the first image is used as \alert{thumbnail picture}. To use e.g. the third: %$n$\textsuperscript{rd} image:%, write (preferably right above the code that produces the image):
 
@@ -182,17 +207,69 @@ Example Python scripts can be viewed as RST-based Jupyter notebook source files.
         \item \texttt{:ref:`\_theory\_page`} to link to a Theory doc page using its RST label.
         \item \texttt{:doc:`/auto\_category/subcategory/plot\_xxx`} (no \texttt{.py}) to link to another example.
     \end{itemize}
+    \item Python scripts should be properly
+    formatted according to the \href{https://www.python.org/dev/peps/pep-0008/}{\alert{PEP8}}.
+
+    Use \href{https://github.com/psf/black}{\alert{Black}} to format them automatically if needed.
+    \item  Examples should \alert{combine several classes} in order to \alert{do something useful}.
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Examples section: write interesting English (1/2)}
+In the Examples section, the English content should be an interesting explanation
+of the Python content. \medskip
 
+\textbf{Do not write:}
+
+
+\lstset{style=mystyle, language=python}
+
+\begin{lstlisting}
+# %%
+# Draw the function
+
+n = 10000
+sampleX = im.distributionX.getSample(n)
+sampleY = im.model(sampleX)
+[...]
+plotXvsY(sampleX, sampleY)
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Examples section: write interesting English (2/2)}
+\lstset{style=mystyle, language=python}
+
+\textbf{Write instead:}
+
+\begin{lstlisting}
+# %%
+# In the next cell, we create a large sample of the input random
+# vector and evaluate the corresponding output from the physical
+# model. We then create a function which takes the input and output
+# samples as input argument and creates a grid of scatter plots.
+
+n = 10000
+sampleX = im.distributionX.getSample(n)
+sampleY = im.model(sampleX)
+[...]
+plotXvsY(sampleX, sampleY)
+
+# %%
+# We see that the variance of the output is mostly sensitive to the
+# first variable :math:`X_1`.
+# The variance of the output is not sensitive to the third
+# variable, since the conditional variance is zero.
+\end{lstlisting}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%
 % API (user manual) %
 %%%%%%%%%%%%%%%%%%%%%
 \section{API (user manual)}
 
-\againframe{tableofcontents}
+\againframe<3>{tableofcontents}
 
 
 \begin{frame}
@@ -211,18 +288,18 @@ These docstrings are then read by \alert{Sphinx} to build the API doc section.
 
 
 \begin{frame}{Looking up the sources of docstrings}
-Let us consider the \alert{LinearCombinationFunction} class:
+Let us consider the \alert{LinearCombinationFunction} class and its source file:
 \url{https://openturns.github.io/openturns/master/user_manual/_generated/openturns.LinearCombinationFunction.html}
-
-Corresponding source file:
 \href{https://github.com/openturns/openturns/blob/master/python/src/LinearCombinationFunction_doc.i.in}{python/\alert{src}/LinearCombinationFunction\_doc.i.in}
 
 \begin{itemize}
-    \item Docstring sources are in \texttt{src} rather than \texttt{doc} because they are part of the library.
-    \item A docstring is just a string \texttt{"..."}: double quotes are thus forbidden inside, use \texttt{'...'} instead (not to be confused with \texttt{`...`} as in \texttt{:math:`...`}). Do not put any whitespace between the opening \texttt{"} and the first docstring character, nor between the last docstring character and the closing \texttt{"}.
-    \item Docstrings follow \href{https://numpydoc.readthedocs.io/en/latest/index.html}{\alert{Numpydoc}} style.
-    \item Example code lines start with \texttt{>{}>{}>} and are run during Python tests! If you call \texttt{print}, you need to specify the expected output or the test will fail.
-    \item Class inheritance extends to docstrings: in this example, \texttt{LinearCombinationFunction} inherits all its method docstrings from \alert{\texttt{FunctionImplementation}}: look for the docstrings in \href{https://github.com/openturns/openturns/blob/master/python/src/FunctionImplementation_doc.i.in}{\texttt{python/src/FunctionImplementation\_doc.i.in}}.
+    \item Docstring sources are in \texttt{src} rather than \texttt{doc} because they are \alert{part of the library}.
+    \item A docstring is \alert{just a string} \texttt{"..."}: double quotes are thus forbidden inside, use \texttt{'...'} instead (not to be confused with \texttt{`...`} as in \texttt{:math:`...`}). Do not put any whitespace between the opening \texttt{"} and the first docstring character, nor between the last docstring character and the closing \texttt{"}.
+    \item Docstrings follow \href{https://numpydoc.readthedocs.io/en/latest/index.html}{\alert{Numpydoc}} style. \alert{RST rules remain the same.}
+    \item Example code lines start with \alert{\texttt{>{}>{}>}} and are run during Python tests! If you call \texttt{print}, you need to \alert{specify the expected output} or the test will fail.
+    \item Numerical values can differ slightly between platforms.
+    To prevent CI failures, you may replace the last digits with an \alert{ellipsis}: \texttt{0.34023...} instead of \texttt{0.3402362897}
+    \item Class inheritance extends to docstrings: \texttt{LinearCombinationFunction} inherits all its method docstrings from \alert{\texttt{FunctionImplementation}}: look for the docstrings in \href{https://github.com/openturns/openturns/blob/master/python/src/FunctionImplementation_doc.i.in}{\texttt{python/src/FunctionImplementation\_doc.i.in}}.
     \item \texttt{FunctionImplementation} has no HTML page, although it has many docstrings.
     Instead, those docstrings are used to produce the \href{https://openturns.github.io/openturns/master/user_manual/_generated/openturns.Function.html}{\alert{HTML file}}
     of \href{https://github.com/openturns/openturns/blob/master/python/src/Function_doc.i.in}{\alert{Function}}.
@@ -283,6 +360,29 @@ If you want to use \texttt{classWithPlot.rst\_t}, you need to provide the code t
 Note that the plot code can be downloaded from the API doc page itself by clicking on ``\emph{Source code}''.
 \end{frame}
 
+\begin{frame}[fragile]{API example: always document the most significant method}
+
+\lstset{style=mystyle, language=python}
+
+In the API documentation, the \alert{most significant method} should have an
+example within the main section, at the top of the help page.
+This main example should document the \alert{\emph{flagship}} of the class, that is, 
+the most significant method(s) of the class.
+
+For example, one of the main features of the \href{https://openturns.github.io/openturns/master/user_manual/_generated/openturns.LinearEnumerateFunction.html}{\alert{LinearEnumerateFunction}}
+class is its evaluation operator, which is why the first example is:
+
+\begin{lstlisting}
+>>> import openturns as ot
+>>> enumerateFunction = ot.LinearEnumerateFunction(2, 0.5)
+>>> for i in range(10):
+>>>     print(enumerateFunction(i))
+\end{lstlisting}
+
+Constrast with examples from the \alert{Examples} section,
+which \alert{combine several classes} in order to do useful Uncertainty Quantification.
+\end{frame}
+
 
 \begin{frame}{Summary of the previous parts}
 Two tools are involved in the creation of the documentation.
@@ -312,7 +412,7 @@ Docstrings are in \texttt{python/\alert{src}} because they are part of the Pytho
 %%%%%%%%%%%%%%%%%%%%%
 \section{Tips and tricks}
 
-\againframe{tableofcontents}
+\againframe<4>{tableofcontents}
 
 
 \begin{frame}{Quickly find the appropriate source file}
@@ -457,101 +557,5 @@ Unfortunately, docstring patches can fail in various ways. \newline
 To disable them and build from the installed docstrings, use the \alert{\texttt{-{}-nodiff}} option:
 
 \texttt{\$ docfast.py -{}-nodiff functions.rst plot\_smoothing\_mixture.py}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%
-% Content guideline            %
-%%%%%%%%%%%%%%%%%%%%%
-\section{Content guideline}
-
-% Outline
-\begin{frame}[label=tableofcontents]
-\frametitle{Outline}
-\tableofcontents[currentsection]
-\end{frame}
-
-\begin{frame}[fragile]{Content guideline}
-
-The goal of this section is to present some guidelines on the content of 
-the help pages.
-
-We can select where to write an example depending on the content.
-\begin{itemize}
-\item in API: the example shows how to use that particular class, whatever the purpose
-\item in Examples: the example shows how to combine several classes, to make 
-something useful in UQ
-\end{itemize}
-
-Whatever the location of the Python script it should be properly 
-formatted according to the PEP8 \footnote{\url{https://www.python.org/dev/peps/pep-0008/}}. 
-Use black\footnote{\url{https://github.com/psf/black}} to format it automatically if 
-needed. 
-
-\end{frame}
-
-\begin{frame}[fragile]{API example: always document the \emph{flagship}.}
-
-
-In the API documentation, the most significant method should have an 
-example within the main section, on the top of the help page. 
-This main example should document the \emph{flagship} of the class, that is, 
-the most significant method(s) of the class. 
-
-For example, one of the main features of the \texttt{LinearEnumerateFunction} class is its 
-evaluation operator, which is why the first example is:
-
-\begin{lstlisting}
-import openturns as ot
-enumerateFunction = ot.LinearEnumerateFunction(2, 0.5)
-for i in range(10):
-    print(enumerateFunction(i))
-\end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[fragile]{Examples section: write interesting english}
-In the Examples section, the english content should be an interesting explanation 
-of the Python content. 
-
-Do not write:
-\par\noindent\rule{\textwidth}{0.4pt}
-\textit{
-Draw the function
-}
-
-\begin{lstlisting}
-n = 10000
-sampleX = im.distributionX.getSample(n)
-sampleY = im.model(sampleX)
-[...]
-plotXvsY(sampleX, sampleY, figsize=(10, 4))
-\end{lstlisting}
-\par\noindent\rule{\textwidth}{0.4pt}
-Write:
-\par\noindent\rule{\textwidth}{0.4pt}
-\textit{
-In the next cell, we create a large sample of the input random vector 
-and evaluate the corresponding output from the physical model. 
-We then create a function which take 
-the input and output samples as input argument and create a grid 
-of scatter plots. 
-}
-
-\begin{lstlisting}
-n = 10000
-sampleX = im.distributionX.getSample(n)
-sampleY = im.model(sampleX)
-[...]
-plotXvsY(sampleX, sampleY, figsize=(10, 4))
-\end{lstlisting}
-
-\textit{
-We see that the variance of the output is mostly sensitive to the first variable X1. 
-The variance of the output is not sensitive to the third 
-variable, since the conditional variance is zero. 
-}
-
-
 \end{frame}
 \end{document}
