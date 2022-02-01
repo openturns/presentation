@@ -23,16 +23,17 @@ jobs:
           cd userday2021/userday2021relhi/ && pdflatex -halt-on-error userday2021relhi.tex && pdflatex userday2021relhi.tex && cd -
           cd userday2021/frasil_EDF_OTUsers2021 && bash build-slides.sh && cd -
       - name: Upload
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          git clone --depth 1 "https://${{ secrets.API_TOKEN_GITHUB }}@github.com/openturns/openturns.github.io.git" /tmp/openturns.github.io
-          mkdir -p /tmp/openturns.github.io/presentation/master
+          git clone --depth 1 https://${{ secrets.GH_TOKEN }}@github.com/openturns/openturns.github.io.git /tmp/io
+          mkdir -p /tmp/io/presentation/master
           rm -r developer/tps/annex
-          find . -name "*.pdf" | grep -v figure | xargs -I{} cp -v {} /tmp/openturns.github.io/presentation/master
-          cd /tmp/openturns.github.io
+          find . -name "*.pdf" | grep -v figure | xargs -I{} cp -v {} /tmp/io/presentation/master
+          cd /tmp/io
           touch .nojekyll
-          git config user.email "support@travis-ci.com"
-          git config user.name "Travis CI"
+          git config user.email "support@gh.com"
+          git config user.name "GitHub Actions"
           git add -A .
-          git commit -a -m "Travis build presentation"
-          git push --quiet origin master
-        if: ${{ github.event_name == 'push' }}
+          if test `git diff HEAD | wc -c` -eq 0; then exit 0; fi
+          git commit -a -m "GitHub Actions build ${GITHUB_REPOSITORY} ${GITHUB_RUN_ID}"
+          git push --quiet origin master > /dev/null 2>&1
