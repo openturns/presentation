@@ -2,7 +2,7 @@
 
 \usepackage{listings}
 
-\usetheme[sectionpage = none, subsectionpage = simple, numbering = fraction, block = fill, titleformat = smallcaps]{metropolis}
+%\usetheme[sectionpage = none, subsectionpage = simple, numbering = fraction, block = fill, titleformat = smallcaps]{metropolis}
 \setbeamertemplate{section in toc}[sections numbered]
 
 \title{Developing the OpenTURNS documentation}
@@ -457,5 +457,101 @@ Unfortunately, docstring patches can fail in various ways. \newline
 To disable them and build from the installed docstrings, use the \alert{\texttt{-{}-nodiff}} option:
 
 \texttt{\$ docfast.py -{}-nodiff functions.rst plot\_smoothing\_mixture.py}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Content guideline            %
+%%%%%%%%%%%%%%%%%%%%%
+\section{Content guideline}
+
+% Outline
+\begin{frame}[label=tableofcontents]
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[fragile]{Content guideline}
+
+The goal of this section is to present some guidelines on the content of 
+the help pages.
+
+We can select where to write an example depending on the content.
+\begin{itemize}
+\item in API: the example shows how to use that particular class, whatever the purpose
+\item in Examples: the example shows how to combine several classes, to make 
+something useful in UQ
+\end{itemize}
+
+Whatever the location of the Python script it should be properly 
+formatted according to the PEP8 \footnote{\url{https://www.python.org/dev/peps/pep-0008/}}. 
+Use black\footnote{\url{https://github.com/psf/black}} to format it automatically if 
+needed. 
+
+\end{frame}
+
+\begin{frame}[fragile]{API example: always document the \emph{flagship}.}
+
+
+In the API documentation, the most significant method should have an 
+example within the main section, on the top of the help page. 
+This main example should document the \emph{flagship} of the class, that is, 
+the most significant method(s) of the class. 
+
+For example, one of the main features of the \texttt{LinearEnumerateFunction} class is its 
+evaluation operator, which is why the first example is:
+
+\begin{lstlisting}
+import openturns as ot
+enumerateFunction = ot.LinearEnumerateFunction(2, 0.5)
+for i in range(10):
+    print(enumerateFunction(i))
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Examples section: write interesting english}
+In the Examples section, the english content should be an interesting explanation 
+of the Python content. 
+
+Do not write:
+\par\noindent\rule{\textwidth}{0.4pt}
+\textit{
+Draw the function
+}
+
+\begin{lstlisting}
+n = 10000
+sampleX = im.distributionX.getSample(n)
+sampleY = im.model(sampleX)
+[...]
+plotXvsY(sampleX, sampleY, figsize=(10, 4))
+\end{lstlisting}
+\par\noindent\rule{\textwidth}{0.4pt}
+Write:
+\par\noindent\rule{\textwidth}{0.4pt}
+\textit{
+In the next cell, we create a large sample of the input random vector 
+and evaluate the corresponding output from the physical model. 
+We then create a function which take 
+the input and output samples as input argument and create a grid 
+of scatter plots. 
+}
+
+\begin{lstlisting}
+n = 10000
+sampleX = im.distributionX.getSample(n)
+sampleY = im.model(sampleX)
+[...]
+plotXvsY(sampleX, sampleY, figsize=(10, 4))
+\end{lstlisting}
+
+\textit{
+We see that the variance of the output is mostly sensitive to the first variable X1. 
+The variance of the output is not sensitive to the third 
+variable, since the conditional variance is zero. 
+}
+
+
 \end{frame}
 \end{document}
