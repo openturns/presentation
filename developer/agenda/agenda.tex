@@ -2,8 +2,8 @@
 
 \setbeamertemplate{background canvas}[vertical shading][bottom=cyan!10,top=blue!10]
 
-\usetheme{Warsaw}
-\usefonttheme[onlysmall]{structurebold}
+\usetheme{metropolis}
+%\usefonttheme[onlysmall]{structurebold}
 
 % pour le fichiers .pdf
 \usepackage{graphicx}
@@ -13,20 +13,22 @@
 % \usepackage{pgf,pgfarrows}
 \usepackage{amsmath,amssymb}
 \usepackage{textcomp}
-\setbeamercovered{dynamic}
+%\setbeamercovered{dynamic}
 \DeclareMathOperator*{\argmin}{argmin}
 
 \title[OpenTURNS developers training: agenda]{OpenTURNS developers training: agenda}
-\author[OpenTURNS Consortium, 2019]
+\author[OpenTURNS Consortium, 2022]
 {
-  Trainer : R\'egis LEBRUN\\ 
-  Airbus \\
-  regis.lebrun@airbus.com
+  Trainers : \\
+  R\'egis LEBRUN (Airbus) - regis.lebrun@airbus.com \\ 
+  Julien Schueller (Phimeca) -  schueller@phimeca.com \\
+  Joseph Mur\'e (EDF) -  joseph.mure@edf.fr \\
+  Sofiane Haddad (Airbus) -  sofiane.s.haddad@airbus.com \\
 }
 
 
 
-\date[March 22-25th 2011]
+\date[March 14-17th 2022]
 {
   Developers training \\
 
@@ -51,8 +53,8 @@
 % Objective of the training %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{The developers training}
-  \begin{block}{Objectives}
+  \frametitle{The developers training : objectives}
+%  \begin{block}{Objectives}
     This 4 days training will give you the first elements to:
     \begin{itemize}
     \item Understand the OpenTURNS aim and architecture,
@@ -60,14 +62,14 @@
     \item Make your first steps in the OpenTURNS development by adding a new specialization of an existing concept both in the C++ library and the Python interface,
     \item Make your first steps in the OpenTURNS module development.
     \end{itemize}
-  \end{block}
+ % \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % General organization %
 %%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{General organization}
-  \begin{block}{Agenda}
+  \frametitle{General organization : agenda}
+%  \begin{block}{Agenda}
     Each of these four days will be organized as follow:
     \begin{description}
     \item[9.30am] Welcome (coffee \& tea)
@@ -78,7 +80,7 @@
     \item[15.30pm] Experimentation
     \item[17.30pm] End of the day
     \end{description}
-  \end{block}
+%  \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % Day 1: uncertainties, package, architecture %
@@ -90,8 +92,10 @@
     \item Uncertainties: quick reminder on analysis, probability and statistics
     \item OpenTURNS platform: the global picture of OpenTURNS product and the website, short presentation of the development life-cycle.
     \item Architecture: the general organization of the product with some highlights on the key mechanisms and their implementation.
-    \item Experimentation: basic manipulation of a numerical function and a probability distribution, navigation in the website (tickets, versioning system), exploration of examples in C++ and python.
-    \item Selection of the challenges.
+    \item The development infrastructure: some elements on CMake.
+    \item The development process: architecture, C++ implementation, doxygen, tests.
+ %\item Experimentation: basic manipulation of a numerical function and a probability distribution, navigation in the website (tickets, versioning system), exploration of examples in C++ and python.
+    %\item Selection of the challenges.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -102,10 +106,13 @@
   \frametitle{Day by day...}
   \begin{block}{Day 2: development in the C++ library}
     \begin{itemize}
-    \item The development infrastructure: some elements on CMake.
-    \item The development process: architecture, C++ implementation, tests.
-    \item Experimentation: C++ implementation of the challenge.
-    \end{itemize}
+%    \item The development infrastructure: some elements on CMake.
+ %   \item The development process: architecture, C++ implementation, tests.
+ \item Interfacing C++ and Python using SWIG.
+ \item The development process: SWIG interface, python modules, tests.
+ \item Experimentation: C++ implementation of the challenge.
+ \item Experimentation: Python binding of the challenge.
+\end{itemize}
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -115,9 +122,11 @@
   \frametitle{Day by day...}
   \begin{block}{Day 3: make the development visible in python}
     \begin{itemize}
-    \item Interfacing C++ and Python using SWIG.
-    \item The development process: SWIG interface, python modules, tests, documentation.
-    \item Experimentation: Python binding and documentation of the challenge.
+    \item Documentation : docstrings, sphinx, examples, \& others.
+    \item Experimentation: documentation of the challenge + examples for existing classes (closing existing issues)
+      %    \item Interfacing C++ and Python using SWIG.
+%    \item The development process: SWIG interface, python modules, tests, documentation.
+%    \item Experimentation: Python binding and documentation of the challenge.
     \end{itemize}
   \end{block}
 \end{frame}
