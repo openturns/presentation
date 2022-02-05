@@ -43,6 +43,57 @@ tabsize=2
 % necessaire pour la table des matieres
 \part{Main part}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The development infrastructure %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{A few words about the development infrastructure (1/2)}
+  \begin{block}{Versioning system}
+    \begin{itemize}
+    \item \alert{Git} is a software versioning and a revision control system started by Linus Torvalds. It is used for the sources of the platform, the documentation, as well as for the development of modules.
+    \item \alert{GitHub} is a web-based hosting service for version control using Git.
+    GitHub provides a bug tracker, pull requests (GitLab equivalent: merge requests), continuous integration, and other features.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Official repository and forks}
+    The \alert{official repository} of the library is \url{https://github.com/openturns/openturns}.
+    \begin{itemize}
+    \item All developers have a \alert{fork} of that repository to host their development branches.
+    \item Only the \alert{integrator} (and a backup) has write access to the official repository.
+    \item Modules are not part of the library, but some of them are maintained by the consortium: their repositories are hosted at \url{https://github.com/openturns}
+    and they have the same development process as the library.
+    \item Other modules are hosted elsewhere and do not need to follow the same development process.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A few words about the development infrastructure (2/2)}
+    \begin{block}{Structure of the library repository}
+    The repository of the library contains source code for the C++ library, the Python interface and the documentation. Its layout is quite standard:
+    \begin{itemize}
+    \item A \alert{master branch} that stores the source code of the upcoming version of the platform. The rule is to have only source code that passes all tests.
+    \item Branches for \alert{stable versions} and \alert{tags for releases} and release candidates.
+    \item Development branches are part of \alert{contributor forks}.
+    \item Development branches are merged with master via \alert{pull requests}.
+    \item At least \alert{2 reviewers must approve} the PR, and unanimity is required.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Continuous integration}
+    OpenTURNS makes extensive use of online continuous integration providers to \alert{test the library} throughout the development process. Currently the following services are used to test the library:
+    \begin{itemize}
+    \item CircleCI: Linux and MinGW
+    \item GitHub Actions: macOS and Windows
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{OpenTURNS development workflow}
+    \includegraphics[width=\textwidth]{Git_flow.png}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%
 % All doc sections  %
 %%%%%%%%%%%%%%%%%%%%%
@@ -79,8 +130,6 @@ You may also want to check out:
     \item \alert{Common use cases} (added in 2020)
 \end{itemize}
 \end{frame}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%
 % Theory            %
@@ -429,6 +478,70 @@ The GitHub \href{https://github.com/openturns/openturns/find/master}{``\alert{\e
 
 \end{frame}
 
+
+\begin{frame}[fragile]{Write clear commit messages: examples}
+
+\lstset{style=mystyle}
+
+\begin{lstlisting}
+Create a quick start example for points and samples
+\end{lstlisting}
+
+\begin{lstlisting}
+Add new ResourceMap keys for Mesh checking
+
+We add a new RM key for mesh checking. Default value is set to False
+as the method might be costly.
+\end{lstlisting}
+
+\begin{lstlisting}
+Doc: Fix keyword in graph example
+
+Closes #1742
+\end{lstlisting}
+
+\begin{lstlisting}
+Fixed GaussianNonLinearCalibration
+
+The estimation of distribution of the observations error was
+incorrect. It was created using a zero mean to compute the Cholesky
+factor of its (known) covariance matrix in order to compute the
+residual function, but was not updated once the residual function
+was known.
+
+Closes #1529
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}{Write clear commit messages: the rules}
+    \begin{itemize}
+        \item First line: a \alert{title} of 50 characters or less.
+        \item Second line: \alert{blank}
+        \item Next lines: \alert{body} of the message with unlimited length.
+        \item If your commit \alert{closes an issue}, use one of the following keywords in the body:
+        \begin{itemize}
+            \item \texttt{Close \#....}
+            \item \texttt{Closes \#....}
+            \item \texttt{Fix \#....}
+            \item \texttt{Fixes \#....}
+            \item \texttt{Solve \#....}
+            \item \texttt{Solves \#....}
+        \end{itemize}
+    \end{itemize}
+
+    Some text editors like Vim use syntax coloring to help you remember these rules.
+
+    Closing keywords are recognized by GitHub: when your commit enters the master branch,
+    the corresponding issue is \alert{automatically closed}.
+
+    Remember to also use these \alert{keywords in the first message} of your \alert{pull request},
+    so that GitHub registers the PR as fixing the issue.
+
+    The first message of the PR should \alert{summarize the changes} made by the commits of the PR.
+
+
+\end{frame}
 
 \begin{frame}{Tip for reviewers: always look at the HTML output, not the source file!}
 CircleCI \texttt{build\_linux} builds the doc in addition to the library when a PR is submitted.
