@@ -359,9 +359,9 @@ Let us consider the \alert{LinearCombinationFunction} class and its source file:
 
 
 \begin{frame}{Docstrings of a new class and/or method: SWIG part}
-To get the \alert{docstrings} to appear \alert{in the Python library}:
+To get the \alert{docstrings} to appear \alert{in the Python library}, you need to act on \alert{\texttt{python/src}}:
 \begin{itemize}
-    \item Create a \alert{docstring file} \texttt{python/src/MyClass\_doc.i.in}
+    \item Create a \alert{docstring file} \texttt{MyClass\_doc.i.in}
     \item Declare the \alert{class docstring}: \texttt{\%feature("docstring") OT::MyClass}
     \item Declare a \alert{method docstring}: \texttt{\%feature("docstring") OT::MyClass::myMethod}
     \item Two ways are available to actually create the docstring:
@@ -375,10 +375,13 @@ To get the \alert{docstrings} to appear \alert{in the Python library}:
 
         \texttt{\%enddef}
     \end{enumerate}
-    \item For a new class, \alert{do not forget to declare} the docstrings in \texttt{MyClass.i}:
-
-    \texttt{\%include MyClass\_doc.i}
-    \item For a new Interface/Implementation couple, define the docstrings in \texttt{XxxImplementation\_doc.i.in} with \alert{\texttt{\%define}} to be able to reuse them in the Interface docstrings file \texttt{Xxx\_doc.i.in}: see \href{https://github.com/openturns/openturns/blob/master/python/src/Function_doc.i.in}{\texttt{python/src/Function\_doc.i.in}} and \href{https://github.com/openturns/openturns/blob/master/python/src/FunctionImplementation_doc.i.in}{\texttt{python/src/FunctionImplementation\_doc.i.in}} for example.
+    \item For a new class, \alert{do not forget to declare}:
+    \begin{itemize}
+        \item the docstrings in \alert{\texttt{MyClass.i}}: \texttt{\%include MyClass\_doc.i}
+        \item the class in the appropriate \alert{\texttt{xxx\_module.i}}: \texttt{\%include MyClass.i}
+        \item the class and its docstrings in the appropriate \texttt{xxx\_module} section of \alert{\texttt{CMakeLists.txt}}: \texttt{MyClass.i MyClass\_doc.i.in}
+    \end{itemize}    
+    \item For a new Interface/Implementation couple, define the docstrings in \texttt{XxxImplementation\_doc.i.in} with \alert{\texttt{\%define}} to be able to reuse them in the Interface docstrings file \texttt{Xxx\_doc.i.in}: see \href{https://github.com/openturns/openturns/blob/master/python/src/Function_doc.i.in}{\texttt{Function\_doc.i.in}} and \href{https://github.com/openturns/openturns/blob/master/python/src/FunctionImplementation_doc.i.in}{\texttt{FunctionImplementation\_doc.i.in}} for example.
 \end{itemize}
 \end{frame}
 
