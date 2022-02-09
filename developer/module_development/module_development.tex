@@ -2,7 +2,7 @@
 
 \setbeamertemplate{background canvas}[vertical shading][bottom=cyan!10,top=blue!10]
 
-\usetheme{Warsaw}
+\usetheme{metropolis}
 \usefonttheme[onlysmall]{structurebold}
 
 % pour le fichiers .pdf
@@ -19,7 +19,7 @@
 \DeclareMathOperator*{\argmin}{argmin}
 
 \title[OpenTURNS modules development]{OpenTURNS modules development}
-\author[OpenTURNS Consortium, 2019]
+\author[OpenTURNS Consortium, 2022]
 {
   Trainer : Sofiane Haddad\\
   Airbus \\
@@ -62,14 +62,59 @@
 % The tools %
 %%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{OpenTURNS modules}
-  \begin{block}{Objectives}
+  \frametitle{OpenTURNS modules: objectives}
+  \begin{block}{}
     OpenTURNS is a growing system developed by a small team. A constant problem is to assess the stability of the whole product, and in order to achieve this goal we introduced a notion of module, in order to insulate a core library dedicated to the definition of the abstract data model and to propose all the specific algorithms as optional modules. The core would evolve quite slowly, insuring its robustness, whereas the modules would have a more dynamic development model.\\
     Another key objective is to provide a way to extend the existing platform with functionalities developed by teams that are reluctant to adopt the OpenTURNS development process. Within the module, the development team can adopt any coding rule or programming language he want, as long as the OpenTURNS interface is respected as well as the objects lifecycle.
   \end{block}
 \end{frame}
+
+
+\begin{frame}[containsverbatim]
+  \frametitle{Current modules - a non exhaustive list}
+  
+  \alert{Modules} connected to the library and maintained by the consortium :
+  \begin{itemize}
+  \item \alert{otagrum} : create a distribution from a Bayesian Network using aGrUM
+  \item \alert{otfftw} : Fast Fourier Transform algorithm (e.g. for stochastic processes) using FFTW
+  \item \alert{otfmi} : FMI models manipulation using PyFMI
+  \item \alert{otmixmod} : build mixtures of a multivariate Normal distribution from a sample
+  \item \alert{otmorris} : Morris screening method module
+  \item \alert{otpmml} : manages PMML files for meta-modeling exchanges
+  \item \alert{otpod}: A module to build Probability of Detection for Non Destructive Testing
+  \item \alert{otrobopt}: robust optimization
+  \item \alert{otsubsetinverse}: inverse subset simulation
+  \item \alert{otsvm} : Support Vector regression and classification with libsvm
+  \item \alert{otwrapy} : Python wrapper tools
+  \item \alert{otsklearn} : use OT surrogate models with the scikit-learn estimator API
+  \end{itemize}
+  
+  Oldest modules:
+  \begin{itemize}
+  \item \alert{otlm} Linear model with stepwise strategies
+  \item $\cdots$
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Current modules - a non exhaustive list}
+    
+    \alert{Other modules} connected to the library :
+    \begin{itemize}
+    \item \alert{otbenchmark} : benchmark problems for reliability and sensitivity analysis
+    \item \alert{othdrplot}: high density region algorithm for functional outlier detection
+    \item \alert{otsurrogate}: surrogate models
+    \item \alert{otusecases}: use cases suitable for OpenTURNS (functions and datasets)
+    \item \alert{otmarkov}: simulates Markov chains (experimental)
+    \item \alert{otsensitivity} : sensitivity analysis with density based measures
+    \item \alert{shapley-effects} : compute Shapley effects
+    \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
+    \end{itemize}
+    \end{frame}
+    
+  
 \begin{frame}
-  \frametitle{OpenTURNS modules}
+  \frametitle{OpenTURNS modules - C++}
   \centering \resizebox{!}{4cm}{\includegraphics{figures/OTModule.pdf}}
   \begin{block}{The principles}
     An OpenTURNS module is typically made of two parts:
@@ -79,22 +124,8 @@
     \end{itemize}
   \end{block}
 \end{frame}
-\begin{frame}
-  \frametitle{OpenTURNS modules}
-  \begin{block}{And for a Python module?}
-    For now, there is (almost) no way to use a Python object within the OpenTURNS C++ library, excepting:
-    \begin{itemize}
-    \item A Distribution;
-    \item a Function;
-    \item An experiment
-    \item ...
-    \end{itemize}
-    and use these one as "OpenTURNS classes".\\
-    The concept of "OpenTURNS Python module" is not very specific: we get some `full python` packages such as \texttt{oticp}, \texttt{otwrap} , \texttt{otsklearn}. But these examples are in a way independent as they rely on the "OpenTURNS API" and the API is not able to `integrate` them.
-    In other words, any set of Python classes or Python functions that use the OpenTURNS Python interface can be called an OpenTURNS Python module. In this case, the notion of OpenTURNS module is mainly a packaging notion, and the use of the Python setup tools is probably more mature and more adapted!
-  \end{block}
-\end{frame}
-\section[Module development]{Module development}
+
+\section[Module development]{Module development - C++}
 \begin{frame}
   \frametitle{Module development}
   \begin{block}{Step 1: copy and adapt an existing template}
@@ -187,6 +218,96 @@
     \item conda...
     \end{itemize}
     Exception : modules maintained by the consortium!
+  \end{block}
+\end{frame}
+
+
+\section[Module development]{Module development - Pure python module}
+  \begin{frame}[containsverbatim]
+    \frametitle{And for a Python module?}
+        
+    Python eco-system:
+    \begin{itemize}
+    \item \alert{numpy/scipy} : scientific usage 
+    \item \alert{scikit-learn} : Machine-Learning algorithms
+    \item \alert{pydoe, pydoe2} : Design of experiment
+    \item \alert{chaospy} : Polynomial chaos expansion
+    \item \alert{pandas} : Data analysis
+    \item \alert{SALib} : Sensitivity analysis library
+    \item \alert{pymc3} : Fit bayesian models
+    \item \alert{GPFlow, GPyTorch, TensorFlow, PyTorch, georges...  }
+    \item \alert{statsmodels} : Statistical tools
+    \item $\cdots$ many many 
+    \end{itemize}
+    \end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Can my module be used by openturns algorithms?}
+  \begin{block}{}
+    For now, there is (almost) no way to use a Python object within the \texttt{OpenTURNS} C++ library, excepting:
+    \begin{itemize}
+    \item A Distribution;
+    \item a Function;
+    \item An experiment
+    \item A RandomVector
+    \item A FieldFunction
+    \item $\hdots$
+    \end{itemize}
+    and use these one as "OpenTURNS classes".\\
+
+    The concept of "OpenTURNS Python module" is not very specific: 
+    we get some `full python` packages such as \texttt{oticp}, \texttt{otwrap} , \texttt{otsklearn}. 
+    But these examples are in a way independent as they rely on the "OpenTURNS API" and the API is not able to `integrate` them.
+    For example :
+    \begin{itemize}
+    \item Optimization toolbox even if it relies on \texttt{openturns} objects;
+    \item Surrogate models - Could not inherit from \texttt{MetaModelAlgorithm} 
+    \item kernels - Could not inherit from \texttt{CovarianceModel} 
+    \item $\hdots$
+    \end{itemize}
+    But many often, the objective is to \texttt{build openturns classes} such as \texttt{Experiment, Function}!
+    
+    In other words, any set of Python classes or Python functions that use the OpenTURNS Python interface can be called an OpenTURNS Python module. 
+    In this case, the notion of OpenTURNS module is mainly a packaging notion, and the use of the Python setup tools is probably more mature and more adapted!
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{No existing template}
+  \begin{block}{}
+    In comparison with C++, there is no template: 
+    \begin{itemize}
+    \item Such a module might be some development using \texttt{openturns} classes or not;
+    \item Such a development relies on external modules (\texttt{scikit-learn, rpy2} for example) 
+    \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
+    \item $\hdots$
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How to proceed?}
+  \begin{block}{Identify the needs}     
+    \begin{itemize}
+      \item Why do we need an Openturns interface? 
+      \item Do I need to link to an external module? If yes what kind of data or objects is required?
+      \item What does my module require and provide? 
+      \item What kind of interaction with the API?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Steps}
+  \begin{block}{Development and maintenance}     
+    \begin{itemize}
+      \item For development and maintenance, similar to the previous case (C++)
+      \item For docstrings, examples it is more simple!
+      \item For the setup, use \texttt{setuptools} 
+      \item For the tests, use \texttt{openturns test} or \texttt{pytest} 
+    \end{itemize}
   \end{block}
 \end{frame}
 
