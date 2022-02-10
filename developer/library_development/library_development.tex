@@ -97,27 +97,29 @@ Some core ideas of CMake:
   \end{block}
 \end{frame}
 
-\begin{frame}
-  \frametitle{The CMake compilation infrastructure}
-  \begin{block}{CMake usage}
-    \begin{tabular}{l}
-\ttfamily mkdir build \&\& cd build\\
-\ttfamily cmake -DCMAKE\_BUILD\_TYPE=RelWithDebInfo\\
-\ttfamily ~~~~~ -DCMAKE\_INSTALL\_PREFIX=\$PWD/install\\
-\ttfamily ~~~~~ -DCMAKE\_CXX\_FLAGS="-Wall -Wextra -D\_GLIBCXX\_ASSERTIONS"\\
-\ttfamily ~~~~~ -DCMAKE\_UNITY\_BUILD=ON -DCMAKE\_UNITY\_BUILD\_BATCH\_SIZE=16\\
-\ttfamily ~~~~~ -DPYTHON_EXECUTABLE=/usr/bin/python3\\
-\ttfamily ~~~~~ -DSWIG\_COMPILE\_FLAGS="-O1"\\
-\ttfamily ~~~~~ -DUSE_SPHINX=ON -DSPHINX\_FLAGS="-W -T -j4"\\
-\ttfamily ~~~~~ ..
-\ttfamily \\
-\ttfamily make install -j4\\
-\ttfamily ctest -R pyinstall -j4\\
-\ttfamily \\
-\ttfamily make tests -j4\\
-\ttfamily ctest -R cppcheck -j4\\
-\end{tabular}
-\end{block}
+\begin{frame}[fragile]
+  \frametitle{CMake usage}
+
+  \lstset{style=mystyle}
+  
+\begin{lstlisting}
+mkdir build && cd build
+cmake -DCMAKE\_BUILD\_TYPE=RelWithDebInfo
+  -DCMAKE_INSTALL_PREFIX=$PWD/install
+  -DCMAKE_CXX\_FLAGS="-Wall -Wextra -D_GLIBCXX_ASSERTIONS"
+  -DCMAKE_UNITY_BUILD=ON -DCMAKE\_UNITY_BUILD_BATCH_SIZE=16
+  -DPYTHON_EXECUTABLE=/usr/bin/python3
+  -DSWIG_COMPILE_FLAGS="-O1"
+  -DUSE_SPHINX=ON -DSPHINX_FLAGS="-W -T -j4"
+..
+
+make install -j4
+ctest -R pyinstall -j4
+
+make tests -j4
+ctest -R cppcheck -j4
+\end{lstlisting}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%% 
@@ -193,6 +195,36 @@ Some core ideas of CMake:
     Create a test file t\_MyClass\_std.cxx in the directory lib/test. This test file must check at least the standard functionalities of the class MyClass. If relevant, some specific aspects of the class can be checked in specific other test files, such as the exceptional behaviour of the class or its functionalities in extrem configurations (large data set, hard to solve problems etc.).
   \end{block}
 \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Populate an existing concept}
+%   \begin{block}{Step 3: the source code of the test(s)}
+  \lstset{style=mystyle}
+  
+\begin{lstlisting}
+int main(int, char *[])
+{
+  try
+  {
+    ...
+    Ceres algorithm(problem);
+    algo.run();
+    OptimizationResult result = algo.getResult();
+    Point x_star = result.getOptimalPoint();
+    Point p_ref = {0.6, 8.9};
+    std::cout << "x_star=" << x_star << std::endl;
+    assert_almost_equal(x_star, p_ref);
+  }
+  catch (TestFailed & ex)
+  {
+    std::cerr << ex << std::endl;
+    return ExitCode::Error;
+  }
+  return ExitCode::Success;
+}
+\end{lstlisting}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
