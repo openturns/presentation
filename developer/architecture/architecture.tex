@@ -1,47 +1,39 @@
 \documentclass[8pt]{beamer}
 
-\setbeamertemplate{background canvas}[vertical shading][bottom=cyan!10,top=blue!10]
+\usepackage{listings}
 
-\usetheme{Warsaw}
-\usefonttheme[onlysmall]{structurebold}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-% pour le fichiers .pdf
-\usepackage{graphicx}
-\usepackage{color}
-% pour les fichiers .png
-% \usepackage{pgf,pgfarrows}
-% \usepackage{pgf,pgfarrows}
-\usepackage{amsmath,amssymb}
-\usepackage{textcomp}
-\usepackage{Math_Notations}
-\usepackage{multitoc}
-\usepackage{mdwtab}
-\setbeamercovered{dynamic}
-\DeclareMathOperator*{\argmin}{argmin}
-
-\title[OpenTURNS Developer training]{OpenTURNS Developer training\\Elements of architecture}
-\author[OpenTURNS Consortium, 2019]
-{
-  Trainer : Julien Schueller \\
-  Phimeca \\
-  schueller@phimeca.com
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\small,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
 }
 
+\usetheme[sectionpage=none]{metropolis}
+\setbeamertemplate{section in toc}[sections numbered]
 
-
-\date[March 22-25th 2011]
-{
-  Developers training \\
-
-  \begin{center}
-    \includegraphics[height=2cm]{logoOT.jpg}
-  \end{center}
-}
-
-\subject{OpenTURNS Developers Training}
-
-% \part<presentation>{Corps de presentation}
-
+\title{Elements of architecture}
+\author{Julien Schueller - Phimeca}
+\date{February 14th-17th 2022}
+\titlegraphic{\includegraphics[height=1.5cm]{figures/logoOT}}
+\institute{\small OpenTURNS Consortium}
 
 \begin{document}
 
@@ -141,7 +133,13 @@
     The \alert{singleton pattern} is a design pattern used to implement the mathematical concept of a singleton, by restricting the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.\\
     In C++ it also serves to isolate from the unpredictability of the order of dynamic initialization, returning control to the programmer.
   \end{block}
-  \begin{block}{Usage in OpenTURNS}
+  \vspace{10mm}
+  \centering \resizebox{!}{3cm}{\includegraphics{figures/singleton.png}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Design patterns}
+  \begin{block}{Singleton pattern usage}
     This pattern is used in the following classes:
     \begin{itemize}
     \item \alert{Catalog}, that records all the object's factories into a dictionary.
@@ -151,6 +149,7 @@
     \end{itemize}
   \end{block}
 \end{frame}
+
 %%%%%%%%%%% 
 % Factory %
 %%%%%%%%%%% 
@@ -159,7 +158,13 @@
   \begin{block}{Factory method pattern}
     The \alert{factory method pattern} is an object-oriented design pattern to implement the concept of factories. It deals with the problem of creating objects (products) without specifying the exact class of object that will be created. The creation of an object often requires complex processes not appropriate to include within a composing object. The object's creation may lead to a significant duplication of code, may require information not accessible to the composing object, may not provide a sufficient level of abstraction, or may otherwise not be part of the composing object's concerns. The factory method design pattern handles these problems by defining a separate method for creating the objects, which subclasses can then override to specify the derived type of product that will be created.
   \end{block}
-  \begin{block}{Usage in OpenTURNS}
+  \vspace{1mm}
+  \centering \resizebox{!}{3.8cm}{\includegraphics{figures/factory.png}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Design patterns}
+  \begin{block}{Factory pattern usage}
     This pattern is used in many places, amongst which one can find:
     \begin{itemize}
     \item \alert{PersistentObjectFactory}, that allows for the creation of the persistent objects in OpenTURNS. It is part of the save/load mechanism of OpenTURNS.
@@ -168,6 +173,7 @@
     \end{itemize}
   \end{block}
 \end{frame}
+
 %%%%%%%%%%%% 
 % Strategy %
 %%%%%%%%%%%% 
@@ -177,7 +183,12 @@
     The \alert{strategy pattern} is a particular software design pattern, where algorithms can be selected at runtime.\\
     The strategy pattern is intended to provide a means to define a family of algorithms, encapsulate each one as an object, and make them interchangeable. The strategy pattern lets the algorithms vary independently from clients that use them.
   \end{block}
-  \begin{block}{Usage in OpenTURNS}
+  \centering \resizebox{!}{3cm}{\includegraphics{figures/strategy.png}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Design patterns}
+  \begin{block}{Strategy pattern usage}
     This pattern is used in many places in order to implement the notion of cardinal product of algorithms:
     \begin{itemize}
     \item \alert{HistoryStrategy}, in charge of the management of the incremental building of collection of data.
@@ -188,6 +199,7 @@
     \end{itemize}
   \end{block}
 \end{frame}
+
 %%%%%%%%%%%%% 
 % Composite %
 %%%%%%%%%%%%% 
@@ -196,7 +208,13 @@
   \begin{block}{Composite pattern}
     The \alert{composite pattern} is a partitioning design pattern. The composite pattern describes that a group of objects are to be treated in the same way as a single instance of an object. The intent of a composite is to "compose" objects into tree structures to represent part-whole hierarchies. Implementing the composite pattern lets clients treat individual objects and compositions uniformly.
   \end{block}
-  \begin{block}{Usage in the library}
+  \vspace{1mm}
+  \centering \resizebox{!}{3.8cm}{\includegraphics{figures/factory.png}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Design patterns}
+  \begin{block}{Composite pattern usage}
     This pattern is used in many places in order to permit recursive definition of concepts:
     \begin{itemize}
     \item \alert{ComposedFunction}, that implements the functional composition of the function algebra.
@@ -227,7 +245,7 @@
     \item \alert{Distribution}, that expose a high level interface of the concept of probability distribution whereas the DistributionImplementation class expose the low level interface of the same concept.
     \end{itemize}
   \end{block}
-  \centering \resizebox{!}{3cm}{\includegraphics{bridge.png}}
+  \centering \resizebox{!}{3cm}{\includegraphics{figures/bridge.png}}
 \end{frame}
 %%%%%%%%%%%%%%%%%% 
 % Other patterns %
@@ -263,18 +281,12 @@
 \begin{frame}
   \frametitle{A detailed hierarchy}
   \begin{block}{Navigation in the Doxygen documentation}
-    The internal documentation can be extracted using Doxygen and the target {\ttfamily html} in the lib/ subdirectory: make html.
+    The internal documentation can be built with Doxygen:\\
+    \textit{make html}
+
+    Also available at:\\
+    \textit{http://openturns.github.io/openturns/master/doxygen/index.html}
   \end{block}
 \end{frame}
-%%%%%%%%%%%%%% 
-% Conclusion %
-%%%%%%%%%%%%%% 
-% \section[]{Conclusion}
-% \begin{frame}
-%   \Large
-%   \frametitle{Conclusion}
-%   \begin{itemize}
-%   \item 
-%   \end{itemize}
-% \end{frame}
+
 \end{document}

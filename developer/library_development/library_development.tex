@@ -1,46 +1,39 @@
 \documentclass[8pt]{beamer}
 
-\setbeamertemplate{background canvas}[vertical shading][bottom=cyan!10,top=blue!10]
-
-\usetheme{metropolis}
-% \usefonttheme[onlysmall]{structurebold}
-
-% pour le fichiers .pdf
-\usepackage{graphicx}
-\usepackage{color}
-% pour les fichiers .png
-% \usepackage{pgf,pgfarrows}
-% \usepackage{pgf,pgfarrows}
-\usepackage{amsmath,amssymb}
-\usepackage{textcomp}
-\usepackage{multitoc}
-\usepackage{mdwtab}
 \usepackage{listings}
-% \setbeamercovered{dynamic}
-\DeclareMathOperator*{\argmin}{argmin}
 
-\title[Library development]{Library development}
-\author[OpenTURNS Consortium, 2022]
-{
-  Trainer : Julien Schueller \\
-  Phimeca \\
-  schueller@phimeca.com
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\small,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
 }
 
+\usetheme[sectionpage=none]{metropolis}
+\setbeamertemplate{section in toc}[sections numbered]
 
-
-\date[February 15th 2022]
-{
-  Developers training \\
-
-  \begin{center}
-    \includegraphics[height=2cm]{logoOT.jpg}
-  \end{center}
-}
-
-\subject{OpenTURNS Developers Training}
-
-% \part<presentation>{Corps de presentation}
+\title{Library development}
+\author{Julien Schueller - Phimeca}
+\date{February 14th-17th 2022}
+\titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
+\institute{\small OpenTURNS Consortium}
 
 
 \begin{document}
@@ -83,7 +76,8 @@ Some core ideas of CMake:
 \begin{itemize}
   \item All the configuration is done through a hierarchy of text files written in the CMake macro language.
   
-  \item Unlike many cross-platform systems, CMake is designed to be used in conjunction with the native build environment.
+  \item Unlike many cross-platform systems, CMake is designed to be used in conjunction with several generation tools.
+  (Make, NMake, Ninja, ...)
 \end{itemize}
 
   \end{block}
@@ -102,6 +96,30 @@ Some core ideas of CMake:
     \end{itemize}
   \end{block}
 \end{frame}
+
+\begin{frame}
+  \frametitle{The CMake compilation infrastructure}
+  \begin{block}{CMake usage}
+    \begin{tabular}{l}
+\ttfamily mkdir build \&\& cd build\\
+\ttfamily cmake -DCMAKE\_BUILD\_TYPE=RelWithDebInfo\\
+\ttfamily ~~~~~ -DCMAKE\_INSTALL\_PREFIX=\$PWD/install\\
+\ttfamily ~~~~~ -DCMAKE\_CXX\_FLAGS="-Wall -Wextra -D\_GLIBCXX\_ASSERTIONS"\\
+\ttfamily ~~~~~ -DCMAKE\_UNITY\_BUILD=ON -DCMAKE\_UNITY\_BUILD\_BATCH\_SIZE=16\\
+\ttfamily ~~~~~ -DPYTHON_EXECUTABLE=/usr/bin/python3\\
+\ttfamily ~~~~~ -DSWIG\_COMPILE\_FLAGS="-O1"\\
+\ttfamily ~~~~~ -DUSE_SPHINX=ON -DSPHINX\_FLAGS="-W -T -j4"\\
+\ttfamily ~~~~~ ..
+\ttfamily \\
+\ttfamily make install -j4\\
+\ttfamily ctest -R pyinstall -j4\\
+\ttfamily \\
+\ttfamily make tests -j4\\
+\ttfamily ctest -R cppcheck -j4\\
+\end{tabular}
+\end{block}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%% 
 % Development process
 %%%%%%%%%%%%%%%%%% 
@@ -227,7 +245,7 @@ Some core ideas of CMake:
     \item All the class corresponding to persistent objects must instantiate a static parameterized factory in their source file.
         \item All the classes must include the {\ttfamily OT\_API} macro in their header file in order to export their symbols for win32 targets.
     \item Implementation classes must provide a clone method.
-      \item Use std::copy to mode chunks of contiguous data
+      \item Use std::copy to duplicate chunks of contiguous data
     \end{itemize}
   \end{block}
 \end{frame}
@@ -239,9 +257,9 @@ Some core ideas of CMake:
   \frametitle{Tips and tricks}
   \begin{block}{Critical points}
     \begin{itemize}
-\item The const correctness of the code is very important, both for the signature of the methods and for the temporary variables.
-    \item Simple types must use OpenTURNS typedefs (Bool, UnsignedInteger, Scalar, Complex)
-    \item Simple types attributes must be initialized in constructors.
+      \item The const correctness of the code is very important, both for the signature of the methods and for the temporary variables.
+      \item Simple types must use OpenTURNS typedefs (Bool, UnsignedInteger, Scalar, Complex)
+      \item Simple types attributes must be initialized in constructors (or in the header itself).
       \item All the object arguments must be passed using const references. The use of non const references to make side effects must be limited as much as possible.
       \item Most of the coding rules are described in the coding rules section, but you can infer the rules by looking at the existing code. \alert{The key point is that the only difficult points should be the conception and the algorithms, not the indentation or the coding style!}
     \end{itemize}
@@ -279,9 +297,9 @@ Some core ideas of CMake:
 % The OpenTURNS package %
 %%%%%%%%%%%%%%%%%%%%%%%%% 
 \section[SWIG]{SWIG}
-%%%%%%%%%%%%% 
+%%%%%%%%%%%%%
 % The tools %
-%%%%%%%%%%%%% 
+%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{OpenTURNS Python bindings}
   \begin{block}{A user-friendly interface for the OpenTURNS library}
