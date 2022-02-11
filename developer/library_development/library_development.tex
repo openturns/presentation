@@ -104,14 +104,14 @@ Some core ideas of CMake:
   
 \begin{lstlisting}
 mkdir build && cd build
-cmake -DCMAKE\_BUILD\_TYPE=RelWithDebInfo
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
   -DCMAKE_INSTALL_PREFIX=$PWD/install
-  -DCMAKE_CXX\_FLAGS="-Wall -Wextra -D_GLIBCXX_ASSERTIONS"
-  -DCMAKE_UNITY_BUILD=ON -DCMAKE\_UNITY_BUILD_BATCH_SIZE=16
+  -DCMAKE_CXX_FLAGS="-Wall -Wextra -D_GLIBCXX_ASSERTIONS"
+  -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=16
   -DPYTHON_EXECUTABLE=/usr/bin/python3
   -DSWIG_COMPILE_FLAGS="-O1"
   -DUSE_SPHINX=ON -DSPHINX_FLAGS="-W -T -j4"
-..
+  ..
 
 make install -j4
 ctest -R pyinstall -j4
@@ -141,21 +141,22 @@ ctest -R cppcheck -j4
 %%%%%%%%%%%%%%%%%%% 
 % Add a new class
 %%%%%%%%%%%%%%%%%%% 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Populate an existing concept}
   \begin{block}{Step 1: create the header file and the associated source file}
-    Create MyClass.cxx and openturns/MyClass.hxx in a subdirectory of lib/src. The files must have the standard header, with a brief description of the class using the Doxygen format and the standard reference to the LGPL license.
+    Create MyClass.cxx and openturns/MyClass.hxx in a subdirectory of lib/src. The files must have the standard header,
+    with a brief description of the class using the Doxygen format and the standard reference to the LGPL license.
   
   For the header file MyClass.hxx, the interface must be embraced between the preprocessing clauses to prevent from multiple inclusions.
-  
-\begin{tabular}{l}
-\ttfamily \#ifndef OPENTURNS\_MYCLASS\_HXX\\
-\ttfamily \#define OPENTURNS\_MYCLASS\_HXX\\
-\ttfamily ...\\
-\ttfamily class OT\_API MyClass {...};\\
-\ttfamily ...\\
-\ttfamily \#endif OPENTURNS\_MYCLASS\_HXX
-\end{tabular}
+
+\begin{lstlisting}
+#ifndef OPENTURNS_MYCLASS_HXX
+#define OPENTURNS_MYCLASS_HXX
+
+class OT_API MyClass {...};
+
+#endif /* OPENTURNS_MYCLASS_HXX */
+\end{lstlisting}
 
   See any pair of .hxx/.cxx files in the current directory and the coding section as a guide for your development: the use of namespaces, case convention for the static methods, the other methods and the attributes, the trailing underscore for the attribute names to name a few rules.
   \end{block}
@@ -207,7 +208,7 @@ int main(int, char *[])
   try
   {
     ...
-    Ceres algorithm(problem);
+    MyClass algorithm(problem);
     algo.run();
     OptimizationResult result = algo.getResult();
     Point x_star = result.getOptimalPoint();
@@ -228,31 +229,41 @@ int main(int, char *[])
 %%%%%%%%%%%%%%%%%%
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Populate an existing concept}
   \begin{block}{Step 4: update the CMake test configuration}
     Modify the CMakeList.txt file in the lib/test directory:\\
-    {\ttfamily ot\_check\_test (MyClass\_std)}
-    At this point you can build and run the specific test:\\
-     {\ttfamily make t\_MyClass\_std}
-     \newline
-     {\ttfamily ./lib/test/t\_MyClass\_std}
+\begin{lstlisting}
+ot_check_test (MyClass_std)
+\end{lstlisting}
+    At this point you can build the specific test:\\
+\begin{lstlisting}
+make t_MyClass_std
+\end{lstlisting}
+     And run it:\\
+\begin{lstlisting}
+./lib/test/t_MyClass_std
+\end{lstlisting}
   \end{block}
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Populate an existing concept}
   \begin{block}{Step 5: update the CMake file of the lib/test directory}
-    Add an expected test result named t\_MyClass\_std.expout:\\
-    {\ttfamily ./lib/test/t\_MyClass\_std > ../lib/test/t\_MyClass\_std.expout}
-    
+    If necessary an expected test result named t\_MyClass\_std.expout:\\
+\begin{lstlisting}
+./lib/test/t_MyClass_std > ../lib/test/t_MyClass_std.expout
+\end{lstlisting}
+
     The content of this file is compared to the output of the cxx test executable when tests are run.
 
     At this point you can run the specific test:\\
-     {\ttfamily ctest -R cppcheck\_MyClass\_std}
+\begin{lstlisting}
+ctest -R cppcheck_MyClass_std --output-on-failure
+\end{lstlisting}
   \end{block}
 \end{frame}
 
@@ -363,30 +374,36 @@ int main(int, char *[])
   \centering \resizebox{!}{4cm}{\includegraphics{swig.png}}
 \end{frame}
 
-  
-  
+
 \section[Python development process]{Python development process}
 %%%%%%%%%%%%%%%%%% 
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 9: create the SWIG interface file}
     In order to make the new class visible in the OpenTURNS Python module, you have to create a specific SWIG interface file, namely the file MyClass.i in the python/src directory. In most situations, it should be as simple as:
     \small
-    \begin{tabular}{l}
-      \ttfamily // SWIG file MyClass.i \\
-      \ttfamily  \\
-      \ttfamily \% \{ \\
-      \ttfamily \#include "MyClass.hxx" \\
-      \ttfamily \%\} \\
-      \ttfamily  \\
-      \ttfamily \%include MyClass.hxx \\
-      \ttfamily namespace OT \{ \\
-      \ttfamily \%extend MyClass \{ MyClass(const MyClass \& other) \{ \\
-      \ttfamily return new OT::MyClass(other); \\
-      \ttfamily \}\}\}
-    \end{tabular}
+
+    \begin{lstlisting}
+// SWIG file MyClass.i
+
+%{
+#include "MyClass.hxx"
+%}
+
+%include MyClass.hxx
+
+namespace OT {
+%extend MyClass {
+
+MyClass(const MyClass & other) {
+  return new OT::MyClass(other);
+}
+
+}}
+\end{lstlisting}
+    
     \normalsize
   \end{block}
 \end{frame}
@@ -406,14 +423,32 @@ int main(int, char *[])
 %%%%%%%%%%%%%%%%%% 
 % Add a new class
 %%%%%%%%%%%%%%%%%% 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 11: test the new class in the Python module}
     \begin{itemize}
     \item Create a test file t\_MyClass\_std.py in the directory python/test. This test implements the same tests than t\_MyClass\_std.cxx, but using Python.
-    \item Create an expected result file t\_MyClass\_std.expout for the python test.
+\begin{lstlisting}
+...
+algo = ot.MyClass(problem)
+algo.run()
+result = algo.getResult()
+p_ref = [0.6, 8.9]
+x_star = result.getOptimalPoint()
+ott.assert_almost_equal(x_star, p_ref)
+\end{lstlisting}
+        
+    \item If necessary, create an expected result file t\_MyClass\_std.expout for the python test.
     \item Modify the CMakeLists file in python/test:
-      {\ttfamily ot\_pyinstallcheck\_test (MyClass\_std)}
+\begin{lstlisting}
+ot_pyinstallcheck_test (MyClass_std IGNOREOUT)
+\end{lstlisting}
+
+\item At this point you can run the specific test:\\
+\begin{lstlisting}
+ctest -R pyinstallcheck_MyClass_std --output-on-failure
+\end{lstlisting}
+
     \end{itemize}
   \end{block}
 \end{frame}
@@ -423,11 +458,28 @@ int main(int, char *[])
 \begin{frame}[containsverbatim]
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 12: write the docstring documention}
-    Create a docstring file python/src/MyClass\_doc.i.in:
+    \begin{itemize}
+    \item Create a docstring file python/src/MyClass\_doc.i.in:
     
-    This file contains the documentation of new methods (no need to document inherited methods).
-    
-    It follows the Numpydoc docstring convention.
+    This file contains the documentation of new methods following the Numpydoc style:
+
+    \begin{lstlisting}
+%feature("docstring") OT::MyClass
+"MyClass optimization solver.
+
+Parameters
+----------
+problem : :class:`~openturns.OptimizationProblem`
+    Optimization problem to solve
+p1 : int
+    Awesome parameter."
+\end{lstlisting}
+
+\item Make sure it will be included from MyClass.i:\\
+\begin{lstlisting}
+%include MyClass_doc.i
+\end{lstlisting}
+\end{itemize}
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%% 
@@ -436,7 +488,6 @@ int main(int, char *[])
 \begin{frame}[containsverbatim]
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 13: add an entry in the API manual}
-    
     \begin{itemize}
     \item Find the right .rst in in python/doc/user\_manual;
     \item Add an entry in the restructured text format:
