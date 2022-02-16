@@ -87,11 +87,13 @@
   \item \alert{otsvm} : Support Vector regression and classification with libsvm
   \item \alert{otwrapy} : Python wrapper tools
   \item \alert{otsklearn} : use OT surrogate models with the scikit-learn estimator API
+  \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}) and others
   \end{itemize}
   
   Oldest modules:
   \begin{itemize}
   \item \alert{otlm} Linear model with stepwise strategies
+  \item \alert{otlhs} Optimal LHS (Monte-Carlo \& Annealing)
   \item $\cdots$
   \end{itemize}
   \end{frame}
@@ -109,6 +111,8 @@
     \item \alert{otsensitivity} : sensitivity analysis with density based measures
     \item \alert{shapley-effects} : compute Shapley effects
     \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
+    \item \alert{otpod} : Probability of Detection module.
+    \item \alert{otgu} : Gu method to make more robust the estimation kriging models.
     \end{itemize}
     \end{frame}
     
@@ -275,7 +279,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{No existing template}
+  \frametitle{No existing (official) template}
   \begin{block}{}
     In comparison with C++, there is no template: 
     \begin{itemize}
@@ -284,6 +288,17 @@
     \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
     \item $\hdots$
     \end{itemize}
+    Why ?
+    \begin{itemize}
+      \item Such a development relies on external modules (\texttt{scikit-learn, rpy2} for example) 
+      \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
+      \end{itemize}
+      Non-official templates:
+      \begin{itemize}
+        \item \texttt{https://github.com/adumasphi/ottemplatepython}
+        \item \texttt{https://github.com/sofianehaddad/ottemplatepython.git}
+        \end{itemize}
+        
   \end{block}
 \end{frame}
 
@@ -300,15 +315,95 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Steps}
-  \begin{block}{Development and maintenance}     
+  \frametitle{Module development}
+  \begin{block}{Step 1: copy and adapt an existing template (even if non official) or start from crash}
     \begin{itemize}
-      \item For development and maintenance, similar to the previous case (C++)
-      \item For docstrings, examples it is more simple!
-      \item For the setup, use \texttt{setuptools} 
-      \item For the tests, use \texttt{openturns test} or \texttt{pytest} 
+    \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
+      {\ttfamily git clone https://github.com/sofianehaddad/ottemplatepython.git MyModule}
+    \item Set the url of the remote (meaning you already created a repository):\\
+      {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
+    \item Adapt the template to your module:\\
+      {\ttfamily no customize.sh }\\
+      Rename folder to the new module, update tests and doc.
     \end{itemize}
   \end{block}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 2: develop the module}
+    \begin{itemize}
+    \item Implement your module. You are free to use the rules you want!
+    \item Build \& install your module as usual:
+      \begin{tabular}{l}
+        \ttfamily python setup.py build \\
+        \ttfamily python setup.py install
+      \end{tabular}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 3: documentation}
+    Module documentation is very "easy". 
+    \begin{itemize}
+      \item Document classes and method using python peps
+      \item Developer guide : Architecture, validation
+      \item Examples and API documentation (potentially notebooks)
+      \item Theory (if needed)
+      \item Build the doc:
+      \begin{tabular}{l}
+        \ttfamily python setup.py build\_sphinx
+      \end{tabular}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 4: install and test the module}
+    \begin{itemize}
+    \item Since first step is ok, test your module within python:\\
+      \begin{tabular}{l}
+        \ttfamily \$python \\
+        \ttfamily >>> import openturns as ot \\
+        \ttfamily >>> import mymodule \\
+      and python should not complain about a non existing mymodule module.
+      \end{tabular}
+      \item You can now use your module as any python module.
+      \item For the setup, use \texttt{setuptools, distutils} 
+      \item For the tests, rely on \texttt{openturns test}, \texttt{pytest} 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 5: Maintenance}
+    Each developer is responsible of his package should maintain it!
+    \begin{itemize}
+    \item We can rely on continuous integration tool accounting API changes
+    \item He is in charge of bugs (except if underlying bug is in the API)
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Step 6: Packaging}
+    No specific rule concerning the packaging!
+    \begin{itemize}
+    \item Tarball generation
+    \item Git
+    \item conda\slash pip ...
+    \item \ttfamily python setup.py sdist --formats=gztar,zip
+  
+    \end{itemize}
+    Exception : modules maintained by the consortium!
+  \end{block}
+\end{frame}
+
+
 
 \end{document}
