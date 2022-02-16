@@ -163,6 +163,10 @@ Some core ideas of CMake:
   \begin{block}{Step 2b: update the subdirectory header}
     Modify the OTsubdir.hxx file in lib/src/subdir/openturns/ to include the new header:\\
     {\ttfamily \#include "openturns/MyClass.hxx"}
+    
+    Example: If we create a new {\ttfamily WeightedExperiment}, we 
+    must update, in the directory {\ttfamily lib/src/Uncertainty/Algorithm/WeightedExperiment} 
+    directory, the file {\ttfamily openturns/OTWeightedExperiment.hxx}. 
 
   \end{block}
 \end{frame}
