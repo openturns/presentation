@@ -15,8 +15,29 @@
 \usepackage{textcomp}
 \usepackage{multitoc}
 \usepackage{mdwtab}
+\usepackage{hyperref}
 \setbeamercovered{dynamic}
 \DeclareMathOperator*{\argmin}{argmin}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Tutorial OpenTURNS},    % title
+    pdfauthor={HADDAD},     % author
+    pdfsubject={Starting with OpenTURNS},   % subject of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue          % color of external links
+}
 
 \title[OpenTURNS modules development]{OpenTURNS modules development}
 \author[OpenTURNS Consortium, 2022]
@@ -87,7 +108,6 @@
   \item \alert{otsvm} : Support Vector regression and classification with libsvm
   \item \alert{otwrapy} : Python wrapper tools
   \item \alert{otsklearn} : use OT surrogate models with the scikit-learn estimator API
-  \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}) and others
   \end{itemize}
   
   Oldest modules:
@@ -113,7 +133,8 @@
     \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
     \item \alert{otpod} : Probability of Detection module.
     \item \alert{otgu} : Gu method to make more robust the estimation kriging models.
-    \end{itemize}
+    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}, \texttt{othsic}) and others
+  \end{itemize}
     \end{frame}
     
   
@@ -135,7 +156,7 @@
   \begin{block}{Step 1: copy and adapt an existing template}
     \begin{itemize}
     \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
-      {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule}
+      {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule template }
     \item Set the url of the remote (meaning you already created a repository):\\
       {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
     \item Adapt the template to your module:\\
@@ -295,10 +316,9 @@
       \end{itemize}
       Non-official templates:
       \begin{itemize}
-        \item \texttt{https://github.com/adumasphi/ottemplatepython}
-        \item \texttt{https://github.com/sofianehaddad/ottemplatepython.git}
+        \item \href{https://github.com/adumasphi/ottemplatepython}{Template done by Antoine Dumas}
+        \item \href{https://github.com/sofianehaddad/ottemplatepython.git}{new template}
         \end{itemize}
-        
   \end{block}
 \end{frame}
 
@@ -319,7 +339,7 @@
   \begin{block}{Step 1: copy and adapt an existing template (even if non official) or start from crash}
     \begin{itemize}
     \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
-      {\ttfamily git clone https://github.com/sofianehaddad/ottemplatepython.git MyModule}
+      {\ttfamily git clone \href{https://github.com/sofianehaddad/ottemplatepython.git}{https://github.com/sofianehaddad/ottemplatepython.git} MyModule}
     \item Set the url of the remote (meaning you already created a repository):\\
       {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
     \item Adapt the template to your module:\\
@@ -404,6 +424,19 @@
   \end{block}
 \end{frame}
 
-
+\begin{frame}
+  \frametitle{Module development: conda deployement}
+  \begin{block}{}
+    User should generates a recipe in \href{https://github.com/conda-forge/staged-recipes}{staged-recipes}.
+    \begin{itemize}
+    \item Rely on existing template
+    \item Fork the repository
+    \item Have a look at the documentation
+    \item Adapt to the module and propose pull-request
+    \end{itemize}
+    In case of pure python it is more simple! Have a look at \href{https://github.com/conda-forge/staged-recipes/pull/14533}{tensap} for example.\\
+    Once it is done, module is integrated to \texttt{conda-forge}
+  \end{block}
+\end{frame}
 
 \end{document}
