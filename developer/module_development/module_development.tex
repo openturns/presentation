@@ -15,8 +15,29 @@
 \usepackage{textcomp}
 \usepackage{multitoc}
 \usepackage{mdwtab}
+\usepackage{hyperref}
 \setbeamercovered{dynamic}
 \DeclareMathOperator*{\argmin}{argmin}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Tutorial OpenTURNS},    % title
+    pdfauthor={HADDAD},     % author
+    pdfsubject={Starting with OpenTURNS},   % subject of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue          % color of external links
+}
 
 \title[OpenTURNS modules development]{OpenTURNS modules development}
 \author[OpenTURNS Consortium, 2022]
@@ -92,6 +113,7 @@
   Oldest modules:
   \begin{itemize}
   \item \alert{otlm} Linear model with stepwise strategies
+  \item \alert{otlhs} Optimal LHS (Monte-Carlo \& Annealing)
   \item $\cdots$
   \end{itemize}
   \end{frame}
@@ -109,7 +131,10 @@
     \item \alert{otsensitivity} : sensitivity analysis with density based measures
     \item \alert{shapley-effects} : compute Shapley effects
     \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
-    \end{itemize}
+    \item \alert{otpod} : Probability of Detection module.
+    \item \alert{otgu} : Gu method to make more robust the estimation kriging models.
+    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}, \texttt{othsic}) and others
+  \end{itemize}
     \end{frame}
     
   
@@ -131,7 +156,7 @@
   \begin{block}{Step 1: copy and adapt an existing template}
     \begin{itemize}
     \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
-      {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule}
+      {\ttfamily git clone https://github.com/openturns/ottemplate.git MyModule template }
     \item Set the url of the remote (meaning you already created a repository):\\
       {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
     \item Adapt the template to your module:\\
@@ -275,7 +300,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{No existing template}
+  \frametitle{No existing (official) template}
   \begin{block}{}
     In comparison with C++, there is no template: 
     \begin{itemize}
@@ -284,6 +309,16 @@
     \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
     \item $\hdots$
     \end{itemize}
+    Why ?
+    \begin{itemize}
+      \item Such a development relies on external modules (\texttt{scikit-learn, rpy2} for example) 
+      \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
+      \end{itemize}
+      Non-official templates:
+      \begin{itemize}
+        \item \href{https://github.com/adumasphi/ottemplatepython}{Template done by Antoine Dumas}
+        \item \href{https://github.com/sofianehaddad/ottemplatepython.git}{new template}
+        \end{itemize}
   \end{block}
 \end{frame}
 
@@ -300,14 +335,107 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Steps}
-  \begin{block}{Development and maintenance}     
+  \frametitle{Module development}
+  \begin{block}{Step 1: copy and adapt an existing template (even if non official) or start from crash}
     \begin{itemize}
-      \item For development and maintenance, similar to the previous case (C++)
-      \item For docstrings, examples it is more simple!
-      \item For the setup, use \texttt{setuptools} 
-      \item For the tests, use \texttt{openturns test} or \texttt{pytest} 
+    \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
+      {\ttfamily git clone \href{https://github.com/sofianehaddad/ottemplatepython.git}{https://github.com/sofianehaddad/ottemplatepython.git} MyModule}
+    \item Set the url of the remote (meaning you already created a repository):\\
+      {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
+    \item Adapt the template to your module:\\
+      {\ttfamily no customize.sh }\\
+      Rename folder to the new module, update tests and doc.
     \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 2: develop the module}
+    \begin{itemize}
+    \item Implement your module. You are free to use the rules you want!
+    \item Build \& install your module as usual:
+      \begin{tabular}{l}
+        \ttfamily python setup.py build \\
+        \ttfamily python setup.py install
+      \end{tabular}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 3: documentation}
+    Module documentation is very "easy". 
+    \begin{itemize}
+      \item Document classes and method using python peps
+      \item Developer guide : Architecture, validation
+      \item Examples and API documentation (potentially notebooks)
+      \item Theory (if needed)
+      \item Build the doc:
+      \begin{tabular}{l}
+        \ttfamily python setup.py build\_sphinx
+      \end{tabular}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 4: install and test the module}
+    \begin{itemize}
+    \item Since first step is ok, test your module within python:\\
+      \begin{tabular}{l}
+        \ttfamily \$python \\
+        \ttfamily >>> import openturns as ot \\
+        \ttfamily >>> import mymodule \\
+      and python should not complain about a non existing mymodule module.
+      \end{tabular}
+      \item You can now use your module as any python module.
+      \item For the setup, use \texttt{setuptools, distutils} 
+      \item For the tests, rely on \texttt{openturns test}, \texttt{pytest} 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development}
+  \begin{block}{Step 5: Maintenance}
+    Each developer is responsible of his package should maintain it!
+    \begin{itemize}
+    \item We can rely on continuous integration tool accounting API changes
+    \item He is in charge of bugs (except if underlying bug is in the API)
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Step 6: Packaging}
+    No specific rule concerning the packaging!
+    \begin{itemize}
+    \item Tarball generation
+    \item Git
+    \item conda\slash pip ...
+    \item \ttfamily python setup.py sdist --formats=gztar,zip
+  
+    \end{itemize}
+    Exception : modules maintained by the consortium!
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development: conda deployement}
+  \begin{block}{}
+    User should generates a recipe in \href{https://github.com/conda-forge/staged-recipes}{staged-recipes}.
+    \begin{itemize}
+    \item Rely on existing template
+    \item Fork the repository
+    \item Have a look at the documentation
+    \item Adapt to the module and propose pull-request
+    \end{itemize}
+    In case of pure python it is more simple! Have a look at \href{https://github.com/conda-forge/staged-recipes/pull/14533}{tensap} for example.\\
+    Once it is done, module is integrated to \texttt{conda-forge}
   \end{block}
 \end{frame}
 
