@@ -49,7 +49,7 @@
 
 
 
-\date[Mai 14-17th 2011]
+\date[Fab 14-17th 2022]
 {
   Developers training \\
 
@@ -437,6 +437,47 @@
     In case of pure python it is more simple! Have a look at \href{https://github.com/conda-forge/staged-recipes/pull/14533}{tensap} for example.\\
     Once it is done, module is integrated to \texttt{conda-forge}
   \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development: pip}
+    We can rely on this \href{https://www.geeksforgeeks.org/how-to-publish-python-package-at-pypi-using-twine-module}{blog} to upload the module:
+    \begin{itemize}
+    \item \ttfamily{pip install twine} : install the module that help the upload 
+    \item We suppose the package is organized in a well format (Readme, License, module)
+     \item \ttfamily{python setup.py bdist\_wheel} to create a .dist
+     \item \ttfamily{twine upload dist/*} to upload. You should have an account on \href{pypi.org}{pypi} and enter credential when asked.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development: upload documentation using github and continuous integration}
+    We suppose here that we use \href{https://github.com}{github} for the maintenance. The purpose here is to illustrate how to deply\slash upload documentation after a commit on the main branch.
+    \begin{itemize}
+      \item Goto the \texttt{Developer settings} in your github account (see \href{https://github.com/settings/apps}{here})
+      \includegraphics[width=10.cm]{github_settings.png}
+      \item Select \texttt{Personal access tokens} and \texttt{Generate new token} \\
+     \includegraphics[width=8.cm]{generate_token.png}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development: upload documentation using github and continuous integration}
+    \begin{itemize}
+      \item Provide a name (for example GH\_TOKEN) and select at least repo and workflow
+     \includegraphics[width=8.cm, height=4cm]{new_token.png}
+      \item Now we should make sure to have a repository where upload is done (many often, \texttt{username.github.io}).\\
+       This should contains an html index file. A minimal index could be provide.
+       \includegraphics[width=11.cm]{index_minimal.png}
+      \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module development: upload documentation using github and continuous integration}
+    \begin{itemize} 
+      \item Finally add corresponding instructions into continuous-integration script to upload on the previous repository
+      \includegraphics[width=11.cm]{instruction_ci.png}
+    \end{itemize}
 \end{frame}
 
 \end{document}
