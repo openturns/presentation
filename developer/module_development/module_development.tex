@@ -439,4 +439,17 @@
   \end{block}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Module development: pip}
+  \begin{block}{}
+    We can rely on this \href{https://www.geeksforgeeks.org/how-to-publish-python-package-at-pypi-using-twine-module}{blog} to publish the module:
+    \begin{itemize}
+    \item User should first install \texttt{twine} module using \texttt{pip}
+    \item We suppose the package is organized in a well format (Readme, License, module)
+     \item \ttfamily{python setup.py bdist\_wheel} to create a .dist
+     \item Upload the module twine \ttfamily{upload dist/*}; You should have an account on \href{pypi.org}{pypi} and enter credential when asked.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
 \end{document}
