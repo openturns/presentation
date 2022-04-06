@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install
-        run: sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science lmodern
+        run: sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science texlive-bibtex-extra lmodern
       - name: Build
         run: |
           cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
