@@ -18,6 +18,7 @@ jobs:
           cd uncecomp2019/Uncecomp2019-slides-OT && pdflatex -halt-on-error uncecomp-2019-slides-OpenTURNS.tex && pdflatex uncecomp-2019-slides-OpenTURNS.tex && cd -
           cd chorus-2017-otfmi && pdflatex -halt-on-error chorus-2017-otfmi.tex && pdflatex chorus-2017-otfmi.tex && cd -
           cd siamuq2020 && pdflatex -halt-on-error siamuq-2020-slides-OpenTURNS.tex && pdflatex siamuq-2020-slides-OpenTURNS.tex && cd -
+          cd siamuq2022 && pdflatex -halt-on-error siamuq-2022-slides-OpenTURNS.tex && pdflatex siamuq-2022-slides-OpenTURNS.tex && cd -
           cd userday2020/userday2020relhi/ && pdflatex -halt-on-error userday2020relhi.tex && pdflatex userday2020relhi.tex && cd -
           cd userday2020/ud2020persalys && pdflatex -halt-on-error UsersDay-2020-PERSALYS.tex && pdflatex UsersDay-2020-PERSALYS.tex && cd -
           cd userday2021/userday2021relhi/ && pdflatex -halt-on-error userday2021relhi.tex && pdflatex userday2021relhi.tex && cd -
