@@ -186,13 +186,13 @@ program your Python scripts.
   \item Multivariate distrbutions
   \item Copulas
   \item Processes 
-  \item Covariance models
+  \item Covariance kernels
   \end{itemize}
   \end{itemize}
   \end{minipage}%
   \begin{minipage}[t]{0.33\textwidth}
   \begin{itemize}
-  \item Meta modeling
+  \item Surrogate models
   \begin{itemize}
   \tiny
   \item Linear regression
@@ -392,7 +392,7 @@ program your Python scripts.
   
     \begin{itemize}
     \item Let $\mathcal{V}_i$ be a Reproducing Kernel Hibert Space over $\mathcal{X}_i \times \mathcal{Y} $ with kernel $v_i(\cdot, \cdot)$.
-    \item We consider the mean embedding of $P_{Y,X_i}$ and $P_{X_i} P_Y$ in $\mathcal{V}$:
+    \item We consider the mean embedding of $P_{X_i,Y}$ and $P_{X_i} P_Y$ in $\mathcal{V}$:
     \begin{itemize}
         \item $\mu [ P_{X_i, Y} ] = \iint_{\mathcal{X}_i \times \mathcal{Y}} v_i((x,y), \cdot) dP_{X_i, Y}(x,y)$
         \item $\mu [ P_{X_i} P_Y ] = \int_{\mathcal{Y}} \left[ \int_{\mathcal{X}_i} v_i((x,y), \cdot) dP_{X_i}(x) \right] dP_Y(y)$
@@ -458,7 +458,7 @@ program your Python scripts.
 \underline{\textcolor{red}{$\mathcal{H}_{0,i}$ : $X_i$ and $Y$ are independent}}
 
 \normalsize
-\item  $\widehat{S}_{\mathcal{T}} := n \times \widehat{\mathrm{HSIC}}(X_i,Y)$ is the test statistic
+\item  $\widehat{S}_{\mathcal{T}} := n \times \widehat{\mathrm{HSIC}}(X_i,Y)$ is the test statistic, $\widehat{S}_{\mathcal{T},\textrm{obs}}$ its observed value.
 
 \item \textbf{p-value} associated to the test $\mathcal{T}$:
 \begin{equation*}
@@ -466,8 +466,8 @@ p_{\textrm{val}} = \mathbb{P}\left(\widehat{S}_{\mathcal{T}} \geq \widehat{S}_{\
 \end{equation*}
 \vspace{-10pt}
 \begin{itemize}
-\item Asymptotic estimator (small data set)
-\item Permutation-based estimator (large data set)
+\item Asymptotic estimator (large data set)
+\item Permutation-based estimator (small data set)
 \end{itemize}
 \end{itemize}
 \end{block}
@@ -482,7 +482,7 @@ p_{\textrm{val}} = \mathbb{P}\left(\widehat{S}_{\mathcal{T}} \geq \widehat{S}_{\
 \frametitle{OpenTURNS Sensitivity analysis : HSIC indices}
 
 \begin{lstlisting}
-globHSIC = ot.HSICEstimatorGlobalSensitivity(kernelList, X, Y, ot.HSICUStat())
+globHSIC = ot.HSICEstimatorGlobalSensitivity(X, Y, kernel_list, ot.HSICUStat())
 globHSIC.drawPValuesAsymptotic()
 globHSIC.drawPValuesPermutation()
 \end{lstlisting}
@@ -693,7 +693,7 @@ this sampler should be passed to the \texttt{RandomVectorMetropolisHastings} cla
 \item Features : probabilistic model, 
 	distribution fitting, central tendency, 
   sensitivity analysis, probability estimate, 
-	meta-modeling (polynomial chaos, kriging), screening (Morris), 
+	surrogate modeling (polynomial chaos, kriging), screening (Morris), 
 	optimization, design of experiments
 \item GUI language : English, French
 
