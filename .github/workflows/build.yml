@@ -23,6 +23,7 @@ jobs:
           cd userday2020/ud2020persalys && pdflatex -halt-on-error UsersDay-2020-PERSALYS.tex && pdflatex UsersDay-2020-PERSALYS.tex && cd -
           cd userday2021/userday2021relhi/ && pdflatex -halt-on-error userday2021relhi.tex && pdflatex userday2021relhi.tex && cd -
           cd userday2021/frasil_EDF_OTUsers2021 && bash build-slides.sh && cd -
+          cd userday2022/userday2022relhi/ && pdflatex -halt-on-error userday2022relhi.tex && pdflatex userday2022relhi.tex && cd -
       - name: Upload
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |

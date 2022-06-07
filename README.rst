@@ -52,6 +52,10 @@ OpenTURNS Presentations
   - `Interfacing a Modelica modeling tool and Persalys with OpenTURNS for the analysis of a solar collector <https://github.com/openturns/presentation/blob/master/userday2021/modelica_persalys.pdf>`_
   - `Decoding neural signatures in an emergency driving situation using OT <https://github.com/openturns/presentation/blob/master/userday2021/Human_Monitoring.pdf>`_
 
+- User day 2022
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2022relhi.pdf>`_
+  
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
