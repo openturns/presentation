@@ -269,7 +269,7 @@ nodes, weights = exp_tens.generateWithWeights()
 \end{center}
 
 \begin{lstlisting}
-pop0 = ot.ComposedDistribution([ot.Uniform(0.0, 1.0)] * 2).getSample(100)
+pop0=ot.ComposedDistribution([ot.Uniform(0,1)]*2).getSample(100)
 algo = ot.Pagmo(zdt1, 'nsga2', pop0)
 algo.setGenerationNumber(180)
 algo.run()
