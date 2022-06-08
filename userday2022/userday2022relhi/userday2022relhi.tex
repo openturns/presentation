@@ -310,6 +310,149 @@ fronts = result.getParetoFrontsIndices()
 \end{frame}
 
 
+\section{HSIC sensitivity indices}
+
+
+\begin{frame}
+\begin{small}
+
+\textbf{HSIC sensitivity indices (finally!)}
+
+\begin{itemize}
+\item \emph{Given-data} sensitivity indices (applicable on a user-provided sample)
+\item Perform fairly well when dealing with small (and/or high dimensional) samples
+\item Provide HSIC and normalized R2-HSIC indices $\rightarrow$ useful  for variable ranking
+\item Perform statistical tests $\rightarrow$ use p-values for screening of influential/non-influential variables
+\begin{itemize}
+\item Asymptotic test
+\item Permutation-based test
+\end{itemize}
+\end{itemize}
+
+\vspace{12pt}
+
+\underline{3 different types of analyses available}
+
+\begin{itemize}
+\item Global Sensitivity Analysis (GSA) $\rightarrow$ \emph{what are the influential variables on the output, globally?}
+\item Target Sensitivity Analysis (TSA) $\rightarrow$ \emph{what are the influential variables when crossing a given threshold?}
+\item Conditional Sensitivity Analysis (CSA) $\rightarrow$ \emph{what are the influential variables inside a given critical domain?}
+\end{itemize}
+
+\end{small}
+\end{frame}
+
+
+\begin{frame}
+\begin{small}
+
+\underline{A quick overview of the API}
+
+\begin{minipage}[t]{0.6\textwidth}
+
+\vspace{6pt}
+
+\textbf{4 essential elements} : 
+\begin{itemize}
+\item An HSIC estimator
+\begin{itemize}
+\item GSA/TSA/CSA
+\end{itemize}
+\item 2 Data samples
+\begin{itemize}
+\item p-dimensional input sample
+\item 1-dimensional output sample
+\end{itemize}
+\item A p+1-dimensional list of covariance models
+\item A type of HSIC statistic
+\begin{itemize}
+\item U-statistics (unbiased)
+\item V-statistics (biased, but asymptotically unbiased)
+\end{itemize}
+\end{itemize}
+\end{minipage}%
+\begin{minipage}[t]{0.4\textwidth}
+
+\vspace{6pt}
+
+\textbf{2 additional elements} : 
+\begin{itemize}
+\item TSA $\rightarrow$ Filter function
+\item CSA $\rightarrow$ Weight function
+\end{itemize}
+\end{minipage}%
+
+
+\end{small}
+\end{frame}
+
+\begin{frame}[containsverbatim]	
+\frametitle{Example : Global sensitivity analysis on the Ishigami function}
+\begin{small}
+
+\begin{lstlisting}
+estimatorType = ot.HSICUStat()
+
+GSAEstimator = ot.HSICEstimatorGlobalSensitivity(
+    covarianceModelCollection, X, Y, estimatorType)
+    
+GSAEstimator.run()
+
+graph1 = GSAEstimator.drawHSICIndices()
+graph2 = GSAEstimator.drawPValuesAsymptotic()
+graph3 = GSAEstimator.drawR2HSICIndices()
+graph4 = GSAEstimator.drawPValuesPermutation()
+\end{lstlisting}
+
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example : Global sensitivity analysis on the Ishigami function}
+
+\begin{figure}
+   \includegraphics[width=0.7\textwidth]{figures/HSIC1.png}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}[containsverbatim]	
+\frametitle{Example : Target sensitivity analysis on the Ishigami function}
+\begin{small}
+
+\begin{lstlisting}
+estimatorType = ot.HSICVStat()
+
+criticalDomain = ot.Interval(5, float('inf'))
+dist2criticalDomain = ot.DistanceToDomainFunction(criticalDomain)
+f = ot.SymbolicFunction(["x"], ["exp(-x)"])
+filterFunction = ot.ComposedFunction(f, dist2criticalDomain)
+
+TSAEstimator = ot.HSICEstimatorTargetlSensitivity(
+    covarianceModelCollection, X, Y, estimatorType, 
+    filterFunction)
+    
+TSAEstimator.run()
+
+graph1 = TSAEstimator.drawHSICIndices()
+graph2 = TSAEstimator.drawPValuesAsymptotic()
+graph3 = TSAEstimator.drawR2HSICIndices()
+graph4 = TSAEstimator.drawPValuesPermutation()
+\end{lstlisting}
+
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example : Target sensitivity analysis on the Ishigami function}
+\begin{figure}
+   \includegraphics[width=0.7\textwidth]{figures/HSIC2.png}
+\end{figure}
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Other improvements}
 
