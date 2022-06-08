@@ -55,7 +55,8 @@ OpenTURNS Presentations
 - User day 2022
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2022relhi.pdf>`_
-  
+  - `Functional sensitivity <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/functional_sensitivity.pdf>`_
+
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
