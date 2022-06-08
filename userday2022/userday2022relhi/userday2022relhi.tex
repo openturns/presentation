@@ -116,7 +116,10 @@ New features since last year in releases:
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/sphx_glr_plot_bayesian_calibration_002.png}
 \end{center}
+\end{frame}
 
+\begin{frame}[containsverbatim]
+\frametitle{Metropolis-Hastings}
 
 \lstset{language=python}
 \begin{lstlisting}
@@ -150,14 +153,28 @@ x = sampler.getSample(1000)
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/sphx_glr_plot_iterative_moments_001.png}
 \end{center}
+\end{frame}
 
+\begin{frame}[containsverbatim]
+\frametitle{Iterative statistics}
+
+\lstset{language=python}
 \begin{lstlisting}
 iter_mom = ot.IterativeMoments(order, dim)
+iter_ext = ot.IterativeExtrema(dim)
+iter_te = ot.IterativeThresholdExceedance(dim, 4.0)
+
 for i in range(size):
-    pt = rv.getRealization()
-    iter_mom.increment(pt)
+    x = rv.getRealization()
+    iter_mom.increment(x)
+    iter_ext.increment(x)
+    iter_te.increment(x)
+
+xmin = iter_ext.getMin()
+xmax = iter_ext.getMax()
 variance = iter_mom.getVariance()
 skewness = iter_mom.getSkewness()
+pf = iter_te.getThresholdExceedance()
 \end{lstlisting}
 
 
@@ -232,8 +249,14 @@ $$
 
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{figures/TensorProductExperiment.png}
+\includegraphics[width=0.38\textwidth]{figures/TensorProductExperiment.png}
 \end{center}
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{Tensor product experiment}
+
 
 \lstset{language=python}
 \begin{lstlisting}
@@ -267,13 +290,21 @@ nodes, weights = exp_tens.generateWithWeights()
 \begin{center}
 \includegraphics[width=0.4\textwidth]{figures/sphx_glr_plot_optimization_pagmo_002.png}
 \end{center}
+\end{frame}
 
+
+\begin{frame}[containsverbatim]
+\frametitle{Multi-objective optimization}
+
+\lstset{language=python}
 \begin{lstlisting}
-pop0=ot.ComposedDistribution([ot.Uniform(0,1)]*2).getSample(100)
+pop0 = ot.ComposedDistribution([ot.Uniform(0.0, 1.0)] * 2).getSample(100)
 algo = ot.Pagmo(zdt1, 'nsga2', pop0)
 algo.setGenerationNumber(180)
 algo.run()
-pop1 = algo.getResult().getFinalPoints()
+result = algo.getResult()
+pop1 = result.getFinalPoints()
+fronts = result.getParetoFrontsIndices()
 \end{lstlisting}
 
 
