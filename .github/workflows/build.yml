@@ -3,6 +3,8 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      SOURCE_DATE_EPOCH: 1640995200
     steps:
       - uses: actions/checkout@v2
       - name: Install
