@@ -7,11 +7,40 @@
 \include{macros}
 \usepackage{adjustbox}
 
+\title[OpenTURNS]{Variance-based sensitivity analysis for functional inputs}
+
+\author[OpenTURNS et al.]{C. Obando (Airbus), R. Lebrun (Airbus), J. Schueller (Phimeca)}
+
 \date[]{UserDay \#15, 10 June 2022, EDF Lab Saclay}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+
+
+  \begin{frame}
+  \titlepage
+
+  \begin{columns}
+  \begin{column}[t]{0.05\textwidth}
+        \end{column}
+  
+    \column{0.10\textwidth}
+  \begin{center}
+\includegraphics[height=0.04\textheight]{figures/airbus-logo-3d-blue.png}
+\end{center}
+
+    \column{0.15\textwidth}
+  \begin{center}
+\includegraphics[height=0.08\textheight]{figures/logo-phimeca.png}
+\end{center}
+
+\column{0.01\textwidth}
+
+  \end{columns}
+
+  \end{frame}
+  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -37,10 +66,10 @@ $$
 We propose the following steps to lead to sensitivity analysis.
 
 \begin{itemize}
-\item 1. Identify blocks of independent inputs
-\item 2. Dimension reduction via Karhunen-Loeve for each input block
-\item 3. Approximate of the link between KL coefficients and vectorial outputs by chaos
-\item 4. Post-process functional chaos coefficients to derive Sobol` indices
+% \item 1. Identify blocks of independent inputs
+\item 1. Dimension reduction via Karhunen-Loeve for each input block
+\item 2. Approximate of the link between KL coefficients and vectorial outputs by chaos
+\item 3. Post-process functional chaos coefficients to derive Sobol` indices
 \end{itemize}
 
 \end{frame}
