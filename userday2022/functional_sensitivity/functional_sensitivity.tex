@@ -212,118 +212,118 @@ This generalizes to higher order indices.
 \end{frame}
 
 
-\begin{frame}[containsverbatim]
-\frametitle{Variance-based sensitivity analysis for functional inputs}
-
-\framesubtitle{API}
-
-\lstset{language=python}
-\begin{lstlisting}
-algo = ot.FieldToPointFunctionalChaosAlgorithm(x, y)  # x~ProcessSample, y~Sample
-
-# 1. KL parameters
-algo.setCenteredSample(False)  # our input sample is not centered (default)
-algo.setThreshold(4e-2)  # we expect to explain 96% of variance
-algo.setRecompress(False)  # whether to re-truncate modes
-algo.setNbModes(10) # max KL modes (default=unlimited)
-
-# 2. chaos parameters:
-ot.ResourceMap.SetAsUnsignedInteger('FunctionalChaosAlgorithm-BasisSize', N) # chaos basis size
-algo.setSparse(True)
-
-algo.setBlockIndices([[0], [1], [2, 3]])  # possibility to group inputs
-algo.run()
-\end{lstlisting}
-
-\end{frame}
-
-
-\begin{frame}[containsverbatim]
-\frametitle{Variance-based sensitivity analysis for functional inputs}
-
-\framesubtitle{API}
-
-\lstset{language=python}
-\begin{lstlisting}
-result = algo.getResult()
-
-# inspect eigen values
-kl_results = result.getInputKLResultCollection()
-n_modes = [len(res.getEigenvalues()) for res in kl_results]
-
-# validate KL decompositions
-for i in range(in_dim):
-    View(ot.KarhunenLoeveValidation(x.getMarginal(i), kl_results[i]).drawValidation())
-
-# inspect chaos residuals
-print(result.getFCEResult().getResiduals())
-print(result.getFCEResult().getRelativeErrors())
-
-# validate chaos decomposition
-validation = ot.MetaModelValidation(result.getModesSample(), result.getOutputSample(), result.getFCEResult().getMetaModel())
-View(validation.drawValidation())
-
-\end{lstlisting}
-
-\end{frame}
-
-
-\begin{frame}[containsverbatim]
-\frametitle{Variance-based sensitivity analysis for functional inputs}
-
-\framesubtitle{API}
-
-\begin{figure}[!htb]
-\minipage{0.5\textwidth}
-  \includegraphics[width=\linewidth]{figures/valid_kl2.png}
-  \caption{KL validation}
-\endminipage\hfill
-\minipage{0.5\textwidth}
-  \includegraphics[width=\linewidth]{figures/valid_chaos.png}
-  \caption{chaos validation}
-\endminipage\hfill
-\end{figure}
-
-
-\end{frame}
-
-\begin{frame}[containsverbatim]
-\frametitle{Variance-based sensitivity analysis for functional inputs}
-
-\framesubtitle{API}
-
-\lstset{language=python}
-\begin{lstlisting}
-
-# evaluate metamodel
-metamodel = result.getFieldToPointMetamodel()
-y0hat = metamodel(x[0])
-
-# retrieve Sobol indices
-sobol = ot.FieldFunctionalChaosSobolIndices(result)
-sobol_1 = sobol.getFirstOrderIndices()
-sobol_t = sobol.getTotalOrderIndices()
-
-# plot indices
-View(sobol.draw())
-
-# higher order indices
-sobol12 = sobol.getSobolIndex([0, 1])
-
-\end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[containsverbatim]
-\frametitle{Variance-based sensitivity analysis for functional inputs}
-
-\framesubtitle{API}
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{figures/sobol.png}
-\end{center}
-
-\end{frame}
+% \begin{frame}[containsverbatim]
+% \frametitle{Variance-based sensitivity analysis for functional inputs}
+% 
+% \framesubtitle{API}
+% 
+% \lstset{language=python}
+% \begin{lstlisting}
+% algo = ot.FieldToPointFunctionalChaosAlgorithm(x, y)  # x~ProcessSample, y~Sample
+% 
+% # 1. KL parameters
+% algo.setCenteredSample(False)  # our input sample is not centered (default)
+% algo.setThreshold(4e-2)  # we expect to explain 96% of variance
+% algo.setRecompress(False)  # whether to re-truncate modes
+% algo.setNbModes(10) # max KL modes (default=unlimited)
+% 
+% # 2. chaos parameters:
+% ot.ResourceMap.SetAsUnsignedInteger('FunctionalChaosAlgorithm-BasisSize', N) # chaos basis size
+% algo.setSparse(True)
+% 
+% algo.setBlockIndices([[0], [1], [2, 3]])  # possibility to group inputs
+% algo.run()
+% \end{lstlisting}
+% 
+% \end{frame}
+% 
+% 
+% \begin{frame}[containsverbatim]
+% \frametitle{Variance-based sensitivity analysis for functional inputs}
+% 
+% \framesubtitle{API}
+% 
+% \lstset{language=python}
+% \begin{lstlisting}
+% result = algo.getResult()
+% 
+% # inspect eigen values
+% kl_results = result.getInputKLResultCollection()
+% n_modes = [len(res.getEigenvalues()) for res in kl_results]
+% 
+% # validate KL decompositions
+% for i in range(in_dim):
+%     View(ot.KarhunenLoeveValidation(x.getMarginal(i), kl_results[i]).drawValidation())
+% 
+% # inspect chaos residuals
+% print(result.getFCEResult().getResiduals())
+% print(result.getFCEResult().getRelativeErrors())
+% 
+% # validate chaos decomposition
+% validation = ot.MetaModelValidation(result.getModesSample(), result.getOutputSample(), result.getFCEResult().getMetaModel())
+% View(validation.drawValidation())
+% 
+% \end{lstlisting}
+% 
+% \end{frame}
+% 
+% 
+% \begin{frame}[containsverbatim]
+% \frametitle{Variance-based sensitivity analysis for functional inputs}
+% 
+% \framesubtitle{API}
+% 
+% \begin{figure}[!htb]
+% \minipage{0.5\textwidth}
+%   \includegraphics[width=\linewidth]{figures/valid_kl2.png}
+%   \caption{KL validation}
+% \endminipage\hfill
+% \minipage{0.5\textwidth}
+%   \includegraphics[width=\linewidth]{figures/valid_chaos.png}
+%   \caption{chaos validation}
+% \endminipage\hfill
+% \end{figure}
+% 
+% 
+% \end{frame}
+% 
+% \begin{frame}[containsverbatim]
+% \frametitle{Variance-based sensitivity analysis for functional inputs}
+% 
+% \framesubtitle{API}
+% 
+% \lstset{language=python}
+% \begin{lstlisting}
+% 
+% # evaluate metamodel
+% metamodel = result.getFieldToPointMetamodel()
+% y0hat = metamodel(x[0])
+% 
+% # retrieve Sobol indices
+% sobol = ot.FieldFunctionalChaosSobolIndices(result)
+% sobol_1 = sobol.getFirstOrderIndices()
+% sobol_t = sobol.getTotalOrderIndices()
+% 
+% # plot indices
+% View(sobol.draw())
+% 
+% # higher order indices
+% sobol12 = sobol.getSobolIndex([0, 1])
+% 
+% \end{lstlisting}
+% 
+% \end{frame}
+% 
+% \begin{frame}[containsverbatim]
+% \frametitle{Variance-based sensitivity analysis for functional inputs}
+% 
+% \framesubtitle{API}
+% 
+% \begin{center}
+% \includegraphics[width=0.6\textwidth]{figures/sobol.png}
+% \end{center}
+% 
+% \end{frame}
 
 
 \begin{frame}[containsverbatim]
