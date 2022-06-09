@@ -56,12 +56,13 @@ OpenTURNS Presentations
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2022relhi.pdf>`_
   - `Functional sensitivity <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/functional_sensitivity.pdf>`_
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2022-PERSALYS.pdf>`_
 
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
   - `OtFMI, an OpenTURNS module for uncertainties analysis with 0D/1D system models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/chorus-2017-otfmi.pdf>`_
-  
+
 - Developer training:
 
   - `Agenda <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/agenda.pdf>`_
