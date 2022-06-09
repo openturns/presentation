@@ -56,7 +56,7 @@ OpenTURNS Presentations
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2022relhi.pdf>`_
   - `Functional sensitivity <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/functional_sensitivity.pdf>`_
-  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2022-PERSALYS.pdf>`_
+  - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2022-PERSALYS.pdf>`_
 
 - CHORUS
 
