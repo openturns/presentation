@@ -20,7 +20,7 @@
 
 \framesubtitle{Methodology}
 
-First build a metamodel of the application $h$ is known from $n$ fields $(\mat{X_1}, \dots, \mat{X_n})$ \\
+We observe an application $h$ from $n$ fields $(\mat{X_1}, \dots, \mat{X_n})$ \\
 of the associated input process $\mat{X}$ and $n$ vectors $(\vect{Y_1},\dots,\vect{Y_n})$
 
 $$
@@ -33,6 +33,35 @@ h: \left|
 $$
 
 \vspace{10mm}
+
+We propose the following steps to lead to sensitivity analysis.
+
+\begin{itemize}
+\item 1. Identify blocks of independent inputs
+\item 2. Dimension reduction via Karhunen-Loeve for each input block
+\item 3. Approximate of the link between KL coefficients and vectorial outputs by chaos
+\item 4. Post-process functional chaos coefficients to derive Sobol` indices
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variance-based sensitivity analysis for functional inputs}
+
+\framesubtitle{Methodology step 1/4: Identify blocks}
+
+Identify groups of independent components in $\mat{X}$\\
+by construction, if the underlying process is known
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variance-based sensitivity analysis for functional inputs}
+
+\framesubtitle{Methodology step 2/4: Dimension reduction by Karhunen-Loeve}
 
 We use the Karhunen-Loeve decomposition to find the $(\lambda_k, \vect{\varphi}_k)_{k \geq 1}$ \\
 solutions of the Fredhlom equation:
@@ -48,7 +77,7 @@ The SVD decomposition helps to approach the covariance function $\mat{C}$ by its
 \begin{frame}
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Methodology}
+\framesubtitle{Methodology step 2/4: Dimension reduction by Karhunen-Loeve}
 
 The linear projection function $\pi_{ \vect{\lambda}, \vect{\varphi}}$ of
 the Karhunen-Loeve decomposition writes:
@@ -78,7 +107,7 @@ with $K_j$ the retained number of modes in the decomposition of the j-th input
 \begin{frame}
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Methodology}
+\framesubtitle{Methodology step 2/4: Dimension reduction by Karhunen-Loeve}
 
 The projections of all the $d$ components of $n$ fields are assembled in the $Q$ matrix:
 
@@ -100,7 +129,7 @@ with $K_T = \sum_{j=1}^d{K_j}$ the total number of modes accross input component
 \begin{frame}
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Methodology}
+\framesubtitle{Methodology step 3/4: Link KL coefficients to ouputs}
 
 Then a functional chaos decomposition is built between the projected modes\\
 sample $\mat{Q}$ and the output samples $\mat{Y}$
@@ -131,7 +160,7 @@ and the associated number of modes must remain modest.
 \begin{frame}
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Methodology}
+\framesubtitle{Methodology step 3/4: Link KL coefficients to ouputs}
 
 From the chaos decomposition:
 
@@ -156,7 +185,7 @@ $$
 \begin{frame}
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Methodology}
+\framesubtitle{Methodology step 4/4: Derive Sobol` indices from chaos coefficients}
 
 Sobol indices of the input field component $j \in [1,d]$ can be computed
 from the coefficients of the chaos decomposition that involve the
@@ -186,7 +215,7 @@ This generalizes to higher order indices.
 \begin{frame}[containsverbatim]
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Implementation}
+\framesubtitle{API}
 
 \lstset{language=python}
 \begin{lstlisting}
@@ -212,7 +241,7 @@ algo.run()
 \begin{frame}[containsverbatim]
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Implementation}
+\framesubtitle{API}
 
 \lstset{language=python}
 \begin{lstlisting}
@@ -242,7 +271,7 @@ View(validation.drawValidation())
 \begin{frame}[containsverbatim]
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Implementation}
+\framesubtitle{API}
 
 \begin{figure}[!htb]
 \minipage{0.5\textwidth}
@@ -261,7 +290,7 @@ View(validation.drawValidation())
 \begin{frame}[containsverbatim]
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Implementation}
+\framesubtitle{API}
 
 \lstset{language=python}
 \begin{lstlisting}
@@ -288,7 +317,7 @@ sobol12 = sobol.getSobolIndex([0, 1])
 \begin{frame}[containsverbatim]
 \frametitle{Variance-based sensitivity analysis for functional inputs}
 
-\framesubtitle{Implementation}
+\framesubtitle{API}
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/sobol.png}
@@ -305,6 +334,7 @@ sobol12 = sobol.getSobolIndex([0, 1])
 \begin{itemize}
 \item Development is settling down
 \item Expected to land in OT 1.20 (fall 2022)
+\item Extension to Vector $\mapsto$ Field, Field $\mapsto$ Field ?
 \end{itemize}
 
 \end{frame}
