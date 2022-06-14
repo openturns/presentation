@@ -54,9 +54,18 @@ OpenTURNS Presentations
 
 - User day 2022
 
+  - `User days introduction <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_CAMBIER.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2022relhi.pdf>`_
-  - `Functional sensitivity <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/functional_sensitivity.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2022-PERSALYS.pdf>`_
+  - `Point process-based approaches for robust reliability analysis of systems modeled by expensive simulators <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_PERRIN.pdf>`_
+  - `Surrogate models and sensitivity analysis for simulation of electron guns of high-frequency & high-power amplification devices <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_MOLENDA.pdf>`_
+  _ `Copula-based iterative approximate Bayesian calibration for urban building energy modeling and impact of time resolution <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/ju_ot_2022_xFaure.pdf>`_
+  _ `Sensitivity studies OD-1D/3D of thermo aeraulic models of industrial premises, assistance in the identification of influential phenomena and preparation of experimental protocols for the Zephyr test platform <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_BOREL.pdf>`_ 
+  _ `Correction of surface reflectance retrieval in the tree shadow by machine learning <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2022_trees.pdf>`_ 
+  - `Functional sensitivity <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/functional_sensitivity.pdf>`_
+  - `Variance based sensitivity analysis for functional inputs - Application to pilots' actions <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_OBANDO.pdf>`_
+  - `1D site effects including spatial variability of soil properties <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_BERGER.pdf>`_
+  - `The plugin otagrum: learning non-parametric Copula Bayesian Networks <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JUOT_2022_Lasserre.pdf>`_
 
 - CHORUS
 
