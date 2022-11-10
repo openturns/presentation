@@ -466,18 +466,40 @@
     \begin{itemize}
       \item Provide a name (for example GH\_TOKEN) and select at least repo and workflow
      \includegraphics[width=8.cm, height=4cm]{new_token.png}
-      \item Now we should make sure to have a repository where upload is done (many often, \texttt{username.github.io}).\\
-       This should contains an html index file. A minimal index could be provide.
-       \includegraphics[width=11.cm]{index_minimal.png}
+    \item At the end, we generate a token
+    \includegraphics[width=8.cm, height=2cm]{generated_token.png}
+    \item We should store\slash copy this token as it will be used later.
       \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Module development: upload documentation using github and continuous integration}
+  Now we should feed corresponding project with the previous token. For that:
+
+    \begin{itemize}
+      \item On github, reach the settings corresponding to the repository of interest.
+      \item On the left, select the \texttt{Secret} and \texttt{Actions}\\
+      \includegraphics[width=2.cm, height=5cm]{select_action.png}
+      \item Generate new repository secret
+      \includegraphics[width=8.cm, height=2cm]{generate_new_rep.png}
+      \item Set the name \texttt{GH\_TOKEN} and paste the previous token generated.
+      \item Now your token is stored and usable within this repository
+      \includegraphics[width=8.cm, height=4cm]{refer_token.png}
+      \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development: upload documentation using github and continuous integration}
+  Finally we have all elements to deploy the documentation. To complete :
     \begin{itemize} 
-      \item Finally add corresponding instructions into continuous-integration script to upload on the previous repository
-      \includegraphics[width=11.cm]{instruction_ci.png}
+      \item We should make sure to have a repository where upload is done (many often, \texttt{username.github.io}).\\
+       This should contains an html index file. A minimal index could be provide.
+       \includegraphics[width=9.cm]{index_minimal.png}
+      \item Add corresponding instructions into continuous-integration script to upload on the previous repository
+      \includegraphics[width=9.cm]{instruction_ci.png}
     \end{itemize}
+    Note: Keep in mind to replace \texttt{master} by \texttt{main} or other specific branch (release,...) with respect to the branch of interest.
 \end{frame}
 
 \end{document}
