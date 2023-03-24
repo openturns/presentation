@@ -217,6 +217,6 @@ graph.setLogScale(ot.GraphImplementation.LOGX)
 graph.setLegendPosition("topright")
 view = otv.View(graph, figure_kw={"figsize": (4.0, 3.0)}, 
          legend_kw={"bbox_to_anchor":(1.0, 1.0), "loc":"upper left"})
-view.getFigure().savefig("images/wrapper-python-benchmark.pdf", bbox_inches = "tight")
-view.getFigure().savefig("images/wrapper-python-benchmark.png", bbox_inches = "tight")
+#view.getFigure().savefig("images/wrapper-python-benchmark.pdf", bbox_inches = "tight")
+view.getFigure().savefig("wrapper-python-benchmark.png", bbox_inches = "tight")
 
