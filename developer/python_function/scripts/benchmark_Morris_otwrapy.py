@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
-#  Copyright (C) 2013 - 2023 - Michael Baudin - EDF R&D
+"""
+To install the environment:
 
+conda install otmorris otwrapy
 """
 
-For OT v1.19
-The simplest central tendency study.
-* 3 inputs, Normal(0,1)
-* 2 outputs
-* Estimate Empirical Mean, Empirical Standard Deviation
-
-
-**Questions**
-
-* Exécuter le benchmark sur la machine et reproduire la figure.
-* Ouvrir votre gestionnaire de processus et observer l'activité des processeurs de votre machine durant l'exécution du benchmark.
-
-"""
 
 import openturns as ot
-import time
 import numpy as np
+import matplotlib.pyplot as plt
+import screeninglib as sl
+import time
 import openturns.viewer as otv
-
+import otwrapy as otw
+import otmorris
 
 def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_factor = 2.0, 
                    minimum_size_sample = 2, number_of_points_per_second_factor = 1.0e6, 
@@ -96,95 +88,6 @@ def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_facto
             break
     return (sampleSizeList, timeList, performanceList)
 
-
-########################################################
-#
-# Part 0 : Create the inputRandomVector
-
-# Create the marginal distributions
-distributionX0 = ot.Normal(0.0, 1.0)
-distributionX1 = ot.Normal(0.0, 1.0)
-distributionX2 = ot.Normal(0.0, 1.0)
-
-# Create the input probability distribution
-inputDistribution = ot.ComposedDistribution(
-    (distributionX0, distributionX1, distributionX2)
-)
-
-# Create the input random vector
-inputRandomVector = ot.RandomVector(inputDistribution)
-
-########################################################
-#
-# Part 1 : Basic PythonFunction wrapper
-
-
-def mySimulator(x):
-    y0 = x[0] + x[1] + x[2]
-    y1 = x[0] - x[1] * x[2]
-    y = [y0, y1]
-    return y
-
-
-print("PythonFunction:")
-n_cpus = 1
-print("n_cpus = ", n_cpus)
-#myWrapper = ot.PythonFunction(3, 2, mySimulator, n_cpus = n_cpus)
-myWrapper = ot.PythonFunction(3, 2, mySimulator)
-sampleSizeList_pyfun, sampleSizeList_pyfun, performanceList_pyfun = benchGetSample(
-    myWrapper, inputRandomVector
-)
-
-########################################################
-#
-# Part 2 : Vectorized (Numpy) PythonFunction wrapper
-# with func_sample option.
-
-
-def mySimulatorNumpy(x):
-    x = np.array(x)
-    x0 = x[:, 0]
-    x1 = x[:, 1]
-    x2 = x[:, 2]
-    y0 = x0 + x1 + x2
-    y1 = x0 - x1 * x2
-    y = np.vstack((y0, y1))
-    y = y.transpose()
-    return y
-
-
-myWrapperNumpy = ot.PythonFunction(3, 2, func_sample=mySimulatorNumpy)
-
-print("PythonFunction:func_sample (Numpy)")
-(sampleSizeList_func_sample, timeList_func_sample, performanceList_func_sample) = benchGetSample(
-    myWrapperNumpy, inputRandomVector
-)
-########################################################
-#
-# Part 3 : Symbolic function
-
-ot.ResourceMap.Set("SymbolicParser-Backend", "MuParser")
-myFunctionSymbolic = ot.SymbolicFunction(("x0", "x1", "x2"), ("x0 + x1 + x2", "x0 - x1 * x2"))
-
-
-print("Symbolic: MuParser")
-(sampleSizeList_symbolic_muparser, timeList_symbolic_muparser, performanceList_symbolic_muparser) = benchGetSample(
-    myFunctionSymbolic, inputRandomVector
-)
-
-ot.ResourceMap.Set("SymbolicParser-Backend", "ExprTk")
-myFunctionSymbolic = ot.SymbolicFunction(("x0", "x1", "x2"), ("x0 + x1 + x2", "x0 - x1 * x2"))
-
-print("Symbolic: ExprTk")
-(sampleSizeList_symbolic_exprtk, timeList_symbolic_exprtk, performanceList_symbolic_exprtk) = benchGetSample(
-    myFunctionSymbolic, inputRandomVector
-)
-
-########################################################
-#
-# Part 4 : Make a plot
-#
-
 def makeCurveCloud(dataX, dataY, color, legend, pointStyle, lineStyle):
     """
     Create a curve-cloud graph.
@@ -223,31 +126,100 @@ def makeCurveCloud(dataX, dataY, color, legend, pointStyle, lineStyle):
     graph.add(curve)
     return graph
 
-pointStyleList = ot.Drawable.GetValidPointStyles()
-lineStyleList = ot.Drawable.GetValidLineStyles()
-palette = ot.Drawable.BuildDefaultPalette(4)
-graph = ot.Graph("Performance of functions", "Sample size", "Million points / s", True)
-curveCloud = makeCurveCloud(sampleSizeList_pyfun, performanceList_pyfun, palette[0], "Python", 
-                            "circle", "dashed")
-graph.add(curveCloud)
-curveCloud = makeCurveCloud(sampleSizeList_func_sample, performanceList_func_sample, palette[1], "func_sample", 
-                            "diamond", "dashed")
-graph.add(curveCloud)
-# Symbolic : MuParser
-curveCloud = makeCurveCloud(sampleSizeList_symbolic_muparser, performanceList_symbolic_muparser, 
-                            palette[2], "Symbolic(MuParser)", 
-                            "fsquare", "dashed")
-graph.add(curveCloud)
-# Symbolic : ExprTk
-curveCloud = makeCurveCloud(sampleSizeList_symbolic_exprtk, performanceList_symbolic_exprtk, palette[3], 
-                            "Symbolic(ExprTk)", 
-                            "ftriangleup", "dashed")
-graph.add(curveCloud)
+isFast = False  # Set to True to make it fast
+
+# Define model
+print("+ Create Morris function")
+ot.RandomGenerator.SetSeed(1)
+b0 = ot.DistFunc.rNormal()
+alpha = ot.DistFunc.rNormal(10)
+beta = ot.DistFunc.rNormal(6 * 14)
+gamma = ot.DistFunc.rNormal(20 * 14)
+
+morris_python = ot.Function(otmorris.MorrisFunction(alpha, beta, gamma, b0))
+
+dim = morris_python.getInputDimension()
+
+# Define the input distribution
+distributionList = [ot.Uniform(0, 1)] * 20
+myDistribution = ot.ComposedDistribution(distributionList)
+
+print("+ Create training design")
+N_train = 200  # size of the experimental design
+
+t1 = time.time()
+inputTrain = myDistribution.getSample(N_train)
+outputTrain = morris_python(inputTrain)
+t2 = time.time()
+elapsed = t2 - t1
+print("Elapsed = %.2f (s)"% (elapsed))
+
+# Create the input random vector
+inputRandomVector = ot.RandomVector(myDistribution)
+
+########################################################
 #
+# Part 1: Python version
+#
+
+print("Python")
+(sampleSizeList_pyfun, timeList_pyfun, performanceList_pyfun) = benchGetSample(
+    morris_python, inputRandomVector, minimum_size_sample = 10, number_of_points_per_second_factor = 1.0
+)
+
+########################################################
+#
+# Part 2: Parallelizer version
+#
+
+print("Parallelizer")
+
+def getParallelPerformance(backend, n_cpus):
+    morris_parallel = otw.Parallelizer(morris_python, backend=backend, n_cpus=n_cpus)
+    
+    (sampleSizeList_para, timeList_para, performanceList_para) = benchGetSample(
+        morris_parallel, inputRandomVector, minimum_size_sample = 10, number_of_points_per_second_factor = 1.0
+    )
+    return sampleSizeList_para, timeList_para, performanceList_para
+
+n_cpus = 4
+list_of_backend = ["ipyparallel", "joblib", "pathos", "multiprocessing"]
+backend = "joblib"
+print("backend = ", backend)
+
+list_of_cpus_values = [2, 4, 6, 8]
+list_of_results = []
+for n_cpus in list_of_cpus_values:
+    parallel_result = getParallelPerformance(backend, n_cpus)
+    list_of_results.append(parallel_result)
+
+########################################################
+#
+# Part 4 : Make a plot
+#
+
+pointStyleList = list(ot.Drawable.GetValidPointStyles())
+pointStyleList.remove("circle")
+pointStyleList.remove("diamond")
+pointStyleList.remove("bullet")
+pointStyleList.remove("dot")
+pointStyleList.remove("none")
+lineStyleList = ot.Drawable.GetValidLineStyles()
+palette = ot.Drawable.BuildDefaultPalette(1 + len(list_of_cpus_values))
+graph = ot.Graph("Performance of Morris", "Sample size", "Points / s", True)
+curveCloud = makeCurveCloud(sampleSizeList_pyfun, performanceList_pyfun, palette[0], "Python", 
+                            pointStyleList[0], lineStyleList[1])
+graph.add(curveCloud)
+index = 0
+for parallel_result in list_of_results:
+    n_cpus = list_of_cpus_values[index]
+    sampleSizeList_para, timeList_para, performanceList_para = parallel_result
+    curveCloud = makeCurveCloud(sampleSizeList_para, performanceList_para, palette[1 + index], "%s (CPU = %d)" % (backend, n_cpus), 
+                                pointStyleList[1 + index], lineStyleList[2 + index])
+    graph.add(curveCloud)
+    index += 1
 graph.setLogScale(ot.GraphImplementation.LOGX)
 graph.setLegendPosition("topright")
 view = otv.View(graph, figure_kw={"figsize": (4.0, 3.0)}, 
          legend_kw={"bbox_to_anchor":(1.0, 1.0), "loc":"upper left"})
-#view.getFigure().savefig("../images/wrapper-python-benchmark.pdf", bbox_inches = "tight")
-view.getFigure().savefig("../images/wrapper-python-benchmark.png", bbox_inches = "tight")
-
+view.getFigure().savefig("../images/benchmark_Morris_otwrapy.png", bbox_inches = "tight")

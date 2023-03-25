@@ -14844,6 +14844,33 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="What-is-the-PythonFunction-necessary-and-useful?">What is the PythonFunction necessary and useful?<a class="anchor-link" href="#What-is-the-PythonFunction-necessary-and-useful?">&#182;</a></h2><p>Surprise for a Python user:</p>
+<ul>
+<li>Providing a <code>PythonFunction</code> class in a Python library may seem surprising. </li>
+<li>Other libraries (e.g. <code>scipy</code>) do not require that.</li>
+</ul>
+<p>Discussion:</p>
+<ul>
+<li>The <code>PythonFunction</code> is <strong>necessary</strong>, because OpenTURNS is a C++ library accessible through SWIG.</li>
+<li>It is <strong>useful</strong>, because OpenTURNS provides many different types of functions so that each algorithm can be as efficient as possible.</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>The <code>ParametricFunction</code> class is useful for calibration algorithms.</li>
+<li>The <code>DistanceToDomainFunction</code> class is useful for HSIC indices.</li>
+<li>The <code>Point(or Field)toPoint(or Field)Function</code> is class is useful for stochastic processes.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="The-simplest-possible-example">The simplest possible example<a class="anchor-link" href="#The-simplest-possible-example">&#182;</a></h2>
 </div>
 </div>
@@ -15274,7 +15301,7 @@ y =  [3,0]
 
 </div>
 
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15282,6 +15309,48 @@ y =  [3,0]
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>To propage the uncertainty through the Ishigami function, we can set the parameters $a$ and $b$, so that the function only has <code>(x1, x2, x3)</code> as input.</p>
+<p>Please use the <a href="https://openturns.github.io/openturns/latest/usecases/use_case_ishigami.html">Ishigami</a> from the library for real simulations.</p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The next table presents the mapping from the variable name to its index. Notice that Python have indices that start from 0.</p>
+<table>
+<thead><tr>
+<th>Variable</th>
+<th>Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_1$</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$x_2$</td>
+<td>1</td>
+</tr>
+<tr>
+<td>$x_3$</td>
+<td>2</td>
+</tr>
+<tr>
+<td>$a$</td>
+<td>3</td>
+</tr>
+<tr>
+<td>$b$</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -15330,18 +15399,6 @@ y =  [3,0]
 
 </div>
 
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Please use the <a href="https://openturns.github.io/openturns/latest/usecases/use_case_ishigami.html">Ishigami</a> from the library for real simulations.</p>
-
-</div>
-</div>
-</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15448,7 +15505,7 @@ y =  [3,0]
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Otwrapy">Otwrapy<a class="anchor-link" href="#Otwrapy">&#182;</a></h2><p>The <code>otwrapy</code> package (available at <a href="https://github.com/felipeam86/otwrapy">github</a>) provides a <code>Parallelizer</code> class that converts any <code>ot.Function</code> into a parallel wrapper using either <code>multiprocessing</code>, <code>ipyparallel</code>, <code>joblib</code> or <code>pathos</code>.</p>
+<h2 id="Otwrapy">Otwrapy<a class="anchor-link" href="#Otwrapy">&#182;</a></h2><p>The <code>otwrapy</code> package (available at <a href="https://github.com/openturns/otwrapy">github</a>) provides a <code>Parallelizer</code> class that converts any <code>ot.Function</code> into a parallel wrapper using either <code>multiprocessing</code>, <code>ipyparallel</code>, <code>joblib</code> or <code>pathos</code>.</p>
 <p>See the <a href="https://felipeam86.github.io/HPC-Uncertainties-PRACE/">slides</a>  from Felipe Aguirre Martinez for Otwrapy details.</p>
 <p>To install <code>otwrapy</code>, use conda (<a href="https://anaconda.org/conda-forge/otwrapy">package</a>):</p>
 <div class="highlight"><pre><span></span>$ conda install -c conda-forge otwrapy
@@ -15458,6 +15515,20 @@ y =  [3,0]
 <span class="kn">from</span> <span class="nn">otwrapy.examples.beam</span> <span class="kn">import</span> <span class="n">Wrapper</span>
 <span class="n">parallelized_beam_wrapper</span> <span class="o">=</span> <span class="n">otw</span><span class="o">.</span><span class="n">Parallelizer</span><span class="p">(</span><span class="n">Wrapper</span><span class="p">())</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><img src="../images/benchmark_Morris_otwrapy.png" alt="Python benchmark"></p>
+<p><strong>Figure 2.</strong> A benchmark of Morris function from <code>otmorris</code> using <code>otwrapy</code> (see <code>benchmark_Morris_otwrapy.py</code>).</p>
+<p>We see that, on this example, the "joblib" backend improves the performance when the number of CPUs is in the range $[4, 6]$. Using more CPUs decreases the performance.</p>
 
 </div>
 </div>
@@ -15789,10 +15860,10 @@ jp-needs-light-background
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="What's-next?">What's next?<a class="anchor-link" href="#What's-next?">&#182;</a></h2><p>Please consider the exercises in this repository:</p>
 <ul>
-<li><code>Python_function_exercises.ipynb</code> : exercises on Python functions</li>
-<li><code>Coupling_tools.ipynbb</code></li>
-<li><code>Parametric_function.ipynb</code></li>
-<li><code>Symbolic_function.ipynb</code></li>
+<li><code>Python_function_exercises.ipynb</code> : exercises on <code>PythonFunction</code> ;</li>
+<li><code>Coupling_tools.ipynb</code>: on <code>coupling_tools</code> sub-module to connect to an external program using files ;</li>
+<li><code>Parametric_function.ipynb</code>: exercises on <code>ParametricFunction</code> and <code>OpenTURNSPythonFunction</code> ;</li>
+<li><code>Symbolic_function.ipynb</code>: exercises on <code>SymbolicFunction</code>.</li>
 </ul>
 
 </div>
