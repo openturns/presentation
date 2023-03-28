@@ -31,7 +31,7 @@ tabsize=2
 
 \title{Library development}
 \author{Julien Schueller - Phimeca}
-\date{February 14th-17th 2022}
+\date{March 28th-31th 2023}
 \titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
 \institute{\small OpenTURNS Consortium}
 
@@ -107,9 +107,8 @@ mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
   -DCMAKE_INSTALL_PREFIX=$PWD/install
   -DCMAKE_CXX_FLAGS="-Wall -Wextra -D_GLIBCXX_ASSERTIONS"
-  -DPYTHON_EXECUTABLE=/usr/bin/python3
   -DSWIG_COMPILE_FLAGS="-O1"
-  -DUSE_SPHINX=ON -DSPHINX_FLAGS="-W -T -j4"
+  -DUSE_SPHINX=OFF -DSPHINX_FLAGS="-W -T -j4"
   ..
 
 make install -j4
@@ -345,8 +344,8 @@ ctest -R cppcheck_MyClass_std --output-on-failure
 \begin{frame}
   \frametitle{OpenTURNS Python bindings}
   \begin{block}{A user-friendly interface for the OpenTURNS library}
-    OpenTURNS is intended to be used for complex industrial application. It means the ability to pilot complex simulation softwares, but also complex probabilistic modelling and involved strategies for uncertainty propagation. A typical graphical user interface does not provide the flexibility to address such needs, so OpenTURNS is proposed to the user as a Python module.\\
-    Python is a full-featured object oriented programming language, and allows for complex scripting of functionalities comming from numerous modules. A typical uncertainty propagation study can be fully implemented using OpenTURNS only, but it can be easier to delegate some treatments to other graphical, statistical or numerical packages. For complex studies, it is the only way to do the job.\\
+    OpenTURNS is intended to be used for complex industrial application. It means the ability to pilot complex simulation software, but also complex probabilistic modelling and involved strategies for uncertainty propagation. A typical graphical user interface does not provide the flexibility to address such needs, so OpenTURNS is proposed to the user as a Python module.\\
+    Python is a full-featured object oriented programming language, and allows for complex scripting of functionalities coming from numerous modules. A typical uncertainty propagation study can be fully implemented using OpenTURNS only, but it can be easier to delegate some treatments to other graphical, statistical or numerical packages. For complex studies, it is the only way to do the job.\\
     The standard extension mechanisms proposed by Python to bind an external library are very low level mechanisms. It is mainly a C interface through which all the types are lost: the arguments are mainly {\ttfamily void *} pointers, and a lot of transtyping is required in order to make the things work.\\
     Several higher level tools have been developed in order to ease this binding, one of the most advanced being SWIG.
   \end{block}
@@ -488,7 +487,7 @@ p1 : int
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Step 13: add an entry in the API manual}
     \begin{itemize}
-    \item Find the right .rst in in python/doc/user\_manual;
+    \item Find the right .rst in python/doc/user\_manual;
     \item Add an entry in the restructured text format:
     \end{itemize}
   \end{block}
@@ -510,7 +509,7 @@ p1 : int
 \begin{frame}
   \frametitle{Integration of the new class in the Python bindings}
   \begin{block}{Pitfalls, tips and tricks}
-    Python does not support nested classes. As such, SWIG does  not propose any automatic mechanism to expose such classes in Python. The solution retained in OpenTURNS is to typedef the instanciations of the parametric classes to explicit new classes. Example:
+    Python does not support nested classes. As such, SWIG does  not propose any automatic mechanism to expose such classes in Python. The solution retained in OpenTURNS is to typedef the instantiations of the parametric classes to explicit new classes. Example:
     \begin{itemize}
     \item In the C++ library:
       \small
@@ -541,12 +540,12 @@ p1 : int
     \item The automatic conversion between Python lists/arrays and OpenTURNS collections;
     \item The automatic promotion of implementation classes into interface classes.
     \end{itemize}
-    The first point is adressed both at the Python level and the C++ level:
+    The first point is addressed both at the Python level and the C++ level:
     \begin{itemize}
     \item A set of parametric wrapping methods are defined in a C++ header (see PythonWrappingFunction.hxx in python/src);
     \item All the parametric classes are extended at the SWIG level with constructors from Python objects, using these wrapping methods.
     \end{itemize}
-    The second point is due to the lack of capabilities of SWIG to identify correctly the Bridge pattern and use the existing constructors in order to perform the automatic conversions. It results in a need to make these conversions explicitely in the Python scripts, which is not natural for a Python programmer. The solution retained in OpenTURNS is to use the {\ttfamily typemap} service of SWIG and the wrapping methods in order to make these conversions automatic for the Python programmer (see Distribution.i in python/src).
+    The second point is due to the lack of capabilities of SWIG to identify correctly the Bridge pattern and use the existing constructors in order to perform the automatic conversions. It results in a need to make these conversions explicitly in the Python scripts, which is not natural for a Python programmer. The solution retained in OpenTURNS is to use the {\ttfamily typemap} service of SWIG and the wrapping methods in order to make these conversions automatic for the Python programmer (see Distribution.i in python/src).
   \end{block}
 \end{frame}
 
