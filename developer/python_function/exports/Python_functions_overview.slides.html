@@ -14730,6 +14730,23 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Definition-of-a-Function-in-OpenTURNS">Definition of a Function in OpenTURNS<a class="anchor-link" href="#Definition-of-a-Function-in-OpenTURNS">&#182;</a></h2><p>In OpenTURNS, a <code>Function</code> is defined from (<a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/Function.hxx#L74">see</a>:</p>
+<ul>
+<li>an evaluation which has an input <code>Point</code> and returns an output <code>Point</code> (see <a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/Evaluation.hxx#L83">Evaluation</a>) ;</li>
+<li>the gradient which has an input <code>Point</code> and returns an output <code>Matrix</code> (see <a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/GradientImplementation.hxx#L82">GradientImplementation</a>) ;</li>
+<li>the hessian which has an input <code>Point</code> and returns and output <code>SymmetricTensor</code> (see <a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/HessianImplementation.hxx#L79">HessianImplementation</a>).</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Different-types-of-Python-functions">Different types of Python functions<a class="anchor-link" href="#Different-types-of-Python-functions">&#182;</a></h2><table>
 <thead><tr>
 <th>Type</th>
@@ -15044,7 +15061,7 @@ for any $\boldsymbol{x}\in \mathbb{R}^3$.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><img src="../images/wrapper-python-benchmark.png" alt="Python benchmark"></p>
-<p><strong>Figure 2.</strong> A benchmark of two Python functions vs a symbolic function (see <code>wrapper-python-benchmark.py</code>).</p>
+<p><strong>Figure 2.</strong> A benchmark of two Python functions vs a symbolic function (see <code>python_benchmark.py</code>).</p>
 <p>We see that, on this example, the two fastest methods are the symbol function and the vectorised Python functions.</p>
 
 </div>
@@ -15092,7 +15109,31 @@ for any $\boldsymbol{x}\in \mathbb{R}^3$.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="How-can-PythonFunction-be-made-fast?">How can PythonFunction be made fast?<a class="anchor-link" href="#How-can-PythonFunction-be-made-fast?">&#182;</a></h2><p>The <code>PythonFunction</code> is based on the <code>OpenTURNSPythonFunction</code> than we will present later in the slides.</p>
+<p>Depending on the <code>func_sample</code> and <code>n_cpus</code> options, we can make the evaluation faster.</p>
+<ul>
+<li><code>func_sample</code>: evaluate the function on a <code>Sample</code> instead of a <code>Point</code> to vectorize the evaluations ;</li>
+<li><code>n_cpus</code>: uses <code>multiprocessing</code> to make the evaluations parallel.</li>
+</ul>
+<p>Here are different cases, depending the options specified by the user:</p>
+<ul>
+<li>If <code>func_sample</code> is undefined and <code>n_cpus</code> is undefined (i.e. the default), then the user-provided <code>func</code> function is used. It is not made parallel by OpenTURNS (but the user can do so).  </li>
+<li>If <code>func_sample</code> is undefined and <code>n_cpus</code> is defined, then the implementation uses <code>multiprocessing</code>'s <code>Pool</code> to make the evaluation parallel (see <a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/python/src/Function.i#L213"><code>_exec_sample_multiprocessing_func</code></a>)</li>
+<li>If <code>func_sample</code> and <code>n_cpus</code> are both defined, then the implementation uses divides the <code>Sample</code> into sub-samples which are evaluated in parallel (see <a href="https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/python/src/Function.i#L282"><code>_exec_sample_multiprocessing_func_sample</code></a>). </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="What-is-the-memoryview-class?">What is the memoryview class?<a class="anchor-link" href="#What-is-the-memoryview-class?">&#182;</a></h2><p>The <code>memoryview</code> object is the type of object we receive as input to a <code>PythonFunction</code>.</p>
+<p>This class provides a lightweight object which prevent unnecessary object copies which can make the evaluation slower.</p>
 
 </div>
 </div>
@@ -15112,6 +15153,7 @@ for any $\boldsymbol{x}\in \mathbb{R}^3$.</p>
     <span class="n">y1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">y</span>
+
 
 <span class="n">gFunction</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">PythonFunction</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mySimulator</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
@@ -15166,7 +15208,19 @@ y =  [3,0]
 </div>
 </div>
 </div>
-</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>If we have to , we can convert the <code>memoryview</code> into a <code>Point</code>: this can make the evaluation slower, but can be necessary in some situations.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15175,10 +15229,12 @@ y =  [3,0]
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mySimulator</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Convert to Point</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Convert to Point, but only if necessary</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type of x : &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">getDimension</span><span class="p">()</span>  <span class="c1"># Ok</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimension</span><span class="p">):</span>
+        <span class="n">y0</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">y1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">y</span>
@@ -15240,7 +15296,9 @@ y =  [3,0]
 <h2 id="What-is-the-ParametricFunction-for?">What is the ParametricFunction for?<a class="anchor-link" href="#What-is-the-ParametricFunction-for?">&#182;</a></h2><p>There are some cases when we want to create a function which has parameters. The <code>ParametricFunction</code> can be considered when the parameters is a vector of points:</p>
 <ul>
 <li>to perform <a href="https://openturns.github.io/openturns/latest/auto_calibration/least_squares_and_gaussian_calibration/plot_calibration_deflection_tube.html#sphx-glr-auto-calibration-least-squares-and-gaussian-calibration-plot-calibration-deflection-tube-py">Calibration using least squares</a> : the parameter to calibrate is the parameter of the <code>ParametricFunction</code> ;</li>
-<li>to perform <a href="https://openturns.github.io/openturns/latest/auto_calibration/bayesian_calibration/plot_bayesian_calibration_flooding.html">Bayesian calibration</a> : the input of the <code>ParametricFunction</code> function is the parameter for which we want the <em>posterior</em> distribution.</li>
+<li>to perform <a href="https://openturns.github.io/openturns/latest/auto_calibration/bayesian_calibration/plot_bayesian_calibration_flooding.html">Bayesian calibration</a> : the input of the <code>ParametricFunction</code> function is the parameter for which we want the <em>posterior</em> distribution ;</li>
+<li>to solve optimization problems with a parametric function (which avoids to create a new function each time the parameters change) ;</li>
+<li>etc.</li>
 </ul>
 <p>We consider here the Ishigami test function.</p>
 <h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
@@ -15321,11 +15379,11 @@ y =  [3,0]
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The next table presents the mapping from the variable name to its index. Notice that Python have indices that start from 0.</p>
+<p>The next table presents the mapping from the variable name to its index. Notice that Python have indices that start from 0. The <code>gFunctionFull</code> function has no parameters.</p>
 <table>
 <thead><tr>
-<th>Variable</th>
-<th>Index</th>
+<th>Input variable</th>
+<th>Input index</th>
 </tr>
 </thead>
 <tbody>
@@ -15351,6 +15409,20 @@ y =  [3,0]
 </tr>
 </tbody>
 </table>
+<table>
+<thead><tr>
+<th>Parameter</th>
+<th>Parameter index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>∅</td>
+<td>∅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 5.</strong> Input variables and parameters of the (full) <code>gFunctionFull</code> function.</p>
 
 </div>
 </div>
@@ -15399,6 +15471,64 @@ y =  [3,0]
 
 </div>
 
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Manage parameters:</p>
+<ul>
+<li>We can use the <code>setParameter()</code> to set the parameters (and <code>getParameter()</code> to get them). </li>
+<li>The <code>parameterGradient()</code> returns the gradient of the function with respect to the parameters. </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gFunction</span><span class="o">.</span><span class="n">getParameter</span><span class="p">())</span>
+<span class="n">gFunction</span><span class="o">.</span><span class="n">setParameter</span><span class="p">([</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gFunction</span><span class="o">.</span><span class="n">getParameter</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[7,0.1]
+[8,0.2]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15406,7 +15536,62 @@ y =  [3,0]
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Why-is-the-OpenTURNSPythonFunction-class-most-powerful?">Why is the OpenTURNSPythonFunction class most powerful?<a class="anchor-link" href="#Why-is-the-OpenTURNSPythonFunction-class-most-powerful?">&#182;</a></h2><p>When the parameters cannot be stored as a single <code>Point</code>, we need a more powerful tool: the <code>OpenTURNSPythonFunction</code> class provides a way to implement a class so that we can provide any necessary parameter (whatever its type) to the evaluation. The constructor of the object can have any number or type of input arguments, as any <code>Class</code> object in Python.</p>
+<p>The next table present the inputs and parameters of the parametric <code>gFunction</code> function. It has 3 inputs and 2 parameters.</p>
+<table>
+<thead><tr>
+<th>Input variable</th>
+<th>Input index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_1$</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$x_2$</td>
+<td>1</td>
+</tr>
+<tr>
+<td>$x_3$</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead><tr>
+<th>Parameter</th>
+<th>Parameter index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$a$</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$b$</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 6.</strong> Input variables and parameters of the (parametric) <code>gFunction</code> function.</p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Why-is-the-OpenTURNSPythonFunction-class-most-powerful?">Why is the OpenTURNSPythonFunction class most powerful?<a class="anchor-link" href="#Why-is-the-OpenTURNSPythonFunction-class-most-powerful?">&#182;</a></h2><p>When the parameters cannot be stored as a single <code>Point</code>, we need a more powerful tool: the <code>OpenTURNSPythonFunction</code> class provides a way to implement a class so that we can provide any necessary parameter (whatever its type) to the evaluation.</p>
+<ul>
+<li>The constructor of the object can have any number or type of input arguments, as any <code>Class</code> object in Python.</li>
+<li>The calculations which are done in the constructor are done <em>"once for all"</em> at the creation of the object, which can make some calculations faster. </li>
+</ul>
 
 </div>
 </div>
@@ -15416,17 +15601,21 @@ y =  [3,0]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">IshigamiFunction</span><span class="p">(</span><span class="n">ot</span><span class="o">.</span><span class="n">OpenTURNSPythonFunction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="n">ot</span><span class="o">.</span><span class="n">OpenTURNSPythonFunction</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
 
     <span class="k">def</span> <span class="nf">_exec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>
 </pre></div>
 
@@ -15440,7 +15629,7 @@ y =  [3,0]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">7.0</span>
@@ -15646,12 +15835,12 @@ y =  [3,0]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">BiasedSampleVariance</span><span class="p">(</span><span class="n">ot</span><span class="o">.</span><span class="n">PythonRandomVector</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BiasedSampleVariance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDescription</span><span class="p">([</span><span class="s2">&quot;$\hat{\sigma}^2_{</span><span class="si">%d</span><span class="s2">}$&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample_size</span><span class="p">)])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">=</span> <span class="n">sample_size</span>
         <span class="n">dimension</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">getDimension</span><span class="p">()</span>
@@ -15673,7 +15862,7 @@ y =  [3,0]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_sample_by_kernel_smoothing</span><span class="p">(</span><span class="n">distribution</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">repetitions_size</span><span class="p">):</span>
@@ -15764,12 +15953,12 @@ jp-needs-light-background
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SampleVarianceAsymptoticDistribution</span><span class="p">(</span><span class="n">ot</span><span class="o">.</span><span class="n">PythonDistribution</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SampleVarianceAsymptoticDistribution</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="n">distribution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">=</span> <span class="n">sample_size</span>
         <span class="n">asymptotic_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getCenteredMoment</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -15801,10 +15990,12 @@ jp-needs-light-background
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">asymptoticDistribution</span> <span class="o">=</span> <span class="n">SampleVarianceAsymptoticDistribution</span><span class="p">(</span><span class="n">ot</span><span class="o">.</span><span class="n">LogNormal</span><span class="p">(),</span> <span class="mi">640</span><span class="p">)</span> <span class="c1"># Create the object</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">asymptoticDistribution</span> <span class="o">=</span> <span class="n">SampleVarianceAsymptoticDistribution</span><span class="p">(</span>
+    <span class="n">ot</span><span class="o">.</span><span class="n">LogNormal</span><span class="p">(),</span> <span class="mi">640</span>
+<span class="p">)</span>  <span class="c1"># Create the object</span>
 <span class="n">distribution</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">Distribution</span><span class="p">(</span><span class="n">asymptoticDistribution</span><span class="p">)</span>  <span class="c1"># Convert to Distribution</span>
 <span class="n">graph</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">drawPDF</span><span class="p">()</span>
 <span class="n">graph</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s2">&quot;Asymptotic distribution of the sample variance. LogNormal, n = 640&quot;</span><span class="p">)</span>
@@ -15864,11 +16055,28 @@ jp-needs-light-background
 <li><code>Coupling_tools.ipynb</code>: on <code>coupling_tools</code> sub-module to connect to an external program using files ;</li>
 <li><code>Parametric_function.ipynb</code>: exercises on <code>ParametricFunction</code> and <code>OpenTURNSPythonFunction</code> ;</li>
 <li><code>Symbolic_function.ipynb</code>: exercises on <code>SymbolicFunction</code>.</li>
+<li><code>python_benchmark.py</code>: a benchmark with Python functions.</li>
 </ul>
 
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div></section></section>
 </div>
 </div>

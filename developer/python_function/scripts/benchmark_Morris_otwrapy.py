@@ -7,24 +7,28 @@ conda install otmorris otwrapy
 
 
 import openturns as ot
-import numpy as np
-import matplotlib.pyplot as plt
-import screeninglib as sl
 import time
 import openturns.viewer as otv
 import otwrapy as otw
 import otmorris
 
-def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_factor = 2.0, 
-                   minimum_size_sample = 2, number_of_points_per_second_factor = 1.0e6, 
-                   maximum_number_of_iterations = 30):
+
+def benchGetSample(
+    myWrapper,
+    inputRandomVector,
+    max_time=4.0,
+    sample_size_factor=2.0,
+    minimum_size_sample=2,
+    number_of_points_per_second_factor=1.0e6,
+    maximum_number_of_iterations=30,
+):
     """
     performanceListorms a benchmark of the getSample() method.
 
-    At each iteration, the sample size increases, which increases the 
-    elapsed time. 
-    The algorithm increases the sample size until the elapsed time gets greater than 
-    the maximum time. 
+    At each iteration, the sample size increases, which increases the
+    elapsed time.
+    The algorithm increases the sample size until the elapsed time gets greater than
+    the maximum time.
 
     Parameters
     ----------
@@ -33,18 +37,18 @@ def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_facto
     inputRandomVector : ot.RandomVector()
         The input random vector.
     max_time : float, optional
-        The maximum number of seconds to wait before stopping the 
+        The maximum number of seconds to wait before stopping the
         algorithm. The default is 4.0.
     sample_size_factor : float, > 1.0
-        The factor which multiplies the sample size at each iteration. 
+        The factor which multiplies the sample size at each iteration.
     minimum_size_sample : int, default = 2
         The minimum sample size.
     number_of_points_per_second_factor : float, > 1.0, default = 1.e6
-        The factor which is used to measure the performance. 
-        The default is 1.0e6, which measures number of million 
-        points per seconds. 
+        The factor which is used to measure the performance.
+        The default is 1.0e6, which measures number of million
+        points per seconds.
     maximum_number_of_iterations : int, default = 30
-        The maximum number of iterations. 
+        The maximum number of iterations.
 
     Returns
     -------
@@ -75,7 +79,9 @@ def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_facto
             timeList = list()
             performanceList = list()
             continue
-        performanceList_sample = size_sample / time_sample / number_of_points_per_second_factor
+        performanceList_sample = (
+            size_sample / time_sample / number_of_points_per_second_factor
+        )
         print(
             "N=%d, Elapsed time: %.1f (s), performance: %.3f"
             % (size_sample, time_sample, performanceList_sample)
@@ -87,6 +93,7 @@ def benchGetSample(myWrapper, inputRandomVector, max_time=4.0, sample_size_facto
         if time_sample > max_time:
             break
     return (sampleSizeList, timeList, performanceList)
+
 
 def makeCurveCloud(dataX, dataY, color, legend, pointStyle, lineStyle):
     """
@@ -126,6 +133,7 @@ def makeCurveCloud(dataX, dataY, color, legend, pointStyle, lineStyle):
     graph.add(curve)
     return graph
 
+
 isFast = False  # Set to True to make it fast
 
 # Define model
@@ -152,7 +160,7 @@ inputTrain = myDistribution.getSample(N_train)
 outputTrain = morris_python(inputTrain)
 t2 = time.time()
 elapsed = t2 - t1
-print("Elapsed = %.2f (s)"% (elapsed))
+print("Elapsed = %.2f (s)" % (elapsed))
 
 # Create the input random vector
 inputRandomVector = ot.RandomVector(myDistribution)
@@ -164,7 +172,10 @@ inputRandomVector = ot.RandomVector(myDistribution)
 
 print("Python")
 (sampleSizeList_pyfun, timeList_pyfun, performanceList_pyfun) = benchGetSample(
-    morris_python, inputRandomVector, minimum_size_sample = 10, number_of_points_per_second_factor = 1.0
+    morris_python,
+    inputRandomVector,
+    minimum_size_sample=10,
+    number_of_points_per_second_factor=1.0,
 )
 
 ########################################################
@@ -174,13 +185,18 @@ print("Python")
 
 print("Parallelizer")
 
+
 def getParallelPerformance(backend, n_cpus):
     morris_parallel = otw.Parallelizer(morris_python, backend=backend, n_cpus=n_cpus)
-    
+
     (sampleSizeList_para, timeList_para, performanceList_para) = benchGetSample(
-        morris_parallel, inputRandomVector, minimum_size_sample = 10, number_of_points_per_second_factor = 1.0
+        morris_parallel,
+        inputRandomVector,
+        minimum_size_sample=10,
+        number_of_points_per_second_factor=1.0,
     )
     return sampleSizeList_para, timeList_para, performanceList_para
+
 
 n_cpus = 4
 list_of_backend = ["ipyparallel", "joblib", "pathos", "multiprocessing"]
@@ -207,19 +223,34 @@ pointStyleList.remove("none")
 lineStyleList = ot.Drawable.GetValidLineStyles()
 palette = ot.Drawable.BuildDefaultPalette(1 + len(list_of_cpus_values))
 graph = ot.Graph("Performance of Morris", "Sample size", "Points / s", True)
-curveCloud = makeCurveCloud(sampleSizeList_pyfun, performanceList_pyfun, palette[0], "Python", 
-                            pointStyleList[0], lineStyleList[1])
+curveCloud = makeCurveCloud(
+    sampleSizeList_pyfun,
+    performanceList_pyfun,
+    palette[0],
+    "Python",
+    pointStyleList[0],
+    lineStyleList[1],
+)
 graph.add(curveCloud)
 index = 0
 for parallel_result in list_of_results:
     n_cpus = list_of_cpus_values[index]
     sampleSizeList_para, timeList_para, performanceList_para = parallel_result
-    curveCloud = makeCurveCloud(sampleSizeList_para, performanceList_para, palette[1 + index], "%s (CPU = %d)" % (backend, n_cpus), 
-                                pointStyleList[1 + index], lineStyleList[2 + index])
+    curveCloud = makeCurveCloud(
+        sampleSizeList_para,
+        performanceList_para,
+        palette[1 + index],
+        "%s (CPU = %d)" % (backend, n_cpus),
+        pointStyleList[1 + index],
+        lineStyleList[2 + index],
+    )
     graph.add(curveCloud)
     index += 1
 graph.setLogScale(ot.GraphImplementation.LOGX)
 graph.setLegendPosition("topright")
-view = otv.View(graph, figure_kw={"figsize": (4.0, 3.0)}, 
-         legend_kw={"bbox_to_anchor":(1.0, 1.0), "loc":"upper left"})
-view.getFigure().savefig("../images/benchmark_Morris_otwrapy.png", bbox_inches = "tight")
+view = otv.View(
+    graph,
+    figure_kw={"figsize": (4.0, 3.0)},
+    legend_kw={"bbox_to_anchor": (1.0, 1.0), "loc": "upper left"},
+)
+view.getFigure().savefig("../images/benchmark_Morris_otwrapy.png", bbox_inches="tight")
