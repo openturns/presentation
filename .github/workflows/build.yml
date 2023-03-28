@@ -2,11 +2,11 @@ name: Build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       SOURCE_DATE_EPOCH: 1640995200
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install
         run: sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science texlive-bibtex-extra lmodern
       - name: Build
