@@ -2,59 +2,59 @@
 # coding: utf-8
 
 # # Coupling Tools
-# 
+#
 # **Coding party OpenTURNS, march 2023**
-# 
+#
 # _Michaël Baudin_
-# 
+#
 
 # ## Résumé
-# 
+#
 # Dans cette page, nous présentons les fonctions du module `coupling_tools`, un module utile pour connecter un code de calcul fondé sur des échanges de fichiers texte. Nous présentons les principales fonctionnalités du module sur un exemple en particulier les fonctions `replace` et `get`.
 
 # ## Références
-# 
+#
 # * http://openturns.github.io/openturns/master/developer_guide/wrapper_development.html
-# 
+#
 
 # ## Principe
-# 
-# Le module coupling_tools est utile lorsque le code de calcul lit (en entrée) et écrit (en sortie) des fichiers texte. 
-# 
+#
+# Le module coupling_tools est utile lorsque le code de calcul lit (en entrée) et écrit (en sortie) des fichiers texte.
+#
 # <img src="images/wrapper_OT-coupling.svg" width="600px">
 
 # ## Fonctionnalités
-# 
+#
 # Principales fonctions du module `coupling_tools` :
 # * `replace` : écrire un fichier d’entrée à partir d’un modèle, en remplaçant des balises par des valeurs
 # * `execute` : exécuter un code de calcul externe
 # * `get` (et `get_line_col`) : lire des valeurs à partir d’un fichier de sortie.
-# 
+#
 # Au-delà
 # * Le module `coupling_tools` peut être utile en dehors d’OpenTURNS.
 # * Exemple : « scripter » l’évaluation d’un plan d’expériences sur un serveur de calcul (cluster).
 
 # ## Objectifs, Avantages, Inconvénients
-# 
+#
 # Les objectifs du module sont :
 # * Lire/écrire des fichiers texte structurés (exemple : Code_Aster).
 # * Simplicité : plus facile que les expressions régulières.
 # * Sauter des lignes, des colonnes, des blocs de texte.
-# 
+#
 # Avantages :
 # * Utile si les données d’entrée sont sous forme de fichier texte structuré.
-# 
+#
 # Inconvénients :
 # * Facile à paralléliser, avec un peu plus de code Python (contacter si besoin).
 
 # ## Exemple
-# 
+#
 # On a le code de calcul externe implémenté dans le script `external_program.py`. Ce programme :
 # * lit le fichier `"input.py"`,
 # * réalise le calcul et évalue la sortie,
 # * écrit le fichier `"output.txt"`.
-# 
-# La ligne de commande pour appeler le code est : 
+#
+# La ligne de commande pour appeler le code est :
 # ```
 # python external_program.py input.py
 # ```
@@ -75,7 +75,7 @@ ot.__version__
 os.chdir("CouplingTools")
 
 
-# Observons le contenu du script `external_program.py`. 
+# Observons le contenu du script `external_program.py`.
 
 # In[3]:
 
@@ -84,7 +84,7 @@ f = open("external_program.py", "r")
 print(f.read())
 
 
-# Observons le contenu du script `input.py` : le contenu est formatté en Python, pour faciliter la lecture. 
+# Observons le contenu du script `input.py` : le contenu est formatté en Python, pour faciliter la lecture.
 
 # In[4]:
 
@@ -102,7 +102,7 @@ f = open("output.txt", "r")
 print(f.read())
 
 
-# Le fichier `input_template.py` est un modèle (*"template"*) qui va servir à générer le fichier `"input.py"`. 
+# Le fichier `input_template.py` est un modèle (*"template"*) qui va servir à générer le fichier `"input.py"`.
 
 # In[6]:
 
@@ -143,14 +143,14 @@ Y
 
 
 # ## Présentation de l'API
-# 
+#
 # Rentrons un peu plus dans le détail des fonctions.
-# 
+#
 # ### Ecriture du fichier d'entrée : la fonction replace
 # ```
 # replace (infile , outfile , tokens , values )
 # ```
-# 
+#
 # Paramètres :
 # * `infile` une chaîne de caractères, le fichier modèle à mettre à jour.
 # * `outfile` une chaîne de caractères, le fichier à écrire.
@@ -177,7 +177,7 @@ print(f.read())
 
 
 # ### Lecture du fichier de sortie : la fonction get
-# 
+#
 # Séquence d’appel :
 # ```Python
 # # Recupere une liste de valeurs :
@@ -188,7 +188,7 @@ print(f.read())
 #              skip_line=0, skip_col=0)
 # ```
 # Paramètres :
-# * `filename` une chaîne de caractères, le fichier à lire 
+# * `filename` une chaîne de caractères, le fichier à lire
 # * `tokens` une liste de N éléments, les expressions régulières à rechercher.
 # * `skip_tokens` une liste de N éléments, le nombre de jetons à ignorer avant de lire la valeur.
 # * `skip_lines` une liste de N éléments, le nombre de lignes à ignorer avant le jeton.
@@ -196,18 +196,18 @@ print(f.read())
 # * `Y` une liste de doubles (pour `get`) ou un double (pour `get_value`).
 
 # ### Exemples d'utilisation de `get`
-# 
+#
 # Exemple avec saut de lignes/colonnes.
-# 
+#
 # Les trois premières lignes du fichier `results.txt` sont les suivantes :
-# ``` 
+# ```
 # 1 2 3 04 5 6
 # 7 8 9 10
 # 11 12 13 14
 # ```
-# 
+#
 # Objectif : Lire le 9.
-# 
+#
 
 # In[11]:
 
@@ -217,64 +217,64 @@ Y
 
 
 # ## otwrapy
-# 
+#
 # * Module Python développé par Phiméca (hors partenariat) en complément de coupling_tools
 # * https://github.com/openturns/otwrapy
 # * Distribution des calculs possible via différents modules Python : multiprocessing (Python Standard Library), ipyparallel ou joblib.
 # * Autres fonctionnalités : gestion des erreurs, création d’un répertoire temporaire de travail, écriture/lecture d’échantillon dans un fichier compressé, ...
-# 
+#
 
 # ## Autres modules
-# 
+#
 # Le langage Python, associé à sa librairie standard, est un langage de haut niveau très pratique et concis pour lire/écrire dans des fichiers, manipuler des chaînes de caractères ou lancer un processus (*thread*) ; si le module
 # `coupling_tools` n’est pas adapté, ne pas oublier :
-# * lecture fichiers texte : 
-#   * modules `re` (expressions régulières), 
-#   * méthodes `file.readline()`, 
-#   * `string.split()`, 
+# * lecture fichiers texte :
+#   * modules `re` (expressions régulières),
+#   * méthodes `file.readline()`,
+#   * `string.split()`,
 #   * etc. ;
 # * lecture fichier binaire HDF5 : module `h5py` (ou tables de `PyTables`) ;
 # * lancement d’un calcul et parallélisme : modules `subprocess` et `multiprocessing`.
-# 
+#
 
 # ## Exercices
 
 # ### Exercice 1
-# 
+#
 # * Quelles instructions Python "naïves" peut-on utiliser pour lire les valeurs X0, X1, X2 dans le fichier `input.py` ?
-# 
+#
 # * Dans le script `external_program.py`, pourquoi l'instruction suivante fonctionne-t-elle ?
 # ```Python
 # exec(open(inFile).read())
 # ```
 
 # ### Solution de l'exercice 1
-# 
+#
 # Cette instruction fonctionne car le fichier "input.py" est un script Python. C'est pourquoi l'instruction `exec` exécute la chaîne de caractère retournée par `open(inFile).read()`. Utiliser un script Python comme fichier d'entrée évite de développer un *parser*, associée à un langage spécifique.
 
 # ### Exercice 2
-# 
+#
 # Changer le nom des variables :
 # * X0 -> X1
 # * X1 -> X2
 # * X2 -> X3
-# 
+#
 # et adapter les scripts (lesquels ?).
 
 # ### Exercice 3
-# 
+#
 # Le fichier `results.txt` contient les lignes suivantes :
 # ```
 # 1  2  3  04  5  6
 # 7  8  9  10
 # 11 12 13 14
-# 
+#
 # Y1= 11.11celcius
 # Y2= -0.89
 # Y1= 22.22
 # Y1= 33.33
-# 
-# line1: 100 101 102 
+#
+# line1: 100 101 102
 # line2: 200 201 202
 # line3: 300 301 302
 # ```
@@ -331,28 +331,28 @@ print("(7) Y:", Y)
 
 
 # ### Exercice 4
-# 
+#
 # La fonction `get_line_col` permet de lire des valeurs numériques dans une ligne ou une colonne.
-# 
+#
 # Considérons le fichier get_line_col.txt :
-# 
+#
 # ```
-# 0 
-# 1 
-# 2 
-# 3 
-# 4 
-# 5 
+# 0
+# 1
+# 2
+# 3
+# 4
+# 5
 # 6  ; 2. 3   59.
-# 7 
-# 8 
-# 9 
-# 10 
-# 
+# 7
+# 8
+# 9
+# 10
+#
 # ```
-# 
-# Utiliser la fonction `get_line_col` pour lire la valeur 59. 
-# 
+#
+# Utiliser la fonction `get_line_col` pour lire la valeur 59.
+#
 # Solution dans le script `get_line_col.py`
 
 # ### Solution de l'exercice 4
@@ -362,4 +362,3 @@ print("(7) Y:", Y)
 
 Y = ct.get_line_col("get_line_col.txt", skip_line=6, skip_col=4)
 print("Y:", Y)
-
