@@ -40,7 +40,7 @@
 }
 
 \title[OpenTURNS modules development]{OpenTURNS modules development}
-\author[OpenTURNS Consortium, 2022]
+\author[OpenTURNS Consortium, 2023]
 {
   Trainer : Sofiane Haddad\\
   Airbus \\
@@ -130,10 +130,10 @@
     \item \alert{otmarkov}: simulates Markov chains (experimental)
     \item \alert{otsensitivity} : sensitivity analysis with density based measures
     \item \alert{shapley-effects} : compute Shapley effects
+    \item \alert{otkerneldesign} : generates designs of experiments based on kernel methods such as Kernel Herding and Support Points
     \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
-    \item \alert{otpod} : Probability of Detection module.
-    \item \alert{otgu} : Gu method to make more robust the estimation kriging models.
-    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}, \texttt{othsic}) and others
+    \item \alert{otgu} : Gu method to make more robust the estimation of kriging models.
+    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}) and others
   \end{itemize}
     \end{frame}
     
@@ -302,23 +302,15 @@
 \begin{frame}
   \frametitle{No existing (official) template}
   \begin{block}{}
-    In comparison with C++, there is no template: 
+    In comparison with C++, there is no (official) template. Different reasons: 
     \begin{itemize}
-    \item Such a module might be some development using \texttt{openturns} classes or not;
+    \item Such a module might be some development using \texttt{openturns} classes (arguments, internal, return);
     \item Such a development relies on external modules (\texttt{scikit-learn, rpy2} for example) 
     \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
     \item $\hdots$
     \end{itemize}
-    Why ?
-    \begin{itemize}
-      \item Such a development relies on external modules (\texttt{scikit-learn, rpy2} for example) 
-      \item Such a development makes others benefit from \texttt{openturns} in a friendly framework (\texttt{scikit-learn} for example)
-      \end{itemize}
-      Non-official templates:
-      \begin{itemize}
-        \item \href{https://github.com/adumasphi/ottemplatepython}{Template done by Antoine Dumas}
-        \item \href{https://github.com/sofianehaddad/ottemplatepython.git}{new template}
-        \end{itemize}
+    However a template might be used and is now under consortium: \href{https://github.com/openturns/ottemplatepython.git}{new templates}\\
+    We can have a look at its \href{https://sofianehaddad.github.io/sphinx/ottemplate/master/}{documentation}
   \end{block}
 \end{frame}
 
@@ -326,25 +318,27 @@
   \frametitle{How to proceed?}
   \begin{block}{Identify the needs}     
     \begin{itemize}
-      \item Why do we need an Openturns interface? 
-      \item Do I need to link to an external module? If yes what kind of data or objects is required?
-      \item What does my module require and provide? 
+      \item Why do we need an \texttt{OpenTURNS} module? 
+      \item Do I need to link to an (other) external module? If yes what kind of data or objects is required?
       \item What kind of interaction with the API?
+      \item What does my module require and\slash or provide? 
+      \item Does something similar exists in the API (see \texttt{Distribution, Experiment ... for example}? another module?
+      \item $\hdots$ 
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Module development}
-  \begin{block}{Step 1: copy and adapt an existing template (even if non official) or start from crash}
+  \begin{block}{Step 1: copy and adapt an existing template (even if non official) or start a new one}
     \begin{itemize}
-    \item Copy and rename the source tree of an example module (for example the Strange module) from the OpenTURNS source tree. The examples modules are located under the module subdirectory of OpenTURNS source tree:\\
-      {\ttfamily git clone \href{https://github.com/sofianehaddad/ottemplatepython.git}{https://github.com/sofianehaddad/ottemplatepython.git} MyModule}
+    \item Copy and rename the source tree of the template. This last one is located hereafter: \\
+      {\ttfamily git clone \href{https://github.com/openturns/ottemplatepython.git}{https://github.com/openturns/ottemplatepython.git} MyModule}
     \item Set the url of the remote (meaning you already created a repository):\\
       {\ttfamily git remote set-url origin https://github.com/USERNAME/REPOSITORY.git}
     \item Adapt the template to your module:\\
       {\ttfamily no customize.sh }\\
-      Rename folder to the new module, update tests and doc.
+      Rename (manually) folder to the new module, update tests and doc.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -367,13 +361,14 @@
 \begin{frame}
   \frametitle{Module development}
   \begin{block}{Step 3: documentation}
-    Module documentation is very "easy". 
+
     \begin{itemize}
-      \item Document classes and method using python peps
+      \item Document classes and methods using python docstrings.
       \item Developer guide : Architecture, validation
-      \item Examples and API documentation (potentially notebooks)
+      \item Examples and API documentation. Examples using for example notebook converted to scripts
+      or directly use the python sphinx gallery
       \item Theory (if needed)
-      \item Build the doc:
+      \item Then build the doc using:
       \begin{tabular}{l}
         \ttfamily python setup.py build\_sphinx
       \end{tabular}
@@ -409,6 +404,7 @@
     \item We can rely on continuous integration tool accounting API changes
     \item He is in charge of bugs (except if underlying bug is in the API)
     \end{itemize}
+    Exception : modules maintained by the consortium!
   \end{block}
   
   \begin{block}{Step 6: Packaging}
@@ -417,8 +413,7 @@
     \item Tarball generation
     \item Git
     \item conda\slash pip ...
-    \item \ttfamily python setup.py sdist --formats=gztar,zip
-  
+    \item \ttfamily python setup.py sdist --formats=gztar,zip  
     \end{itemize}
     Exception : modules maintained by the consortium!
   \end{block}
@@ -480,6 +475,15 @@
       \item On github, reach the settings corresponding to the repository of interest.
       \item On the left, select the \texttt{Secret} and \texttt{Actions}\\
       \includegraphics[width=2.cm, height=5cm]{select_action.png}
+      \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Module development: upload documentation using github and continuous integration}
+  Now we should feed corresponding project with the previous token. For that:
+
+    \begin{itemize}
       \item Generate new repository secret
       \includegraphics[width=8.cm, height=2cm]{generate_new_rep.png}
       \item Set the name \texttt{GH\_TOKEN} and paste the previous token generated.
@@ -487,7 +491,6 @@
       \includegraphics[width=8.cm, height=4cm]{refer_token.png}
       \end{itemize}
 \end{frame}
-
 
 \begin{frame}
   \frametitle{Module development: upload documentation using github and continuous integration}
