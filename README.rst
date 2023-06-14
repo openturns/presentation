@@ -66,6 +66,10 @@ OpenTURNS Presentations
   - `1D site effects including spatial variability of soil properties <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_BERGER.pdf>`_
   - `The plugin otagrum: learning non-parametric Copula Bayesian Networks <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_Lasserre.pdf>`_
 
+- User day 2023
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
+
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
