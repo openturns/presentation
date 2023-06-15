@@ -61,7 +61,7 @@ OpenTURNS Presentations
   - `Surrogate models and sensitivity analysis for simulation of electron guns of high-frequency & high-power amplification devices <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_MOLENDA.pdf>`_
   - `Copula-based iterative approximate Bayesian calibration for urban building energy modeling and impact of time resolution <https://github.com/openturns/presentation/blob/master/userday2022/ju_ot_2022_xFaure.pdf>`_
   - `Sensitivity studies OD-1D/3D of thermo aeraulic models of industrial premises, assistance in the identification of influential phenomena and preparation of experimental protocols for the Zephyr test platform <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_BOREL.pdf>`_
-  - `Correction of surface reflectance retrieval in the tree shadow by machine learning <https://github.com/openturns/presentation/blob/master/userday2022/JU_OT_2022_trees.pdf>`_ 
+  - `Correction of surface reflectance retrieval in the tree shadow by machine learning <https://github.com/openturns/presentation/blob/master/userday2022/JU_OT_2022_trees.pdf>`_
   - `Variance based sensitivity analysis for functional inputs - Application to pilots' actions <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_OBANDO.pdf>`_
   - `1D site effects including spatial variability of soil properties <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_BERGER.pdf>`_
   - `The plugin otagrum: learning non-parametric Copula Bayesian Networks <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_Lasserre.pdf>`_
@@ -100,3 +100,5 @@ OpenTURNS Presentations
   - `Auto-associative models as a nonlinear PCA for dimension reduction (Phimeca) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/modele_autoassociatif_PHIMECA.pdf>`_
 
 - `SIAM-UQ 2022 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2022-slides-OpenTURNS.pdf>`_
+
+- `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
