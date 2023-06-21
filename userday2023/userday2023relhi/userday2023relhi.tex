@@ -79,15 +79,48 @@ New features since last year in releases:
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Contents}
-\tableofcontents
-\end{frame}
+% \begin{frame}
+% \frametitle{Contents}
+% % \tableofcontents
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{HSIC sensitivity indices}
-% 
+% \section{Cross-entropy importance sampling}
+
+\begin{frame}{Cross-entropy importance sampling}
+
+\begin{itemize}
+\item Adaptive importance-sampling base simulation algorithm
+\item Auxiliary distribution parameters converge at each step with numerical optimization
+\item Standard and physical space variants
+\item Very good performance, can be compared to subset
+\item Like subset, no COV termination criteria
+\end{itemize}
+
+\begin{figure}
+   \includegraphics[width=0.4\textwidth]{figures/sphx_glr_plot_crossentropy_003}
+\end{figure}
+
+\end{frame}
+
+% \section{Uniform distribution over a mesh}
+
+\begin{frame}{Uniform distribution over a mesh}
+% \begin{block}
+\begin{itemize}
+\item Uniform sampling in any closed set delimited by a generic mesh, any dimension
+\item Sampling of simplices weighted by volume, then uniform sampling inside simplex
+\item CDF is obtained by integration at mesh bounds
+\item Efficient implementation, low-level primitives for tetras, etc ...
+\end{itemize}
+% \end{block}
+\begin{figure}
+   \includegraphics[width=0.6\textwidth]{figures/UniformOverMesh}
+\end{figure}
+\end{frame}
+
+
 % 
 % \begin{frame}
 % \begin{small}
@@ -444,13 +477,81 @@ New features since last year in releases:
 
 
 \begin{frame}
-\frametitle{Other improvements}
-
+\frametitle{Packaging 1/2}
+\begin{block}{Python distribution channels}
 \begin{itemize}
-\item Enabled Pagmo.moead\_gen, Bonmin.Ecp/iFP optimization algorithms
-\item ARM64 wheels for Apple silicon hardware
-\item Continued bugfix / documentation / modules effort
+\item Pip, Conda
+\item Versions: 3.8-3.11
+\item OS: Windows, Linux, MacOS
+\item Architectures: x86\_64, arm64 (MacOS-only)
 \end{itemize}
+\end{block}
+
+\begin{figure}
+   \includegraphics[width=0.3\textwidth]{figures/PyPI_logo}
+   \includegraphics[width=0.3\textwidth]{figures/Conda_logo.svg}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Packaging 2/2}
+\begin{block}{Supported Linux distributions}
+\begin{itemize}
+\item Ubuntu 20/22
+\item Debian 11/12
+\item Fedora 37/38
+\item CentOS 8
+\item OpenSUSE 15.4
+\item Mageia 8
+\item ArchLinux
+\item FreeBSD
+\end{itemize}
+\end{block}
+
+
+\begin{center}
+\includegraphics[width=0.05\textwidth]{figures/debian-openlogo-100}
+\includegraphics[width=0.08\textwidth]{figures/ubuntu}
+\includegraphics[width=0.08\textwidth]{figures/Fedora-Logo}
+\includegraphics[width=0.08\textwidth]{figures/centos-logo}
+\includegraphics[width=0.08\textwidth]{figures/opensuse-logo}
+\includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
+\includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
+\includegraphics[width=0.15\textwidth]{figures/FREEBSD_Logo_Horiz_Pos_RGB}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Documentation improvements}
+\begin{itemize}
+\item New usecases: fire satellite, wing weight, Linthurst/Coles datasets
+\item Lots of new examples: chaos, cv, regression, MLE, functions, integration, enumerate, ...
+\item Example minigalleries linking to relevant examples
+\item Lot of time invested in the improvement of the documentation
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/minigallery}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other improvements}
+\begin{itemize}
+\item Field to vector metamodeling and sensitivity using KL + chaos
+\item Chaos expansion for mixed variables
+\item New BoxCoxFactory method to return directly the underlying linear model
+\item Enabled Pagmo.moead\_gen, Bonmin.Ecp/iFP optimization algorithms
+\item Continued bugfix effort (avg 30+ recorded per release + more internally fixed)
+\end{itemize}
+
+\vspace{6pt}
+
+\begin{center}
+\includegraphics[width=0.15\textwidth]{figures/bugfix}
+\end{center}
 
 \end{frame}
 
