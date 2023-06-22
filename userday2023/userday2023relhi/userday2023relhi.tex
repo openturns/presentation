@@ -7,6 +7,7 @@
 
   \include{macros}
 \usepackage{adjustbox}
+\usepackage[normalem]{ulem}
 
 \title[OpenTURNS]{OpenTURNS release highlights}
 
@@ -20,7 +21,7 @@
 % \inst{5} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France, schueller@phimeca.com
 % }
 
-\date[]{UserDay \#16, 23 June 2023, EDF Lab}
+\date[]{User Day \#16, June 23rd 2023, EDF Lab}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{document}
@@ -72,7 +73,7 @@ New features since last year in releases:
 
 \begin{itemize}
 \item v1.20: fall 2022
-\item v1.21: spring 2023
+\item v1.21: \sout{spring} summer 2023
 \end{itemize}
 
 \end{frame}
@@ -86,23 +87,63 @@ New features since last year in releases:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Cross-entropy importance sampling}
-
-\begin{frame}{Cross-entropy importance sampling}
+\begin{frame}{Smolyak quadratures}
 
 \begin{itemize}
-\item Adaptive importance-sampling base simulation algorithm
-\item Auxiliary distribution parameters converge at each step with numerical optimization
-\item Standard and physical space variants
+\item Combination of tensorized quadratures to build an n-d DOE from n 1-d DOEs
+\item The combination technique reduces the nodes number wrt raw tensorization rule
+\item Fine-grained control over the nodes/weights merging step, access m-indices
+\item Designed to be used for functional chaos (by integration or least-squares)
+\end{itemize}
+
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+  \includegraphics[width=0.9\textwidth]{figures/smolyakplot}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+  \includegraphics[width=0.9\textwidth]{figures/sphx_glr_plot_smolyak_quadrature_001}
+\endminipage
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Cross-entropy importance sampling 1/2}
+
+\begin{itemize}
+\item Adaptive, importance-sampling based simulation algorithm
+
+\item Update an intermediate threshold $q_k$ at each step
+
+$$\rho \in [0,1], q_k=\max(T,y^{(k)}_{\left \lfloor \rho N \right\rfloor})$$
+
+\item Auxiliary distribution $h$ parameters $\underline{\lambda}$ numerically optimized at each step
+% $$$$
+$$\underline{\lambda}_{k}= \textrm{argmax}_{\lambda} \frac{1}{N} \sum_{i=1}^{N}{\underline{1}}_{g(\underline{x}_i^{(k)}) \leq q_k} \frac{f_\underline{X}(\underline{x}_i^{(k)})}{h_{\underline{\lambda}_{k-1}}(\underline{x}_i^{(k)})} \log(h_{\underline{\lambda}}(\underline{x}_i^{(k)}))$$
+
+\item Compute the final importance probability
+
+$$\widehat{P}^{CE}(g(\underline{\underline{X}})<T)=\frac{1}{N}\displaystyle \sum_{i=1}^{N} \underline{1}_{g(\underline{x}_i^{(k)})<T} \frac{f_\underline{X}(\underline{x}_i^{(k)})}{h_{\underline{\lambda}_{k-1}(\underline{x}_i^{(k)})}}$$
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-entropy importance sampling 2/2}
+
+\begin{itemize}
+\item Standard space variant with analytical optimum of the Normal parameters
 \item Very good performance, can be compared to subset
-\item Like subset, no COV termination criteria
+\item Also, no COV-based termination criterion (based on threshold)
 \end{itemize}
 
 \begin{figure}
-   \includegraphics[width=0.4\textwidth]{figures/sphx_glr_plot_crossentropy_003}
+   \includegraphics[width=0.5\textwidth]{figures/sphx_glr_plot_crossentropy_003}
+   \includegraphics[width=0.35\textwidth]{figures/crossads}
 \end{figure}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \section{Uniform distribution over a mesh}
 
@@ -120,365 +161,106 @@ New features since last year in releases:
 \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 
-% \begin{frame}
-% \begin{small}
-% 
-% \textbf{HSIC sensitivity indices (finally!)}
-% 
-% \begin{itemize}
-% \item \emph{Given-data} sensitivity indices (applicable on a user-provided sample)
-% \item Perform fairly well when dealing with small (and/or high dimensional) samples
-% \item Provide HSIC and normalized R2-HSIC indices $\rightarrow$ useful  for variable ranking
-% \item Perform statistical tests $\rightarrow$ use p-values for screening of influential/non-influential variables
-% \begin{itemize}
-% \item Asymptotic test
-% \item Permutation-based test
-% \end{itemize}
-% \end{itemize}
-% 
-% \vspace{12pt}
-% 
-% \underline{3 different types of analyses available}
-% 
-% \begin{itemize}
-% \item Global Sensitivity Analysis (GSA) $\rightarrow$ \emph{what are the influential variables on the output, globally?}
-% \item Target Sensitivity Analysis (TSA) $\rightarrow$ \emph{what are the influential variables when crossing a given threshold?}
-% \item Conditional Sensitivity Analysis (CSA) $\rightarrow$ \emph{what are the influential variables inside a given critical domain?}
-% \end{itemize}
-% 
-% \end{small}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \begin{small}
-% 
-% \underline{A quick overview of the API}
-% 
-% \begin{minipage}[t]{0.6\textwidth}
-% 
+\begin{frame}
+\frametitle{HSIC performance improvements}
+\begin{itemize}
+\item Loop reordering and parallelization of P-Values evaluation (permutation) using TBB
+\item Efficient trace computation in HSICVStat instead of full products
+\item Cache input covariance matrix discretization
+\item Use STL primitives like std::accumulate
+\end{itemize}
+
+\vspace{6pt}
+
+\begin{block}{Benchmark (global HSIC, 3 OT versions, 2 estimators, 2 sizes, 2 p-values types)}
+\begin{tabular}{lllllll}
+version/ustat|vstat & 1.19/U & 1.20/U & 1.21/U & 1.19/V & 1.20/V & 1.21/V \\
+time (100/perm) & 1.30 & 1.31 & 0.082 & 6.65 & 6.70 & 0.01\\
+time (1000/perm) & - & 762.8 & 36.58 & - & 5313.4 & 0.79\\
+time (100/asymp) & 0.028 & 0.028 & 0.0013 & 0.028 & 0.031 & 0.0017\\
+time (1000/asymp) & 16.59 & 16.46 & 0.17 & 16.56 & 17.85 & 0.15\\
+\end{tabular}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Chaos rewrite}
+\begin{itemize}
+\item Long-term effort to simplify usage and improve performance
+\item Deduplicate basis selection at AdaptiveStrategy and LARS level
+\item Restrict combination of integration + LARS
+\item New LeastSquaresExpansion and IntegrationExpansion classes available in 1.21
+\item Ongoing work to rewrite LARS selection as well (2024 ?)
+\end{itemize}
+
 % \vspace{6pt}
 % 
-% \textbf{4 essential elements} : 
-% \begin{itemize}
-% \item An HSIC estimator
-% \begin{itemize}
-% \item GSA/TSA/CSA
-% \end{itemize}
-% \item 2 Data samples
-% \begin{itemize}
-% \item p-dimensional input sample
-% \item 1-dimensional output sample
-% \end{itemize}
-% \item A p+1-dimensional list of covariance models
-% \item A type of HSIC statistic
-% \begin{itemize}
-% \item U-statistics (unbiased)
-% \item V-statistics (biased, but asymptotically unbiased)
-% \end{itemize}
-% \end{itemize}
-% \end{minipage}%
-% \begin{minipage}[t]{0.4\textwidth}
-% 
-% \vspace{6pt}
-% 
-% \textbf{2 additional elements} : 
-% \begin{itemize}
-% \item TSA $\rightarrow$ Filter function
-% \item CSA $\rightarrow$ Weight function
-% \end{itemize}
-% \end{minipage}%
-% 
-% 
-% \end{small}
-% \end{frame}
-% 
-% \begin{frame}[containsverbatim]	
-% \frametitle{Example : Global sensitivity analysis on the Ishigami function}
-% \begin{small}
-% 
-% \begin{lstlisting}
-% estimatorType = ot.HSICUStat()
-% 
-% GSAEstimator = ot.HSICEstimatorGlobalSensitivity(
-%     covarianceModelCollection, X, Y, estimatorType)
-%     
-% GSAEstimator.run()
-% 
-% graph1 = GSAEstimator.drawHSICIndices()
-% graph2 = GSAEstimator.drawPValuesAsymptotic()
-% graph3 = GSAEstimator.drawR2HSICIndices()
-% graph4 = GSAEstimator.drawPValuesPermutation()
-% \end{lstlisting}
-% 
-% \end{small}
-% \end{frame}
-% 
-% \begin{frame}
-% \frametitle{Example : Global sensitivity analysis on the Ishigami function}
-% 
-% \begin{figure}
-%    \includegraphics[width=0.65\textwidth]{figures/HSIC1.png}
-% \end{figure}
-% \end{frame}
-% 
-% 
-% 
-% 
-% \begin{frame}[containsverbatim]	
-% \frametitle{Example : Target sensitivity analysis on the Ishigami function}
-% \begin{small}
-% 
-% \begin{lstlisting}
-% estimatorType = ot.HSICVStat()
-% 
-% criticalDomain = ot.Interval(5, float('inf'))
-% dist2criticalDomain = ot.DistanceToDomainFunction(criticalDomain)
-% f = ot.SymbolicFunction(["x"], ["exp(-x)"])
-% filterFunction = ot.ComposedFunction(f, dist2criticalDomain)
-% 
-% TSAEstimator = ot.HSICEstimatorTargetlSensitivity(
-%     covarianceModelCollection, X, Y, estimatorType, 
-%     filterFunction)
-%     
-% TSAEstimator.run()
-% 
-% graph1 = TSAEstimator.drawHSICIndices()
-% graph2 = TSAEstimator.drawPValuesAsymptotic()
-% graph3 = TSAEstimator.drawR2HSICIndices()
-% graph4 = TSAEstimator.drawPValuesPermutation()
-% \end{lstlisting}
-% 
-% \end{small}
-% \end{frame}
-% 
-% \begin{frame}
-% \frametitle{Example : Target sensitivity analysis on the Ishigami function}
-% \begin{figure}
-%    \includegraphics[width=0.65\textwidth]{figures/HSIC2.png}
-% \end{figure}
-% \end{frame}
-% 
-% \section{Metropolis-Hastings}
-% % 
-% \begin{frame}[containsverbatim]
-% \frametitle{Metropolis-Hastings}
-% 
-% \begin{itemize}
-% \item RandomWalkMH now updates with the instrumental in one go
-% \item new Gibbs class that updates components sequentially
-% \item Separate method to define the likelihood
-% \item Handle improper prior via a log-pdf function
-% \item Direct inconditional sampling according to a random variable
-% \end{itemize}
-% 
-%  
-% \begin{center}
-% \includegraphics[width=0.9\textwidth]{figures/sphx_glr_plot_bayesian_calibration_002.png}
-% \end{center}
-% \end{frame}
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Metropolis-Hastings}
-% 
-% \lstset{language=python}
-% \begin{lstlisting}
-% from openturns import RandomWalkMetropolisHastings as RWMH
-% rwmh1 = RWMH(prior, initialState, proposal1, [0])
-% rwmh2 = RWMH(prior, initialState, proposal2, [1, 2])
-% mh_coll = [rwmh1, rwmh2]
-% for mh in mh_coll:
-%     mh.setLikelihood(conditional, y_obs, linkFunction, x_obs)
-% sampler = ot.Gibbs(mh_coll)
-% x = sampler.getSample(1000)
-% \end{lstlisting}
-% 
-% 
-% \end{frame}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Iterative statistics}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Iterative statistics}
-% 
-% \begin{itemize}
-% \item Compute statistics without the need to store whole samples
-% \item Moments / threshold exceedance / extrema
-% \item Useful in HPC contexts
-% \end{itemize}
-% 
-% \begin{center}
-% \includegraphics[width=0.5\textwidth]{figures/sphx_glr_plot_iterative_moments_001.png}
-% \end{center}
-% \end{frame}
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Iterative statistics}
-% 
-% \lstset{language=python}
-% \begin{lstlisting}
-% iter_mom = ot.IterativeMoments(order, dim)
-% iter_ext = ot.IterativeExtrema(dim)
-% iter_te = ot.IterativeThresholdExceedance(dim, 4.0)
-% 
-% for i in range(size):
-%     x = rv.getRealization()
-%     iter_mom.increment(x)
-%     iter_ext.increment(x)
-%     iter_te.increment(x)
-% 
-% xmin = iter_ext.getMin()
-% xmax = iter_ext.getMax()
-% variance = iter_mom.getVariance()
-% skewness = iter_mom.getSkewness()
-% pf = iter_te.getThresholdExceedance()
-% \end{lstlisting}
-% 
-% 
-% \end{frame}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \section{NAIS}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{NAIS}
-% 
-% \begin{itemize}
-% \item Nonparametric Adaptive Importance Sampling (Morio 2015)
-% 
-% \item Adaptive method based on the idea of Importance Sampling
-% 
-% $$
-% \widehat{P}^\text{IS}=\frac{1}{N} \sum_{i=1}^{N} {\mathbf{1}}_{g(\mathbf{x}_i)<T} \frac{h_0(\mathbf{x}_i)}{h(\mathbf{x}_i)}
-% $$
-% 
-% \item Updates an importance density from KS (Gauss + Silverman)
-% 
-% \item Comparable to subset simulations
-% 
-% \item No tuning needed
-% \end{itemize}
-% 
-% 
-% \end{frame}
-% 
-% 
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Galambos copula}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \begin{frame}
-% \frametitle{Galambos copula}
-% 
-% \begin{itemize}
-% \item bivariate extreme value copula
-% $$ C(u_1, u_2) = u_1u_2\exp\left[(-\log(u_1))^{-\theta} + (-\log(u_2))^{-\theta}\right]^{-1/\theta} $$
-% \item aims at modelling the dependence of rare events
-% \end{itemize}
-% 
-% \begin{center}
-% \includegraphics[width=0.8\textwidth]{figures/openturns-GalambosCopula-1.png}
-% \end{center}
-% 
-% \end{frame}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Tensor product experiment}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Tensor product experiment}
-% 
-% \begin{itemize}
-% \item Tensorize a set of elementary (d>=1) designs of experiments
-% 
-% $$
-% \int_{\mathcal{X}} g(\boldsymbol{x}) f(\boldsymbol{x}) d\boldsymbol{x} 
-%     \approx \sum_{i = 1}^{s_t} w_i g\left(\boldsymbol{x}_i\right)
-% $$
-% 
-% \end{itemize}
-% 
-% 
-% \begin{center}
-% \includegraphics[width=0.38\textwidth]{figures/TensorProductExperiment.png}
-% \end{center}
-% \end{frame}
-% 
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Tensor product experiment}
-% 
-% 
-% \lstset{language=python}
-% \begin{lstlisting}
-% exp1 = ot.GaussProductExperiment(ot.Uniform(0.0, 1.0), [3])
-% exp2 = ot.GaussProductExperiment(ot.Uniform(0.0, 1.0), [5])
-% exp_tens = ot.TensorProductExperiment([exp1, exp2])
-% nodes, weights = exp_tens.generateWithWeights()
-% \end{lstlisting}
-% 
-% \end{frame}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% \section{Multi-objective optimization}
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Multi-objective optimization}
-% % \lstset{language=python}
-% 
-% % \begin{lstlisting}
-% % 
-% % \end{lstlisting}
-% 
-% \begin{itemize}
-% \item massively parallel optimization Pagmo library from ESA
-% \item 18 bio-inspired and evolutionary global algorithms
-% \item 4 multi-objective algorithms
-% \item some support batch evaluation / constraints / MINLP
-% \end{itemize}
-% 
-% \begin{center}
-% \includegraphics[width=0.4\textwidth]{figures/sphx_glr_plot_optimization_pagmo_002.png}
-% \end{center}
-% \end{frame}
-% 
-% 
-% \begin{frame}[containsverbatim]
-% \frametitle{Multi-objective optimization}
-% 
-% \lstset{language=python}
-% \begin{lstlisting}
-% pop0 = ot.ComposedDistribution([ot.Uniform(0.0, 1.0)] * 2).getSample(100)
-% algo = ot.Pagmo(zdt1, 'nsga2', pop0)
-% algo.setGenerationNumber(180)
-% algo.run()
-% result = algo.getResult()
-% pop1 = result.getFinalPoints()
-% fronts = result.getParetoFrontsIndices()
-% \end{lstlisting}
-% 
-% 
-% \end{frame}
+% \begin{block}{Benchmark (Ishigami, basis size=455, sampling size=8192)}
+% \begin{tabular}{lll}
+% version & old & new \\
+% time (integration) & &\\
+% time (least-squares) & &\\
+% \end{tabular}
+% \end{block}
 
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/lars}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Documentation improvements}
+\begin{itemize}
+\item Lots of new examples: chaos, cv, regression, MLE, functions, integration, enumerate, ...
+\item New usecases: fire satellite, wing weight, Linthurst/Coles datasets
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{figures/firesatellite}
+\includegraphics[width=0.3\textwidth]{figures/wingweight}
+\end{center}
+
+\begin{itemize}
+\item Example minigalleries linking to relevant examples
+\item Lot of time invested in the improvement of the documentation
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Other improvements}
+\begin{itemize}
+\item Improved MCMC adaptation and new class to customize the update
+\item Field to vector metamodeling and sensitivity using KL + chaos
+\item Chaos expansion for mixed variables
+\item New BoxCoxFactory method to return directly the underlying linear model
+\item New inference method based on quantile numerical optimization
+\item Enabled Pagmo.moead\_gen, Bonmin.Ecp/iFP optimization algorithms
+\item Continued bugfix effort (avg 30+ recorded per release + more internally fixed)
+\end{itemize}
+
+\vspace{6pt}
+
+\begin{center}
+\includegraphics[width=0.15\textwidth]{figures/bugfix}
+\end{center}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \begin{frame}
 \frametitle{Packaging 1/2}
-\begin{block}{Python distribution channels}
+\begin{block}{Python channels}
 \begin{itemize}
 \item Pip, Conda
 \item Versions: 3.8-3.11
@@ -505,8 +287,10 @@ New features since last year in releases:
 \item OpenSUSE 15.4
 \item Mageia 8
 \item ArchLinux
-\item FreeBSD
 \end{itemize}
+
+... and FreeBSD
+
 \end{block}
 
 
@@ -519,38 +303,6 @@ New features since last year in releases:
 \includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
 \includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
 \includegraphics[width=0.15\textwidth]{figures/FREEBSD_Logo_Horiz_Pos_RGB}
-\end{center}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Documentation improvements}
-\begin{itemize}
-\item New usecases: fire satellite, wing weight, Linthurst/Coles datasets
-\item Lots of new examples: chaos, cv, regression, MLE, functions, integration, enumerate, ...
-\item Example minigalleries linking to relevant examples
-\item Lot of time invested in the improvement of the documentation
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{figures/minigallery}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Other improvements}
-\begin{itemize}
-\item Field to vector metamodeling and sensitivity using KL + chaos
-\item Chaos expansion for mixed variables
-\item New BoxCoxFactory method to return directly the underlying linear model
-\item Enabled Pagmo.moead\_gen, Bonmin.Ecp/iFP optimization algorithms
-\item Continued bugfix effort (avg 30+ recorded per release + more internally fixed)
-\end{itemize}
-
-\vspace{6pt}
-
-\begin{center}
-\includegraphics[width=0.15\textwidth]{figures/bugfix}
 \end{center}
 
 \end{frame}
