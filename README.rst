@@ -69,6 +69,7 @@ OpenTURNS Presentations
 - User day 2023
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
+  - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
 
 - CHORUS
 
