@@ -32,6 +32,7 @@ jobs:
           cd userday2022/userday2022relhi/ && pdflatex -halt-on-error userday2022relhi.tex && pdflatex userday2022relhi.tex && cd -
           cd userday2022/ud2022persalys && pdflatex -halt-on-error UsersDay-2022-PERSALYS.tex && pdflatex UsersDay-2022-PERSALYS.tex && cd -
           cd userday2023/userday2023relhi/ && pdflatex -halt-on-error userday2023relhi.tex && pdflatex userday2023relhi.tex && cd -
+          cd userday2023/ud2023persalys && pdflatex -halt-on-error UsersDay-2023-PERSALYS.tex && pdflatex UsersDay-2023-PERSALYS.tex && cd -
       - name: Upload
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
