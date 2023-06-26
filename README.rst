@@ -72,7 +72,7 @@ OpenTURNS Presentations
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
   - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
-  - ` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_oteclm_diffusable.pdf>`_
+  - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_oteclm_diffusable.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Renault.pdf>`_
 
 - CHORUS
