@@ -68,12 +68,13 @@ OpenTURNS Presentations
 
 - User day 2023
 
-  - `Introduction - E. Decossin <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UJU_OT_230623_Decossin.pdf>`_
+  - `Introduction EDF <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UJU_OT_230623_Decossin.pdf>`_
+  - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
-  - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
   - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_oteclm_diffusable.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Renault.pdf>`_
+  - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Onera.pdf>`_
 
 - CHORUS
 
