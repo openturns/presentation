@@ -72,9 +72,14 @@ OpenTURNS Presentations
   - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
-  - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_oteclm_diffusable.pdf>`_
-  - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Renault.pdf>`_
-  - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Onera.pdf>`_
+  - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Rychkov_Dutfoy.pdf>`_
+  - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bachelier.pdf>`_
+  - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Demange.pdf>`_
+  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.pdf>`_
+  - `How GEMSEO uses OpenTURNS for multidisciplinary problems <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_deLozzo.pdf>`_
+  - `A digital twin of the Grand'Maison thrust bearing <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Tardieu.pdf>`_
+  - `Uncertainty analysis of single- and multiple-size-class frazil ice models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Souille.pdf>`_
+  - `Info-gap robustness assessment of reliability evaluations using several OpenTURNS features <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Ajenjo.pdf>`_
 
 - CHORUS
 
