@@ -75,7 +75,7 @@ OpenTURNS Presentations
   - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Rychkov_Dutfoy.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bachelier.pdf>`_
   - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Demange.pdf>`_
-  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.ppt>`_
+  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.pdf>`_
   - `How GEMSEO uses OpenTURNS for multidisciplinary problems <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_deLozzo.pdf>`_
   - `A digital twin of the Grand'Maison thrust bearing <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Tardieu.pdf>`_
   - `Uncertainty analysis of single- and multiple-size-class frazil ice models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Souille.pdf>`_
