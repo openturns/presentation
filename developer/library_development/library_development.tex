@@ -413,7 +413,7 @@ MyClass(const MyClass & other) {
   \begin{block}{Step 10: integrate the SWIG interface file into the whole Python interface}
     \begin{itemize}
     \item Locate in which of the Python submodule SWIG file you have to include MyClass.i (look for classes from the same source subdirectory) 
-    \item Add MyClass.i in the SWIG module source python/src/xxx\_module.i
+    \item Add MyClass.i in the SWIG module source python/src/xxx\_module.i. Caution: the order of the lines matters!
     \item Modify the CMakeLists file in python/src: add MyClass.i to the identified SWIG module
     \end{itemize}
   \end{block}
