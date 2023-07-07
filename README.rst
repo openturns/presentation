@@ -61,10 +61,25 @@ OpenTURNS Presentations
   - `Surrogate models and sensitivity analysis for simulation of electron guns of high-frequency & high-power amplification devices <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_MOLENDA.pdf>`_
   - `Copula-based iterative approximate Bayesian calibration for urban building energy modeling and impact of time resolution <https://github.com/openturns/presentation/blob/master/userday2022/ju_ot_2022_xFaure.pdf>`_
   - `Sensitivity studies OD-1D/3D of thermo aeraulic models of industrial premises, assistance in the identification of influential phenomena and preparation of experimental protocols for the Zephyr test platform <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_BOREL.pdf>`_
-  - `Correction of surface reflectance retrieval in the tree shadow by machine learning <https://github.com/openturns/presentation/blob/master/userday2022/JU_OT_2022_trees.pdf>`_ 
+  - `Correction of surface reflectance retrieval in the tree shadow by machine learning <https://github.com/openturns/presentation/blob/master/userday2022/JU_OT_2022_trees.pdf>`_
   - `Variance based sensitivity analysis for functional inputs - Application to pilots' actions <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_OBANDO.pdf>`_
   - `1D site effects including spatial variability of soil properties <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_BERGER.pdf>`_
   - `The plugin otagrum: learning non-parametric Copula Bayesian Networks <https://github.com/openturns/presentation/blob/master/userday2022/JUOT_2022_Lasserre.pdf>`_
+
+- User day 2023
+
+  - `Introduction EDF <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Decossin.pdf>`_
+  - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
+  - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
+  - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Rychkov_Dutfoy.pdf>`_
+  - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bachelier.pdf>`_
+  - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Demange.pdf>`_
+  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.pdf>`_
+  - `How GEMSEO uses OpenTURNS for multidisciplinary problems <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_deLozzo.pdf>`_
+  - `A digital twin of the Grand'Maison thrust bearing <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Tardieu.pdf>`_
+  - `Uncertainty analysis of single- and multiple-size-class frazil ice models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Souille.pdf>`_
+  - `Info-gap robustness assessment of reliability evaluations using several OpenTURNS features <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Ajenjo.pdf>`_
 
 - CHORUS
 
@@ -97,3 +112,5 @@ OpenTURNS Presentations
   - `Auto-associative models as a nonlinear PCA for dimension reduction (Phimeca) <https://github.com/openturns/presentation/blob/master/high-dim-meta-2021/modele_autoassociatif_PHIMECA.pdf>`_
 
 - `SIAM-UQ 2022 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2022-slides-OpenTURNS.pdf>`_
+
+- `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_

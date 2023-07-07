@@ -2,13 +2,15 @@ name: Build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       SOURCE_DATE_EPOCH: 1640995200
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install
-        run: sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science texlive-bibtex-extra lmodern
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science texlive-bibtex-extra lmodern
       - name: Build
         run: |
           cd euroscipy-2017 && pdflatex -halt-on-error euroscipy-2017.tex && pdflatex euroscipy-2017.tex && cd -
@@ -21,6 +23,7 @@ jobs:
           cd chorus-2017-otfmi && pdflatex -halt-on-error chorus-2017-otfmi.tex && pdflatex chorus-2017-otfmi.tex && cd -
           cd siamuq2020 && pdflatex -halt-on-error siamuq-2020-slides-OpenTURNS.tex && pdflatex siamuq-2020-slides-OpenTURNS.tex && cd -
           cd siamuq2022 && pdflatex -halt-on-error siamuq-2022-slides-OpenTURNS.tex && pdflatex siamuq-2022-slides-OpenTURNS.tex && cd -
+          cd applibugs2023 && pdflatex -halt-on-error applibugs-2023-slides_OpenTURNS_MetropolisHastings.tex && pdflatex applibugs-2023-slides_OpenTURNS_MetropolisHastings.tex && cd -
           cd userday2020/userday2020relhi/ && pdflatex -halt-on-error userday2020relhi.tex && pdflatex userday2020relhi.tex && cd -
           cd userday2020/ud2020persalys && pdflatex -halt-on-error UsersDay-2020-PERSALYS.tex && pdflatex UsersDay-2020-PERSALYS.tex && cd -
           cd userday2021/userday2021relhi/ && pdflatex -halt-on-error userday2021relhi.tex && pdflatex userday2021relhi.tex && cd -
@@ -29,6 +32,8 @@ jobs:
           cd userday2022/userday2022relhi/ && pdflatex -halt-on-error userday2022relhi.tex && pdflatex userday2022relhi.tex && cd -
           cd userday2022/ud2022persalys && pdflatex -halt-on-error UsersDay-2022-PERSALYS.tex && pdflatex UsersDay-2022-PERSALYS.tex && cd -
           cd developer/python_function && bash build.sh && cd -
+          cd userday2023/userday2023relhi/ && pdflatex -halt-on-error userday2023relhi.tex && pdflatex userday2023relhi.tex && cd -
+          cd userday2023/ud2023persalys && pdflatex -halt-on-error UsersDay-2023-PERSALYS.tex && pdflatex UsersDay-2023-PERSALYS.tex && cd -
       - name: Upload
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
