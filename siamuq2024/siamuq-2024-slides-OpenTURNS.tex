@@ -354,6 +354,7 @@ program your Python scripts.
 \section{OpenTURNS 1.22: New capabilities}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetikzlibrary {arrows.meta} % pour la flèche
 
 \begin{frame}
   \frametitle{Functional surrogate model}
@@ -384,13 +385,24 @@ program your Python scripts.
       \end{itemize}
   \vspace{-0.7cm}
   \begin{columns}
-    \column{0.2\textwidth}
+    \column{0.22\textwidth}
+    \centering
     \includegraphics[width=.99\textwidth]{figures/time_series.pdf}
-    \column{0.7\textwidth}
-    \hspace{-0.5cm}
-    \includegraphics[width=.99\textwidth]{figures/scatter_3d.pdf}
-    \column{0.1\textwidth}
-    \includegraphics[width=.99\textwidth]{figures/response.pdf}
+    \column{0.45\textwidth}
+    \hspace{-1cm}
+    \begin{tikzpicture}
+      \draw[line width = 1pt, -{Stealth}] (3.0,0)   -- (3.6,0);
+      \node[inner sep=0pt] (russell) at (0,0)
+      {\includegraphics[width=.99\textwidth]{figures/scatter_3d.pdf}};
+    \end{tikzpicture}
+    %\includegraphics[width=.99\textwidth]{figures/scatter_3d.pdf}
+    \column{0.15\textwidth}
+    % \begin{tikzpicture}
+    %   \node[inner sep=0pt] (russell) at (0,0)
+    %       {\includegraphics[width=.99\textwidth]{figures/response.pdf}};
+    %   \draw[line width = 1pt, -{Stealth}] (-4,0.5)   -- (-3.5,0.5);
+    % \end{tikzpicture}
+    \includegraphics[width=.99\textwidth, height=2.5\textwidth]{figures/response.pdf}
   \end{columns}
 
   \end{frame}
@@ -512,354 +524,296 @@ graph = sensitivity.draw()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{OpenTURNS: Metropolis-Hastings}
+\frametitle{Surrogate with mixed continuous and categorical variables}
 \small
-We want to sample from the joint distribution $\pi$ of 3 random variables $X, Y, Z$.
-Here is one step of the algorithm, starting from the point $(x, y, z)$:
-
-\begin{enumerate}
-\item Simulate a candidate $(x',y',z') \sim q( \cdot | x, y, z)$ for some conditional distribution $q$.
-\item Compute
-$
-\alpha(x',y',z' | x,y,z) = \min \left\{ \frac{\pi(x',y',z') \, q(x,y,z | x',y',z')}{\pi(x,y,z) q(x',y',z' | x,y,z)} , 1 \right\}.
-$
-\item Simulate $u \sim \mathcal{U}(0,1)$. If $u \leqslant \alpha(x',y',z' | x,y,z)$,
-then the next state is $(x',y',z')$, otherwise it is $(x,y,z)$.
-\end{enumerate}
-
-\begin{block}{Random walk Metropolis-Hastings}
-
-When $q(\cdot | x, y, z) = (x,y,z) + \mu$, where $\mu$ is a distribution that does not depend on $(x,y,z)$,
-the  algorithm is called ``Random walk Metropolis-Hastings'' and $\mu$ is called the ``proposal distribution''.
-
-\begin{lstlisting}
-init = [x_start, y_start, z_start]
-proposal = ot.Normal(3) # steps follow a 3d normal distribution
-mh = ot.RandomWalkMetropolisHastings(logdensity, support, init, proposal)
-sample = mh.getSample(1000)
-\end{lstlisting}
-\end{block}
-
-\end{frame}
-
-\begin{frame}[containsverbatim]
-\frametitle{OpenTURNS: Metropolis-Hastings variants}
 \centering
 
-\begin{block}{Single component randomwalk Metropolis-Hastings}
+\begin{block}{Mapping categories to a latent space with Gaussian correlation kernel}
 \medskip
 \centering
-\begin{tikzpicture}[
-squarednode/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=5mm},
-]
-%Nodes
-\node[squarednode]      (mhx)                              {\texttt{mh\_x}};
-\node[squarednode]      (mhy)       [right=of mhx] {{\texttt{mh\_y}}};
-\node[squarednode]      (mhz)       [right=of mhy] {{\texttt{mh\_z}}};
-
-%Lines
-\draw[->] (mhx.east) -- (mhy.west);
-\draw[->] (mhy.east) -- (mhz.west);
-\draw[->] (mhz.east) to [out=340,in=200,looseness=1] (mhx.west);
+\begin{tikzpicture}
+    \draw[gray!30] (-1.25,-1.25) grid[xstep=1.0, ystep=1.0]  (2.25,2.25);
+    \draw[gray!15] (-1.25,-1.25) grid[xstep=0.5, ystep=0.5]  (2.25,2.25);
+    \draw[draw=gray!50,latex-latex] (0,2) +(0,0.5cm) node[above right] {$x_1$} -- (0,-1) -- +(0,-0.5cm);
+    \draw[draw=gray!50,latex-latex] (-1,0) +(-0.5cm,0) -- (2,0) -- +(0.5cm,0) node[below right] {$x_0$};
+    \filldraw (1.0,1.5) circle[radius=1.5pt];
+    %\node [fill, draw, circle, minimum width=3pt, inner sep=0pt, pin={[fill=white, outer sep=2pt]135:P}] at (.5,1) {};
+    \node[above =5pt of {(1.0,1.5)}, outer sep=2pt,fill=white] {mouse};
+    \filldraw (0,0) circle[radius=1.5pt];
+    \node[below left=1pt of {(0,0)}, outer sep=2pt,fill=white] {dog};
+    \filldraw (1.5,0) circle[radius=1.5pt];
+    \node[below =2pt of {(1.5,0)}, outer sep=2pt,fill=white] {cat};
+    \filldraw (-6, 1.5) circle[radius=1.5pt];
+    \node[right =2pt of {(-6,1.5)}, outer sep=2pt,fill=white] {dog};
+    \filldraw (-6, 0.5) circle[radius=1.5pt];
+    \node[right =2pt of {(-6,0.5)}, outer sep=2pt,fill=white] {cat};
+    \filldraw (-6, -0.5) circle[radius=1.5pt];
+    \node[right =2pt of {(-6,-0.5)}, outer sep=2pt,fill=white] {mouse};
+    \draw[line width = 1pt, -{Stealth}] (-4,0.5)   -- (-2.5,0.5);
 \end{tikzpicture}
+\vspace{-0.25cm}
+
+\begin{itemize}
+  \item First category: automatically mapped to $(0,0,...,0)$: here dog to $(0,0)$.
+  \item Second category: automatically mapped to $(x,0,...,0)$: here cat to $(x, 0)$.
+\end{itemize}
 
 \begin{lstlisting}
-prop_dim1 = ot.Normal(1) # steps follow a 1d normal distribution along one axis
-mh_x = ot.RandomWalkMetropolisHastings(logdensity, support, init, prop_dim1, [0])
-mh_y = ot.RandomWalkMetropolisHastings(logdensity, support, init, prop_dim1, [1])
-mh_z = ot.RandomWalkMetropolisHastings(logdensity, support, init, prop_dim1, [2])
-sample = ot.Gibbs([mh_x, mh_y, mh_z]).getSample(1000)
+from openturns.experimental import LatentVariableModel
+covModel = LatentVariableModel(3, 2) # 3 levels (doc, cat, mouse) in 2D
+activeCoordinates = [1.5, 1.0, 1.5] # [cat_0, mouse_0, mouse_1]
+covModel.setLatentVariables(activeCoordinates)
 \end{lstlisting}
 
 \end{block}
 
-\begin{block}{Blocks of components can be considered}
-\medskip
-\centering
-\begin{tikzpicture}[
-squarednode/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=5mm},
-]
-%Nodes
-\node[squarednode]      (mhxy)                     {\texttt{mh\_xy}};
-\node[squarednode]      (mhz)       [right=of mhxy] {\texttt{mh\_z}};
-
-%Lines
-\draw[->] (mhxy.east) -- (mhz.west);
-\draw[->] (mhz.east) to [out=340,in=200,looseness=1.5] (mhxy.west);
-
-\end{tikzpicture}
-
-\begin{lstlisting}
-prop_xy = ot.Normal(2) # steps follows a 2d normal distribution for (X,Y)
-prop_z = ot.Normal(1)  # steps follow  a 1d normal distribution for Z
-mh_xy = ot.RandomWalkMetropolisHastings(logdensity, support, init, prop_xy, [0, 1])
-mh_z = ot.RandomWalkMetropolisHastings(logdensity, support, init, proposal, [2])
-sample = ot.Gibbs([mh_xy, mh_z]).getSample(1000)
-\end{lstlisting}  
-
-\end{block}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{OpenTURNS: conditional samplers in Gibbs algorithms}
+\frametitle{Surrogate with mixed continuous and categorical variables}
 \small
-Assume we have a direct sampler for $Z$ conditionally on $X$ and $Y$:
-this sampler should be passed to the \texttt{RandomVectorMetropolisHastings} class.
+\begin{block}{Example: 1 continuous + 1 boolean variable}
+Product of a 5/2 Mat\'ern covariance kernel for the continuous variable and a latent variable kernel for the boolean variable:
 
 \begin{lstlisting}
-  z_sampler = ot.RandomVector(...) # build a direct sampler for Z | X, Y
-  # Typically, Z depends on a function of (X,Y)
-  # Write it as a function of (X,Y,Z) for the sake of genericity:
-  f = ot.Function(...) # function f(X,Y,Z) which outputs the parameters of z_sampler
-  mh_z = ot.RandomVectorMetropolisHastings(z_sampler, init, [2], f)
+# Standard 5/2 Matern covariance kernel for the continuous variable
+kx = ot.MaternModel()
+kx.setNu(2.5) # smoothess
 
-  prop_xy = ot.Normal(2) # steps follows a 2d normal distribution for (X,Y)
-  mh_xy = ot.RandomWalkMetropolisHastings(logdensity, support, init, prop_xy, [0, 1])
+# Latent variable kernel for the boolean variable
+from openturns.experimental import LatentVariableModel
+kz = LatentVariableModel(2, 1) # 2 categories in a 1D latent space
 
-  sample = ot.Gibbs([mh_x, mh_y, mh_z]).getSample(1000)
+# Mixed variable kernel: product of the two kernels
+kLV = ot.ProductCovarianceModel([kx, kz])
 \end{lstlisting}
-\centering
-\includegraphics[width=.33\textwidth]{figures/gibbs_1.png}
-\includegraphics[width=.66\textwidth]{figures/gibbs_2.png}
 
+Set the bounds for the optimization of the kernel parameters:
+
+\begin{lstlisting}
+# The latent variable kernel amplitude is set to 1: it is fixed.
+param_number = kLV.getParameter().getSize() - 1 # -1 because kz amplitude is fixed
+lowerBoundLV = [1e-4] * param_number
+upperBoundLV = [2.0] * param_number
+boundsLV = ot.Interval(lowerBoundLV, upperBoundLV) # param_number-dimensional interval
+\end{lstlisting}
+
+Sample points to initialize the optimization algorithm:
+\begin{lstlisting}
+unif_coll = [ot.Uniform(lowerBoundLV[i], upperBoundLV[i]) for i in range(param_number)]
+initDistLV = ot.ComposedDistribution(unif_coll) # uniform distribution in boundsLV
+initSampleLV = initDistLV.getSample(30) # a sample from this distribution to start ...
+optAlgLV = ot.MultiStart(ot.NLopt("LN_COBYLA"), initSampleLV) # ... the optimization
+\end{lstlisting}
+
+\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-  \frametitle{OpenTURNS: iterative statistics \footfullcite{pebay2008}  \footfullcite{meng2015}}
+  \frametitle{Surrogate with mixed continuous and categorical variables}
 \small
-\begin{columns}
-
-  \column{0.54\textwidth}
 
 
-  \begin{block}{Iterative moment estimation}
-  \begin{lstlisting}
-  iterMoments = ot.IterativeMoments(order, dim)
-
-  # Iteratively compute the mean
-  size = 2000
-  meanEvolution = ot.Sample()
-  for i in range(size):
-      point = distNormal.getRealization()
-      iterMoments.increment(point)
-      meanEvolution.add(iterMoments.getMean())
-
-  # Display the evolution
-  ran = range(1, size + 1)
-  iter_sample = ot.Sample.BuildFromPoint(ran)
-  curve = ot.Curve(iter_sample, meanEvolution)
-  graph = ot.Graph("Evolution of the mean",
-                    "iteration nb",
-                    "mean",
-                    True)
-  graph.add(curve)
-  graph.setLogScale(ot.GraphImplementation.LOGX)
-  view = otv.View(graph)
-  \end{lstlisting}
-  \end{block}
-
-  \column{0.44\textwidth}
-
-  \includegraphics[width=\textwidth]{figures/iter_mean.png}
-
-  \begin{block}{Other available iterative stats}
-    \begin{itemize}
-      \item Extrema
-      \item Threshold exceedance probability
-    \end{itemize}
-  \end{block}
-
-\end{columns}
+Perform Gaussian Process Regression with the kernel that was built:
+\begin{lstlisting}
+algoLV = ot.KrigingAlgorithm(x, y, kLV) # x: input, y: output
+algoLV.setOptimizationAlgorithm(optAlgLV)
+algoLV.setOptimizationBounds(boundsLV)
+algoLV.run()
+\end{lstlisting}
+\vspace{-0.2cm}
+\centering
+\includegraphics[width=0.82\textwidth]{figures/latent_variable_model.pdf}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{PERSALYS, the graphical user interface}
+% \section{PERSALYS, the graphical user interface}
 
-\begin{frame}
-\frametitle{PERSALYS, the graphical user interface of \ot{}}
+% \begin{frame}
+% \frametitle{PERSALYS, the graphical user interface of \ot{}}
 	
-\begin{columns}
-\column{0.7\textwidth}
+% \begin{columns}
+% \column{0.7\textwidth}
 	
-\begin{itemize}
-\item Provide a graphical interface of 
-\ot{} in and out of the SALOME integration platform
-\item Features : probabilistic model, 
-	distribution fitting, central tendency, 
-  sensitivity analysis, probability estimate, 
-	surrogate modeling (polynomial chaos, kriging), screening (Morris), 
-	optimization, design of experiments
-\item GUI language : English, French
+% \begin{itemize}
+% \item Provide a graphical interface of 
+% \ot{} in and out of the SALOME integration platform
+% \item Features : probabilistic model, 
+% 	distribution fitting, central tendency, 
+%   sensitivity analysis, probability estimate, 
+% 	surrogate modeling (polynomial chaos, kriging), screening (Morris), 
+% 	optimization, design of experiments
+% \item GUI language : English, French
 
-\item Partners : EDF, Phim\'eca
-\item Licence : LGPL
+% \item Partners : EDF, Phim\'eca
+% \item Licence : LGPL
 
-\item Schedule : Since summer 2016, two releases per year, currently V12
-\item On the internet (free) : SALOME\_EDF since 2018 on 
-\url{www.salome-platform.org}
+% \item Schedule : Since summer 2016, two releases per year, currently V12
+% \item On the internet (free) : SALOME\_EDF since 2018 on 
+% \url{www.salome-platform.org}
 
-\end{itemize}
+% \end{itemize}
 
-\column{0.3\textwidth}
+% \column{0.3\textwidth}
 
-\begin{center}
-\includegraphics[width=0.95\textwidth]{figures/PERSALYS-LOGO.png}
-\end{center}
+% \begin{center}
+% \includegraphics[width=0.95\textwidth]{figures/PERSALYS-LOGO.png}
+% \end{center}
 
-\end{columns}
-
-
-\end{frame}
+% \end{columns}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Calibration}
-
-Given a physical model $h$, observed inputs $\boldsymbol{x}$, 
-observed outputs $y$ we can calibrate $\boldsymbol{\theta}$ so that 
-$$
-y = h(\boldsymbol{x}, \boldsymbol{\theta}) + \epsilon
-$$
-where $\epsilon$ is a random (Gaussian) variable.
-
-Calibration outputs:
-\begin{itemize}
-\item the optimal value estimator $\hat{\boldsymbol{\theta}}$,
-\item the distribution of $\hat{\boldsymbol{\theta}}$ and a confidence or credibility 
-interval of each marginal,
-\item the distribution of the residuals $\epsilon = y - h(\boldsymbol{x}, \hat{\boldsymbol{\theta}})$.
-\end{itemize}
-
-We implemented 4 methods\footnote{M. Baudin \& R. Lebrun, Linear algebra of linear and nonlinear Bayesian calibration. UNCECOMP 2021.} :
-
-\begin{center}
-\begin{tabular}{lll}
-                     & {\bf Linear} & {\bf Non Linear} \\
-\hline
-No prior             & Least squares & Least squares \\
-                     & linear        &  non linear \\
-\hline
-Gaussian prior       & Linear calib. & 3DVAR \\
-\hline
-\end{tabular}
-\end{center}
-
-\end{frame}
+% \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Calibration}
+% \begin{frame}
+% \frametitle{Calibration}
 
-In PERSALYS, this requires:
-\begin{itemize}
-\item a physical model $h$ with parameters to calibrate, 
-\item a data file containing the observed inputs and outputs.
-\end{itemize}
+% Given a physical model $h$, observed inputs $\boldsymbol{x}$, 
+% observed outputs $y$ we can calibrate $\boldsymbol{\theta}$ so that 
+% $$
+% y = h(\boldsymbol{x}, \boldsymbol{\theta}) + \epsilon
+% $$
+% where $\epsilon$ is a random (Gaussian) variable.
 
-\begin{center}
-\includegraphics[width=0.35\textwidth]{figures/calibration_observations_contextMenu.png}
-\end{center}
+% Calibration outputs:
+% \begin{itemize}
+% \item the optimal value estimator $\hat{\boldsymbol{\theta}}$,
+% \item the distribution of $\hat{\boldsymbol{\theta}}$ and a confidence or credibility 
+% interval of each marginal,
+% \item the distribution of the residuals $\epsilon = y - h(\boldsymbol{x}, \hat{\boldsymbol{\theta}})$.
+% \end{itemize}
 
-\begin{columns}
-  \column{0.5\textwidth}
+% We implemented 4 methods\footnote{M. Baudin \& R. Lebrun, Linear algebra of linear and nonlinear Bayesian calibration. UNCECOMP 2021.} :
 
-On output, we present the optimal value of each calibrated parameter, 
-along with a 95\% confidence interval.
+% \begin{center}
+% \begin{tabular}{lll}
+%                      & {\bf Linear} & {\bf Non Linear} \\
+% \hline
+% No prior             & Least squares & Least squares \\
+%                      & linear        &  non linear \\
+% \hline
+% Gaussian prior       & Linear calib. & 3DVAR \\
+% \hline
+% \end{tabular}
+% \end{center}
 
-\column{0.5\textwidth}
+% \end{frame}
 
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/calibration-ks-zv-zm-optimal_focus.png}
-\end{center}
 
-\end{columns}
-\end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}
+% \frametitle{Calibration}
 
-\begin{frame}
-  \frametitle{Calibration}
+% In PERSALYS, this requires:
+% \begin{itemize}
+% \item a physical model $h$ with parameters to calibrate, 
+% \item a data file containing the observed inputs and outputs.
+% \end{itemize}
+
+% \begin{center}
+% \includegraphics[width=0.35\textwidth]{figures/calibration_observations_contextMenu.png}
+% \end{center}
+
+% \begin{columns}
+%   \column{0.5\textwidth}
+
+% On output, we present the optimal value of each calibrated parameter, 
+% along with a 95\% confidence interval.
+
+% \column{0.5\textwidth}
+
+% \begin{center}
+% \includegraphics[width=0.9\textwidth]{figures/calibration-ks-zv-zm-optimal_focus.png}
+% \end{center}
+
+% \end{columns}
+% \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}
+%   \frametitle{Calibration}
     
-  \begin{center}
-  \includegraphics[width=0.86\textwidth]{figures/calibration-Zv-prior-posterior.png}
-  \end{center}
+%   \begin{center}
+%   \includegraphics[width=0.86\textwidth]{figures/calibration-Zv-prior-posterior.png}
+%   \end{center}
   
-  \end{frame}
+%   \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{What's next ?}
-  \begin{columns}
-    \column{0.5\textwidth}
+% \begin{frame}
+% \frametitle{What's next ?}
+%   \begin{columns}
+%     \column{0.5\textwidth}
 
-PERSALYS Roadmap : 
-\begin{itemize}
-\item New surrogate models
-\item 2D Fields, 3D Fields
-\item In-Situ fields based on the MELISSA library (with INRIA): 
-when we cannot store the whole sample in memory or on the hard drive, 
-update the statistics (e.g. the mean, Sobol' indices) sequentially, 
-with distributed computing. 
-\end{itemize}
+% PERSALYS Roadmap : 
+% \begin{itemize}
+% \item New surrogate models
+% \item 2D Fields, 3D Fields
+% \item In-Situ fields based on the MELISSA library (with INRIA): 
+% when we cannot store the whole sample in memory or on the hard drive, 
+% update the statistics (e.g. the mean, Sobol' indices) sequentially, 
+% with distributed computing. 
+% \end{itemize}
 
-    \column{0.5\textwidth}
+%     \column{0.5\textwidth}
 
-\begin{center}
-\includegraphics[height=0.5\textheight]{figures/image034.png}
-\end{center}
+% \begin{center}
+% \includegraphics[height=0.5\textheight]{figures/image034.png}
+% \end{center}
 
-	\end{columns}
+% 	\end{columns}
 
-\end{frame}
+% \end{frame}
 
-\note{
+% \note{
 
-The next features we plan to add to PERSALYS is the management
-of 2D and 3D stochastic fields. 
+% The next features we plan to add to PERSALYS is the management
+% of 2D and 3D stochastic fields. 
 
-We also work on the use of the MELISSA software which performs 
-in-situ studies. 
+% We also work on the use of the MELISSA software which performs 
+% in-situ studies. 
 
-This library allows to perform UQ studies in situations 
-where we cannot store more than a couple of multidimensional fields 
-in memory or on the hard drive. 
-}
+% This library allows to perform UQ studies in situations 
+% where we cannot store more than a couple of multidimensional fields 
+% in memory or on the hard drive. 
+% }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{The end}
+% \begin{frame}
+% \frametitle{The end}
 
-\begin{center}
-Thanks !
-\end{center}
+% \begin{center}
+% Thanks !
+% \end{center}
 
-\begin{center}
-Questions ?
-\end{center}
+% \begin{center}
+% Questions ?
+% \end{center}
 
-\begin{columns}
-\column{0.5\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{figures/logo-openturns.png}
-\column{0.5\textwidth}
+% \begin{columns}
+% \column{0.5\textwidth}
+% \centering
+% \includegraphics[width=0.5\textwidth]{figures/logo-openturns.png}
+% \column{0.5\textwidth}
 
-\includegraphics[width=0.8\textwidth]{figures/PERSALYS-LOGO.png}
+% \includegraphics[width=0.8\textwidth]{figures/PERSALYS-LOGO.png}
 
-\end{columns}
+% \end{columns}
 
-\end{frame}
+% \end{frame}
   
 \end{document}
