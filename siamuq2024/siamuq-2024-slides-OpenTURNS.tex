@@ -21,18 +21,18 @@ sorting=ynt
 
 \addbibresource{siamuq-2022-slides-OpenTURNS.bib}
 
-\title[OpenTURNS]{Overview of OpenTURNS, its new features and its graphical user interface}
+\title[OpenTURNS]{Overview of OpenTURNS, its new features and its graphical user interface Persalys}
 
 \author[Mur\'e et al.]{
 J. Mur\'e \inst{1} \and
-M. Baudin \inst{1} \and
 J. Pelamatti \inst{1} \and
+J. Schueller \inst{2} \and
 A. Marion \inst{2}
 }
 
 \institute[EDF-Phim\'eca]{
 \inst{1} EDF R\&D. 6, quai Watier, 78401, Chatou Cedex - France, joseph.mure@edf.fr \and %
-\inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France
+\inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France, schueller@phimeca.com
 }
 
 
@@ -639,6 +639,189 @@ algoLV.run()
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%             PERSALYS                        %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Persalys Overview}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Project overview}
+  \begin{itemize}
+  \item
+    Partnership between \'Electricit\'e De France (EDF) and Phimeca since 2015
+  
+    \begin{itemize}
+    \item
+      Developed in C++ using Qt
+    \item
+      Aiming at maximizing the use of OpenTURNS - through a dedicated GUI
+      - for engineers/researchers without a strong coding experience
+    \item
+      As easy to use as possible while providing the user with help and
+      guidelines
+    \item
+      Benefit from the advanced visualization capability of
+      Paraview
+    \end{itemize}
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{}
+  \protect\hypertarget{section}{}
+  \begin{itemize}
+  
+  \item
+    Features:
+  
+    \begin{itemize}
+    
+    \item
+      Uncertainty quantification:
+    \item
+      Probabilistic model definition
+    \item
+      Distribution fitting
+    \item
+      Probability estimate
+    \item
+      Metamodeling
+    \item
+      Screening
+    \item
+      Optimization
+    \item
+      Design of experiments
+    \item
+      As generic as possible
+  
+      
+      \item
+        Allows for a wide variety of models
+      \item
+        Can be coupled to external code
+    \item
+      GUI language in both English and French
+    \end{itemize}
+  \item
+    LGPL license
+  \item
+    Two releases per year, follows OpenTURNS development
+  \item
+    Available for free on demand at
+    \url{https://persalys.fr}
+  
+  \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Persalys installation}
+  \protect\hypertarget{persalys-installation}{}
+  \begin{itemize}
+  
+  \item
+    Today the material is provided
+  \item
+    Github: sources
+  \item
+    For executables you can request the material at
+    \url{https://persalys.fr/obtenir.php}
+  \item
+    Depending on your OS
+  
+    \begin{itemize}
+    
+    \item
+      Linux -\textgreater{} .AppImage (600 Mo)
+    \item
+      Windows -\textgreater{} .exe will create a shortcut on your Desktop
+      (program is 1.45 Go)
+    \end{itemize}
+    \item Also distributed by Debian-based GNU/Linux distributions (e.g. Debian, Ubuntu...)
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Open Persalys and click on ``New study''}
+    \centering
+    \includegraphics[width=.89\textwidth]{figure/Persalys_GUI.png}
+    \end{frame}
+    
+    \begin{frame}{Create a study}
+    
+    \includegraphics[width=\textwidth]{figure/Persalys_new_study.png}
+    \end{frame}
+    
+    \begin{frame}{Definition/Evaluation}
+    \protect\hypertarget{definitionevaluation}{}
+    Models are viewed as a ``black box'' with inputs, outputs and a
+    transfer function (TF).
+    Persalys supports two model categories:
+    
+    \begin{itemize}
+    \item
+      vector to vector (\(X_i \rightarrow Y_i\), emphasized here)
+    \item
+      vector to 1D field (\(X_i \rightarrow Y_i(t)\))
+    \end{itemize}
+    
+    \medskip
+
+    Vector to vector models can be of the following type:
+    
+    \begin{itemize}
+    
+    \item
+      Symbolic, TF is a mathematical formula
+    \item
+      Python, TF is a Python function
+    \item
+      FMI, TF is provided by an FMU model
+    \item
+      Coupling, TF is an executable command which reads/writes input/output
+      files
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Coupling model definition}
+    
+    \centering
+    
+    \includegraphics[width=0.97\textwidth]{figure/model_definition.png}
+    
+    \end{frame}
+    
+    \begin{frame}{Study workflow}
+      \centering
+      
+      \includegraphics[width=0.7\textwidth]{figure/StudyWorkflow.png}
+      
+      \small
+      Blocks become available as study content grows and prerequisites are fulfilled.
+      \end{frame}
+
+\begin{frame}{Probabilistic models}
+  \small
+  Each input variable can be associated to a distribution.
+  
+  Dependencies
+  between variables are specified as copulas.
+  
+  \centering
+  
+  \includegraphics[width=0.63\textwidth]{figure/overviewProbaModel.png}
+  
+  \end{frame}
+
+  \begin{frame}{Metamodel (surrogate model) creation}
+    \small
+    Using an evaluated design of experiments, the user can build a surrogate model (linear
+    regression, functional chaos or Gaussian process regression). Validation
+    tests are run to check the approximation being made.
+    
+    \centering
+    
+    \includegraphics[width=0.59\textwidth]{figure/overviewMetamodel.png}
+    
+    \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \section{PERSALYS, the graphical user interface}
 
@@ -799,27 +982,26 @@ algoLV.run()
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{frame}
-% \frametitle{The end}
+\begin{frame}
 
-% \begin{center}
-% Thanks !
-% \end{center}
+\begin{center}
+Thanks !
+\end{center}
 
-% \begin{center}
-% Questions ?
-% \end{center}
+\begin{center}
+Questions ?
+\end{center}
 
-% \begin{columns}
-% \column{0.5\textwidth}
-% \centering
-% \includegraphics[width=0.5\textwidth]{figures/logo-openturns.png}
-% \column{0.5\textwidth}
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{figures/logo-openturns.png}
+\column{0.5\textwidth}
 
-% \includegraphics[width=0.8\textwidth]{figures/PERSALYS-LOGO.png}
+\includegraphics[width=0.8\textwidth]{figures/PERSALYS-LOGO.png}
 
-% \end{columns}
+\end{columns}
 
-% \end{frame}
+\end{frame}
   
 \end{document}
