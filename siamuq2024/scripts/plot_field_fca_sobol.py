@@ -89,7 +89,7 @@ for trajectory in trajectories_3d:
     zs = trajectory.getMarginal(2)
     ax.scatter(xs, ys, zs, marker='+')
 ax.set_title(r'$f \in \mathcal{F}([0,3], \mathbb{R}^3)$')
-plt.savefig("../figures/scatter_3d.pdf")
+plt.savefig("../figures/scatter_3d.pdf", bbox_inches='tight')
 plt.show()
 
 # %%
@@ -173,7 +173,7 @@ for num, pca in enumerate(pca_collection):
     grid.setGraph(0, num, graph)
 
 v = View(grid)
-v.save("../figures/pca_validation.pdf")
+v.save("../figures/pca_validation.png")
 
 
 # %%

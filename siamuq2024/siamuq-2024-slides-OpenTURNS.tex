@@ -6,7 +6,7 @@
 %\setbeameroption{show notes}
 %\setbeameroption{show only notes}
 
-\include{macros}
+\input{macros}
 
 \usepackage[
 backend=biber,
@@ -34,6 +34,7 @@ A. Marion \inst{2}
 \inst{1} EDF R\&D. 6, quai Watier, 78401, Chatou Cedex - France, joseph.mure@edf.fr \and %
 \inst{2} Phimeca Engineering. 18/20 boulevard de Reuilly, 75012 Paris - France
 }
+
 
 \date[]{March 1st 2024, SIAM UQ 2024, Trieste, Italy}
 
@@ -94,8 +95,16 @@ A. Marion \inst{2}
 % \tableofcontents
 % \end{frame}
 
+\AtBeginSection[ ]
+{
+  \begin{frame}
+    \frametitle{Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section{OpenTURNS Overview}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -104,7 +113,7 @@ A. Marion \inst{2}
 
 
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{figures/OT.png}
+    \includegraphics[width=0.8\textwidth]{figures/OT.pdf}
     \end{center}
 	
 \begin{itemize}
@@ -133,11 +142,11 @@ program your Python scripts.
 
 \begin{center}
    \begin{tabular}{ccccc}
-   \includegraphics[width=0.07\textwidth]{figures/logoEDF_Anne.png}&
+   \includegraphics[width=0.10\textwidth]{figures/logoEDF_Anne.png}&
    \includegraphics[width=0.12\textwidth]{figures/LogoAirbus.png}&
    \includegraphics[width=0.12\textwidth]{figures/logo_phimeca.png}&
    \includegraphics[width=0.12\textwidth]{figures/logo_Imacs.png}
-   \includegraphics[width=0.30\textwidth]{figures/logo_ONERA.jpg}&
+   \includegraphics[width=0.25\textwidth]{figures/logo_ONERA.jpg}&
    \end{tabular}
 \end{center}
 
@@ -251,7 +260,7 @@ program your Python scripts.
   \end{tabular}
 \end{frame}
   
-  
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
@@ -331,7 +340,7 @@ program your Python scripts.
       
   \centering
   
-  \includegraphics[width=1.\textwidth]{figures/Coupling.png}
+  \includegraphics[width=1.\textwidth]{figures/Coupling.pdf}
   
       \column{0.4\textwidth}
   
@@ -347,12 +356,11 @@ program your Python scripts.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{OpenTURNS 1.22: New capabilities}
-
+\section{OpenTURNS 1.22: Functional surrogate model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usetikzlibrary {arrows.meta} % pour la flèche
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Functional surrogate model}
   
@@ -382,7 +390,7 @@ program your Python scripts.
       \end{itemize}
   \vspace{-0.7cm}
   \begin{columns}
-    \column{0.22\textwidth}
+    \column{0.19\textwidth}
     \centering
     \includegraphics[width=.99\textwidth]{figures/time_series.pdf}
     \column{0.45\textwidth}
@@ -493,10 +501,10 @@ for num, pca in enumerate(pca_l):
     \end{column}  
 \end{columns}
 
-\vspace{-0.4cm}
+\vspace{-0.52cm}
 \centering
-\includegraphics[width=0.8\textwidth]{figures/pca_modes.pdf}
-\includegraphics[width=0.8\textwidth]{figures/pca_validation.png}
+\includegraphics[width=0.775\textwidth]{figures/pca_modes.pdf}
+\includegraphics[width=0.775\textwidth]{figures/pca_validation.png}
 
 \end{frame}
   
@@ -519,7 +527,10 @@ graph = sensitivity.draw()
 \end{frame}
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[OpenTURNS 1.22: Surrogate with categorical variables]{OpenTURNS 1.22: Surrogate with mixed continuous and categorical variables}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[containsverbatim]
 \frametitle{Surrogate with mixed continuous and categorical variables}
 \small
@@ -535,17 +546,17 @@ graph = sensitivity.draw()
     \draw[draw=gray!50,latex-latex] (-1,0) +(-0.5cm,0) -- (2,0) -- +(0.5cm,0) node[below right] {$x_0$};
     \filldraw (1.0,1.5) circle[radius=1.5pt];
     %\node [fill, draw, circle, minimum width=3pt, inner sep=0pt, pin={[fill=white, outer sep=2pt]135:P}] at (.5,1) {};
-    \node[above =5pt of {(1.0,1.5)}, outer sep=2pt,fill=white] {mouse};
+     \node[above = 5pt of {1.0,1.5}, outer sep=2pt,fill=white] {mouse};
     \filldraw (0,0) circle[radius=1.5pt];
-    \node[below left=1pt of {(0,0)}, outer sep=2pt,fill=white] {dog};
+    \node[below left=1pt of {0,0}, outer sep=2pt,fill=white] {dog};
     \filldraw (1.5,0) circle[radius=1.5pt];
-    \node[below =2pt of {(1.5,0)}, outer sep=2pt,fill=white] {cat};
+    \node[below =2pt of {1.5,0}, outer sep=2pt,fill=white] {cat};
     \filldraw (-6, 1.5) circle[radius=1.5pt];
-    \node[right =2pt of {(-6,1.5)}, outer sep=2pt,fill=white] {dog};
+    \node[right =2pt of {-6,1.5}, outer sep=2pt,fill=white] {dog};
     \filldraw (-6, 0.5) circle[radius=1.5pt];
-    \node[right =2pt of {(-6,0.5)}, outer sep=2pt,fill=white] {cat};
+    \node[right =2pt of {-6,0.5}, outer sep=2pt,fill=white] {cat};
     \filldraw (-6, -0.5) circle[radius=1.5pt];
-    \node[right =2pt of {(-6,-0.5)}, outer sep=2pt,fill=white] {mouse};
+    \node[right =2pt of {-6,-0.5}, outer sep=2pt,fill=white] {mouse};
     \draw[line width = 1pt, -{Stealth}] (-4,0.5)   -- (-2.5,0.5);
 \end{tikzpicture}
 \vspace{-0.25cm}
@@ -554,12 +565,13 @@ graph = sensitivity.draw()
   \item First category: automatically mapped to $(0,0,...,0)$: here dog to $(0,0)$.
   \item Second category: automatically mapped to $(x,0,...,0)$: here cat to $(x, 0)$.
 \end{itemize}
+\vspace{-0.21cm}
 
 \begin{lstlisting}
-from openturns.experimental import LatentVariableModel
-covModel = LatentVariableModel(3, 2) # 3 levels (doc, cat, mouse) in 2D
-activeCoordinates = [1.5, 1.0, 1.5] # [cat_0, mouse_0, mouse_1]
-covModel.setLatentVariables(activeCoordinates)
+      from openturns.experimental import LatentVariableModel
+      covModel = LatentVariableModel(3, 2) # 3 categories (doc, cat, mouse) in 2D
+      activeCoordinates = [1.5, 1.0, 1.5] # [cat_0, mouse_0, mouse_1]
+      covModel.setLatentVariables(activeCoordinates)
 \end{lstlisting}
 
 \end{block}
@@ -570,9 +582,8 @@ covModel.setLatentVariables(activeCoordinates)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{Surrogate with mixed continuous and categorical variables}
+\frametitle{Example: 1 continuous + 1 boolean variable}
 \small
-\begin{block}{Example: 1 continuous + 1 boolean variable}
 Product of a 5/2 Mat\'ern covariance kernel for the continuous variable and a latent variable kernel for the boolean variable:
 
 \begin{lstlisting}
@@ -606,24 +617,22 @@ initSampleLV = initDistLV.getSample(30) # a sample from this distribution to sta
 optAlgLV = ot.MultiStart(ot.NLopt("LN_COBYLA"), initSampleLV) # ... the optimization
 \end{lstlisting}
 
-\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-  \frametitle{Surrogate with mixed continuous and categorical variables}
+  \frametitle{Example -- continued: Gaussian Process Regression}
 \small
 
 
-Perform Gaussian Process Regression with the kernel that was built:
 \begin{lstlisting}
 algoLV = ot.KrigingAlgorithm(x, y, kLV) # x: input, y: output
 algoLV.setOptimizationAlgorithm(optAlgLV)
 algoLV.setOptimizationBounds(boundsLV)
 algoLV.run()
 \end{lstlisting}
-\vspace{-0.2cm}
+\vspace{-0.19cm}
 \centering
 \includegraphics[width=0.82\textwidth]{figures/latent_variable_model.pdf}
 
