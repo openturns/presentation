@@ -117,3 +117,6 @@ OpenTURNS Presentations
 - `SIAM-UQ 2022 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2022-slides-OpenTURNS.pdf>`_
 
 - `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
+
+- `SIAM-UQ 2024 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2024-slides-OpenTURNS.pdf>`_
+
