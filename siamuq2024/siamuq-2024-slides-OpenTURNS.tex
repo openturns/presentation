@@ -25,7 +25,8 @@ sorting=ynt
 
 \author[Mur\'e et al.]{
 J. Mur\'e \inst{1} \and
-J. Pelamatti \inst{1} \and
+M. Baudin \inst{1} \and
+J. Pelamatti \inst{1} \and  \\
 J. Schueller \inst{2} \and
 A. Marion \inst{2}
 }
@@ -302,16 +303,9 @@ program your Python scripts.
   
   \small
   \begin{itemize}
-  \item Compatibility with most popular python packages
-  \begin{itemize}
-  \scriptsize
-  \item Numpy
-  \item Scipy
-  \item Matplotlib
-  \item scikit-learn
-  \end{itemize}
+  \item C++ and Python interface
   \vspace{10pt}
-  \item Parallel computational with shared memory (TBB)
+  \item Parallel computations with shared memory (TBB)
   \vspace{10pt}
   \item Optimized linear algebra with LAPACK and BLAS 
   \vspace{10pt}
@@ -366,7 +360,7 @@ program your Python scripts.
   
   \small
       \begin{itemize}
-        \item We want a surrogate $\hat{h}$ of a model $h$ that maps a time series to a vector:
+        \item We want a \href{http://openturns.github.io/openturns/1.22/auto_reliability_sensitivity/reliability_processes/plot_field_fca_sobol.html}{surrogate} $\hat{h}$ of a model $h$ that maps a time series to a vector:
         \begin{equation*}
           h: \mathcal{F}([0, 1], \mathbb{R}^d) \rightarrow \mathbb{R}^p
         \end{equation*}
@@ -424,15 +418,16 @@ program your Python scripts.
   \end{itemize}
 
     \begin{lstlisting}
-    timegrid = ot.RegularGrid(start, step, N)
-    collection = ... # collection of numpy arrays with shape (N, d)
+    import openturns as ot
+    timegrid = ot.RegularGrid(start, step, NT) # NT is the number of time steps
+    collection = ... # collection of N numpy arrays with shape (NT, d)
     x = ot.ProcessSample(timegrid, collection) # functional input data
     y = ... # numpy array of shape (N, p)
     \end{lstlisting}
     
     \begin{itemize}
     \item Step 1: for each dimension of the input data, perform PCA.
-    \item Step 2: build a polynomial chaos mappling the PCA coefficients to the outputs
+    \item Step 2: build a polynomial chaos mapping the PCA coefficients to the outputs
     \item The \texttt{FieldToPointFunctionalChaosAlgorithm} experimental class does both steps at once:
     \end{itemize}
 
@@ -536,8 +531,7 @@ graph = sensitivity.draw()
 \small
 \centering
 
-\begin{block}{Mapping categories to a latent space with Gaussian correlation kernel}
-\medskip
+\begin{block}{Mapping categories to a latent space with Gaussian correlation kernel\footnote{Zhang, Y., Tao, S., Chen, W., and Apley, D. W. (2020)}}
 \centering
 \begin{tikzpicture}
     \draw[gray!30] (-1.25,-1.25) grid[xstep=1.0, ystep=1.0]  (2.25,2.25);
@@ -559,7 +553,7 @@ graph = sensitivity.draw()
     \node[right =2pt of {-6,-0.5}, outer sep=2pt,fill=white] {mouse};
     \draw[line width = 1pt, -{Stealth}] (-4,0.5)   -- (-2.5,0.5);
 \end{tikzpicture}
-\vspace{-0.25cm}
+\vspace{-0.4cm}
 
 \begin{itemize}
   \item First category: automatically mapped to $(0,0,...,0)$: here dog to $(0,0)$.
@@ -569,7 +563,7 @@ graph = sensitivity.draw()
 
 \begin{lstlisting}
       from openturns.experimental import LatentVariableModel
-      covModel = LatentVariableModel(3, 2) # 3 categories (doc, cat, mouse) in 2D
+      covModel = LatentVariableModel(3, 2) # 3 categories (dog, cat, mouse) in 2D
       activeCoordinates = [1.5, 1.0, 1.5] # [cat_0, mouse_0, mouse_1]
       covModel.setLatentVariables(activeCoordinates)
 \end{lstlisting}
@@ -584,7 +578,7 @@ graph = sensitivity.draw()
 \begin{frame}[containsverbatim]
 \frametitle{Example: 1 continuous + 1 boolean variable}
 \small
-Product of a 5/2 Mat\'ern covariance kernel for the continuous variable and a latent variable kernel for the boolean variable:
+Product of a 5/2 Mat\'ern covariance kernel for the continuous variable and a \href{http://openturns.github.io/openturns/1.22/auto_meta_modeling/kriging_metamodel/plot_kriging_categorical.html#sphx-glr-auto-meta-modeling-kriging-metamodel-plot-kriging-categorical-py}{latent variable kernel} for the boolean variable:
 
 \begin{lstlisting}
 # Standard 5/2 Matern covariance kernel for the continuous variable
@@ -648,7 +642,7 @@ algoLV.run()
 \begin{frame}{Project overview}
   \begin{itemize}
   \item
-    Partnership between \'Electricit\'e De France (EDF) and Phimeca since 2015
+    Partnership between EDF and Phimeca since 2015
   
     \begin{itemize}
     \item
@@ -718,21 +712,19 @@ algoLV.run()
   \begin{itemize}
   
   \item
-    Today the material is provided
-  \item
     Github: sources
   \item
-    For executables you can request the material at
-    \url{https://persalys.fr/obtenir.php}
+    You can request executables at
+    \url{https://persalys.fr/obtenir.php?la=en}
   \item
     Depending on your OS
   
     \begin{itemize}
     
     \item
-      Linux -\textgreater{} .AppImage (600 Mo)
+      \href{https://openturns.github.io/openturns/1.22/usecases/use_case_logistic.html}{Linux} $\rightarrow$ .AppImage (600 Mo)
     \item
-      Windows -\textgreater{} .exe will create a shortcut on your Desktop
+      Windows $\rightarrow$ .exe will create a shortcut on your Desktop
       (program is 1.45 Go)
     \end{itemize}
     \item Also distributed by Debian-based GNU/Linux distributions (e.g. Debian, Ubuntu...)
@@ -821,176 +813,25 @@ algoLV.run()
     \includegraphics[width=0.59\textwidth]{figure/overviewMetamodel.png}
     
     \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{PERSALYS, the graphical user interface}
-
-% \begin{frame}
-% \frametitle{PERSALYS, the graphical user interface of \ot{}}
-	
-% \begin{columns}
-% \column{0.7\textwidth}
-	
-% \begin{itemize}
-% \item Provide a graphical interface of 
-% \ot{} in and out of the SALOME integration platform
-% \item Features : probabilistic model, 
-% 	distribution fitting, central tendency, 
-%   sensitivity analysis, probability estimate, 
-% 	surrogate modeling (polynomial chaos, kriging), screening (Morris), 
-% 	optimization, design of experiments
-% \item GUI language : English, French
-
-% \item Partners : EDF, Phim\'eca
-% \item Licence : LGPL
-
-% \item Schedule : Since summer 2016, two releases per year, currently V12
-% \item On the internet (free) : SALOME\_EDF since 2018 on 
-% \url{www.salome-platform.org}
-
-% \end{itemize}
-
-% \column{0.3\textwidth}
-
-% \begin{center}
-% \includegraphics[width=0.95\textwidth]{figures/PERSALYS-LOGO.png}
-% \end{center}
-
-% \end{columns}
-
-
-% \end{frame}
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}
-% \frametitle{Calibration}
-
-% Given a physical model $h$, observed inputs $\boldsymbol{x}$, 
-% observed outputs $y$ we can calibrate $\boldsymbol{\theta}$ so that 
-% $$
-% y = h(\boldsymbol{x}, \boldsymbol{\theta}) + \epsilon
-% $$
-% where $\epsilon$ is a random (Gaussian) variable.
-
-% Calibration outputs:
-% \begin{itemize}
-% \item the optimal value estimator $\hat{\boldsymbol{\theta}}$,
-% \item the distribution of $\hat{\boldsymbol{\theta}}$ and a confidence or credibility 
-% interval of each marginal,
-% \item the distribution of the residuals $\epsilon = y - h(\boldsymbol{x}, \hat{\boldsymbol{\theta}})$.
-% \end{itemize}
-
-% We implemented 4 methods\footnote{M. Baudin \& R. Lebrun, Linear algebra of linear and nonlinear Bayesian calibration. UNCECOMP 2021.} :
-
-% \begin{center}
-% \begin{tabular}{lll}
-%                      & {\bf Linear} & {\bf Non Linear} \\
-% \hline
-% No prior             & Least squares & Least squares \\
-%                      & linear        &  non linear \\
-% \hline
-% Gaussian prior       & Linear calib. & 3DVAR \\
-% \hline
-% \end{tabular}
-% \end{center}
-
-% \end{frame}
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}
-% \frametitle{Calibration}
-
-% In PERSALYS, this requires:
-% \begin{itemize}
-% \item a physical model $h$ with parameters to calibrate, 
-% \item a data file containing the observed inputs and outputs.
-% \end{itemize}
-
-% \begin{center}
-% \includegraphics[width=0.35\textwidth]{figures/calibration_observations_contextMenu.png}
-% \end{center}
-
-% \begin{columns}
-%   \column{0.5\textwidth}
-
-% On output, we present the optimal value of each calibrated parameter, 
-% along with a 95\% confidence interval.
-
-% \column{0.5\textwidth}
-
-% \begin{center}
-% \includegraphics[width=0.9\textwidth]{figures/calibration-ks-zv-zm-optimal_focus.png}
-% \end{center}
-
-% \end{columns}
-% \end{frame}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}
-%   \frametitle{Calibration}
-    
-%   \begin{center}
-%   \includegraphics[width=0.86\textwidth]{figures/calibration-Zv-prior-posterior.png}
-%   \end{center}
-  
-%   \end{frame}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}
-% \frametitle{What's next ?}
-%   \begin{columns}
-%     \column{0.5\textwidth}
-
-% PERSALYS Roadmap : 
-% \begin{itemize}
-% \item New surrogate models
-% \item 2D Fields, 3D Fields
-% \item In-Situ fields based on the MELISSA library (with INRIA): 
-% when we cannot store the whole sample in memory or on the hard drive, 
-% update the statistics (e.g. the mean, Sobol' indices) sequentially, 
-% with distributed computing. 
-% \end{itemize}
-
-%     \column{0.5\textwidth}
-
-% \begin{center}
-% \includegraphics[height=0.5\textheight]{figures/image034.png}
-% \end{center}
-
-% 	\end{columns}
-
-% \end{frame}
-
-% \note{
-
-% The next features we plan to add to PERSALYS is the management
-% of 2D and 3D stochastic fields. 
-
-% We also work on the use of the MELISSA software which performs 
-% in-situ studies. 
-
-% This library allows to perform UQ studies in situations 
-% where we cannot store more than a couple of multidimensional fields 
-% in memory or on the hard drive. 
-% }
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 
-\begin{center}
-Thanks !
-\end{center}
+\begin{block}{OpenTURNS resources}
+\begin{itemize}
+    \item Website and documentation: \url{www.openturns.org}
+    \item GitHub: \url{https://github.com/openturns/openturns}
+    \item Forum: \url{https://openturns.discourse.group}
+\end{itemize}    
+\end{block}
 
-\begin{center}
-Questions ?
-\end{center}
+\begin{block}{Persalys resources}
+\begin{itemize}
+    \item Website and documentation: \url{https://persalys.fr/?la=en}
+    \item Forum: \url{https://persalys.discourse.group}
+\end{itemize}    
+\end{block}
 
 \begin{columns}
 \column{0.5\textwidth}
