@@ -31,7 +31,7 @@ tabsize=2
 
 \title{Library development}
 \author{Julien Schueller - Phimeca}
-\date{March 28th-31th 2023}
+\date{19-22 March 2024}
 \titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
 \institute{\small OpenTURNS Consortium}
 
@@ -390,16 +390,12 @@ ctest -R cppcheck_MyClass_std --output-on-failure
 #include "MyClass.hxx"
 %}
 
+%include MyClass_doc.i
+
+%copyctor OT::MyClass;
+
 %include MyClass.hxx
 
-namespace OT {
-%extend MyClass {
-
-MyClass(const MyClass & other) {
-  return new OT::MyClass(other);
-}
-
-}}
 \end{lstlisting}
     
     \normalsize
