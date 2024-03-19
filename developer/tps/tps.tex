@@ -79,7 +79,7 @@
 % Global picture %
 %%%%%%%%%%%%%%%%%% 
 \begin{frame}
-  \frametitle{Library development 1/6}
+  \frametitle{Library development 1/5}
   \begin{block}{Projects}
     \begin{enumerate}
     \item~(*) \alert{\ttfamily InverseDistanceWeightingInterpolation} as a specialization of \alert{\ttfamily EvaluationImplementation} (see {\ttfamily lib/src/Base/Func}). Given a set of data $(x_i, y_i)_{i=1,\dots,N}$ in $\R^n\times\R^p$, the IDW interpolation is defined by:
@@ -93,33 +93,14 @@
       where $w_i(x)=\dfrac{1}{d(x, x_i)^p}$ and $p>0$ a given smoothness parameter.
 
       The distance $d$ can be the Euclidean distance, the 1-norm or the sup norm.
-    \item~(**) \alert{\ttfamily DiscreteIntegralCompound} as a specialization of \alert{\ttfamily DiscreteDistribution} (see {\ttfamily lib/src/Uncertainty/Distribution}). Given the discrete distribution of a random variable $N$ and the common discrete distribution of a sequence of iid integral valued random variables $(X_i)$, compute the distribution of the integral valued discrete random variable $Y$ defined by:
-      \begin{align}
-        Y = \sum_{i=1}^N X_i
-      \end{align}
+      \item~(*) \alert{\ttfamily PiecewiseLinearDistribution} as a specialization of \alert{\ttfamily DistributionsImplementation} (see {\ttfamily lib/src/Uncertainty/Distribution}). Given a set of data $(x_i, y_i)_{i=1,\dots,N}$ in $\R^n\times\R^p$
+      the PDF is linear over the data (with due renormalization).
     \end{enumerate}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Library development 2/6}
-  \begin{block}{Projects}
-    \begin{enumerate}
-    \item[] Its generating function $\phi_Y(z)=\Esp{z^Y}$ is given by:
-      \begin{align}
-        \forall z\in\C, \phi_Y(z)=\phi_N(\phi_X(z))
-      \end{align}
-      and thanks to Poisson's summation formula for discrete distributions, we have for $0<r<1$ and $m\in\N^*$:
-      \begin{eqnarray}\label{pnApprox}
-        \forall n\in\{0,\dots, m-1\}, p_Y(n) = \displaystyle \frac{1}{mr^n} \sum_{k=0}^{m-1} \phi_Y\left(re^{\frac{2i\pi k}{m}}\right) e^{-\frac{2i\pi kn}{m}} - e_d
-      \end{eqnarray}
-      where $0\leq e_d\leq r^m$ is the approximation error. For a given $\epsilon>0$ and $m\in\N^*$, set $r=\sqrt[m]{\epsilon}$ and compute the FFT $(\omega_0,\dots,\omega_{m-1})$ of the complex vector $(\phi_Y\left(re^{\frac{2i\pi k}{m}}\right), \dots, \phi_Y\left(re^{\frac{2i\pi k}{m}}\right))$. Then, the distribution is equal to the {\ttfamily UserDefined} distribution with locations $\{0,\dots,m-1\}$ and probabilities $\left(p_i=\dfrac{\mathfrak{R}(\omega_i)}{mr^i}\right)_{i=0,\dots,m-1}$.
-    \end{enumerate}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Library development 3/6}
+  \frametitle{Library development 2/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{7}
@@ -133,7 +114,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Library development 4/6}
+  \frametitle{Library development 3/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{10}
@@ -147,11 +128,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Library development 5/6}
+  \frametitle{Library development 4/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{12}
-    \item~(**) \alert{\ttfamily ConditionalEventDistribution} as a specialization of {\ttfamily ContinuousDistribution} (see {\ttfamily lib/src/Uncertainty/Distribution}). Given the joint distribution of an $(m+n)$ dimensional random vector $(X,Y)$ and an $m$ dimensional interval $I$ such that $\Prob{X\in I}>0$, it is the distribution of $Y$ knowing that $X\in I$. This distribution has already been implemented in Python, see {\ttfamily ConditionalEventDistribution.py}. It becomes (***) if one wants to implement an efficient simplification mechanism.
     \item~(***) Extend archimedian copulas from 2-d to $n$-d. Given a 2-d Archimedean copula with generator $\psi$, implement its $n$-d counterpart using:
       \begin{align}
         \forall (u_1,\dots,u_n)\in[0,1]^n, C(u_1,\dots,u_n)=\psi^{-1}\left(\psi(u_1)+\dots+\psi(u_n)\right)
@@ -162,7 +142,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Library development 6/6}
+  \frametitle{Library development 5/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{15}
@@ -183,9 +163,6 @@
     \begin{enumerate}
       \setcounter{enumi}{17}
     \item~(*) or (**) \alert{\ttfamily CloudMesher}: mesh generation over a cloud of points using kernel mixture, pca, rotation, then levelset mesher on an interval
-    \item~(*) \alert{\ttfamily UniformSphereRandomVector} as a specialization of {\ttfamily RandomVectorImplementation} (see {\ttfamily lib/src/Uncertainty/Model}). This random vector is distributed uniformly on the sphere of center $c\in\R^n$ and radius $r>0$. The sampling is done using the fact that $Y/\|Y\|$ is uniformly distributed over $\cs_{n-1}$, the unit sphere in $\R^n$, if $Y$ is an $n$ dimensional random vector with independent $\cn(0,1)$ components.
-    \item~(*) \alert{\ttfamily UniformBallRandomVector} as a specialization of {\ttfamily RandomVectorImplementation} (see {\ttfamily lib/src/Uncertainty/Model}). This random vector is distributed uniformly on the ball of center $c\in\R^n$ and radius $r>0$. The sampling is done using the fact that $Y/\sqrt{\|Y\|^2+Z}$ is uniformly distributed over $\cb_{n-1}$, the unit ball in $\R^n$, if $Y$ is an $n$ dimensional random vector with independent $\cn(0,1)$ components, and $Z$ is $\ce(1)$ independent from $Y$.
-    \item~(*) \alert{\ttfamily UniformSimplexRandomVector} as a specialization of {\ttfamily RandomVectorImplementation} (see {\ttfamily lib/src/Uncertainty/Model}). This random vector is distributed uniformly in the simplex given by $n+1$ points in $\R^n$. The sampling is done using the fact that $Y$ is uniformly distributed over the standard simplex in $\R^n$ if it follows the Dirichlet distribution with parameter $(\theta_1=1,\dots,\theta_n=1)$.
     \end{enumerate}
   \end{block}
 \end{frame}
