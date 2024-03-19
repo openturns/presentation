@@ -82,17 +82,6 @@
   \frametitle{Library development 1/5}
   \begin{block}{Projects}
     \begin{enumerate}
-    \item~(*) \alert{\ttfamily InverseDistanceWeightingInterpolation} as a specialization of \alert{\ttfamily EvaluationImplementation} (see {\ttfamily lib/src/Base/Func}). Given a set of data $(x_i, y_i)_{i=1,\dots,N}$ in $\R^n\times\R^p$, the IDW interpolation is defined by:
-      \begin{align}
-        \forall x\in\R^n, u(x)=\left\{\begin{array}{ll}
-                                        \dfrac{\sum_{i=1}^Nw_i(x)y_i}{\sum_{i=1}^Nw_i(x)} & \mbox{ if } \forall i, d(x, x_i) > 0\\
-                                        y_i & \mbox{ if } \exists i, d(x, x_i)=0
-                                      \end{array}
-                                              \right.
-      \end{align}
-      where $w_i(x)=\dfrac{1}{d(x, x_i)^p}$ and $p>0$ a given smoothness parameter.
-
-      The distance $d$ can be the Euclidean distance, the 1-norm or the sup norm.
       \item~(*) \alert{\ttfamily PiecewiseLinearDistribution} as a specialization of \alert{\ttfamily DistributionsImplementation} (see {\ttfamily lib/src/Uncertainty/Distribution}). Given a set of data $(x_i, y_i)_{i=1,\dots,N}$ in $\R^n\times\R^p$
       the PDF is linear over the data (with due renormalization).
     \end{enumerate}
