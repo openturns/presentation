@@ -110,7 +110,7 @@
   \item \alert{otsklearn} : use OT surrogate models with the scikit-learn estimator API
   \end{itemize}
   
-  Oldest modules:
+  Oldest modules (because integrated in OT):
   \begin{itemize}
   \item \alert{otlm} Linear model with stepwise strategies
   \item \alert{otlhs} Optimal LHS (Monte-Carlo \& Annealing)
@@ -129,11 +129,12 @@
     \item \alert{otusecases}: use cases suitable for OpenTURNS (functions and datasets)
     \item \alert{otmarkov}: simulates Markov chains (experimental)
     \item \alert{otsensitivity} : sensitivity analysis with density based measures
-    \item \alert{shapley-effects} : compute Shapley effects
+    \item \alert{otshapley} : compute Shapley effects
+    \item \alert{otsmt} : Simple module that implements bindings from Surrogate Modelling Toolbox (SMT) models to OpenTURNS
+    \item \alert{otak} : Simple module that implements Active learning Kriging (AK) methods for reliability analysis. 
     \item \alert{otkerneldesign} : generates designs of experiments based on kernel methods such as Kernel Herding and Support Points
     \item \alert{batman} : Statistical analysis for expensive computer codes made easy.
-    \item \alert{otgu} : Gu method to make more robust the estimation of kriging models.
-    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}) and others
+    \item \alert{others} : need to reactivate some oldest modules (\texttt{otgmm}, \texttt{pygosa}, \texttt{otfitting}, \texttt{otgu}) and others
   \end{itemize}
     \end{frame}
     
@@ -260,7 +261,7 @@
     \item \alert{pandas} : Data analysis
     \item \alert{SALib} : Sensitivity analysis library
     \item \alert{pymc3} : Fit bayesian models
-    \item \alert{GPFlow, GPyTorch, TensorFlow, PyTorch, georges...  }
+    \item \alert{GPy, GPFlow, GPyTorch, TensorFlow, PyTorch, georges, ... }
     \item \alert{statsmodels} : Statistical tools
     \item $\cdots$ many many 
     \end{itemize}
@@ -500,7 +501,7 @@
        This should contains an html index file. A minimal index could be provide.
        \includegraphics[width=9.cm]{index_minimal.png}
       \item Add corresponding instructions into continuous-integration script to upload on the previous repository
-      \includegraphics[width=9.cm]{instruction_ci.png}
+      \includegraphics[width=5.cm]{instruction_ci.png}
     \end{itemize}
     Note: Keep in mind to replace \texttt{master} by \texttt{main} or other specific branch (release,...) with respect to the branch of interest.
 \end{frame}
