@@ -232,7 +232,7 @@ int main(int, char *[])
   \begin{block}{Step 4: update the CMake test configuration}
     Modify the CMakeList.txt file in the lib/test directory:\\
 \begin{lstlisting}
-ot_check_test (MyClass_std)
+ot_check_test (MyClass_std IGNOREOUT)
 \end{lstlisting}
     At this point you can build the specific test:\\
 \begin{lstlisting}
