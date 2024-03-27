@@ -251,12 +251,6 @@ make t_MyClass_std
 \begin{frame}[fragile]
   \frametitle{Populate an existing concept}
   \begin{block}{Step 5: update the CMake file of the lib/test directory}
-    If necessary an expected test result named t\_MyClass\_std.expout:\\
-\begin{lstlisting}
-./lib/test/t_MyClass_std > ../lib/test/t_MyClass_std.expout
-\end{lstlisting}
-
-    The content of this file is compared to the output of the cxx test executable when tests are run.
 
     At this point you can run the specific test:\\
 \begin{lstlisting}
@@ -432,7 +426,6 @@ x_star = result.getOptimalPoint()
 ott.assert_almost_equal(x_star, p_ref)
 \end{lstlisting}
         
-    \item If necessary, create an expected result file t\_MyClass\_std.expout for the python test.
     \item Modify the CMakeLists file in python/test:
 \begin{lstlisting}
 ot_pyinstallcheck_test (MyClass_std IGNOREOUT)
