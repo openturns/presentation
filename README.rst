@@ -81,6 +81,10 @@ OpenTURNS Presentations
   - `Uncertainty analysis of single- and multiple-size-class frazil ice models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Souille.pdf>`_
   - `Info-gap robustness assessment of reliability evaluations using several OpenTURNS features <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Ajenjo.pdf>`_
 
+- User day 2024
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
+
 - Uncecomp 2023
 
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2023_slides_OpenTURNS.pdf>`_
