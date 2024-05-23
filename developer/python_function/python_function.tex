@@ -372,6 +372,8 @@
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
     
+\author{Michaël Baudin}
+\title{Python functions overview}
 
 \begin{document}
     
@@ -427,16 +429,21 @@ any uncertainty study.
 OpenTURNS}\label{definition-of-a-function-in-openturns}}
 
 In OpenTURNS, a \texttt{Function} is defined from
-(\href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/Function.hxx\#L74}{see}:
-- an evaluation which has an input \texttt{Point} and returns an output
+(see \href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/Function.hxx\#L74}{Function}):
+
+\begin{itemize}
+\item an evaluation which has an input \texttt{Point} and returns an output
 \texttt{Point} (see
 \href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/Evaluation.hxx\#L83}{Evaluation})
-; - the gradient which has an input \texttt{Point} and returns an output
+;
+\item the gradient which has an input \texttt{Point} and returns an output
 \texttt{Matrix} (see
 \href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/GradientImplementation.hxx\#L82}{GradientImplementation})
-; - the hessian which has an input \texttt{Point} and returns and output
+;
+\item the hessian which has an input \texttt{Point} and returns and output
 \texttt{SymmetricTensor} (see
 \href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/lib/src/Base/Func/openturns/HessianImplementation.hxx\#L79}{HessianImplementation}).
+\end{itemize}
 
     \hypertarget{different-types-of-python-functions}{%
 \subsection{Different types of Python
@@ -676,7 +683,7 @@ We consider the function \(g : \mathbb{R}^3 \rightarrow \mathbb{R}^2\):
 \caption{Python benchmark}
 \end{figure}
 
-\textbf{Figure 2.} A benchmark of two Python functions vs a symbolic
+\textbf{Figure 2.} A benchmark of two Python functions compared to a symbolic
 function (see \texttt{python\_benchmark.py}).
 
 We see that, on this example, the two fastest methods are the symbol
@@ -712,23 +719,32 @@ The \texttt{PythonFunction} is based on the
 slides.
 
 Depending on the \texttt{func\_sample} and \texttt{n\_cpus} options, we
-can make the evaluation faster. - \texttt{func\_sample}: evaluate the
+can make the evaluation faster. 
+\begin{itemize}
+\item \texttt{func\_sample}: evaluate the
 function on a \texttt{Sample} instead of a \texttt{Point} to vectorize
-the evaluations ; - \texttt{n\_cpus}: uses \texttt{multiprocessing} to
-make the evaluations parallel.
+the evaluations~;
 
-    Here are different cases, depending the options specified by the user: -
-If \texttt{func\_sample} is undefined and \texttt{n\_cpus} is undefined
+\item \texttt{n\_cpus}: uses \texttt{multiprocessing} to
+make the evaluations parallel.
+\end{itemize}
+
+    Here are different cases, depending the options specified by the user:
+    \begin{itemize}
+\item If \texttt{func\_sample} is undefined and \texttt{n\_cpus} is undefined
 (i.e.~the default), then the user-provided \texttt{func} function is
-used. It is not made parallel by OpenTURNS (but the user can do so).\\
-- If \texttt{func\_sample} is undefined and \texttt{n\_cpus} is defined,
-then the implementation uses \texttt{multiprocessing}'s \texttt{Pool} to
-make the evaluation parallel (see
-\href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/python/src/Function.i\#L213}{\texttt{\_exec\_sample\_multiprocessing\_func}})
-- If \texttt{func\_sample} and \texttt{n\_cpus} are both defined, then
+used. It is not made parallel by OpenTURNS (but the user can do so).
+
+\item If \texttt{func\_sample} is undefined and \texttt{n\_cpus} is defined,
+then the implementa\-tion uses \texttt{mul\-ti\-processing}'s \texttt{Pool} to
+make the evaluation parallel (see the details in the private method
+\href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/python/src/Function.i\#L213}{\texttt{\_exec\_sample\_multiprocessing\_func}}).
+
+\item If \texttt{func\_sample} and \texttt{n\_cpus} are both defined, then
 the implementation uses divides the \texttt{Sample} into sub-samples
-which are evaluated in parallel (see
+which are evaluated in parallel (see the details in the private method 
 \href{https://github.com/openturns/openturns/blob/18146c0a82819c3f8d8e691a119a93c155429422/python/src/Function.i\#L282}{\texttt{\_exec\_sample\_multiprocessing\_func\_sample}}).
+\end{itemize}
 
     \hypertarget{what-is-the-memoryview-class}{%
 \subsection{What is the memoryview
@@ -769,7 +785,8 @@ y =  [3,0]
     The method \texttt{x.getDimension()} fails:
 
 \begin{verbatim}
-AttributeError: 'openturns.memoryview.Buffer' object has no attribute 'getDimension'
+AttributeError: 'openturns.memoryview.Buffer' 
+  object has no attribute 'getDimension'
 \end{verbatim}
 
 From the
@@ -824,7 +841,8 @@ class=Point name=Unnamed dimension=2 values=[3,0]
 for?}\label{what-is-the-parametricfunction-for}}
 
 There are some cases when we want to create a function which has
-parameters. The \texttt{ParametricFunction} can be considered when the
+parameters, e.g. the gravity of Earth $g = 9.81$ $m/s^2$.
+The \texttt{ParametricFunction} can be considered when the
 parameters is a vector of points:
 
 \begin{itemize}
@@ -996,11 +1014,15 @@ powerful?}\label{why-is-the-openturnspythonfunction-class-most-powerful}}
 When the parameters cannot be stored as a single \texttt{Point}, we need
 a more powerful tool: the \texttt{OpenTURNSPythonFunction} class
 provides a way to implement a class so that we can provide any necessary
-parameter (whatever its type) to the evaluation. - The constructor of
+parameter (whatever its type) to the evaluation.
+\begin{itemize}
+\item The constructor of
 the object can have any number or type of input arguments, as any
-\texttt{Class} object in Python. - The calculations which are done in
+\texttt{Class} object in Python.
+\item The calculations which are done in
 the constructor are done \emph{``once for all''} at the creation of the
 object, which can make some calculations faster.
+\end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{9}{\boxspacing}
@@ -1038,15 +1060,21 @@ object, which can make some calculations faster.
 [5.67865]
     \end{Verbatim}
 
-    Other examples: - in the PRACE training
+    Other examples:
+\begin{itemize}
+\item in the PRACE training
 \href{https://github.com/mbaudin47/hpcuqtraining/blob/773ddaed56339ddb548f82a2ff16bfcf5c00be2c/2019/Scripts/wrapper.py}{a
-wrapper to the cantilever beam} ; - in otbenchmark, the
+wrapper to the cantilever beam} ;
+\item in otbenchmark, the
 \href{https://github.com/mbaudin47/otbenchmark/blob/f33a9c6694cc0bb3e2680164519b82e9f2983977/otbenchmark/DirichletSensitivity.py}{Dirichlet}
-test function for sensitivity analysis ; - in otbenchmark, the
+test function for sensitivity analysis ;
+\item in otbenchmark, the
 \href{https://github.com/mbaudin47/otbenchmark/blob/f33a9c6694cc0bb3e2680164519b82e9f2983977/examples/scripts/testCrue-classeOTPFun.py}{flooding}
-test case ; - in otbenchmark, the
+test case ;
+\item in otbenchmark, the
 \href{https://github.com/mbaudin47/otbenchmark/blob/f33a9c6694cc0bb3e2680164519b82e9f2983977/otbenchmark/MorrisSensitivity.py}{Morris}
 test function.
+\end{itemize}
 
     \hypertarget{otwrapy}{%
 \subsection{Otwrapy}\label{otwrapy}}
@@ -1087,7 +1115,7 @@ The \texttt{Parallelizer} class parallelize a \texttt{Function}:
 \end{figure}
 
 \textbf{Figure 2.} A benchmark of Morris function from \texttt{otmorris}
-using \texttt{otwrapy} (see \texttt{benchmark\_Morris\_otwrapy.py}).
+using \texttt{otwrapy} (see the implementation details in \texttt{benchmark\_Morris\_otwrapy.py}).
 
 We see that, on this example, the ``joblib'' backend improves the
 performance when the number of CPUs is in the range \([4, 6]\). Using
@@ -1177,12 +1205,16 @@ The \texttt{PythonRandomVector} class can be used to implement the
 \texttt{getRealization()} method for an object for which the
 distribution is not necessarily known.
 
-Other examples: - implement a
+Other examples:
+\begin{itemize}
+\item implement a
 \href{https://github.com/openturns/openturns.github.io/blob/df983978484029a0b9571ca7539483837e8c193f/openturns/1.18/pyplots/PythonRandomVector.py}{NormalTruncatedToBall}
-- simulate a
+\item simulate a
 \href{https://github.com/mbaudin47/otmarkov/blob/efe3c4e9eda2e10d6103ccc028d7518c0d82468d/otmarkov/MarkovChainRandomVector.py}{Markov
-chain} - implement a
+chain}
+\item implement a
 \href{https://openturns.github.io/openturns/latest/auto_calibration/bayesian_calibration/plot_gibbs_simus.html}{BoxConstrainedNormal}
+\end{itemize}
 
     We would like to estimate the PDF of the biased sample variance.
 
@@ -1229,15 +1261,17 @@ chain} - implement a
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     \hypertarget{pythondistribution}{%
 \subsection{PythonDistribution}\label{pythondistribution}}
 
 The \texttt{PythonDistribution} class defines a distribution.
 
-The two mandatory methods are: - \texttt{getRange()}; -
-\texttt{computePDF()}.
+The two mandatory methods are:
+\begin{itemize}
+\item \texttt{getRange()};
+\item \texttt{computePDF()}.
+\end{itemize}
 
 Implementing other methods can improve speed and accuracy.
 
@@ -1293,7 +1327,6 @@ variance.
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
     \hypertarget{whats-next}{%
 \subsection{What's next?}\label{whats-next}}
@@ -1309,8 +1342,8 @@ Please consider the exercises in this repository:
   \texttt{Coupling\_tools.ipynb}: on \texttt{coupling\_tools} sub-module
   to connect to an external program using files ;
 \item
-  \texttt{Parametric\_function.ipynb}: exercises on
-  \texttt{ParametricFunction} and \texttt{OpenTURNSPythonFunction} ;
+  \texttt{Parametric\_function.ipynb}: practical hands-on exercises on the 
+  \texttt{ParametricFunction} and \texttt{OpenTURNSPythonFunction} classes ;
 \item
   \texttt{Symbolic\_function.ipynb}: exercises on
   \texttt{SymbolicFunction}.
