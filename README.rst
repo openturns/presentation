@@ -85,6 +85,7 @@ OpenTURNS Presentations
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS : the Phimeca product for Renault : StaRe (STAtistical REliability) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/ud2024-stare.pdf>`_
+  - `Overview of calibration <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/calibration2024.pdf>`_
 
 - Uncecomp 2023
 
