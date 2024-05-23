@@ -1,0 +1,54 @@
+% Copyright (C) 2012 - EDF R&D - Michael Baudin
+
+% To highlight source code
+\usepackage{listings}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{violet}{rgb}{0.5,0,1}
+
+\usepackage{lmodern}% http://ctan.org/pkg/lm
+
+\usetheme{Montpellier}
+\setbeamertemplate{navigation symbols}{} % Remove navigation
+\useoutertheme{infolines}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{graphicx}
+\unitlength=1cm
+\graphicspath{{./figures/}}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, linktocpage, urlcolor=blue}
+
+\def\bx{{\bf x}}
+\def\RR{\mathbb{R}}
+
+\newcommand{\pyvar}[1]{\texttt{#1}}
+
+\def \ot {OpenTURNS}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\tiny,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=1,
+  numbers=none
+}
+
+\lstset{style=mystyle, language=python}
