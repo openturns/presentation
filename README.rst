@@ -84,11 +84,12 @@ OpenTURNS Presentations
 - User day 2024
 
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
+  - `Automotive Reliability Engineering with OpenTURNS : the Phimeca product for Renault : StaRe (STAtistical REliability) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/ud2024-stare.pdf>`_
 
 - Uncecomp 2023
 
   - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2023_slides_OpenTURNS.pdf>`_
-  
+
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
@@ -124,4 +125,3 @@ OpenTURNS Presentations
 - `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
 
 - `SIAM-UQ 2024 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2024-slides-OpenTURNS.pdf>`_
-
