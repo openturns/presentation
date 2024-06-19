@@ -68,18 +68,28 @@ OpenTURNS Presentations
 
 - User day 2023
 
-  - `Introduction EDF <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UJU_OT_230623_Decossin.pdf>`_
+  - `Introduction EDF <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Decossin.pdf>`_
   - `Surrogate based adaptative techniques for reliability analyses <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bourinet.pdf>`_
   - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2023relhi.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/UsersDay-2023-PERSALYS.pdf>`_
   - `oteclm: module OpenTURNS pour la méthode ECLM <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Rychkov_Dutfoy.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS: From Car data to Validation Plan <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Bachelier.pdf>`_
   - `Efficient estimation of multiple expectations with the same sample by adaptive importance sampling and control variates (ONERA) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Demange.pdf>`_
-  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.pptx>`_
+  - `Using OpenTURNS for probabilistic modeling in the case of dependent inputs. Application to a study of the impact of climate on aviation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Salles.pdf>`_
   - `How GEMSEO uses OpenTURNS for multidisciplinary problems <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_deLozzo.pdf>`_
   - `A digital twin of the Grand'Maison thrust bearing <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Tardieu.pdf>`_
   - `Uncertainty analysis of single- and multiple-size-class frazil ice models <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Souille.pdf>`_
   - `Info-gap robustness assessment of reliability evaluations using several OpenTURNS features <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_230623_Ajenjo.pdf>`_
+
+- User day 2024
+
+  - `Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
+  - `Automotive Reliability Engineering with OpenTURNS : the Phimeca product for Renault : StaRe (STAtistical REliability) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/ud2024-stare.pdf>`_
+  - `Overview of calibration <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/calibration2024.pdf>`_
+
+- Uncecomp 2023
+
+  - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2023_slides_OpenTURNS.pdf>`_
 
 - CHORUS
 
@@ -95,6 +105,7 @@ OpenTURNS Presentations
   - `Library developement <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/library_development.pdf>`_
   - `Module development <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/module_development.pdf>`_
   - `Documentation development <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/doc_development.pdf>`_
+  - `Python Functions <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/python_function.pdf>`_
   - `TPs <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/tps.pdf>`_
 
 - Robust optimization workshop:
@@ -113,3 +124,5 @@ OpenTURNS Presentations
 - `SIAM-UQ 2022 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2022-slides-OpenTURNS.pdf>`_
 
 - `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
+
+- `SIAM-UQ 2024 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2024-slides-OpenTURNS.pdf>`_

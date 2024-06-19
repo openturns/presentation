@@ -31,7 +31,7 @@ tabsize=2
 
 \title{Library development}
 \author{Julien Schueller - Phimeca}
-\date{March 28th-31th 2023}
+\date{19-22 March 2024}
 \titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
 \institute{\small OpenTURNS Consortium}
 
@@ -232,7 +232,7 @@ int main(int, char *[])
   \begin{block}{Step 4: update the CMake test configuration}
     Modify the CMakeList.txt file in the lib/test directory:\\
 \begin{lstlisting}
-ot_check_test (MyClass_std)
+ot_check_test (MyClass_std IGNOREOUT)
 \end{lstlisting}
     At this point you can build the specific test:\\
 \begin{lstlisting}
@@ -251,12 +251,6 @@ make t_MyClass_std
 \begin{frame}[fragile]
   \frametitle{Populate an existing concept}
   \begin{block}{Step 5: update the CMake file of the lib/test directory}
-    If necessary an expected test result named t\_MyClass\_std.expout:\\
-\begin{lstlisting}
-./lib/test/t_MyClass_std > ../lib/test/t_MyClass_std.expout
-\end{lstlisting}
-
-    The content of this file is compared to the output of the cxx test executable when tests are run.
 
     At this point you can run the specific test:\\
 \begin{lstlisting}
@@ -390,16 +384,12 @@ ctest -R cppcheck_MyClass_std --output-on-failure
 #include "MyClass.hxx"
 %}
 
+%include MyClass_doc.i
+
+%copyctor OT::MyClass;
+
 %include MyClass.hxx
 
-namespace OT {
-%extend MyClass {
-
-MyClass(const MyClass & other) {
-  return new OT::MyClass(other);
-}
-
-}}
 \end{lstlisting}
     
     \normalsize
@@ -413,7 +403,7 @@ MyClass(const MyClass & other) {
   \begin{block}{Step 10: integrate the SWIG interface file into the whole Python interface}
     \begin{itemize}
     \item Locate in which of the Python submodule SWIG file you have to include MyClass.i (look for classes from the same source subdirectory) 
-    \item Add MyClass.i in the SWIG module source python/src/xxx\_module.i
+    \item Add MyClass.i in the SWIG module source python/src/xxx\_module.i. Caution: the order of the lines matters!
     \item Modify the CMakeLists file in python/src: add MyClass.i to the identified SWIG module
     \end{itemize}
   \end{block}
@@ -436,7 +426,6 @@ x_star = result.getOptimalPoint()
 ott.assert_almost_equal(x_star, p_ref)
 \end{lstlisting}
         
-    \item If necessary, create an expected result file t\_MyClass\_std.expout for the python test.
     \item Modify the CMakeLists file in python/test:
 \begin{lstlisting}
 ot_pyinstallcheck_test (MyClass_std IGNOREOUT)

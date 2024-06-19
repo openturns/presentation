@@ -31,7 +31,7 @@ tabsize=2
 
 \title{Developing the OpenTURNS documentation}
 \author{Joseph MUR\'E - EDF R\&D}
-\date{February 14th-17th 2022}
+\date{February 19-22nd 2024}
 \titlegraphic{\includegraphics[height=1.5cm]{logoOT}}
 \institute{\small OpenTURNS Consortium}
 
@@ -237,6 +237,7 @@ but the \texttt{auto\_} part is a Sphinx-gallery artifact. Its source file is:
     \item By default, the first image is used as \alert{thumbnail picture}. To use e.g. the third: %$n$\textsuperscript{rd} image:%, write (preferably right above the code that produces the image):
 
     \texttt{\# sphinx\_gallery\_thumbnail\_number = 3} (ideally right above the plot code)
+    \item The \alert{script docstring} must be prefixed by the letter \texttt{r}.
 \end{itemize}
 
 \end{frame}
@@ -253,7 +254,7 @@ but the \texttt{auto\_} part is a Sphinx-gallery artifact. Its source file is:
     \begin{itemize}
         \item \texttt{:class:`\textasciitilde openturns.ClassName`} to link to the API doc of a class.
         \item \texttt{:meth:`\textasciitilde openturns.ClassName.method`} to link to the API doc of a class method.
-        \item \texttt{:ref:`\_theory\_page`} to link to a Theory doc page using its RST label.
+        \item \texttt{:ref:`theory\_page`} to link to a Theory doc page using its RST label.
         \item \texttt{:doc:`/auto\_category/subcategory/plot\_xxx`} (no \texttt{.py}) to link to another example.
     \end{itemize}
     \item Python scripts should be properly
