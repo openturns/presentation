@@ -83,6 +83,7 @@ OpenTURNS Presentations
 
 - User day 2024
 
+  - `Introduction Airbus <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_Airbus.pdf>`_
   - `Introduction to extreme event analysis <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_StephaneGIRARD_ExtremeValues.pdf>`_
   - `Extreme value modelling capacities in OpenTURNS v1.23 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_AnneDUTFOY_OTExtremeValues.pdf>`_
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
