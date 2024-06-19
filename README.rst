@@ -83,19 +83,19 @@ OpenTURNS Presentations
 
 - User day 2024
 
-  - `Introduction to extreme event analysis` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_StephaneGIRARD_ExtremeValues.pdf>`_
-  - `Extreme value modelling capacities in OpenTURNS v1.23` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_AnneDUTFOY_OTExtremeValues.pdf>`_
+  - `Introduction to extreme event analysis <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_StephaneGIRARD_ExtremeValues.pdf>`_
+  - `Extreme value modelling capacities in OpenTURNS v1.23 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_AnneDUTFOY_OTExtremeValues.pdf>`_
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2024relhi.pdf>`_
   - `Persalys Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_GuillaumeGARCIA_persalys.pdf>`_
-  - `Constrained probabilistic modeling with OpenTURNS v1.23` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_RegisLEBRUN_ConstraintProbModelling.pdf>`_
+  - `Constrained probabilistic modeling with OpenTURNS v1.23 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_RegisLEBRUN_ConstraintProbModelling.pdf>`_
   - `Overview of calibration <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/calibration2024.pdf>`_
-  - `Enhanced metamodeling and sensitivity analysis for complex models using Tree-PCE` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_FatenBENSAID.pdf>`_
-  - `otkerneldesign: an OpenTURNS module for kernel-based design of experiments` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_EliasFEKHARI.pdf>`_
-  - `Constraint design of experiments and adaptive sampling` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_IvoCURTIUS.pdf>`_
+  - `Enhanced metamodeling and sensitivity analysis for complex models using Tree-PCE <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_FatenBENSAID.pdf>`_
+  - `otkerneldesign: an OpenTURNS module for kernel-based design of experiments <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_EliasFEKHARI.pdf>`_
+  - `Constraint design of experiments and adaptive sampling <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_IvoCURTIUS.pdf>`_
   - `Automotive Reliability Engineering with OpenTURNS : the Phimeca product for Renault : StaRe (STAtistical REliability) <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/ud2024-stare.pdf>`_
-  - `otFMI: interfacing OpentURNS with the leading standard for model exchange` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_SylvainGIRARD.pdf>`_
-  - `Sensitivity analyses of a multi-physics long-term clogging model for steam generators` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_VincentCHABRIDON.pdf>`_
-  - `Benchmark of integrated solutions for uncertainty quantification` <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_BaptisteKERLEGUER.pdf>`_
+  - `otFMI: interfacing OpentURNS with the leading standard for model exchange <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_SylvainGIRARD.pdf>`_
+  - `Sensitivity analyses of a multi-physics long-term clogging model for steam generators <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_VincentCHABRIDON.pdf>`_
+  - `Benchmark of integrated solutions for uncertainty quantification <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_17_2024_BaptisteKERLEGUER.pdf>`_
 
 - Uncecomp 2023
 
