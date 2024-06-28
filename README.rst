@@ -137,3 +137,8 @@ OpenTURNS Presentations
 - `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
 
 - `SIAM-UQ 2024 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2024-slides-OpenTURNS.pdf>`_
+
+- BEPU 2024:
+
+  - `OpenTURNS and Persalys Overview <https://github.com/openturns/presentation/blob/master/bepu2024/bepu2024-general/bepu-2024-slides-OpenTURNS.pdf>`_
+  - `Bayesian inference using MCMC in OpenTURNS <https://github.com/openturns/presentation/blob/master/bepu2024/bepu2024-mcmc/bepu-2024-slides_OpenTURNS_MetropolisHastings.pdf>`_
