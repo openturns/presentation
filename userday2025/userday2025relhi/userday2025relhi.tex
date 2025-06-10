@@ -92,19 +92,75 @@ New features since last year in releases:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Line sampling simulation}
+
+\begin{frame}
+\frametitle{Line sampling simulation 1/3}
+ \emph{Contract EDF with E. Ardillon, A. Ajenjo, J. Mure with Phimeca}
+
+\begin{itemize}
+\item Koutsourelakis, H. Pradlwarter, G. Schueller,
+\textit{Reliability of structures in high dimensions, part i: algorithms and applications},
+Probabilistic Engineering Mechanics 19 (4) (2004) 409–417
+
+\item Angelis M., Patelli E., Beer M., \textit{Advanced line sampling for efficient robust reliability analysis},
+Structural safety, 52 :170-182, 2015.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Line sampling simulation 3/3}
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# 1. preliminary FORM
+optim = ot.Cobyla()
+optim.setStartingPoint(X.getMean())
+algo = ot.FORM(optim, event)
+algo.run()
+resultFORM = algo.getResult()
+alpha = resultFORM.getStandardSpaceDesignPoint()
+
+# 2. LS
+alpha = [0.0, 0.0, 0.0, 0.0, 1.0]
+rootStrategy = ot.SafeAndSlow(ot.Brent(1e-3, 1e-3, 1e-3, 5), 8, 0.01)
+algo = otexp.LineSampling(event, alpha, rootStrategy)
+algo.setMaximumOuterSampling(2000)
+algo.setMaximumCoefficientOfVariation(5e-2)
+algo.setSearchOppositeDirection(False)
+algo.setAdaptiveImportantDirection(True)
+algo.run()
+result = algo.getResult()
+pf = result.getProbabilityEstimate()
+\end{lstlisting}
+\end{small}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{LOLA-Voronoi sequential design}
 
 \begin{frame}
 \frametitle{LOLA-Voronoi sequential design 1/7}
+ \emph{Contract Airbus with R. Lebrun with Phimeca}
 
 Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Sequential Experimental Design}, PhD thesis, Universiteit Gent, Belgium, 2011.
 
 \begin{itemize}
 \item Exploration criterion based on Voronoi cell volume:
   $$v(\vect{p}_i) = \int_{\vect{x} \in \mathcal{V}_i} \inputMeasure(\vect{x}) d\vect{x} = \Expect{1_{\mathcal{V}_i}(\vect{X})}$$
-\item Exploritation criterion based on a measure of the nonlinearity of the model:
+\item Exploitation criterion based on a measure of the nonlinearity of the model:
   $$e_k(\vect{p}_r) = \sum_{i=1}^m | \model_k(\vect{p}_{ri}) - (\model_k(\vect{p}_r) + \mat{J}_i(\vect{p}_{ri} - \vect{p}_r)) |$$
 \end{itemize}
+
+Combined into hybrid score:
+$$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\sum_{j=1}^n e(\vect{p}_j)} \forall i \in [1, n]$$
 
 \end{frame}
 
