@@ -101,6 +101,7 @@ OpenTURNS Presentations
 - User day 2025
 
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025relhi.pdf>`_
+  - `OpenTURNS new quantile confidence interval features and otbenchmark updates <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025quantiles.pdf>`_
 
 - Uncecomp 2023
 

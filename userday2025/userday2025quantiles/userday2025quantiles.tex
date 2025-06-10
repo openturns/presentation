@@ -1,0 +1,232 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{macros}
+
+\title[OpenTURNS]{OpenTURNS (parts of) release highlights}
+
+\author[OpenTURNS et al.]{M.Baudin (EDF)}
+
+\date[]{User Day \#18, June 13th 2025, EDF Lab}
+
+\titlegraphic{
+  \includegraphics[height=0.04\textheight]{figures/airbus-logo-3d-blue.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/logo-edf.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/imacs-logo.jpg} \hfill
+  \includegraphics[height=0.05\textheight]{figures/onera-logo.png} \hfill
+  \includegraphics[height=0.08\textheight]{figures/logo-phimeca.png}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\titlepage
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{QuantileConfidence}
+
+\begin{frame}{QuantileConfidence}
+
+  \emph{Joint work with A. Dutfoy, J.Schueller.}
+
+  \textbf{QuantileConfidence}
+  \begin{itemize}
+  \item Goal: estimate the confidence interval of a 
+  quantile\footnote{See Meeker, W. Q., Hahn, G. J., and Escobar, L. A. (2017). \emph{Statistical intervals: a guide for practitioners and researchers}, volume 541. John Wiley \& Sons.}.
+  \item In the nuclear industry, this is called\footnote{See Wilks, S. S. (1941). \emph{Determination of sample sizes for setting tolerance limits.} The Annals of Mathematical Statistics, 12(1), 91-96.} 
+  "Wilks's method", but \textbf{this is not proper}, since Wilks's paper 
+  introduces a tolerance interval, not a confidence 
+  interval (this is different in the bilateral case).
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{figures/Wilks_determination_tolerance_limits.png}
+  \end{center}
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{QuantileConfidence}
+
+  \textbf{Features}\footnote{See 
+  PR \href{https://github.com/openturns/openturns/pull/2882}{\#2882}.}
+  \begin{itemize}
+    \item Compute a confidence interval of a quantile from a sample without 
+    any hypothesis on the distribution of the sample. Unilateral or bilateral.
+    \item Compute the sample size so that the extreme observations of a sample 
+    create a confidence interval of a quantile.
+    \item Based on \textbf{efficient algorithms}: e.g. no hard-coded upper 
+    bounds on the sample size, no iterative algorithm if a special function 
+    can be used, etc.
+    \item Compute either an \textrm{ot.Interval} or the rank of the order 
+    statistics.
+    \item Compute an asymptotic bilateral confidence interval.
+    \item Many formulas are based on the quantile (or complementary quantile) 
+    of level $\beta$ (the     confidence level) of the binomial distribution 
+    with parameters $\alpha$ 
+    (the quantile level) and $n$ (the sample size).
+    \item The \textrm{Wilks} class is deprecated in 1.25.
+    \item In OT 1.24: Improves the documentation\footnote{See 
+    PR \href{https://github.com/openturns/openturns/pull/2712}{\#2712}.}
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+  \frametitle{QuantileConfidence}
+  \textbf{Example.}
+  Compute the upper tail confidence interval $\left]-\infty, X_{(k_{up})}\right]$ 
+  such that:
+  \[
+  \mathbb{P}\left( x_{\alpha} \in \left]-\infty, X_{(k_{up})}\right]\right) \geq \beta.
+  \]
+  \begin{lstlisting}[language=Python]
+    import openturns as ot
+    import openturns.experimental as otexp
+    alpha = 0.05  # The quantile level
+    beta = 0.95  # The confidence level
+    algo = otexp.QuantileConfidence(alpha, beta)
+    # If the size is known
+    rank = algo.computeUnilateralRank(100)  # Returns rank = 9 in {0, ..., 99}
+    # On a ot.Sample
+    sample = ot.Gumbel().getSample(100)
+    ci = algo.computeUnilateralConfidenceInterval(sample)
+  \end{lstlisting}
+
+  Depending on the value of the parameters, an exception may be produced if 
+  the sample size is too small or the confidence level is too close to 1.
+
+\end{frame}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{otbenchmark}
+
+\begin{frame}{otbenchmark}
+  \emph{Joint work with E. Fekhari, M. Baudin, V. Chabridon, Y. Jebroun, 
+  J. Schueller.}
+
+  \textbf{otbenchmark}\footnote{See Fekhari, E., Baudin, M., Chabridon, V., 
+  \& Jebroun, Y. (2021). 
+  \emph{otbenchmark: An open source Python package for benchmarking and 
+  validating uncertainty quantification algorithms.} 
+  In 4th International Conference on Uncertainty Quantification in 
+  Computational Sciences and Engineering.}
+  is a benchmark package for Uncertainty Quantification.
+  \begin{center}
+    \begin{tikzpicture}
+      % Place nodes
+        \tiny
+        \node [mybox1] (0) {\textbf{\pyvar{otbenchmark}}};
+        \node [mybox] [right=2mm of 0] (i1) {UQ methods};
+        \node [mybox] [left=2mm of 0, align=center] (i3) {benchmark problems \&\\reference values};
+        \node [mybox] [below=2mm of 0, align=center] (i2) {performance metrics \&\\graphical tools};
+        \node[above=5mm of 0, align=center] (title) {\textcolor{otgreen}{OpenTURNS probabilistic programming paradigm}};
+    
+        \path[-stealth]
+        (i3) edge[very thick, bend left=15] (i1)
+        (i1) edge[very thick, bend left=15] (i2)
+        (i2) edge[very thick, bend left=15] (i3);
+    
+      \begin{pgfonlayer}{background} 
+        \node[otbox, fit=(i1) (i2) (i3) (title), draw] (Input) {};
+        \end{pgfonlayer}
+      
+      \only{\node [mybox2] [above right=4mm of i1] (i4) {New methods};}
+      \path[->] (i4) edge[bend right=10] (0);
+    
+      \only{\node [mybox2] [below right=4mm of i1] (i5) {New problems};}
+      \path[->] (i5) edge[bend left=10] (0);
+      \end{tikzpicture}
+  \end{center}
+\textbf{Use cases:}
+  \begin{itemize}
+    \item test a \alert{new UQ algorithm} on a panel of problems
+    \item compare several UQ algorithms available on a given \alert{benchmark problem}
+  \end{itemize}
+
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{otbenchmark}
+
+  Two categories of benchmark classes are currently provided:
+  \begin{itemize}
+    \item reliability problems, i.e. estimating the probability that the 
+    output of a function is less than a threshold,
+    \item sensitivity problems, i.e. estimating sensitivity indices, for 
+    example Sobol' indices.
+  \end{itemize}
+
+  \textbf{Features:}
+  \begin{itemize}
+    \item Most of the reliability problems were adapted from the 
+    RPRepo\footnote{See Rozsas A., Slobbe A. (2019). Repository and Black-box 
+    Reliability Challenge 2019. 
+    \url{https://rprepo.readthedocs.io/en/latest/}.}.
+    
+    \item Create a problem, run an algorithm and compare the computed 
+    probability with a reference probability.
+
+    \item Loop over all problems and run several methods on these problems.
+
+    \item \textbf{26 reliability problems} and \textbf{12 sensitivity analysis 
+    problems} so far
+
+    \item Reference values either computed by exact quadrature methods or large 
+    Monte Carlo sampling.
+  \end{itemize}
+\end{frame}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+  \frametitle{otbenchmark}
+
+  Already presented\footnote{See Fekhari, E., Baudin, M., Chabridon, V., 
+  \& Jebroun, Y. (2021, June 9). 
+  \emph{OTBenchmark: An open source Python package for benchmarking and 
+  validating uncertainty quantification algorithms}. 
+  OpenTURNS User's Day 2019. 
+  \href{https://github.com/openturns/presentation/blob/master/userday2021/jot_efekhari21.pdf}{jot\_efekhari21.pdf}.} at OpenTURNS User's Day 2019.
+
+  \textbf{New in 2025}: 
+
+  \begin{itemize}
+    \item Repo moved into openturns: \url{https://github.com/openturns/otbenchmark}
+    \item Online documentation: \url{https://openturns.github.io/otbenchmark/master/}
+    \item Conda and pip packaging\footnote{See 
+    \href{https://anaconda.org/conda-forge/otbenchmark}{here} and 
+    \href{https://pypi.org/project/otbenchmark/}{there}.}:
+    \begin{lstlisting}
+      conda install otbenchmark  # ... or ....
+      pip install otbenchmark
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{center}
+  \includegraphics[width=0.3\textwidth]{figures/otbenchmark-help.png}
+  \end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

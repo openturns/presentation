@@ -1,0 +1,70 @@
+% Copyright (C) 2012 - EDF R&D - Michael Baudin
+
+% TIKZ
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, backgrounds, fit, positioning}
+
+% TIKZ STYLE
+\tikzstyle{elips} = [ellipse, minimum width=3cm, minimum height=1cm,text centered, text width=3.5cm , draw=black]
+\tikzstyle{rect} = [rectangle, text centered, text width=3.5cm , draw=black]
+\tikzstyle{boxe} = [rectangle, rounded corners, text centered, draw=black]
+\tikzstyle{dot} = [rectangle, text centered]
+\tikzstyle{wbox} = [rectangle, fill=green!100]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\tikzstyle{otbox} = [draw=otgreen, fill=otgreen!20, thick, ellipse]
+\tikzstyle{mybox} = [text=white, fill=otgreen, thick, rectangle, rounded corners]
+\tikzstyle{mybox1} = [text=otgreen, draw=otgreen, fill=white, thick, ellipse]
+\tikzstyle{mybox2} = [text=white, fill=ofonce!90, thick, rectangle, rounded corners]
+\tikzstyle{modeltitle}=[fill=gray, text=white]
+
+\usetheme{Darmstadt} % http://tex.stackexchange.com/questions/177042/beamer-latex-customized-formats
+
+% \useoutertheme[subsection=false,footline=authortitle]{miniframes}
+\beamertemplatenavigationsymbolsempty
+
+% RGB scaled on 0-255 scale (section 17.1.1), colors pulled from title block
+\usecolortheme[RGB={44, 131, 82}]{structure}
+
+% hide header:
+\setbeamertemplate{headline}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\def\bx{{\bf x}}
+\def\RR{\mathbb{R}}
+
+\newcommand{\pyvar}[1]{\texttt{#1}}
+
+\def \ot {OpenTURNS}
+
+\hypersetup{colorlinks=true}
+
+% To highlight source code
+\usepackage{listings}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{violet}{rgb}{0.5,0,1}
+\definecolor{otgreen}{HTML}{32822d}
+
+\definecolor{ofonce}{HTML}{FE5716}
+\definecolor{omoyen}{HTML}{FF861D}
+\definecolor{oclair}{HTML}{FFB210}
+
+\lstset{
+  % general command to set parameter(s)
+   basicstyle=\scriptsize\ttfamily, %
+   keywordstyle=\color{violet}\bfseries,%
+   commentstyle=\color{darkgreen}\bfseries,%
+   showspaces=false,%
+   stringstyle=\color{red}\bfseries, 
+   otherkeywords={Gumbel, TruncatedDistribution, LatentVariableModel, %
+        SmoothedUniformFactory, Uniform, PythonFunction, ComposedDistribution, %
+        StudentCopula, StudentCopulaFactory, RankSobolSensitivityAlgorithm, %
+	      MonteCarlo, IntervalMesher, PointToFieldFunctionalChaosAlgorithm, %
+        FieldFunctionalChaosSobolIndices, HistogramFactory, %
+	      Graph, BoxCoxFactory, CompositeProcess, WhittleFactory, ARMAFactory, %
+	      Basis, TrendFactory, BoxCoxTransform, SpatialFunction, TimeSeries, %
+	      WelchFactory, GreaterOrEqual, IndependentCopula, %
+	      SystemFORM, UnionEvent, IntersectionEvent, QuantileConfidence},
+}
