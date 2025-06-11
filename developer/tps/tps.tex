@@ -20,7 +20,7 @@
 \DeclareMathOperator*{\argmin}{argmin}
 
 \title[OpenTURNS Developer training]{OpenTURNS Developer training: first steps}
-\author[OpenTURNS Consortium, 2024]
+\author[OpenTURNS Consortium, 2025]
 {
   Trainer : R\'egis LEBRUN\\
   Airbus \\
@@ -29,7 +29,7 @@
 
 
 
-\date[19-22 March 2024]
+\date[1-3 April 2025]
 {
   Developers training \\
 
@@ -102,8 +102,20 @@
   \end{block}
 \end{frame}
 
+
 \begin{frame}
   \frametitle{Library development 3/5}
+  \begin{block}{Projects}
+    \begin{enumerate}
+      \setcounter{enumi}{15}
+    \item~(**) \alert{\ttfamily AffineTransformDistribution}, the affine transformation of an 1-d distribution.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Library development 4/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{10}
@@ -116,8 +128,9 @@
   \end{block}
 \end{frame}
 
+
 \begin{frame}
-  \frametitle{Library development 4/5}
+  \frametitle{Library development 5/5}
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{12}
@@ -126,20 +139,6 @@
         \forall (u_1,\dots,u_n)\in[0,1]^n, C(u_1,\dots,u_n)=\psi^{-1}\left(\psi(u_1)+\dots+\psi(u_n)\right)
       \end{align}
       The main difficulties are the architecture of this extension and the implementation of an efficient sampling algorithm.
-    \end{enumerate}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Library development 5/5}
-  \begin{block}{Projects}
-    \begin{enumerate}
-      \setcounter{enumi}{15}
-    \item~(*) Extend \alert{\ttfamily SolverImplementation} and \alert{\ttfamily Solver} to the resolution of systems of nonlinear equations and provide a generic implementation using the \alert{\ttfamily LeastSquaresProblem} class. The solutions $x^*$ of a nonlinear system of equations $f_1(x)=0,\dots,f_n(x)=0$ where $x=(x_1,\dots,x_n)$, if they exist, have to be found in the set of solutions of the following least-squares problem:
-      \begin{align}
-        x^*=\arg\min \sum_{j=1}^n f_j^2(x)
-      \end{align}
-      for which many solvers are available in OpenTURNS.
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -161,7 +160,6 @@
   \begin{block}{Projects}
     \begin{enumerate}
       \setcounter{enumi}{21}
-    \item~(**) \alert{\ttfamily CubaIntegration} as a specialization of {\ttfamily IntegrationAlgorithmImplementation} (see {\ttfamily lib/src/Base/algo}). This algorithm is obtained by interfacing the cuba C library. A possible name for the module is \alert{OTCuba}.
     \item~(**) \alert{\ttfamily HIntLibIntegration} as a specialization of {\ttfamily IntegrationAlgorithmImplementation} (see {\ttfamily lib/src/Base/algo}). This algorithm is obtained by interfacing the HIntLib C++ library, see \alert{https://github.com/JohannesBuchner/HIntLib}. A possible name for the module is \alert{OTHIntLib}.
     \end{enumerate}
   \end{block}

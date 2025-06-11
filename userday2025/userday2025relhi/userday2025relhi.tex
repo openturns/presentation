@@ -1,0 +1,513 @@
+
+\documentclass[aspectratio=169]{beamer}
+
+%\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+%\setbeameroption{show only notes}
+
+  \include{macros}
+\usepackage{adjustbox}
+\usepackage[normalem]{ulem}
+
+\title[OpenTURNS]{OpenTURNS release highlights}
+
+\author[OpenTURNS et al.]{J. Schueller (Phimeca)}
+
+\date[]{User Day \#18, June 13th 2025, EDF Lab}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{frame}
+  \titlepage
+
+  \begin{columns}
+  \begin{column}[t]{0.05\textwidth}
+        \end{column}
+  
+    \column{0.10\textwidth}
+  \begin{center}
+\includegraphics[height=0.04\textheight]{figures/airbus-logo-3d-blue.png}
+\end{center}
+
+    \column{0.05\textwidth}
+  \begin{center}
+\includegraphics[height=0.09\textheight]{figures/logo-edf.jpg}
+\end{center}
+
+     \column{0.05\textwidth}
+  \begin{center}
+\includegraphics[height=0.09\textheight]{figures/imacs-logo.jpg}
+\end{center}
+
+    \column{0.10\textwidth}
+  \begin{center}
+\includegraphics[height=0.05\textheight]{figures/onera-logo.png}
+\end{center}
+
+    \column{0.15\textwidth}
+  \begin{center}
+\includegraphics[height=0.08\textheight]{figures/logo-phimeca.png}
+\end{center}
+
+\column{0.01\textwidth}
+
+  \end{columns}
+
+  \end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+
+New features since last year in releases:
+
+\begin{itemize}
+\item v1.24: fall 2024
+\item v1.25: spring 2025
+\end{itemize}
+
+\end{frame}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Not about}
+
+\begin{itemize}
+\item New conditional modelling features
+\item New quantile estimation features
+\item New GP API
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Line sampling simulation}
+
+\begin{frame}
+\frametitle{Line sampling simulation 1/3}
+ \emph{Contract EDF with E. Ardillon, A. Ajenjo, J. Mure with Phimeca}
+
+\begin{itemize}
+\item Koutsourelakis, H. Pradlwarter, G. Schueller,
+\textit{Reliability of structures in high dimensions, part i: algorithms and applications},
+Probabilistic Engineering Mechanics 19 (4) (2004) 409–417
+
+\item Angelis M., Patelli E., Beer M., \textit{Advanced line sampling for efficient robust reliability analysis},
+Structural safety, 52 :170-182, 2015.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Line sampling simulation 3/3}
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# 1. preliminary FORM
+optim = ot.Cobyla()
+optim.setStartingPoint(X.getMean())
+algo = ot.FORM(optim, event)
+algo.run()
+resultFORM = algo.getResult()
+alpha = resultFORM.getStandardSpaceDesignPoint()
+
+# 2. LS
+alpha = [0.0, 0.0, 0.0, 0.0, 1.0]
+rootStrategy = ot.SafeAndSlow(ot.Brent(1e-3, 1e-3, 1e-3, 5), 8, 0.01)
+algo = otexp.LineSampling(event, alpha, rootStrategy)
+algo.setMaximumOuterSampling(2000)
+algo.setMaximumCoefficientOfVariation(5e-2)
+algo.setSearchOppositeDirection(False)
+algo.setAdaptiveImportantDirection(True)
+algo.run()
+result = algo.getResult()
+pf = result.getProbabilityEstimate()
+\end{lstlisting}
+\end{small}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{LOLA-Voronoi sequential design}
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 1/7}
+ \emph{Contract Airbus with R. Lebrun with Phimeca}
+
+Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Sequential Experimental Design}, PhD thesis, Universiteit Gent, Belgium, 2011.
+
+\begin{itemize}
+\item Exploration criterion based on Voronoi cell volume:
+  $$v(\vect{p}_i) = \int_{\vect{x} \in \mathcal{V}_i} \inputMeasure(\vect{x}) d\vect{x} = \Expect{1_{\mathcal{V}_i}(\vect{X})}$$
+\item Exploitation criterion based on a measure of the nonlinearity of the model:
+  $$e_k(\vect{p}_r) = \sum_{i=1}^m | \model_k(\vect{p}_{ri}) - (\model_k(\vect{p}_r) + \mat{J}_i(\vect{p}_{ri} - \vect{p}_r)) |$$
+\end{itemize}
+
+Combined into hybrid score:
+$$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\sum_{j=1}^n e(\vect{p}_j)} \forall i \in [1, n]$$
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 2/7}
+
+\begin{figure}
+   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_1}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 3/7}
+
+\begin{figure}
+   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_2}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 4/7}
+
+\begin{figure}
+   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_3}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 5/7}
+
+\begin{figure}
+   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_4}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{LOLA-Voronoi sequential design 6/7}
+
+\begin{figure}
+   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_5}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{LOLA-Voronoi sequential design 7/7}
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# 1. initial design
+distribution = ot.JointDistribution([ot.Uniform(-1.0, 1.0)] * 2)
+N = 50
+x0 = ot.LowDiscrepancyExperiment(ot.HaltonSequence(), distribution, N).generate()
+y0 = f1(x0)
+
+# 2. sequential experiment
+algo = otexp.LOLAVoronoi(x0, y0, distribution)
+for i in range(10):
+    x = algo.generate(5)     # generate 5 new input samples
+    y = f(x)                 # evaluate output samples
+    algo.update(x, y)        # update state with new x/y pairs
+
+# 3. learn metamodel on all samples
+x_final = algo.getInputSample()
+y_final = algo.getOutputSample()
+algo_mm = ot.FunctionalChaosAlgorithm(x_final, y_final, distribution)
+algo_mm.run()
+metamodel = algo_mm.getResult().getMetaModel()
+\end{lstlisting}
+\end{small}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{New distribution estimator for SmoothedUniform}
+
+\begin{itemize}
+\item Method of moments for initialization
+\item Maximum likelihood for the final estimator
+\end{itemize}
+
+% \begin{figure}
+%    \includegraphics[width=0.4\textwidth]{figures/SmoothedUniformFactory}
+% \end{figure}
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+import openturns.experimental as otexp
+estimated = otexp.SmoothedUniformFactory().build(sample)
+\end{lstlisting}
+\end{small}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Latent variable model}
+
+\begin{itemize}
+\item Covariance model, for eg Kriging
+\item Covariance between different unordered values (or levels) of a categorical variable
+\item Parameters: coordinates in the latent space
+\item Zhang2020: "A latent variable approach to Gaussian process modeling with qualitative and quantitative factors"
+\end{itemize}
+
+\vspace{30pt}
+
+\begin{small}
+\begin{lstlisting}
+import openturns.experimental as otexp
+covModel = otexp.LatentVariableModel(3, 2)
+activeCoordinates = [0.1, 0.3, -0.4]
+covModel.setLatentVariables(activeCoordinates)
+\end{lstlisting}
+\end{small}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metamodelling}
+
+\begin{frame}[containsverbatim]
+\frametitle{New Field metamodeling capabilities}
+\begin{itemize}
+\item Vector to field metamodeling and sensitivity using KL + chaos
+\end{itemize}
+
+% \begin{figure}
+%    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_viscous_fall_metamodel_001}
+%    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_viscous_fall_metamodel_002}
+%    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_viscous_fall_metamodel_003}
+% \end{figure}
+
+\begin{small}
+\begin{lstlisting}
+# metamodel
+algo = otexp.PointToFieldFunctionalChaosAlgorithm(X, Y, distribution)
+algo.run(); result = algo.getResult()
+metaModel = result.getPointToFieldMetaModel()
+
+# sensitivity
+sensitivity = otexp.FieldFunctionalChaosSobolIndices(result)
+s1 = sensitivity.getFirstOrderIndices()
+st = sensitivity.getTotalOrderIndices()
+\end{lstlisting}
+\end{small}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Sensitivity}
+
+\begin{frame}[containsverbatim]
+\frametitle{Rank-based Sobol' indices}
+
+\begin{itemize}
+\item Data-driven (no need for dedicated design of experiments, just iid design)
+\item Only first-order indices
+\item Gamboa2022: "Global sensitivity analysis: A novel generation of mighty estimators based on rank statistics"
+\end{itemize}
+
+% \begin{figure}
+%    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_sensitivity_rank_sobol_001}
+% \end{figure}
+
+\begin{small}
+\begin{lstlisting}
+X = distributionX.getSample(N)
+Y = f(X)
+algo = otexp.RankSobolSensitivityAlgorithm(X, Y)
+s1 = algo.getFirstOrderIndices()
+\end{lstlisting}
+\end{small}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Misc}
+
+\begin{frame}
+\frametitle{Documentation improvements}
+\begin{itemize}
+\item Lots of new examples: chaos, cv, regression, MLE, functions, integration, enumerate, ...
+\item New usecases: fire satellite, wing weight, Linthurst/Coles datasets
+\end{itemize}
+
+% \begin{center}
+% \includegraphics[width=0.3\textwidth]{figures/stiffened_panel_simulation}
+% \end{center}
+
+\begin{itemize}
+\item Example minigalleries linking to relevant examples
+\item Automatic checking of every internal links
+\item Lot of time invested in the improvement of the documentation
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Other improvements}
+\begin{itemize}
+\item Multidimensional integration using cuba library (CubaIntegration)
+\item New class for integration from an existing design of experiment (ExperimentIntegration)
+\item Faster KDTree implementation using nanoflann library
+\item Faster TruncatedDistribution with n-d CDF inversion
+\end{itemize}
+
+\vspace{6pt}
+
+% \begin{center}
+% \includegraphics[width=0.15\textwidth]{figures/bugfix}
+% \end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Packaging 1/2}
+\begin{block}{Python channels}
+\begin{itemize}
+\item Pip / Conda
+\item Versions: 3.9+
+\item OS: Windows, Linux, MacOS
+\item Architectures: x86\_64, arm64 (Linux+MacOS)
+\end{itemize}
+\end{block}
+
+% \begin{figure}
+%    \includegraphics[width=0.3\textwidth]{figures/PyPI_logo}
+%    \includegraphics[width=0.3\textwidth]{figures/Conda_logo.svg}
+% \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Packaging 2/2}
+\begin{block}{Supported Linux distributions}
+\begin{itemize}
+\item Ubuntu 22/24
+\item Debian 11/12
+\item Fedora 41/42
+\item CentOS 8
+\item OpenSUSE 15.6
+\item Mageia 9
+\item ArchLinux
+\end{itemize}
+
+... and FreeBSD
+
+\end{block}
+
+
+\begin{center}
+\includegraphics[width=0.05\textwidth]{figures/debian-openlogo-100}
+\includegraphics[width=0.08\textwidth]{figures/ubuntu}
+\includegraphics[width=0.08\textwidth]{figures/Fedora-Logo}
+\includegraphics[width=0.08\textwidth]{figures/centos-logo}
+\includegraphics[width=0.08\textwidth]{figures/opensuse-logo}
+\includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
+\includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
+\includegraphics[width=0.15\textwidth]{figures/FREEBSD_Logo_Horiz_Pos_RGB}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Outlook}
+\begin{block}{2025-2026 work}
+\begin{itemize}
+\item Conditional distributions / Bayesian
+\item Quantiles estimation / tolerance intervals
+\item Calibration (functional models, bound constraints)
+\item New GPR API
+\item LOLA-Voronoi sequential design
+\item Cross-validation of functional chaos expansion
+\end{itemize}
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{END}
+
+Thank you for your attention!
+
+Any questions?
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figures/logo-ot-small}
+\end{center}
+
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \section{Bibliography}
+% 
+% \begin{frame}
+% \frametitle{Bibliography}
+% 
+% \begin{itemize}
+% \item Airbus, EDF, ONERA, Phimeca Engineering, IMACS.
+% OpenTURNS, a scientific library usable as a Python module dedicated to the treatment of uncertainties, 
+% \url{www.openturns.org}.
+% \item Airbus, EDF, Phimeca Engineering, IMACS. Documentation of OpenTURNS, version 1.9. 
+% \url{http://openturns.github.io/openturns/1.9/contents.html}
+% \item  Michaël Baudin, Anne Dutfoy, Bertrand Iooss, and Anne-Laure Popelin. 
+% OpenTURNS: An Industrial Software for Uncertainty Quantification in Simulation, 
+% Handbook of Uncertainty Quantification, 
+% pages 1-38. Springer International Publishing, 2016
+% \end{itemize}
+% 
+% \end{frame}
+
+\end{document}

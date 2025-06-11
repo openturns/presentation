@@ -1,0 +1,8 @@
+figure.figsize : 4.2520, 2.846
+font.size    : 11.0
+pgf.texsystem: pdflatex
+pgf.preamble : \usepackage[utf8]{inputenc} \DeclareUnicodeCharacter{2212}{-}
+font.family : sans
+figure.constrained_layout.use : True
+pgf.rcfonts : False
+
