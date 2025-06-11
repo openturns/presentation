@@ -1,13 +1,7 @@
 
 \documentclass[aspectratio=169]{beamer}
 
-%\setbeameroption{hide notes}
-%\setbeameroption{show notes}
-%\setbeameroption{show only notes}
-
-  \include{macros}
-\usepackage{adjustbox}
-\usepackage[normalem]{ulem}
+\input{macros}
 
 \title[OpenTURNS]{OpenTURNS release highlights}
 
@@ -122,19 +116,20 @@ pf = result.getProbabilityEstimate()
 
 \begin{frame}
 \frametitle{LOLA-Voronoi sequential design 1/7}
- \emph{Contract Airbus with R. Lebrun with Phimeca}
 
-Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Sequential Experimental Design}, PhD thesis, Universiteit Gent, Belgium, 2011.
+Contract Airbus with Phimeca, based on Crombecq's LOLA-Voronoi design\footnote{
+See Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Sequential Experimental Design}, PhD thesis, Universiteit Gent, Belgium, 2011.
+}.
 
 \begin{itemize}
 \item Exploration criterion based on Voronoi cell volume:
   $$v(\vect{p}_i) = \int_{\vect{x} \in \mathcal{V}_i} \inputMeasure(\vect{x}) d\vect{x} = \Expect{1_{\mathcal{V}_i}(\vect{X})}$$
 \item Exploitation criterion based on a measure of the nonlinearity of the model:
   $$e_k(\vect{p}_r) = \sum_{i=1}^m | \model_k(\vect{p}_{ri}) - (\model_k(\vect{p}_r) + \mat{J}_i(\vect{p}_{ri} - \vect{p}_r)) |$$
-\end{itemize}
-
-Combined into hybrid score:
+\item Combined into hybrid score:
 $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\sum_{j=1}^n e(\vect{p}_j)} \forall i \in [1, n]$$
+
+\end{itemize}
 
 \end{frame}
 
@@ -144,7 +139,7 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 \frametitle{LOLA-Voronoi sequential design 2/7}
 
 \begin{figure}
-   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_1}
+   \includegraphics[width=1.0\textwidth]{figures/lolavoronoi_1}
 \end{figure}
 
 \end{frame}
@@ -155,7 +150,7 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 \frametitle{LOLA-Voronoi sequential design 3/7}
 
 \begin{figure}
-   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_2}
+   \includegraphics[width=1.0\textwidth]{figures/lolavoronoi_2}
 \end{figure}
 
 \end{frame}
@@ -166,7 +161,7 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 \frametitle{LOLA-Voronoi sequential design 4/7}
 
 \begin{figure}
-   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_3}
+   \includegraphics[width=1.0\textwidth]{figures/lolavoronoi_3}
 \end{figure}
 
 \end{frame}
@@ -177,7 +172,7 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 \frametitle{LOLA-Voronoi sequential design 5/7}
 
 \begin{figure}
-   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_4}
+   \includegraphics[width=1.0\textwidth]{figures/lolavoronoi_4}
 \end{figure}
 
 \end{frame}
@@ -189,7 +184,7 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 \frametitle{LOLA-Voronoi sequential design 6/7}
 
 \begin{figure}
-   \includegraphics[width=1.04\textwidth]{figures/lolavoronoi_5}
+   \includegraphics[width=1.0\textwidth]{figures/lolavoronoi_5}
 \end{figure}
 
 \end{frame}
@@ -205,7 +200,8 @@ $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\su
 # 1. initial design
 distribution = ot.JointDistribution([ot.Uniform(-1.0, 1.0)] * 2)
 N = 50
-x0 = ot.LowDiscrepancyExperiment(ot.HaltonSequence(), distribution, N).generate()
+design = ot.LowDiscrepancyExperiment(ot.HaltonSequence(), distribution, N)
+x0 = design.generate()
 y0 = f1(x0)
 
 # 2. sequential experiment
@@ -408,7 +404,6 @@ s1 = algo.getFirstOrderIndices()
 \item Ubuntu 22/24
 \item Debian 11/12
 \item Fedora 41/42
-\item CentOS 8
 \item OpenSUSE 15.6
 \item Mageia 9
 \item ArchLinux
