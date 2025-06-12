@@ -105,7 +105,7 @@ OpenTURNS Presentations
   - `OpenTURNS Release highlights: the new Gaussian Process API <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025gpr.pdf>`_
   - `OpenTURNS new quantile confidence interval features and otbenchmark updates <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025quantiles.pdf>`_
   - `Essentially exact Bayesian estimation of the Gutenberg-Richter model <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OT_JU_2025_BayesianEstim_GRlaw.pdf>`_
-  - `Focus on adaptive simlation methods for reliability analysis with OpenTURNS <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OT_JU_2025_Reliability_Adaptive_Methods.pdf>`_
+  - `Focus on adaptive simulation methods for reliability analysis with OpenTURNS <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OT_JU_2025_Reliability_Adaptive_Methods.pdf>`_
 
 - Uncecomp 2023
 
