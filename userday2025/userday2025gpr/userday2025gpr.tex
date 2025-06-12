@@ -1,0 +1,315 @@
+
+\documentclass[aspectratio=169]{beamer}
+
+%\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+%\setbeameroption{show only notes}
+
+\include{macros}
+\usepackage{adjustbox}
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\title[OpenTURNS]{OpenTURNS release highlights : the new Gaussian Process API}
+
+\author[OpenTURNS et al.]{S.Haddad (Airbus Central R\&T)}
+
+\date[]{User Day \#18, June 13th 2025, EDF Lab}
+
+\titlegraphic{
+  \includegraphics[height=0.05\textheight]{figures/airbus-logo.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/logo-edf.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/imacs-logo.jpg} \hfill
+  \includegraphics[height=0.05\textheight]{figures/onera-logo.png} \hfill
+  \includegraphics[height=0.08\textheight]{figures/logo-phimeca.png}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\titlepage
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Kriging implementation : current limitations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Kriging implementation: basic example}
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+import openturns as ot
+...
+# Call kriging
+kriging_algo = ot.KrigingAlgorithm(X_train, Y_train, covarianceModel, basis)
+kriging_algo.run()
+# Get the result
+kriging_result = kriging_algo.getResult()
+# Post-processing 
+func = kriging_result.getMetaModel()
+# Conditional variance
+cond_var = kriging_result.getConditionalVariance(new_X)
+
+\end{lstlisting}
+\end{small}
+
+First remarks:
+\begin{itemize}
+\item \texttt{KrigingAlgorithm} handles the E2E computation,
+\item Post-processing methods handled by result structures;
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Kriging implementation: change some parameters}
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+import openturns as ot
+
+# Set optimizer
+ot.ResourceMap.SetAsString(
+  "GeneralLinearModelAlgorithm-DefaultOptimizationAlgorithm", "Cobyla")
+ot.ResourceMap.SetAsScalar(
+  "GeneralLinearModelAlgorithm-DefaultOptimizationLowerBound", 0)
+ot.ResourceMap.SetAsScalar(
+  "GeneralLinearModelAlgorithm-DefaultOptimizationUpperBound", 2)
+ot.ResourceMap.SetAsString(
+  "KrigingAlgorithm-LinearAlgebra", "LAPACK")
+#ot.ResourceMap.SetAsString(
+#  "GeneralLinearModelAlgorithm-LinearAlgebra", "LAPACK")
+
+...
+# Call kriging
+kriging_algo = ot.KrigingAlgorithm(X_train, Y_train, covarianceModel, basis)
+kriging_algo.run()
+# Get the result
+kriging_result = kriging_algo.getResult()
+# Post-processing 
+func = kriging_result.getMetaModel()
+# Conditional variance
+cond_var = kriging_result.getConditionalVariance(new_X)
+
+
+\end{lstlisting}
+\end{small}
+
+First remarks:
+\begin{itemize}
+\item \texttt{ResourceMap} keys are prefixed by \texttt{GeneralLinearModelAlgorithm} (instead of \texttt{KrigingAlgorithm}),
+\item We might have duplicate and confusing keys;
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[containsverbatim]
+\frametitle{In a nutshell}
+
+\texttt{KrigingAlgorithm} is used to fit a Kriging model (aka Gaussian Process Regression), relying on a 2-steps procedure~:
+\begin{itemize}
+\item \texttt{GeneralLinearModelAlgorithm}: allowing the parametric estimation of a Gaussian Process,
+\item \texttt{KrigingAlgorithm}: conditioning the Gaussian Process;\\
+\end{itemize}
+
+$\longrightarrow$ \texttt{KrigingAlgorithm.run} calibrate a Gaussian Process \\
+
+\begin{itemize}
+\item \texttt{ResourceMap} keys duplicate,
+\item Sequential Kriging hard to handle (example for \texttt{EGO});
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Our wishes}
+
+\begin{itemize}
+\item Trigger explicitly the parameters fitting, 
+\item Perform the conditioning,
+\item Enrich the API with missing features (such as "known trend"),
+\item Build as much post-processing functions as needed;
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{New API}
+
+\begin{frame}[containsverbatim]
+\frametitle{New API for Gaussian Process Regression}
+
+The new API defines the following classes (in the \texttt{experimental} submodule):
+\begin{itemize}
+\item \texttt{GaussianProcessFitter}: Fitting the Gaussian Process (explicitly),
+\item \texttt{GaussianProcessFitterResult}: result class of a parametric Gaussian Process fitting,
+\item \texttt{GaussianProcessRegression}: conditioning the Gaussian Process,
+\item \texttt{GaussianProcessRegressionResult}: result class of a conditional Gaussian Process fitting,
+\item \texttt{GaussianProcessRandomVector}: generate Gaussian Process realizations,
+\item \texttt{GaussianProcessConditionalCovariance}: Post-processing Gaussian Process;
+\end{itemize}
+
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# Call fitter
+fitter_algo = otexp.GaussianProcessFitter(X_train, Y_train, covarianceModel, basis)
+fitter_algo.run()
+fitter_result = fitter_algo.getResult()
+# Conditioning part using the fit result
+gpr_algo = otexp.GaussianProcessRegression(fitter_result)
+gpr_algo.run()
+gpr_result = gpr_algo.getResult()
+gpr_metamodel = gpr_result.getMetaModel()
+\end{lstlisting}
+\end{small}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{New feature : known trend}
+
+
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# trend function
+trend_function = ot.SymbolicFunction("x", "-3.1710410094572903")
+# Covariance
+scale = [4.51669]
+amplitude = [8.648]
+covariance_opt = ot.MaternModel(scale, amplitude, 1.5)
+# Conditioning part using the data
+gpr_algo_noopt = otexp.GaussianProcessRegression(x_train, y_train, covariance_opt, trend_function)
+gpr_algo_noopt.run()
+gpr_result_no_opt = gpr_algo_noopt.getResult()
+gpr_nopt_Metamodel = gpr_result_no_opt.getMetaModel()
+\end{lstlisting}
+\end{small}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Post-processing : conditional covariance}
+\begin{small}
+\lstset{language=python}
+\begin{lstlisting}
+# Call fitter
+fitter_algo = otexp.GaussianProcessFitter(X_train, Y_train, covarianceModel, basis)
+fitter_algo.run()
+fitter_result = fitter_algo.getResult()
+# Conditioning part using the fit result
+gpr_algo = otexp.GaussianProcessRegression(fitter_result)
+gpr_algo.run()
+gpr_result = gpr_algo.getResult()
+# Conditional covariance
+gpcc = otexp.GaussianProcessConditionalCovariance(gpr_result)
+cond_var = gpcc.getConditionalVariance(new_X)
+\end{lstlisting}
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[containsverbatim]
+\frametitle{Kriging vs Gaussian Process}
+
+Reach out \href{https://openturns.github.io/openturns/master/auto_getting_started/plot_kriging_vs_gpr.html#sphx-glr-auto-getting-started-plot-kriging-vs-gpr-py}{here} to learn more !\\
+
+\includegraphics[scale=0.25]{figures/intro_example.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[containsverbatim]
+\frametitle{Summary}
+
+%\texttt{}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+   \textbf{Feature} & \textbf{OpenTURNS 1.24} & \textbf{New API} \\ 
+  \hline
+   \texttt{Optimisation} & \texttt{TNC} & \texttt{Cobyla} \\
+   \texttt{Heteroscedasticity} & \texttt{KrigingAlgorithm.setNoise} & \texttt{Not implemented}\\
+   \texttt{Nugget factor est} & \texttt{CovModel} & \texttt{CovModel}\\
+   \texttt{Known trend} & \texttt{Not implemented} & \texttt{Implemented}\\
+   \texttt{Conditional covariance} & \texttt{KrigingResult} & \texttt{GPCC*}\\
+  \hline
+\end{tabular}
+\end{center}
+*GPCC: GaussianProcessConditionalCovariance
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[containsverbatim]
+\frametitle{Integration within \texttt{OpenTURNS}}
+
+List of classes supporting the new API:
+\begin{itemize}
+\item \texttt{EfficientGlobalOptimization}: rely on \texttt{GaussianProcessRegressionResult},
+\item \texttt{ConditionedGaussianProcess}: rely on \texttt{GaussianProcessRegressionResult}
+\end{itemize}
+Remark~: these classes are now part of the experimental submodule!\\
+
+In parallel, all examples involving Kriging are progressively moving to the new API !
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Outlook}
+\begin{block}{2025-2026 work}
+\begin{itemize}
+\item Finalize migration of the examples to the new API,
+\item Algebra of covariance models,
+\item Analytical gradient of covariance models,
+\item Integration into the existing algorithms,
+\item Cross-validation methods,
+\item Sequential algorithms,
+\end{itemize}
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{END}
+
+Thank you for your attention!
+
+Any questions?
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figures/logo-ot-small}
+\end{center}
+
+\end{frame}
+
+
+\end{document}
