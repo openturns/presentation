@@ -61,6 +61,11 @@
 
 \newcommand{\pyvar}[1]{\texttt{#1}}
 
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\Rset}{{\mathbb R}}
+\newcommand{\di}[1] {{\,\mathrm{d}#1}}
+\newcommand{\sampleSize}{n}  % The sample size
+
 \def \ot {OpenTURNS}
 
 \hypersetup{colorlinks=true}
@@ -82,7 +87,8 @@
 	   Basis, TrendFactory, BoxCoxTransform, SpatialFunction, TimeSeries, %
 	   WelchFactory, GreaterOrEqual, IndependentCopula, %
 	   FunctionalChaosAlgorithm, LowDiscrepancyExperiment, HaltonSequence, LOLAVoronoi,
-	   LineSampling, FORM, SafeAndSlow, Brent, Cobyla,
+	   LineSampling, FORM, SafeAndSlow, Brent, Cobyla, Interval,
+	   LeastSquaresEquationsSolver, RatioOfUniforms, ComposedFunction, SymbolicFunction,
 	   SystemFORM, UnionEvent, IntersectionEvent},
 }
 

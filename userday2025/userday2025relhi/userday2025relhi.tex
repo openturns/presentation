@@ -63,24 +63,87 @@ New features since last year in releases:
 \section{Line sampling simulation}
 
 \begin{frame}
-\frametitle{Line sampling simulation 1/3}
- \emph{Contract EDF with E. Ardillon, A. Ajenjo, J. Mure with Phimeca}
+\frametitle{Line sampling simulation 1/5}
+
+\begin{block}{Description}
 
 \begin{itemize}
-\item Koutsourelakis, H. Pradlwarter, G. Schueller,
-\textit{Reliability of structures in high dimensions, part i: algorithms and applications},
-Probabilistic Engineering Mechanics 19 (4) (2004) 409–417
+  \item Contract EDF with E. Ardillon, A. Ajenjo, J. Mure with Phimeca
 
-\item Angelis M., Patelli E., Beer M., \textit{Advanced line sampling for efficient robust reliability analysis},
-Structural safety, 52 :170-182, 2015.
+  \item Simulation algorithm comparable to directional sampling
+  
+  \item Implements the original algorithm from \footnote{Koutsourelakis, H. Pradlwarter, G. Schueller,
+\textit{Reliability of structures in high dimensions, part i: algorithms and applications},
+Probabilistic Engineering Mechanics 19 (4) (2004) 409–417}
++ adaptive important direction variant from \footnote{Angelis M., Patelli E., Beer M., \textit{Advanced line sampling for efficient robust reliability analysis},
+Structural safety, 52 :170-182, 2015.}
+
+  \item The line sampling algorithm estimates the probability of the event $\cD_f$:
+  
+  $$P_f = \Prob{\model\left( \inputRV \right) \leq 0}
+        = \int_{\Rset^{\inputDim}} \mathbf{1}_{\{\model(\vect{x}) \leq 0 \}}\inputMeasure(\vect{x})\di{\vect{x}}$$
+
 \end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Line sampling simulation 3/5}
+
+\begin{block}{Algorithm}
+
+The generic line sampling algorithm follows the steps for $k=1, \hdots \sampleSize$:
+
+
+\begin{itemize}
+% 
+\item Draw a sample $\vect{z_k} \sim Z$ and project it on the hyperplane normal to $\vect{\alpha}$
+  to obtain $P^{\perp}_{\vect{\alpha}}(\vect{z_k})$.
+
+\item Find the roots of $r \mapsto g \circ T^{-1}(r \vect{\alpha} + P^{\perp}_{\vect{\alpha}}(\vect{z_k}))$.
+
+\item Use the roots to compute $p_{\vect{z_k}} = \Prob{R \in I_{P^{\perp}_{\vect{\alpha}}(\vect{z_k})}}$.
+% 
+\end{itemize}
+
+The global probability $P_f$ is computed from all the $p_{\vect{z_k}}$ probabilities:
+
+$$\widehat{P}_{f,LS} = \frac{1}{\sampleSize} \sum_{i=1}^{\sampleSize} p_{\vect{z_k}}$$
+
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Line sampling simulation 3/5}
+
+\begin{figure}
+   \includegraphics[width=0.7\textwidth]{figures/ls0}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Line sampling simulation 4/5}
+
+\begin{figure}
+   \includegraphics[width=0.7\textwidth]{figures/ls1}
+\end{figure}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{Line sampling simulation 3/3}
+\frametitle{Line sampling simulation 5/5}
 
 \begin{small}
 \lstset{language=python}
@@ -90,8 +153,8 @@ optim = ot.Cobyla()
 optim.setStartingPoint(X.getMean())
 algo = ot.FORM(optim, event)
 algo.run()
-resultFORM = algo.getResult()
-alpha = resultFORM.getStandardSpaceDesignPoint()
+result_form = algo.getResult()
+alpha = result_form.getStandardSpaceDesignPoint()  # from u*
 
 # 2. LS
 alpha = [0.0, 0.0, 0.0, 0.0, 1.0]
@@ -99,8 +162,8 @@ rootStrategy = ot.SafeAndSlow(ot.Brent(1e-3, 1e-3, 1e-3, 5), 8, 0.01)
 algo = otexp.LineSampling(event, alpha, rootStrategy)
 algo.setMaximumOuterSampling(2000)
 algo.setMaximumCoefficientOfVariation(5e-2)
-algo.setSearchOppositeDirection(False)
-algo.setAdaptiveImportantDirection(True)
+algo.setSearchOppositeDirection(False)  # search 1 direction instead of both
+algo.setAdaptiveImportantDirection(True)  # adaptive alpha
 algo.run()
 result = algo.getResult()
 pf = result.getProbabilityEstimate()
@@ -117,6 +180,8 @@ pf = result.getProbabilityEstimate()
 \begin{frame}
 \frametitle{LOLA-Voronoi sequential design 1/7}
 
+\begin{block}{Description}
+
 Contract Airbus with Phimeca, based on Crombecq's LOLA-Voronoi design\footnote{
 See Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Sequential Experimental Design}, PhD thesis, Universiteit Gent, Belgium, 2011.
 }.
@@ -130,6 +195,8 @@ See Crombecq, K., \textit{Surrogate Modelling of Computer Experiments with Seque
 $$h(\vect{p}_i) = \lambda v(\vect{p}_i) + (1 - \lambda) \frac{e(\vect{p}_i)}{\sum_{j=1}^n e(\vect{p}_j)} \forall i \in [1, n]$$
 
 \end{itemize}
+
+\end{block}
 
 \end{frame}
 
@@ -226,12 +293,14 @@ metamodel = algo_mm.getResult().getMetaModel()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[containsverbatim]
-\frametitle{New distribution estimator for SmoothedUniform}
+\frametitle{LeastSquaresEquationsSolver}
 
-\begin{itemize}
-\item Method of moments for initialization
-\item Maximum likelihood for the final estimator
-\end{itemize}
+Least squares solver for the resolution of a system of non-linear equations.
+
+% \begin{itemize}
+% \item Method of moments for initialization
+% \item Maximum likelihood for the final estimator
+% \end{itemize}
 
 % \begin{figure}
 %    \includegraphics[width=0.4\textwidth]{figures/SmoothedUniformFactory}
@@ -240,48 +309,55 @@ metamodel = algo_mm.getResult().getMetaModel()
 \begin{small}
 \lstset{language=python}
 \begin{lstlisting}
+import openturns as ot
 import openturns.experimental as otexp
-estimated = otexp.SmoothedUniformFactory().build(sample)
+
+inputs = ['x', 'y']
+formulas = ['y*x-sin(2*x)', '1 + cos(y) + x']
+analytical = ot.SymbolicFunction(inputs, formulas)
+
+algo = otexp.LeastSquaresEquationsSolver()
+algo.setResidualError(1e-8)
+starting_point = [2.0, 1.0]
+solution = algo.solve(analytical, starting_point)
 \end{lstlisting}
 \end{small}
-
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[containsverbatim]
-\frametitle{Latent variable model}
-
-\begin{itemize}
-\item Covariance model, for eg Kriging
-\item Covariance between different unordered values (or levels) of a categorical variable
-\item Parameters: coordinates in the latent space
-\item Zhang2020: "A latent variable approach to Gaussian process modeling with qualitative and quantitative factors"
-\end{itemize}
-
-\vspace{30pt}
-
-\begin{small}
-\begin{lstlisting}
-import openturns.experimental as otexp
-covModel = otexp.LatentVariableModel(3, 2)
-activeCoordinates = [0.1, 0.3, -0.4]
-covModel.setLatentVariables(activeCoordinates)
-\end{lstlisting}
-\end{small}
-
-\end{frame}
+% \begin{frame}[containsverbatim]
+% \frametitle{Latent variable model}
+% 
+% \begin{itemize}
+% \item Covariance model, for eg Kriging
+% \item Covariance between different unordered values (or levels) of a categorical variable
+% \item Parameters: coordinates in the latent space
+% \item Zhang2020: "A latent variable approach to Gaussian process modeling with qualitative and quantitative factors"
+% \end{itemize}
+% 
+% \vspace{30pt}
+% 
+% \begin{small}
+% \begin{lstlisting}
+% import openturns.experimental as otexp
+% covModel = otexp.LatentVariableModel(3, 2)
+% activeCoordinates = [0.1, 0.3, -0.4]
+% covModel.setLatentVariables(activeCoordinates)
+% \end{lstlisting}
+% \end{small}
+% 
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Metamodelling}
 
 \begin{frame}[containsverbatim]
-\frametitle{New Field metamodeling capabilities}
-\begin{itemize}
-\item Vector to field metamodeling and sensitivity using KL + chaos
-\end{itemize}
+\frametitle{RatioOfUniforms}
+% \begin{itemize}
+% \item Vector to field metamodeling and sensitivity using KL + chaos
+% \end{itemize}
 
 % \begin{figure}
 %    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_viscous_fall_metamodel_001}
@@ -291,15 +367,18 @@ covModel.setLatentVariables(activeCoordinates)
 
 \begin{small}
 \begin{lstlisting}
-# metamodel
-algo = otexp.PointToFieldFunctionalChaosAlgorithm(X, Y, distribution)
-algo.run(); result = algo.getResult()
-metaModel = result.getPointToFieldMetaModel()
+import openturns as ot
+import openturns.experimental as otexp
+from math import pi
 
-# sensitivity
-sensitivity = otexp.FieldFunctionalChaosSobolIndices(result)
-s1 = sensitivity.getFirstOrderIndices()
-st = sensitivity.getTotalOrderIndices()
+f = ot.SymbolicFunction('x', '(1.5+sin(x))*exp(x)')
+log_UnscaledPDF = ot.ComposedFunction(ot.SymbolicFunction('x', 'log(x)'), f)
+range_PDF = ot.Interval(0.0, 2.0 * pi)
+ratioOfU = otexp.RatioOfUniforms(log_UnscaledPDF, range_PDF, False)
+collMultiStart = ratioOfU.initialize()
+x = ratioOfU.getRealization()
+sample = ratioOfU.getSample(10)
+ratioOfU = otexp.RatioOfUniforms(ot.Student(8.5, 3))
 \end{lstlisting}
 \end{small}
 
@@ -310,31 +389,31 @@ st = sensitivity.getTotalOrderIndices()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Sensitivity}
-
-\begin{frame}[containsverbatim]
-\frametitle{Rank-based Sobol' indices}
-
-\begin{itemize}
-\item Data-driven (no need for dedicated design of experiments, just iid design)
-\item Only first-order indices
-\item Gamboa2022: "Global sensitivity analysis: A novel generation of mighty estimators based on rank statistics"
-\end{itemize}
-
-% \begin{figure}
-%    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_sensitivity_rank_sobol_001}
-% \end{figure}
-
-\begin{small}
-\begin{lstlisting}
-X = distributionX.getSample(N)
-Y = f(X)
-algo = otexp.RankSobolSensitivityAlgorithm(X, Y)
-s1 = algo.getFirstOrderIndices()
-\end{lstlisting}
-\end{small}
-
-\end{frame}
+% \section{Sensitivity}
+% 
+% \begin{frame}[containsverbatim]
+% \frametitle{Rank-based Sobol' indices}
+% 
+% \begin{itemize}
+% \item Data-driven (no need for dedicated design of experiments, just iid design)
+% \item Only first-order indices
+% \item Gamboa2022: "Global sensitivity analysis: A novel generation of mighty estimators based on rank statistics"
+% \end{itemize}
+% 
+% % \begin{figure}
+% %    \includegraphics[width=0.3\textwidth]{figures/sphx_glr_plot_sensitivity_rank_sobol_001}
+% % \end{figure}
+% 
+% \begin{small}
+% \begin{lstlisting}
+% X = distributionX.getSample(N)
+% Y = f(X)
+% algo = otexp.RankSobolSensitivityAlgorithm(X, Y)
+% s1 = algo.getFirstOrderIndices()
+% \end{lstlisting}
+% \end{small}
+% 
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -343,8 +422,8 @@ s1 = algo.getFirstOrderIndices()
 \begin{frame}
 \frametitle{Documentation improvements}
 \begin{itemize}
-\item Lots of new examples: chaos, cv, regression, MLE, functions, integration, enumerate, ...
-\item New usecases: fire satellite, wing weight, Linthurst/Coles datasets
+\item Improved functions API with graphs
+\item Improved documentation of Directional sampling classes
 \end{itemize}
 
 % \begin{center}
@@ -352,9 +431,9 @@ s1 = algo.getFirstOrderIndices()
 % \end{center}
 
 \begin{itemize}
-\item Example minigalleries linking to relevant examples
-\item Automatic checking of every internal links
 \item Lot of time invested in the improvement of the documentation
+\item Consistency of examples
+\item SVG graphics
 \end{itemize}
 \end{frame}
 
@@ -363,10 +442,9 @@ s1 = algo.getFirstOrderIndices()
 \begin{frame}
 \frametitle{Other improvements}
 \begin{itemize}
-\item Multidimensional integration using cuba library (CubaIntegration)
-\item New class for integration from an existing design of experiment (ExperimentIntegration)
-\item Faster KDTree implementation using nanoflann library
-\item Faster TruncatedDistribution with n-d CDF inversion
+\item Smolyak nested tensorization
+\item Advanced validation of Distribution classes
+\item Allow MultiStart optimization in FORM algorithms
 \end{itemize}
 
 \vspace{6pt}
@@ -401,7 +479,7 @@ s1 = algo.getFirstOrderIndices()
 \frametitle{Packaging 2/2}
 \begin{block}{Supported Linux distributions}
 \begin{itemize}
-\item Ubuntu 22/24
+\item Ubuntu 22/24/25
 \item Debian 11/12
 \item Fedora 41/42
 \item OpenSUSE 15.6
@@ -418,7 +496,7 @@ s1 = algo.getFirstOrderIndices()
 \includegraphics[width=0.05\textwidth]{figures/debian-openlogo-100}
 \includegraphics[width=0.08\textwidth]{figures/ubuntu}
 \includegraphics[width=0.08\textwidth]{figures/Fedora-Logo}
-\includegraphics[width=0.08\textwidth]{figures/centos-logo}
+% \includegraphics[width=0.08\textwidth]{figures/centos-logo}
 \includegraphics[width=0.08\textwidth]{figures/opensuse-logo}
 \includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
 \includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
@@ -443,6 +521,30 @@ s1 = algo.getFirstOrderIndices()
 \item Performance of conditioned GP on a large grid
 \end{itemize}
 \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Community}
+
+Join our forum: https://openturns.discourse.group
+
+
+\includegraphics[width=1.0\textwidth]{figures/forum}
+
+
+% \begin{itemize}
+% \item Smolyak nested tensorization
+% \item Automatic testing of Distribution services
+% \end{itemize}
+% 
+% \vspace{6pt}
+
+% \begin{center}
+% \includegraphics[width=0.15\textwidth]{figures/bugfix}
+% \end{center}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
