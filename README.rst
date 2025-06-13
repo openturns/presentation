@@ -100,6 +100,7 @@ OpenTURNS Presentations
 
 - User day 2025
 
+  - `The surprinsingly overlooked efficiency of SMC <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/chopin_openturns.pdf>`_
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025relhi.pdf>`_
   - `New Features on conditional modelling <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OpenTURNS_18_2025_ConditionalDist.pdf>`_
   - `OpenTURNS Release highlights: the new Gaussian Process API <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2025gpr.pdf>`_
