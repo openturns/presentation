@@ -6,9 +6,6 @@
 %\setbeameroption{show only notes}
 
 \include{macros}
-\usepackage{adjustbox}
-\usepackage[normalem]{ulem}
-\usepackage{listings}
 \usepackage{hyperref}
 
 \title[OpenTURNS]{OpenTURNS release highlights : the new Gaussian Process API}
@@ -50,8 +47,7 @@
 \frametitle{Kriging implementation: basic example}
 
 \begin{small}
-\lstset{language=python}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 import openturns as ot
 ...
 # Call kriging
@@ -63,7 +59,6 @@ kriging_result = kriging_algo.getResult()
 func = kriging_result.getMetaModel()
 # Conditional variance
 cond_var = kriging_result.getConditionalVariance(new_X)
-
 \end{lstlisting}
 \end{small}
 
@@ -80,8 +75,7 @@ First remarks:
 \begin{frame}[containsverbatim]
 \frametitle{Kriging implementation: change some parameters}
 \begin{small}
-\lstset{language=python}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 import openturns as ot
 
 # Set optimizer
@@ -106,8 +100,6 @@ kriging_result = kriging_algo.getResult()
 func = kriging_result.getMetaModel()
 # Conditional variance
 cond_var = kriging_result.getConditionalVariance(new_X)
-
-
 \end{lstlisting}
 \end{small}
 
@@ -173,8 +165,7 @@ The new API defines the following classes (in the \texttt{experimental} submodul
 
 
 \begin{small}
-\lstset{language=python}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 # Call fitter
 fitter_algo = otexp.GaussianProcessFitter(X_train, Y_train, covarianceModel, basis)
 fitter_algo.run()
@@ -195,8 +186,7 @@ gpr_metamodel = gpr_result.getMetaModel()
 
 
 \begin{small}
-\lstset{language=python}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 # trend function
 trend_function = ot.SymbolicFunction("x", "-3.1710410094572903")
 # Covariance
@@ -217,8 +207,7 @@ gpr_nopt_Metamodel = gpr_result_no_opt.getMetaModel()
 \begin{frame}[containsverbatim]
 \frametitle{Post-processing : conditional covariance}
 \begin{small}
-\lstset{language=python}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 # Call fitter
 fitter_algo = otexp.GaussianProcessFitter(X_train, Y_train, covarianceModel, basis)
 fitter_algo.run()
