@@ -109,8 +109,7 @@ OpenTURNS Presentations
   - `Essentially exact Bayesian estimation of the Gutenberg-Richter model <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OT_JU_2025_BayesianEstim_GRlaw.pdf>`_
   - `Focus on adaptive simulation methods for reliability analysis with OpenTURNS <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/OT_JU_2025_Reliability_Adaptive_Methods.pdf>`_
   - `UncertaintyCat: Accessible UQ with OpenTURNS and Generative AI <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_UncertaintyCat.pdf>`_
-  - `OTICSCREAM: A Python module (and a cooking recipe) for the identification of penalizing configurations in computer experiments
- <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_ChabridonMure.pdf>`_
+  - `OTICSCREAM: A Python module (and a cooking recipe) for the identification of penalizing configurations in computer experiments <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_ChabridonMure.pdf>`_
   - `Uncertainty Propagation and Sensitivity Analysis in Additive Manufacturing Simulation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_Braydi.pdf>`_
 
 - Uncecomp 2023
