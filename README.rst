@@ -112,10 +112,6 @@ OpenTURNS Presentations
   - `OTICSCREAM: A Python module (and a cooking recipe) for the identification of penalizing configurations in computer experiments <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_ChabridonMure.pdf>`_
   - `Uncertainty Propagation and Sensitivity Analysis in Additive Manufacturing Simulation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_Braydi.pdf>`_
 
-- Uncecomp 2023
-
-  - `Slides <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2023_slides_OpenTURNS.pdf>`_
-
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_
@@ -148,6 +144,8 @@ OpenTURNS Presentations
 
 - `SIAM-UQ 2022 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2022-slides-OpenTURNS.pdf>`_
 
+- `Uncecomp 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2023_slides_OpenTURNS.pdf>`_
+
 - `Applibugs 2023 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/applibugs-2023-slides_OpenTURNS_MetropolisHastings.pdf>`_
 
 - `SIAM-UQ 2024 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/siamuq-2024-slides-OpenTURNS.pdf>`_
@@ -156,3 +154,5 @@ OpenTURNS Presentations
 
   - `OpenTURNS and Persalys Overview <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/bepu-2024-slides-OpenTURNS.pdf>`_
   - `Bayesian inference using MCMC in OpenTURNS <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/bepu-2024-slides_OpenTURNS_MetropolisHastings.pdf>`_
+
+- `Uncecomp 2025 <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/uncecomp_2025_slides_OpenTURNS.pdf>`_
