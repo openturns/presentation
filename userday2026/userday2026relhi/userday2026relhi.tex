@@ -1,0 +1,303 @@
+
+\documentclass[aspectratio=169]{beamer}
+
+\input{macros}
+
+\title[OpenTURNS]{OpenTURNS release highlights}
+
+\author[OpenTURNS et al.]{J. Schueller (Phimeca)}
+
+\date[]{User Day \#18, June 12th 2026, EDF Lab}
+
+\titlegraphic{
+  \includegraphics[height=0.05\textheight]{figures/airbus-logo.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/logo-edf.png} \hfill
+  \includegraphics[height=0.09\textheight]{figures/imacs-logo.jpg} \hfill
+  \includegraphics[height=0.05\textheight]{figures/onera-logo.png} \hfill
+  \includegraphics[height=0.08\textheight]{figures/logo-phimeca.png}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{frame}
+  \titlepage
+  \end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+
+New features since last year in releases:
+
+\begin{itemize}
+\item v1.26: fall 2025
+\item v1.27: spring 2026
+\end{itemize}
+
+\end{frame}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Finalized new GPR API migration}
+
+\begin{frame}
+\frametitle{Gaussian process regression API}
+
+\begin{block}{Better hyperparameter optimization (1.26)}
+\begin{itemize}
+\item Normalization and improved scale bounds initialization
+\item Faster and more robust convergence
+\end{itemize}
+\end{block}
+
+\begin{block}{Heteroskedastic noise (1.27)}
+\begin{itemize}
+\item Input-dependent noise in GPR
+\item New accessors: getCholeskyFactor, getStandardizedOutput
+\end{itemize}
+\end{block}
+
+\begin{block}{Cross-validation (1.27 / experimental)}
+\begin{itemize}
+\item \texttt{GaussianProcessRegressionCrossValidation}
+\item Automatic hyperparameter selection
+\item Reworked GPR \& chaos documentation
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{New experimental classes}
+
+\begin{frame}
+\frametitle{New experimental classes (1.26)}
+
+\begin{columns}
+\begin{column}{0.7\textwidth}
+\begin{block}{HiGHS linear solver}
+\begin{itemize}
+\item Open-source high-performance LP solver
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.3\textwidth}
+\includegraphics[width=\textwidth]{figures/highs_banner}
+\end{column}
+\end{columns}
+
+\begin{block}{LinearProblem}
+\begin{itemize}
+\item Framework for solving linear problems
+\end{itemize}
+\end{block}
+
+\begin{block}{FiniteOrthogonalFunctionFactory}
+\begin{itemize}
+\item Build finite orthogonal function bases
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Misc}
+
+\begin{frame}
+\frametitle{Documentation improvements}
+\begin{itemize}
+\item Improved functions API with graphs
+\item Improved documentation of Directional sampling classes
+\item Consistency of examples
+\item SVG graphics
+\item New example: pitfalls in polynomial chaos expansion
+\item Improved Pearson and Spearman theory files
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Other improvements}
+\begin{itemize}
+\item Smolyak nested tensorization
+\item Advanced validation of Distribution classes
+\item Allow MultiStart optimization in FORM algorithms
+\item Deepcopy support for all objects
+\item FunctionalChaosResult.getMarginal
+\item KDTree radius search
+\item Mesh convex flag
+\item TruncatedDistribution handles KernelMixture
+\item Centered data in Linear/QuadraticLeastSquares
+\item QuantileConfidence interval coverage
+\item KFoldSplitter non-interlaced folds
+\item Pagmo incremental evolution callback
+\item SpecFunc: BesselInu/LogBesselInu/Clip
+\end{itemize}
+
+\vspace{6pt}
+
+\begin{center}
+\includegraphics[width=0.15\textwidth]{figures/bugfix}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{API evolution}
+
+Classes that left the \texttt{experimental} module:
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\textbf{1.26:}
+\begin{itemize}
+\item LatentVariableModel
+\item UniformOrderStatistics
+\item RankSobolSensitivityAlgo
+\item ExperimentIntegration
+\item CubaIntegration
+\item SamplePartition
+\item GeneralizedParetoValidation
+\item FunctionalChaosValidation
+\item PointToFieldFunctionalChaosAlgorithm
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{1.27:}
+\begin{itemize}
+\item PointConditionalDistribution
+\item GaussianProcessFitter
+\item GaussianProcessRegression
+\item GaussianProcessConditionalCovariance
+\item PosteriorDistribution
+\end{itemize}
+\vspace{1em}
+\textbf{Deprecated (1.27):}
+\begin{itemize}
+\item KrigingAlgorithm
+\item KrigingRandomVector
+\item GeneralLinearModelAlgorithm
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Packaging 1/2}
+\begin{block}{Python channels}
+\begin{itemize}
+\item Pip / Conda
+\item Versions: 3.9+ (abi3)
+\item OS: Windows, Linux, MacOS
+\item Architectures: x86\_64, arm64 (Linux+MacOS)
+\item Nightly channel: pypi.anaconda.org/openturns-wheels-nightly
+\end{itemize}
+\end{block}
+
+% \begin{figure}
+%    \includegraphics[width=0.3\textwidth]{figures/PyPI_logo}
+%    \includegraphics[width=0.3\textwidth]{figures/Conda_logo.svg}
+% \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Packaging 2/2}
+\begin{block}{Supported Linux distributions}
+\begin{itemize}
+\item Ubuntu 22/24/26
+\item Debian 11/12/13
+\item Fedora 43/44
+\item OpenSUSE 16.0
+\item Mageia 9
+\item ArchLinux
+\end{itemize}
+\end{block}
+
+\begin{block}{... and other various repositories}
+\begin{itemize}
+\item FreeBSD
+\item NixOS
+\item Spack
+\item Guix
+\item Vcpkg
+\item MSYS2
+\end{itemize}
+
+\end{block}
+
+
+\begin{center}
+\includegraphics[width=0.05\textwidth]{figures/debian-openlogo-100}
+\includegraphics[width=0.08\textwidth]{figures/ubuntu}
+\includegraphics[width=0.08\textwidth]{figures/Fedora-Logo}
+% \includegraphics[width=0.08\textwidth]{figures/centos-logo}
+\includegraphics[width=0.08\textwidth]{figures/opensuse-logo}
+\includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
+\includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
+\includegraphics[width=0.15\textwidth]{figures/FREEBSD_Logo_Horiz_Pos_RGB}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Outlook}
+\begin{block}{2026 plans}
+\begin{itemize}
+\item Functional chaos expansion API improvements
+\item Classification with random forests
+\item LMG sensitivity indices (dependent variables for linear models)
+\item VonMises-Fisher distribution in high dimension
+\item LLM code review
+\end{itemize}
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Community}
+
+Join our forum: https://openturns.discourse.group
+
+\includegraphics[width=1.0\textwidth]{figures/forum}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{END}
+
+Thank you for your attention!
+
+Any questions?
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{figures/logo-ot-small}
+\end{center}
+
+\end{frame}
+
+\end{document}
