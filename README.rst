@@ -112,6 +112,10 @@ OpenTURNS Presentations
   - `OTICSCREAM: A Python module (and a cooking recipe) for the identification of penalizing configurations in computer experiments <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_ChabridonMure.pdf>`_
   - `Uncertainty Propagation and Sensitivity Analysis in Additive Manufacturing Simulation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/JU_OT_2025_Braydi.pdf>`_
 
+- User day 2026
+
+  - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2026relhi.pdf>`_
+
 - CHORUS
 
   - `Low rank tensor approximation <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/lowranktensor.pdf>`_

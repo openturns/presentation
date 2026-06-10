@@ -7,7 +7,7 @@
 
 \author[OpenTURNS et al.]{J. Schueller (Phimeca)}
 
-\date[]{User Day \#18, June 12th 2026, EDF Lab}
+\date[]{User Day \#19, June 12th 2026, EDF Lab}
 
 \titlegraphic{
   \includegraphics[height=0.05\textheight]{figures/airbus-logo.png} \hfill
@@ -51,28 +51,108 @@ New features since last year in releases:
 
 \section{Finalized new GPR API migration}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Gaussian process regression API}
 
-\begin{block}{Better hyperparameter optimization (1.26)}
+\begin{block}{Tasks}
 \begin{itemize}
-\item Normalization and improved scale bounds initialization
-\item Faster and more robust convergence
+\item Introduced in 1.25 for better hyperparameter optimization, normalization
+\item Improved scale bounds initialization in 1.26
+\item Migrated all documentation examples
+\item Restored Heteroscedastic noise (1.27)
+\item  (1.27)
 \end{itemize}
 \end{block}
 
-\begin{block}{Heteroskedastic noise (1.27)}
+\begin{lstlisting}[language=Python]
+fitter = ot.GaussianProcessFitter(x, y, covarianceModel, basis)
+fitter.run()
+result = fitter.getResult()
+
+algo = ot.GaussianProcessRegression(result)
+algo.run()
+metamodel = algo.getResult().getMetaModel()
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Heteroscedastic noise in GPR}
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
 \begin{itemize}
-\item Input-dependent noise in GPR
-\item New accessors: getCholeskyFactor, getStandardizedOutput
+\item Input-dependent noise modeled via heteroscedastic Gaussian process
+\item Per-point noise variances set via \texttt{setNoise()}
 \end{itemize}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+x = ot.Uniform(0.0, 10.0).getSample(20)
+model = ot.SymbolicFunction("x", "x*sin(x)")
+y = model(x)
+noiseVar = ot.Uniform(0.0, 1.5).getSample(20).asPoint()
+cov = ot.MaternModel([1.0], 1.5)
+fitter = ot.GaussianProcessFitter(x, y, cov...)
+fitter.setNoise(noiseVar)
+fitter.run()
+result = fitter.getResult()
+\end{lstlisting}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{figures/hetero_noise_gpr}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Cross-validation for GPR}
+
+\begin{itemize}
+\item Leave-one-out CV residuals computed via closed-form formulas
+\item No refitting required
+\end{itemize}
+
+\begin{block}{LOO residual formula}
+\[
+e_{-i} = \frac{ [\matcov^{-1} \vect{y}]_i }{ [\matcov^{-1}]_{ii} }
+\qquad
+\sigma^2_{-i} = \frac{1}{[\matcov^{-1}]_{ii}}
+\]
+\small
+Ginsbourger, Schärer (2025)
 \end{block}
 
-\begin{block}{Cross-validation (1.27 / experimental)}
+\begin{lstlisting}[language=Python]
+fitter = ot.GaussianProcessFitter(x, y, covarianceModel, basis)
+fitter.run()
+
+cv = otexp.GaussianProcessRegressionCrossValidation(fitter.getResult())
+cv.run()
+result = cv.getResult()
+r2 = cv.computeR2Score()
+stddev = cv.getLeaveOneOutStandardDeviations()
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{New classes}
+
+\begin{frame}
+\frametitle{New classes}
+
+\begin{block}{openturns.experimental module}
 \begin{itemize}
-\item \texttt{GaussianProcessRegressionCrossValidation}
-\item Automatic hyperparameter selection
-\item Reworked GPR \& chaos documentation
+\item HiGHS -- high-performance LP solver
+\item LinearProblem -- framework for solving linear problems
+\item FiniteOrthogonalFunctionFactory -- custom orthonormal bases
 \end{itemize}
 \end{block}
 
@@ -80,83 +160,73 @@ New features since last year in releases:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{New experimental classes}
-
-\begin{frame}
-\frametitle{New experimental classes (1.26)}
+\begin{frame}[fragile]
+\frametitle{HiGHS linear solver}
 
 \begin{columns}
-\begin{column}{0.7\textwidth}
-\begin{block}{HiGHS linear solver}
+\begin{column}{0.55\textwidth}
+\begin{block}{Open-source high-performance LP solver}
 \begin{itemize}
-\item Open-source high-performance LP solver
+\item Mixed-integer linear programming via HiGHS
+\item Constraints: $L \leq A x \leq U$
 \end{itemize}
 \end{block}
 \end{column}
-\begin{column}{0.3\textwidth}
+\begin{column}{0.4\textwidth}
 \includegraphics[width=\textwidth]{figures/highs_banner}
 \end{column}
 \end{columns}
 
-\begin{block}{LinearProblem}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{lstlisting}[language=Python]
+# Maximize x + y + 2z: x + 2y + 3z <= 4, x + y >= 1, x y z binary
+cost = [1, 1, 2]
+A = ot.Matrix([[1, 2, 3], [1, 1, 0]])
+LU = ot.Interval([-1e30, 1], [4, 1e30])
+bounds = ot.Interval(3)
+problem = LinearProblem(cost, bounds, A, LU)
+problem.setVariablesType([BINARY] * 3)
+problem.setMinimization(False)
+algo = HiGHS(problem)
+algo.setStartingPoint([0.0] * 3)
+algo.run()
+result = algo.getResult()
+x = result.getOptimalPoint()
+y = result.getOptimalValue()
+\end{lstlisting}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{figures/gurobi.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FiniteOrthogonalFunctionFactory}
+
+\begin{block}{Custom orthonormal basis}
 \begin{itemize}
-\item Framework for solving linear problems
+\item Build orthonormal basis from arbitrary functions
+\item Gram-Schmidt orthogonalization wrt any measure
 \end{itemize}
 \end{block}
 
-\begin{block}{FiniteOrthogonalFunctionFactory}
-\begin{itemize}
-\item Build finite orthogonal function bases
-\end{itemize}
-\end{block}
+\begin{lstlisting}[language=Python, basicstyle=\footnotesize\ttfamily]
+dist = distribution = ot.Normal(mean, std, R)
+f0 = ot.SymbolicFunction(["x0", "x1"], ["1.0"])
+f1 = ot.SymbolicFunction(["x0", "x1"], ["x0"])
+f2 = ot.SymbolicFunction(["x0", "x1"], ["-4.0*x0/3.0+5.0*x1/3.0"])
+f3 = ot.SymbolicFunction(["x0", "x1"], ["-1.0/sqrt(2.0)+x0^2/sqrt(2)"])
+factory = otexp.FiniteOrthogonalFunctionFactory([f0, f1, f2, f3], dist)
+
+prodB = ot.OrthogonalBasis(factory)
+bSize = len(factory.getFunctionsCollection())
+algo = ot.LeastSquaresExpansion(X, Y, distribution, prodB, bSize)
+\end{lstlisting}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Misc}
-
-\begin{frame}
-\frametitle{Documentation improvements}
-\begin{itemize}
-\item Improved functions API with graphs
-\item Improved documentation of Directional sampling classes
-\item Consistency of examples
-\item SVG graphics
-\item New example: pitfalls in polynomial chaos expansion
-\item Improved Pearson and Spearman theory files
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Other improvements}
-\begin{itemize}
-\item Smolyak nested tensorization
-\item Advanced validation of Distribution classes
-\item Allow MultiStart optimization in FORM algorithms
-\item Deepcopy support for all objects
-\item FunctionalChaosResult.getMarginal
-\item KDTree radius search
-\item Mesh convex flag
-\item TruncatedDistribution handles KernelMixture
-\item Centered data in Linear/QuadraticLeastSquares
-\item QuantileConfidence interval coverage
-\item KFoldSplitter non-interlaced folds
-\item Pagmo incremental evolution callback
-\item SpecFunc: BesselInu/LogBesselInu/Clip
-\end{itemize}
-
-\vspace{6pt}
-
-\begin{center}
-\includegraphics[width=0.15\textwidth]{figures/bugfix}
-\end{center}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{API evolution}
@@ -184,7 +254,8 @@ Classes that left the \texttt{experimental} module:
 \item PointConditionalDistribution
 \item GaussianProcessFitter
 \item GaussianProcessRegression
-\item GaussianProcessConditionalCovariance
+\item GaussianProcessConditionalCov...
+\item GaussianProcessRegressionCrossV...
 \item PosteriorDistribution
 \end{itemize}
 \vspace{1em}
@@ -199,6 +270,203 @@ Classes that left the \texttt{experimental} module:
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Other improvements}
+
+\begin{frame}
+\frametitle{Other improvements}
+
+\begin{block}{In existing classes}
+\begin{itemize}
+\item Smolyak nested tensorization
+\item MultiStart in FORM
+\item QuantileConfidence interval coverage
+\item KFoldSplitter non-interlaced folds
+\item KDTree radius search
+\item Pagmo incremental evolution mode
+\item Documentation improvements
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Smolyak nested tensorization}
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{block}{Sparse grid quadrature with nested levels}
+\begin{itemize}
+\item Smolyak combination technique via \texttt{SmolyakExperiment}
+\item Efficient merging of duplicate nodes
+\item Fejér/Clenshaw-Curtis rules support nested levels
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+e1 = ot.FejerExperiment(ot.Uniform(0.0, 1.0))
+e2 = ot.FejerExperiment(ot.Uniform(0.0, 1.0))
+smolyak = ot.SmolyakExperiment([e1, e2], 3)
+nodes, weights = smolyak.generateWithWeights()
+\end{lstlisting}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{figures/smolyak_nodes}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MultiStart in FORM}
+
+\begin{block}{Global design point search}
+\begin{itemize}
+\item \texttt{MultiStart} solver accepted by FORM/SORM
+\item Runs optimizer from multiple starting points
+\item Avoids local minima in design point computation
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+dist = ot.Normal(2)
+event = ot.ThresholdEvent(ot.RandomVector(dist), ot.Greater(), 1.0)
+start = dist.getSample(10)
+optim = ot.MultiStart(ot.Cobyla(), start)
+algo = ot.FORM(optim, event)
+algo.run()
+result = algo.getResult()
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{QuantileConfidence interval coverage}
+
+\begin{block}{Actual coverage probability}
+\begin{itemize}
+\item Quantile $x_\alpha$: $P(X \leq x_\alpha) = \alpha$
+\item Confidence level: $P(x_\alpha \in \text{CI}) \ge \beta$
+\item New \texttt{*WithCoverage} methods return true $\beta$
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+sample = ot.Normal().getSample(100)
+alpha = 0.9
+beta = 0.95
+algo = ot.QuantileConfidence(alpha, beta)
+ci, cov = algo.computeUnilateralConfidenceIntervalWithCoverage(sample)
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{KFoldSplitter non-interlaced folds}
+
+\begin{block}{Contiguous fold blocks}
+\begin{itemize}
+\item Folds are contiguous (non-interlaced) index ranges
+\item Each fold: $[0, N/k), [N/k, 2N/k), \ldots$
+\item Optional randomization via \texttt{setRandomize(True)}
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+sample = ot.Normal().getSample(10)
+splitter = ot.KFoldSplitter(sample.getSize(), 5)
+for train, test in splitter:
+    trainSample = sample[train]
+    testSample = sample[test]
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{KDTree radius search}
+
+\begin{block}{Range queries with nanoflann}
+\begin{itemize}
+\item New \texttt{queryRadius} method for range search
+\item Returns all points within a given radius
+\item Optional sorted output by distance
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+import openturns as ot
+sample = ot.Normal(3).getSample(100)
+tree = ot.KDTree(sample)
+indices, dist = tree.queryRadius([0.0] * 3, 0.5, True)
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pagmo incremental evolution callback}
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{block}{Per-generation progress reporting}
+\begin{itemize}
+\item Evolve one generation at a time instead of all at once
+\item Continuously report population and Pareto fronts
+\item Enabled via \texttt{setIncrementalEvolution(True)}
+\end{itemize}
+\end{block}
+
+\begin{lstlisting}[language=Python]
+problem = ot.OptimizationProblem(f)
+algo = ot.Pagmo(problem, "nsga2", x0)
+algo.setIncrementalEvolution(True)
+algo.setProgressCallback(callback)
+algo.run()
+result = algo.getResult()
+\end{lstlisting}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{figures/pagmo_fronts}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Documentation improvements}
+\begin{itemize}
+\item Improved functions API with graphs
+\item Improved documentation of Directional sampling classes
+\item Migrated examples to new GPR API
+\item New example: pitfalls in polynomial chaos expansion
+\item Improved Pearson and Spearman theory files
+\end{itemize}
+
+\vspace{6pt}
+
+\begin{center}
+\includegraphics[width=0.15\textwidth]{figures/bugfix}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Outlook}
+\begin{block}{2026 plans}
+\begin{itemize}
+\item Functional chaos expansion improvements
+\item Classification with random forests
+\item LMG sensitivity indices (dependent variables for linear models)
+\item Kent + VonMises-Fisher distribution in high dimension
+\item Distribution factories
+\item LLM code review
+\end{itemize}
+\end{block}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -208,7 +476,7 @@ Classes that left the \texttt{experimental} module:
 \item Pip / Conda
 \item Versions: 3.9+ (abi3)
 \item OS: Windows, Linux, MacOS
-\item Architectures: x86\_64, arm64 (Linux+MacOS)
+\item Architectures: x86\_64, arm64 (Linux + MacOS)
 \item Nightly channel: pypi.anaconda.org/openturns-wheels-nightly
 \end{itemize}
 \end{block}
@@ -222,6 +490,9 @@ Classes that left the \texttt{experimental} module:
 
 \begin{frame}
 \frametitle{Packaging 2/2}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
 \begin{block}{Supported Linux distributions}
 \begin{itemize}
 \item Ubuntu 22/24/26
@@ -232,8 +503,9 @@ Classes that left the \texttt{experimental} module:
 \item ArchLinux
 \end{itemize}
 \end{block}
-
-\begin{block}{... and other various repositories}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{... and other various OS/repositories}
 \begin{itemize}
 \item FreeBSD
 \item NixOS
@@ -242,8 +514,9 @@ Classes that left the \texttt{experimental} module:
 \item Vcpkg
 \item MSYS2
 \end{itemize}
-
 \end{block}
+\end{column}
+\end{columns}
 
 
 \begin{center}
@@ -255,26 +528,12 @@ Classes that left the \texttt{experimental} module:
 \includegraphics[width=0.15\textwidth]{figures/200px-Logo_mageia_official}
 \includegraphics[width=0.15\textwidth]{figures/archlinux-logo}
 \includegraphics[width=0.15\textwidth]{figures/FREEBSD_Logo_Horiz_Pos_RGB}
+\includegraphics[width=0.12\textwidth]{figures/nixos-logo}
 \end{center}
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Outlook}
-\begin{block}{2026 plans}
-\begin{itemize}
-\item Functional chaos expansion API improvements
-\item Classification with random forests
-\item LMG sensitivity indices (dependent variables for linear models)
-\item VonMises-Fisher distribution in high dimension
-\item LLM code review
-\end{itemize}
-\end{block}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Community}
