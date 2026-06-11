@@ -120,6 +120,7 @@ OpenTURNS Presentations
   - `Focus on Functional Chaos Expansion <https://github.com/openturns/presentation/blob/master/userday2026/FCE_JUOT_2026.pdf>`_
   - `Optimization with OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2026/optimization_features_juot_2026.pdf>`_
   - `Benchmarking integration features in OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2026/benchmark_integration_juot2026.pdf>`_
+  - `otmeshing: advanced mesh generation for OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2026/otmeshing_JUOT_2026.pdf>`_
 
 - CHORUS
 
