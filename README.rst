@@ -115,6 +115,7 @@ OpenTURNS Presentations
 - User day 2026
 
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2026relhi.pdf>`_
+  - `Persalys release highlights <https://github.com/openturns/presentation/blob/master/userday2026/UsersDay-2026-PERSALYS.pdf>`_
 
 - CHORUS
 
