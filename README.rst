@@ -114,8 +114,12 @@ OpenTURNS Presentations
 
 - User day 2026
 
+  - `Brief introduction to conformal prediction <https://github.com/openturns/presentation/blob/master/userday2026/ConformalPrediction_juot_2026.pdf>`_
   - `OpenTURNS Release highlights <https://github.com/openturns/openturns.github.io/blob/master/presentation/master/userday2026relhi.pdf>`_
   - `Persalys release highlights <https://github.com/openturns/presentation/blob/master/userday2026/UsersDay-2026-PERSALYS.pdf>`_
+  - `Focus on Functional Chaos Expansion <https://github.com/openturns/presentation/blob/master/userday2026/FCE_JUOT_2026.pdf>`_
+  - `Optimization with OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2026/optimization_features_juot_2026.pdf>`_
+  - `Benchmarking integration features in OpenTURNS <https://github.com/openturns/presentation/blob/master/userday2026/benchmark_integration_juot2026.pdf>`_
 
 - CHORUS
 
